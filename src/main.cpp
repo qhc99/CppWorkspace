@@ -1,15 +1,28 @@
 
 #include <iostream>
 
-#include "utils.h"
+#include "aliases.h"
 
-using namespace org::nathan::utils;
+
+class Person {
+    String name{};
+    int age{};
+public:
+    Person() = default;
+
+    Person(const String &n, const int age) {
+        name = n;
+        this->age = age;
+    }
+};
+
 
 int main() {
 
-    auto t1 = currentTime();
-    std::cout << "print\n";
-    auto t2 = currentTime();
-    std::cout << intervalToMilli(t2, t1) << "ms\n";
+    String s{"aaa"};
+    Person p{s, 1};
+    s.append("a");
+    console << "1" << newline;
+    Person a{};
     return 0;
 }
