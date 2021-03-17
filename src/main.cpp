@@ -1,28 +1,15 @@
 
-#include <iostream>
-
 #include "aliases.h"
+#include "utils.h"
 
-
-class Person {
-    String name{};
-    int age{};
-public:
-    Person() = default;
-
-    Person(const String &n, const int age) {
-        name = n;
-        this->age = age;
-    }
-};
+using namespace org::nathan::aliases;
+using namespace org::nathan::utils;
 
 
 int main() {
 
-    String s{"aaa"};
-    Person p{s, 1};
-    s.append("a");
-    console << "1" << newline;
-    Person a{};
+//    std::cout  << 2.2 << Newline;
+
+
     return 0;
 }

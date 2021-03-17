@@ -2,10 +2,9 @@
 // Created by Nathan on 2021/3/15.
 //
 #include <chrono>
+#include "utils.h"
 
 namespace org::nathan::utils {
-
-    using namespace std::chrono;
 
     [[maybe_unused]] typeof(steady_clock::now()) currentTime() {
         return steady_clock::now();
