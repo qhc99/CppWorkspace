@@ -1,4 +1,5 @@
 
+
 #include "aliases.h"
 #include "utils.h"
 
@@ -6,9 +7,13 @@ using namespace org::nathan::aliases;
 using namespace org::nathan::utils;
 
 
-int main() {
+auto add(auto a, auto b) {
+    return a + b;
+}
 
-//    std::cout  << 2.2 << Newline;
+
+int main() {
+    cout << add(2, 2.2) << endl;
 
 
     return 0;

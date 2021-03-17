@@ -28,9 +28,6 @@ namespace org::nathan::aliases {
     using std::make_unique;
     using std::make_shared;
 
-    // TODO Newline has bug in operator<<
-    template<typename CharT, typename Traits>
-    [[maybe_unused]] constexpr auto Newline = endl<CharT, Traits>;
 }
 
 #endif //LEARNCPP_ALIASES_H
