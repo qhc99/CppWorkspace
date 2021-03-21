@@ -8,7 +8,8 @@
 #include <iostream>
 #include <tuple>
 
-namespace org::nathan::tupleDestructionDemo {
+namespace org::nathan::tupleDestructionDemo
+{
 
     [[maybe_unused]] [[maybe_unused]] void tupleDestructionDemo();
 }

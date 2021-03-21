@@ -4,7 +4,8 @@
 
 #ifndef LEARNCPP_TRAITDEMO_H
 #define LEARNCPP_TRAITDEMO_H
-namespace org::nathan::traitDemo {
+namespace org::nathan::traitDemo
+{
     [[maybe_unused]] void traitDemo();
 }
 #endif //LEARNCPP_TRAITDEMO_H

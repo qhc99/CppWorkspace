@@ -2,13 +2,14 @@
 // Created by Nathan on 2021/3/15.
 //
 
-#ifndef LEARNCPP_UTILS_H
-#define LEARNCPP_UTILS_H
+#ifndef ORG_NATHAN_LEARNCPP_UTILS_H
+#define ORG_NATHAN_LEARNCPP_UTILS_H
 
 #include <chrono>
 
 
-namespace org::nathan::utils {
+namespace org::nathan::utils
+{
 
     using std::chrono::steady_clock;
     using std::chrono::time_point;
@@ -33,4 +34,4 @@ namespace org::nathan::utils {
 }
 
 
-#endif //LEARNCPP_UTILS_H
+#endif //ORG_NATHAN_LEARNCPP_UTILS_H

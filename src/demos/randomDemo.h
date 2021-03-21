@@ -4,7 +4,8 @@
 
 #ifndef LEARNCPP_RANDOMDEMO_H
 #define LEARNCPP_RANDOMDEMO_H
-namespace org::nathan::randomDemo {
+namespace org::nathan::randomDemo
+{
     [[maybe_unused]] void randomDemo();
 }
 #endif //LEARNCPP_RANDOMDEMO_H
