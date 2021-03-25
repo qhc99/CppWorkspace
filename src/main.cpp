@@ -1,10 +1,11 @@
 
 #include <iostream>
 #include <vector>
+#include <string>
 #include "utils/utils.h"
 #include "Euler/tools.h"
 
-using std::cout, std::endl;
+using std::cout, std::endl, std::cin;
 
 using namespace org::nathan::utils;
 
@@ -13,25 +14,12 @@ using namespace org::nathan::Euler;
 
 int main()
 {
-    auto t1 = currentTime();
-    int limit = 10000;
-    auto primes = SieveOfAtkin(limit);
-    long long res = 600851475143L;
-    for (long prime : primes)
-    {
-        while (res % prime == 0)
-        {
-            res /= prime;
-            if (res == 1)
-            {
-                cout << prime << endl;
-                break;
-            }
-        }
-    }
-    cout << res << endl;
-    auto t2 = currentTime();
-    cout << intervalToMilli(t2, t1) << endl;
+    bool *long_array = new bool[4'147'483'648];
+    cout << long_array[4'000'000'000] << endl;
 
+    std::string s;
+    cin >> s;
+    cout << "end" << endl;
+    delete[] long_array;
     return 0;
 }
