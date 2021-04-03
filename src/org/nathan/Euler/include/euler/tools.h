@@ -7,7 +7,7 @@
 
 namespace org::nathan::Euler
 {
-    [[maybe_unused]] std::vector<long long> SieveOfAtkin(long long limit);
+    std::vector<int> sieveOfEratosthenes(int n);
 }
 
 #endif //LEARNCPP_TOOLS_H

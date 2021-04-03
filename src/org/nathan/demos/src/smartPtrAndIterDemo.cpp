@@ -48,7 +48,7 @@ namespace org::nathan::smartPtrAndIterDemo
 
     class DoubleLinkedList
     {
-        // abuse shared ptr, performance issue
+        // abuse utils ptr, performance issue
         std::shared_ptr<DoubleLinedNode> sentinel = std::make_shared<DoubleLinedNode>(0);
         std::shared_ptr<DoubleLinedNode> head = nullptr;
     public:
