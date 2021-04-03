@@ -7,7 +7,7 @@
 
 using std::cout, std::endl, std::cin, std::string;
 
-using org::nathan::utils::currentTime, org::nathan::utils::intervalToMilli;
+using org::nathan::utils::currentTime, org::nathan::utils::timeIntervalToMilli;
 
 using org::nathan::Euler::sieveOfEratosthenes;
 
@@ -18,7 +18,7 @@ int main()
     sieveOfEratosthenes(100000);
     auto t2 = currentTime();
 
-    cout << intervalToMilli(t2, t1) << endl;
+    cout << timeIntervalToMilli(t2, t1) << endl;
 
 
     return 0;

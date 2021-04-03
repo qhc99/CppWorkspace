@@ -12,10 +12,10 @@ namespace org::nathan::utils
         return steady_clock::now();
     }
 
-    [[maybe_unused]] double intervalToMilli(
-            time_point<steady_clock, duration<double>> later,
-            time_point<steady_clock, duration<double>> former)
+    [[maybe_unused]] double timeIntervalToMilli(
+            time_point<steady_clock, duration<double>> current,
+            time_point<steady_clock, duration<double>> last)
     {
-        return static_cast<duration<double>>(later - former).count() * 1000;
+        return static_cast<duration<double>>(current - last).count() * 1000;
     }
 }

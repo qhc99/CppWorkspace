@@ -24,13 +24,13 @@ namespace org::nathan::utils
 
     /**
      *
-     * @param later later steady_clock::now()
-     * @param former former steady_clock::now()
+     * @param current current steady_clock::now()
+     * @param last last steady_clock::now()
      * @return milliseconds in double
      */
-    [[maybe_unused]] double intervalToMilli(
-            time_point<steady_clock, duration<double>> later,
-            time_point<steady_clock, duration<double>> former);
+    [[maybe_unused]] double timeIntervalToMilli(
+            time_point<steady_clock, duration<double>> current,
+            time_point<steady_clock, duration<double>> last);
 }
 
 
