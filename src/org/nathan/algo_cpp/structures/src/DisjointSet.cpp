@@ -25,7 +25,7 @@ DisjointSet &DisjointSet::findSet(DisjointSet &x)
     return *x.parent;
 }
 
-DisjointSet &DisjointSet::findSet()
+DisjointSet &DisjointSet::findGroupRep()
 {
     if (this != this->parent)
     {
@@ -34,12 +34,8 @@ DisjointSet &DisjointSet::findSet()
     return *this->parent;
 }
 
-[[maybe_unused]] void DisjointSet::unionSet(DisjointSet &a, DisjointSet &b)
-{
-    link(findSet(a), findSet(b));
-}
 
 [[maybe_unused]] void DisjointSet::unionSet(DisjointSet &a)
 {
-    link(findSet(), findSet(a));
+    link(findGroupRep(), findSet(a));
 }

@@ -6,16 +6,15 @@ class [[maybe_unused]] DisjointSet
 {
 private:
     int rank{0};
-    DisjointSet *parent{nullptr};
+    DisjointSet *parent{this};
 
     static void link(DisjointSet &x, DisjointSet &y);
 
-public:
     static DisjointSet &findSet(DisjointSet &x);
 
-    DisjointSet &findSet();
+public:
 
-    [[maybe_unused]] static void unionSet(DisjointSet &a, DisjointSet &b);
+    DisjointSet &findGroupRep();
 
     [[maybe_unused]] void unionSet(DisjointSet &a);
 };
