@@ -15,9 +15,8 @@ using org::nathan::Euler::sieveOfEratosthenes;
 int main()
 {
     auto t1 = currentTime();
-    sieveOfEratosthenes(100000);
+    sieveOfEratosthenes(1000000);
     auto t2 = currentTime();
-
     cout << timeIntervalToMilli(t2, t1) << endl;
 
 

@@ -7,6 +7,11 @@
 namespace org::nathan::Euler
 {
 
+    /**
+     * first n primes
+     * @param n
+     * @return
+     */
     std::vector<int> sieveOfEratosthenes(int n)
     {
         std::vector<bool> prime{};
