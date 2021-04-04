@@ -1,15 +1,15 @@
 cmake_minimum_required(VERSION 3.16)
 
-project(Euler)
+project(algo_cpp_miscellaneous)
 
 add_library(
         ${PROJECT_NAME}
-        STATIC
-        src/tools.cpp
+        SHARED
+        src/rank_search.cpp
 )
 
 add_library(
-        org::nathan::Euler
+        org::nathan::algo_cpp::miscellaneous
         ALIAS
         ${PROJECT_NAME}
 )

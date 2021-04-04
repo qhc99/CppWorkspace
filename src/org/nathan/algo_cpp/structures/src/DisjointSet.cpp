@@ -1,4 +1,4 @@
-#include "algo_cpp_structures/DisjointSet.h"
+#include "algo_cpp/structures/DisjointSet.h"
 
 void DisjointSet::link(DisjointSet &x, DisjointSet &y)
 {

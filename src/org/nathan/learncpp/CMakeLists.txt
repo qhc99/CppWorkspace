@@ -9,4 +9,5 @@ target_link_libraries(
         org::nathan::demos
         org::nathan::Euler
         org::nathan::utils
+        org::nathan::algo_cpp::structures
 )

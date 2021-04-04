@@ -4,6 +4,7 @@
 #include <string>
 #include "euler/tools.h"
 #include "utils/utils.h"
+#include "algo_cpp/structures/DisjointSet.h"
 
 using std::cout, std::endl, std::cin, std::string;
 
@@ -19,6 +20,12 @@ int main()
     auto t2 = currentTime();
     cout << timeIntervalToMilli(t2, t1) << endl;
 
+    DisjointSet p{};
+    DisjointSet a{};
+    a.unionSet(p);
+    DisjointSet b{};
+    b.unionSet(p);
+    cout << (&a.findGroupRep() == &b.findGroupRep()) << endl;
 
     return 0;
 }

@@ -3,7 +3,7 @@
 //
 
 #include <gtest/gtest.h>
-#include "algo_cpp_structures/DisjointSet.h"
+#include "algo_cpp/structures/DisjointSet.h"
 
 
 class DisjointSetTests : public ::testing::Test
