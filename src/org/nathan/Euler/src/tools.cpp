@@ -2,7 +2,7 @@
 // Created by Nathan on 2021/3/25.
 //
 
-#include <vector>
+#include "euler/tools.h"
 
 namespace org::nathan::Euler
 {

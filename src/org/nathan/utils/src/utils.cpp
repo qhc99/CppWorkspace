@@ -18,4 +18,6 @@ namespace org::nathan::utils
     {
         return static_cast<duration<double>>(current - last).count() * 1000;
     }
+
+
 }

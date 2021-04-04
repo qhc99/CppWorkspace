@@ -4,8 +4,7 @@ project(algo_cpp_miscellaneous)
 
 add_library(
         ${PROJECT_NAME}
-        SHARED
-        src/rank_search.cpp
+        INTERFACE
 )
 
 add_library(
@@ -16,6 +15,6 @@ add_library(
 
 target_include_directories(
         ${PROJECT_NAME}
-        PUBLIC
-        ${CMAKE_CURRENT_SOURCE_DIR}/include
+        INTERFACE
+        include
 )

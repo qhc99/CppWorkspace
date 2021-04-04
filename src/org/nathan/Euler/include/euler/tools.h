@@ -5,6 +5,7 @@
 #ifndef LEARNCPP_TOOLS_H
 #define LEARNCPP_TOOLS_H
 
+#include <vector>
 namespace org::nathan::Euler
 {
     std::vector<int> sieveOfEratosthenes(int n);

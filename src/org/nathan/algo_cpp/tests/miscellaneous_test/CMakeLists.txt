@@ -1,16 +1,16 @@
 cmake_minimum_required(VERSION 3.16)
 
-project(algo_cpp_structures_test)
+project(miscellaneous_test)
 
 add_executable(
         ${PROJECT_NAME}
-        src/DisjointSetTest.cpp
+        rank_search_test.cpp
 )
 
 target_link_libraries(
         ${PROJECT_NAME}
-        org::nathan::algo_cpp::structures
+        org::nathan::algo_cpp::miscellaneous
+        org::nathan::utils
         GTest::GTest
         GTest::Main
 )
-
