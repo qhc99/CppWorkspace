@@ -9,6 +9,7 @@
 #include <vector>
 #include <algorithm>
 #include <random>
+#include <exception>
 
 
 namespace org::nathan::utils
@@ -47,6 +48,10 @@ namespace org::nathan::utils
     template<typename Number>
     [[maybe_unused]] vector<Number> shuffledRange(int low, int high)
     {
+        if (high <= low)
+        {
+            throw std::range_error("low >= high");
+        }
         vector<Number> r(high - low);
         std::generate(r.begin(), r.end(), [n = 0]() mutable
         { return n++; });
