@@ -8,7 +8,7 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fsanitize=leak -g -O1")
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fsanitize=undefined -g -O1")
 
 add_subdirectory(src/org/nathan/learncpp)
-add_subdirectory(src/org/nathan/Euler)
+add_subdirectory(src/org/nathan/numerics)
 add_subdirectory(src/org/nathan/utils)
 add_subdirectory(src/org/nathan/demos)
 add_subdirectory(src/org/nathan/3rd_party)

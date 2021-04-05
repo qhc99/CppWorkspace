@@ -16,7 +16,7 @@ namespace org::nathan::algo_cpp::miscellaneous
     using std::vector;
     using std::cout, std::endl;
 
-    class RankSearch
+    class RankSearch final
     {
     private:
         template<typename Number>

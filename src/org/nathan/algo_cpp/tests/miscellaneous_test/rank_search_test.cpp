@@ -11,14 +11,14 @@
 using org::nathan::algo_cpp::miscellaneous::RankSearch;
 using org::nathan::utils::shuffledRange;
 
-TEST(rankSearch, test)
+TEST(rankSearch, test)// NOLINT
 {
     for (int i = 0; i < 100; i++)
     {
         std::vector<double> data{std::move(shuffledRange<double>(1, 20))};
-        double r{RankSearch::find(data, 2)};
+        double r{RankSearch::find(data, 10)};
         std::sort(data.begin(), data.end());
-        EXPECT_EQ(data[2], r);
+        EXPECT_EQ(data[10], r);
     }
 }
 

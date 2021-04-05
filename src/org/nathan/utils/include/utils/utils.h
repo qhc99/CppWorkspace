@@ -7,6 +7,8 @@
 
 #include <chrono>
 #include <vector>
+#include <algorithm>
+#include <random>
 
 
 namespace org::nathan::utils
@@ -45,14 +47,11 @@ namespace org::nathan::utils
     template<typename Number>
     [[maybe_unused]] vector<Number> shuffledRange(int low, int high)
     {
-        vector<Number> r{};
-        r.reserve(high - low);
-        for (int i = low; i < high; i++)
-        {
-            r.push_back(i);
-        }
-
-        return std::move(r);
+        vector<Number> r(high - low);
+        std::generate(r.begin(), r.end(), [n = 0]() mutable
+        { return n++; });
+        std::shuffle(r.begin(), r.end(), std::mt19937{std::random_device{}()});
+        return r;
     }
 }
 

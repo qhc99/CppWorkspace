@@ -18,11 +18,11 @@ namespace org::nathan::algo_cpp::structures
         }
     }
 
-    DisjointSet &DisjointSet::findSet(DisjointSet &x)
+    DisjointSet &DisjointSet::findGroupRep(DisjointSet &x) //NOLINT
     {
         if (&x != x.parent)
         {
-            x.parent = &findSet(*x.parent);
+            x.parent = &findGroupRep(*x.parent);
         }
         return *x.parent;
     }
@@ -31,7 +31,7 @@ namespace org::nathan::algo_cpp::structures
     {
         if (this != this->parent)
         {
-            this->parent = &findSet(*this->parent);
+            this->parent = &findGroupRep(*this->parent);
         }
         return *this->parent;
     }
@@ -39,6 +39,6 @@ namespace org::nathan::algo_cpp::structures
 
     [[maybe_unused]] void DisjointSet::unionSet(DisjointSet &a)
     {
-        link(findGroupRep(), findSet(a));
+        link(findGroupRep(), findGroupRep(a));
     }
 }
