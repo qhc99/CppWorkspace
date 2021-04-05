@@ -15,8 +15,8 @@ TEST(rankSearch, test)// NOLINT
 {
     for (int i = 0; i < 100; i++)
     {
-        std::vector<double> data{std::move(shuffledRange<double>(1, 20))};
-        double r{RankSearch::find(data, 10)};
+        std::vector<int> data{std::move(shuffledRange(1, 20))};
+        int r{RankSearch::find(data, 10)};
         std::sort(data.begin(), data.end());
         EXPECT_EQ(data[10], r);
     }
