@@ -18,7 +18,7 @@ namespace org::nathan::algo_cpp::structures
         }
     }
 
-    DisjointSet &DisjointSet::findGroupRep(DisjointSet &x) //NOLINT
+    DisjointSet &DisjointSet::findGroupRep(DisjointSet &x) //NOLINT recursive call
     {
         if (&x != x.parent)
         {
