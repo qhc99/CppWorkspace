@@ -5,7 +5,7 @@ project(Euler)
 add_library(
         ${PROJECT_NAME}
         STATIC
-        src/tools.cpp
+        src/numerics.cpp
 )
 
 add_library(
