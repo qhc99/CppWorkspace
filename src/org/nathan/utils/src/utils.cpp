@@ -1,8 +1,7 @@
 //
 // Created by Nathan on 2021/3/15.
 //
-#include <chrono>
-#include "utils//utils.h"
+#include "utils/utils.h"
 
 namespace org::nathan::utils
 {
@@ -14,9 +13,13 @@ namespace org::nathan::utils
 
     [[maybe_unused]] double timeIntervalToMilli(
             time_point<steady_clock, duration<double>> current,
-            time_point<steady_clock, duration<double>> last)
+            time_point<steady_clock, duration<double>> before)
     {
-        return static_cast<duration<double>>(current - last).count() * 1000;
+        if (before > current)
+        {
+            throw std::logic_error("before > current");
+        }
+        return static_cast<duration<double>>(current - before).count() * 1000;
     }
 
 

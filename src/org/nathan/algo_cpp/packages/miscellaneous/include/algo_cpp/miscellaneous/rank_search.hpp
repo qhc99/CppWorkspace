@@ -2,8 +2,8 @@
 // Created by Nathan on 2021/4/4.
 //
 
-#ifndef CPP_ALL_IN_ONE_RANK_SEARCH_CPP
-#define CPP_ALL_IN_ONE_RANK_SEARCH_CPP
+#ifndef ORG_NATHAN_CPP_ALL_IN_ONE_RANK_SEARCH_CPP
+#define ORG_NATHAN_CPP_ALL_IN_ONE_RANK_SEARCH_CPP
 
 #include <vector>
 #include <random>
@@ -19,8 +19,8 @@ namespace org::nathan::algo_cpp::miscellaneous
     class RankSearch final
     {
     private:
-        template<typename Number>
-        static int randPartition(vector<Number> &a, int start, int end, RandEngine_t &engine)
+        template<typename Comparable>
+        static int randPartition(vector<Comparable> &a, int start, int end, RandEngine_t &engine)
         {
             std::uniform_int_distribution dist{start, end - 1};
             int pivot_idx{dist(engine)};
@@ -47,8 +47,8 @@ namespace org::nathan::algo_cpp::miscellaneous
         }
 
         // select ith smallest element in array
-        template<typename Number>
-        static Number rankSearch(vector<Number> &a, int start, int end, int ith, RandEngine_t &engine)
+        template<typename Comparable>
+        static Comparable rankSearch(vector<Comparable> &a, int start, int end, int ith, RandEngine_t &engine)
         {
             if ((start - end) == 1)
             {
@@ -72,12 +72,12 @@ namespace org::nathan::algo_cpp::miscellaneous
 
 
     public:
-        template<typename Number>
-        [[maybe_unused]] static Number find(vector<Number> &a, int ith)
+        template<typename Comparable>
+        [[maybe_unused]] static Comparable find(vector<Comparable> &a, int ith)
         {
             if (a.size() == 0)
             {
-                throw std::range_error{"size is zero."};
+                throw std::logic_error{"size is zero."};
             }
             std::random_device seed{};
             RandEngine_t engine{seed()};
@@ -87,4 +87,4 @@ namespace org::nathan::algo_cpp::miscellaneous
 }
 
 
-#endif //CPP_ALL_IN_ONE_RANK_SEARCH_CPP
+#endif //ORG_NATHAN_CPP_ALL_IN_ONE_RANK_SEARCH_CPP

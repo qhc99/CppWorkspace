@@ -2,14 +2,14 @@
 // Created by Nathan on 2021/3/15.
 //
 
-#ifndef ORG_NATHAN_LEARNCPP_UTILS_H
-#define ORG_NATHAN_LEARNCPP_UTILS_H
+#ifndef ORG_NATHAN_CPP_ALL_IN_ONE_UTILS_H
+#define ORG_NATHAN_CPP_ALL_IN_ONE_UTILS_H
 
 #include <chrono>
 #include <vector>
 #include <algorithm>
 #include <random>
-#include <exception>
+#include <stdexcept>
 
 
 namespace org::nathan::utils
@@ -30,12 +30,12 @@ namespace org::nathan::utils
     /**
      *
      * @param current current steady_clock::now()
-     * @param last last steady_clock::now()
+     * @param before before steady_clock::now()
      * @return milliseconds in double
      */
     [[maybe_unused]] double timeIntervalToMilli(
             time_point<steady_clock, duration<double>> current,
-            time_point<steady_clock, duration<double>> last);
+            time_point<steady_clock, duration<double>> before);
 
 
     /**
@@ -50,15 +50,15 @@ namespace org::nathan::utils
     {
         if (high <= low)
         {
-            throw std::range_error("low >= high");
+            throw std::logic_error("low >= high");
         }
         vector<Number> r(high - low);
         std::generate(r.begin(), r.end(), [n = 0]() mutable
         { return n++; });
         std::shuffle(r.begin(), r.end(), std::mt19937{std::random_device{}()});
-        return r;
+        return std::move(r);
     }
 }
 
 
-#endif //ORG_NATHAN_LEARNCPP_UTILS_H
+#endif //ORG_NATHAN_CPP_ALL_IN_ONE_UTILS_H
