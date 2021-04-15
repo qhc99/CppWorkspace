@@ -5,7 +5,7 @@
 //#include <gtest/gtest.h>
 #include "algo_cpp/structures/DisjointSet.h"
 
-#define BOOST_TEST_MODULE DisjonintSetTest
+#define BOOST_TEST_MODULE DisjointSetTest
 
 #include <boost/test/unit_test.hpp>
 
@@ -20,7 +20,9 @@ BOOST_AUTO_TEST_SUITE(DisjointSetAPITest) // NOLINT
         a.unionSet(p);
         DisjointSet b{};
         b.unionSet(p);
+        DisjointSet f{};
         BOOST_CHECK_EQUAL(&a.findGroupRep(), &b.findGroupRep());
+        BOOST_CHECK_NE(&a.findGroupRep(), &f.findGroupRep());
     }
 
 BOOST_AUTO_TEST_SUITE_END() // NOLINT
