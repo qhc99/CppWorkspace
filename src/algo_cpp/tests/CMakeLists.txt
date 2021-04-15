@@ -1,35 +1,25 @@
 cmake_minimum_required(VERSION 3.16)
-
 project(algo_cpp_test)
-
+find_package(Boost 1.71.0 REQUIRED COMPONENTS unit_test_framework)
 enable_testing()
 
-get_filename_component(test1 rank_search_text.cpp NAME_WLE)
-add_executable(
-        ${test1}
-        RankSearchTest.cpp
-)
-target_link_libraries(
-        ${test1}
+add_executable(DisjointSetTest DisjointSetTest.cpp)
+target_link_libraries(DisjointSetTest
+        org::nathan::algo_cpp::structures
+        Boost::unit_test_framework
+        )
+target_compile_definitions(DisjointSetTest PRIVATE BOOST_TEST_DYN_LINK)
+
+add_executable(RankSearchTest RankSearchTest.cpp)
+target_link_libraries(RankSearchTest
         org::nathan::algo_cpp::miscellaneous
         org::nathan::utils
-        GTest::GTest
-        GTest::Main
-)
+        Boost::unit_test_framework
+        )
+target_compile_definitions(RankSearchTest PRIVATE BOOST_TEST_DYN_LINK)
 
-get_filename_component(test2 DisjointSetTest.cpp NAME_WLE)
-add_executable(
-        ${test2}
-        DisjointSetTest.cpp
-        RankSearchTest.cpp
-)
-target_link_libraries(
-        ${test2}
-        org::nathan::algo_cpp::structures
-        org::nathan::utils
-        GTest::GTest
-        GTest::Main
-)
+add_test(test_all_algo_cpp DisjointSetTest RankSearchTest)
+
 
 
 
