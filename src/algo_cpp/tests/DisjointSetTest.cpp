@@ -7,11 +7,11 @@
 
 using org::nathan::algo_cpp::structures::DisjointSet;
 
-class DisjointSetTests : public ::testing::Test
+class DisjointSetFixture : public ::testing::Test
 {
 };
 
-TEST_F(DisjointSetTests, findSet) // NOLINT
+TEST_F(DisjointSetFixture, findSet) // NOLINT
 {
     DisjointSet p{};
     DisjointSet a{};
@@ -21,13 +21,13 @@ TEST_F(DisjointSetTests, findSet) // NOLINT
     EXPECT_TRUE(&a.findGroupRep() == &b.findGroupRep()) << "findGroupRep()";
 }
 
-TEST_F(DisjointSetTests, foo) // NOLINT
+TEST_F(DisjointSetFixture, foo) // NOLINT
 {
     EXPECT_EQ(1, 1) << "foo";
 }
 
-int main(int argc, char **argv)
-{
-    ::testing::InitGoogleTest(&argc, argv);
-    return RUN_ALL_TESTS();
-}
+//int main(int argc, char **argv)
+//{
+//    ::testing::InitGoogleTest(&argc, argv);
+//    return RUN_ALL_TESTS();
+//}
