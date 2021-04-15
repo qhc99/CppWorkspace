@@ -75,7 +75,7 @@ namespace org::nathan::algo_cpp::miscellaneous
         template<typename Comparable>
         [[maybe_unused]] static Comparable find(vector<Comparable> &a, int ith)
         {
-            if (a.size() == 0)
+            if (a.empty())
             {
                 throw std::logic_error{"size is zero."};
             }

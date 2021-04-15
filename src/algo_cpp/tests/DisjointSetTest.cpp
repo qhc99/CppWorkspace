@@ -11,7 +11,7 @@ class DisjointSetTests : public ::testing::Test
 {
 };
 
-TEST_F(DisjointSetTests, findSet)
+TEST_F(DisjointSetTests, findSet) // NOLINT
 {
     DisjointSet p{};
     DisjointSet a{};
@@ -21,7 +21,7 @@ TEST_F(DisjointSetTests, findSet)
     EXPECT_TRUE(&a.findGroupRep() == &b.findGroupRep()) << "findGroupRep()";
 }
 
-TEST_F(DisjointSetTests, foo)
+TEST_F(DisjointSetTests, foo) // NOLINT
 {
     EXPECT_EQ(1, 1) << "foo";
 }
