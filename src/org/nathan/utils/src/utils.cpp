@@ -6,7 +6,7 @@
 namespace org::nathan::utils
 {
 
-    [[maybe_unused]] typeof(steady_clock::now()) currentTime()
+    [[maybe_unused]] decltype(steady_clock::now()) currentTime()
     {
         return steady_clock::now();
     }

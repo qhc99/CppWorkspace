@@ -24,7 +24,7 @@ namespace org::nathan::utils
      *
      * @return steady_clock::now()
      */
-    [[maybe_unused]] typeof(steady_clock::now()) currentTime();
+    [[maybe_unused]] decltype(steady_clock::now()) currentTime();
 
 
     /**
