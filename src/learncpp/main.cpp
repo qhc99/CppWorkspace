@@ -2,6 +2,7 @@
 #include <vector>
 #include <string>
 #include <any>
+#include "utils/utils.h"
 
 
 using std::cout, std::endl, std::cin, std::string;
@@ -18,6 +19,6 @@ int main()
     cout << (d.type() == typeid(double)) << endl;
     cout << (f.type() == typeid(float)) << endl;
     cout << (s.type() == typeid(const char *)) << endl;
-
+    auto t(org::nathan::utils::currentTime());
     return 0;
 }

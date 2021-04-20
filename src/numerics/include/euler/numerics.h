@@ -8,7 +8,14 @@
 #include <vector>
 namespace org::nathan::Euler
 {
-    std::vector<int> sieveOfEratosthenes(int n);
+    using std::vector;
+
+    /**
+     * first n primes
+     * @param n
+     * @return
+     */
+    vector<int> sieveOfEratosthenes(int n);
 }
 
 #endif //LEARNCPP_TOOLS_H

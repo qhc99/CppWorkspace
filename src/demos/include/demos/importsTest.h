@@ -9,9 +9,9 @@
 #include <vector>
 #include <string>
 #include "euler/numerics.h"
-#include "utils/utils.h"
-#include "algo_cpp/structures/DisjointSet.h"
-#include "algo_cpp/miscellaneous/rank_search.hpp"
+#include "utils.h"
+#include "DisjointSet.h"
+#include "rank_search.hpp"
 
 
 using std::cout, std::endl, std::cin, std::string;

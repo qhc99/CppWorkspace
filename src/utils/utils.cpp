@@ -1,7 +1,7 @@
 //
 // Created by Nathan on 2021/3/15.
 //
-#include "utils/utils.h"
+#include "utils.h"
 
 namespace org::nathan::utils
 {
