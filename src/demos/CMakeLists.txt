@@ -16,6 +16,5 @@ target_include_directories(${PROJECT_NAME} PUBLIC include)
 target_link_libraries(${PROJECT_NAME}
         org::nathan::utils
         org::nathan::Euler
-        org::nathan::algo_cpp::structures
-        org::nathan::algo_cpp::miscellaneous
+        org::nathan::algo_cpp
         )

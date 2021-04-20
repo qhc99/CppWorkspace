@@ -14,4 +14,12 @@ void importsTest()
     auto temp{sieveOfEratosthenes(20)};
     cout << temp[1] << endl;
     cout << timeIntervalToMilli(t2, t1) << endl;
+    try
+    {
+        org::nathan::utils::miscellaneous::WriteBGFile();
+    }
+    catch (const std::exception &e)
+    {
+        cout << e.what() << endl;
+    }
 }

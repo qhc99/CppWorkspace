@@ -6,6 +6,7 @@ set(CMAKE_CXX_STANDARD 17)
 add_executable(main.exe main.cpp)
 
 target_link_libraries(main.exe
-        org::nathan::utils::miscellaneous
+        org::nathan::utils
+        org::nathan::demos
         )
 

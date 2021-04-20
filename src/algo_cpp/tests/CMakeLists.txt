@@ -6,14 +6,14 @@ enable_testing()
 
 add_executable(DisjointSetTest DisjointSetTest.cpp)
 target_link_libraries(DisjointSetTest
-        org::nathan::algo_cpp::structures
+        org::nathan::algo_cpp
         Boost::unit_test_framework
         )
 target_compile_definitions(DisjointSetTest PRIVATE BOOST_TEST_DYN_LINK)
 
 add_executable(RankSearchTest RankSearchTest.cpp)
 target_link_libraries(RankSearchTest
-        org::nathan::algo_cpp::miscellaneous
+        org::nathan::algo_cpp
         org::nathan::utils
         Boost::unit_test_framework
         )

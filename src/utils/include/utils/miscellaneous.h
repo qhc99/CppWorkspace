@@ -7,6 +7,7 @@
 
 #include <filesystem>
 #include <iostream>
+#include <exception>
 
 namespace org::nathan::utils::miscellaneous
 {
