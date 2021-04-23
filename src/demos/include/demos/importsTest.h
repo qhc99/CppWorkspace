@@ -18,8 +18,8 @@
 using std::cout, std::endl, std::cin, std::string;
 using org::nathan::utils::currentTime, org::nathan::utils::timeIntervalToMilli;
 using org::nathan::Euler::sieveOfEratosthenes;
-using org::nathan::algo_cpp::miscellaneous::RankSearch;
-using org::nathan::algo_cpp::structures::DisjointSet;
+using org::nathan::algo_cpp::RankSearch;
+using org::nathan::algo_cpp::DisjointSet;
 using std::vector;
 
 void importsTest();

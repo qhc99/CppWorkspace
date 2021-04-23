@@ -10,7 +10,7 @@
 #include <iostream>
 #include <exception>
 
-namespace org::nathan::algo_cpp::miscellaneous
+namespace org::nathan::algo_cpp
 {
     using RandEngine_t = std::mt19937;
     using std::vector;

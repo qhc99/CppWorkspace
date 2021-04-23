@@ -19,7 +19,7 @@ target_link_libraries(RankSearchTest
         )
 target_compile_definitions(RankSearchTest PRIVATE BOOST_TEST_DYN_LINK)
 
-add_test(test_all_algo_cpp DisjointSetTest RankSearchTest AlgoCppTest)
+#add_test(test_all_algo_cpp DisjointSetTest)
 
 
 

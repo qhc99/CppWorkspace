@@ -1,21 +1,19 @@
 //
 // Created by Nathan on 2021/4/4.
 //
-
-#include "algo_cpp/miscellaneous/rank_search.hpp"
-#include "utils/utils.h"
-#include <algorithm>
-
 #define BOOST_TEST_MODULE RankSearchTest
 
+#include "algo_cpp/rank_search.hpp"
+#include "utils/utils.h"
+#include <algorithm>
 #include <boost/test/unit_test.hpp>
 
-using org::nathan::algo_cpp::miscellaneous::RankSearch;
+using org::nathan::algo_cpp::RankSearch;
 using org::nathan::utils::shuffledRange;
 
 BOOST_AUTO_TEST_SUITE(RankSearchAPITest) // NOLINT
 
-    BOOST_AUTO_TEST_CASE(findSet) // NOLINT
+    BOOST_AUTO_TEST_CASE(rank_search) // NOLINT
     {
         for (int i = 0; i < 15; i++)
         {

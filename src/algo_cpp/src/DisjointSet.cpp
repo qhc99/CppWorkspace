@@ -1,6 +1,6 @@
 #include "algo_cpp/DisjointSet.h"
 
-using namespace org::nathan::algo_cpp::structures;
+using namespace org::nathan::algo_cpp;
 
 void DisjointSet::link(DisjointSet &x, DisjointSet &y)
 {

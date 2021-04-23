@@ -5,8 +5,10 @@
     <excludeRoots>
       <file path="$PROJECT_DIR$/cmake-build-debug" />
       <file path="$PROJECT_DIR$/cmake-build-debug-coverage" />
+      <file path="$PROJECT_DIR$/cmake-build-debug-mingw" />
       <file path="$PROJECT_DIR$/cmake-build-debug-wsl" />
       <file path="$PROJECT_DIR$/cmake-build-release" />
+      <file path="$PROJECT_DIR$/cmake-build-release-mingw" />
       <file path="$PROJECT_DIR$/cmake-build-release-wsl" />
       <file path="$PROJECT_DIR$/out" />
     </excludeRoots>

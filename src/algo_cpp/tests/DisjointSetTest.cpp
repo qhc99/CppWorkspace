@@ -1,19 +1,16 @@
 //
 // Created by Nathan on 2021/4/4.
 //
-
-//#include <gtest/gtest.h>
-#include "algo_cpp/structures/DisjointSet.h"
-
 #define BOOST_TEST_MODULE DisjointSetTest
 
+#include "algo_cpp/DisjointSet.h"
 #include <boost/test/unit_test.hpp>
 
-using org::nathan::algo_cpp::structures::DisjointSet;
+using org::nathan::algo_cpp::DisjointSet;
 
 BOOST_AUTO_TEST_SUITE(DisjointSetAPITest) // NOLINT
 
-    BOOST_AUTO_TEST_CASE(findSet) // NOLINT
+    BOOST_AUTO_TEST_CASE(find_set) // NOLINT
     {
         DisjointSet p{};
         DisjointSet a{};

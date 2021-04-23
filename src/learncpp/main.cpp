@@ -20,5 +20,6 @@ int main()
     cout << (d.type() == typeid(double)) << endl;
     cout << (f.type() == typeid(float)) << endl;
     cout << (s.type() == typeid(const char *)) << endl;
+    importsTest();
     return 0;
 }

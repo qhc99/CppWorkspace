@@ -2,7 +2,7 @@
 #ifndef ORG_NATHAN_CPP_ALL_IN_ONE_ALGO_CPP_STRUCTURES_DISJOINT_SET_H
 #define ORG_NATHAN_CPP_ALL_IN_ONE_ALGO_CPP_STRUCTURES_DISJOINT_SET_H
 
-namespace org::nathan::algo_cpp::structures
+namespace org::nathan::algo_cpp
 {
     class [[maybe_unused]] DisjointSet
     {
