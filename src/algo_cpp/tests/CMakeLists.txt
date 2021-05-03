@@ -1,6 +1,7 @@
 cmake_minimum_required(VERSION 3.16)
 
 project(algo_cpp_test)
+
 find_package(Boost 1.71.0 REQUIRED COMPONENTS unit_test_framework)
 enable_testing()
 
@@ -18,9 +19,3 @@ target_link_libraries(RankSearchTest
         Boost::unit_test_framework
         )
 target_compile_definitions(RankSearchTest PRIVATE BOOST_TEST_DYN_LINK)
-
-#add_test(test_all_algo_cpp DisjointSetTest)
-
-
-
-

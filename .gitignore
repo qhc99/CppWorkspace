@@ -6,5 +6,7 @@
 /cmake-build-release-wsl
 /cmake-build-debug-mingw
 /cmake-build-release-mingw
+/cmake-build-debug-mingw64
+/cmake-build-release-mingw64
 /cmake-build-debug-visual-studio
 /cmake-build-release-visual-studio

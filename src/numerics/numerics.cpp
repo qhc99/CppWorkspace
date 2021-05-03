@@ -8,10 +8,7 @@ std::vector<int> org::nathan::Euler::sieveOfEratosthenes(int n)
 {
     std::vector<bool> prime{};
     prime.reserve(n + 1);
-    for (auto &&iter : prime)
-    {
-        iter = true;
-    }
+    prime.assign(n + 1, true);
     for (int p = 2; p * p <= n; p++)
     {
         if (prime[p])
