@@ -25,24 +25,24 @@ namespace org::nathan::algo_cpp
             std::uniform_int_distribution dist{start, end - 1};
             int pivot_idx{dist(engine)};
 
-            auto pivot{a[pivot_idx]};
+            auto pivot{a.at(pivot_idx)};
 
-            auto temp{a[end - 1]};
-            a[end - 1] = pivot;
-            a[pivot_idx] = temp;
+            auto temp{a.at(end - 1)};
+            a.at(end - 1) = pivot;
+            a.at(pivot_idx) = temp;
 
             int i{start - 1};
-            for (int j{start}; j < end - 1; j++)
+            for(int j{start}; j < end - 1; j++)
             {
-                if (a[j] <= pivot)
+                if(a.at(j) <= pivot)
                 {
-                    auto t{a[j]};
-                    a[j] = a[++i];
-                    a[i] = t;
+                    auto t{a.at(j)};
+                    a.at(j) = a.at(++i);
+                    a.at(i) = t;
                 }
             }
-            a[end - 1] = a[++i];
-            a[i] = pivot;
+            a.at(end - 1) = a.at(++i);
+            a.at(i) = pivot;
             return i; //pivot idx
         }
 
@@ -52,13 +52,13 @@ namespace org::nathan::algo_cpp
         {
             if ((start - end) == 1)
             {
-                return a[start];
+                return a.at(start);
             }
             int pivot_idx{randPartition(a, start, end, engine)};
             int left_total{pivot_idx - start};
             if (ith == left_total)
             {
-                return a[pivot_idx];
+                return a.at(pivot_idx);
             }
             else if (ith < left_total + 1)
             {
