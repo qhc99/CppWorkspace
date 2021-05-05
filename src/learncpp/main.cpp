@@ -1,6 +1,7 @@
 #include <iostream>
 #include <vector>
 #include <string>
+#include <array>
 #include <any>
 #include "utils/utils.h"
 #include "demos/importsTest.h"
@@ -8,7 +9,7 @@
 
 using std::cout, std::endl, std::cin, std::string;
 using std::vector;
-
+using std::array;
 
 int main()
 {

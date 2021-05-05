@@ -5,26 +5,13 @@ project(cpp_all_in_one)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
 
-if(NOT (CMAKE_CXX_COMPILER_ID STREQUAL "Clang"))
-    message(WARNING "NOT using Clang")
-endif()
-
-#if(WIN32 AND (CMAKE_CXX_COMPILER_ID STREQUAL "Clang"))
-#    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /EHsc")
-#endif()
-
 if(CMAKE_BUILD_TYPE STREQUAL "Debug")
     if(UNIX)
-        message(STATUS "Setting clang sanitizer")
-        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O1")
-        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g")
-        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fsanitize=address")
-        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fsanitize=undefined")
-        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fsanitize=leak")
+        message(STATUS "Setting UNIX Clang sanitizer")
+        set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -fno-omit-frame-pointer")
+        set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -fsanitize=address -fsanitize=undefined -fsanitize=leak")
+        set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -O1 -g")
     endif()
-    #set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fsanitize=thread")  # not well supported
-    #set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fsanitize=memory")  # not compatible to other flags
-
 endif()
 
 add_subdirectory(src/learncpp)
