@@ -10,8 +10,8 @@ void importsTest()
     vector<int> v{1, 2, 3};
     cout << RankSearch::find(v, 2) << endl;
     auto t1 = currentTime();
-    auto temp{sieveOfEratosthenes(1000)};
-    cout << temp.at(10) << endl;
+    auto temp{sieveOfEratosthenes(100000000)};
+    cout << temp.at(10000) << endl;
     auto t2 = currentTime();
     cout << "time: " << timeIntervalToMilli(t2, t1) << "ms" << endl;
     try
