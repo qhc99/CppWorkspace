@@ -13,6 +13,7 @@ add_library(${PROJECT_NAME} STATIC
 add_library(org::nathan::demos ALIAS ${PROJECT_NAME})
 target_include_directories(${PROJECT_NAME} PUBLIC include)
 target_link_libraries(${PROJECT_NAME}
+        PUBLIC
         org::nathan::utils
         org::nathan::Euler
         org::nathan::algo_cpp

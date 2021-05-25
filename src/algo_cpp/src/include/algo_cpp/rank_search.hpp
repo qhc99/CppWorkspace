@@ -22,7 +22,7 @@ namespace org::nathan::algo_cpp
         template<typename Comparable>
         static int randPartition(vector<Comparable> &a, int start, int end, RandEngine_t &engine)
         {
-            std::uniform_int_distribution dist{start, end - 1};
+            std::uniform_int_distribution<int> dist{start, end - 1};
             int pivot_idx{dist(engine)};
 
             auto pivot{a.at(pivot_idx)};

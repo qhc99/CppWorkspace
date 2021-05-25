@@ -11,11 +11,11 @@ namespace org::nathan::Euler
     using std::vector;
 
     /**
-     * first n primes
-     * @param n
+     * first limit primes
+     * @param limit
      * @return
      */
-    vector<int> sieveOfEratosthenes(int n);
+    vector<int> sieveOfEratosthenes(int limit);
 }
 
 #endif //LEARNCPP_TOOLS_H
