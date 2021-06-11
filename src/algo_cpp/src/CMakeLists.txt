@@ -3,7 +3,7 @@ cmake_minimum_required(VERSION 3.16)
 project(algo_cpp)
 
 add_library(${PROJECT_NAME}
-        SHARED
+        STATIC
         DisjointSet.cpp
         )
 add_library(org::nathan::algo_cpp ALIAS ${PROJECT_NAME})

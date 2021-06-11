@@ -24,28 +24,28 @@ namespace org::nathan::utils
      *
      * @return steady_clock::now()
      */
-    [[maybe_unused]] decltype(steady_clock::now()) currentTime();
+    [[maybe_unused]] auto currentTime() -> decltype(steady_clock::now());
 
 
-    /**
-     *
-     * @param current current steady_clock::now()
-     * @param before before steady_clock::now()
-     * @return milliseconds in double
-     */
-    [[maybe_unused]] double timeIntervalToMilli(
-            time_point<steady_clock, duration<double>> current,
-            time_point<steady_clock, duration<double>> before);
+  /**
+   *
+   * @param current current steady_clock::now()
+   * @param before before steady_clock::now()
+   * @return milliseconds in double
+   */
+  [[maybe_unused]] auto timeIntervalToMilli(
+    time_point<steady_clock, duration<double>> current,
+    time_point<steady_clock, duration<double>> before) -> double;
 
 
-    /**
-     * [low, high) shuffled vector
-     * @tparam Number
-     * @param low include
-     * @param high exclude
-     * @return
-     */
-    [[maybe_unused]] vector<int> shuffledRange(int low, int high);
+  /**
+   * [low, high) shuffled vector
+   * @tparam Number
+   * @param low include
+   * @param high exclude
+   * @return
+   */
+  [[maybe_unused]] auto shuffledRange(int low, int high) -> vector<int>;
 }
 
 

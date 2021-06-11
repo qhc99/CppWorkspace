@@ -4,17 +4,17 @@
 
 #include "euler/numerics.h"
 
-std::vector<int> org::nathan::Euler::sieveOfEratosthenes(int limit)
+auto org::nathan::Euler::sieveOfEratosthenes(int limit) -> std::vector<int>
 {
-    std::vector<bool> prime{};
-    prime.reserve(limit + 1);
-    prime.assign(limit + 1, true);
-    for (int p = 2; p * p <= limit; p++)
+  std::vector<bool> prime{};
+  prime.reserve(limit + 1);
+  prime.assign(limit + 1, true);
+  for(int p = 2; p * p <= limit; p++)
+  {
+    if(prime.at(p))
     {
-        if(prime.at(p))
-        {
-            for(int i = p * 2; i <= limit; i += p)
-            {
+      for(int i = p * 2; i <= limit; i += p)
+      {
                 prime.at(i) = false;
             }
         }

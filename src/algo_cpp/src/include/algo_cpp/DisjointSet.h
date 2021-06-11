@@ -7,19 +7,30 @@ namespace org::nathan::algo_cpp
     {
     private:
         int rank{0};
-        DisjointSet *parent{this};
+      DisjointSet *parent{this};
 
-        static void link(DisjointSet &x, DisjointSet &y);
 
-        static DisjointSet &findGroupRep(DisjointSet &x);
+      static void link(DisjointSet &x, DisjointSet &y);
+
+      static auto findGroupRep(DisjointSet &x) -> DisjointSet &;
 
     public:
 
-        DisjointSet &findGroupRep();
+      DisjointSet() = default;
 
-        [[maybe_unused]] void unionSet(DisjointSet &a);
+      DisjointSet(const DisjointSet &other) = default;
 
-        virtual ~DisjointSet() = default;
+      DisjointSet(DisjointSet &&other) = default;
+
+      auto findGroupRep() -> DisjointSet &;
+
+      auto operator=(const DisjointSet &other) -> DisjointSet & = default;
+
+      auto operator=(DisjointSet &&other) -> DisjointSet & = default;
+
+      [[maybe_unused]] void unionSet(DisjointSet &a);
+
+      virtual ~DisjointSet() = default;
     };
 }
 

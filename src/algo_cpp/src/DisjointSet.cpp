@@ -18,22 +18,22 @@ void DisjointSet::link(DisjointSet &x, DisjointSet &y)
     }
 }
 
-DisjointSet &DisjointSet::findGroupRep(DisjointSet &x) //NOLINT recursive call
+auto DisjointSet::findGroupRep(DisjointSet &x) -> DisjointSet &  // NOLINT(misc-no-recursion)
 {
-    if (&x != x.parent)
-    {
-        x.parent = &findGroupRep(*x.parent);
-    }
-    return *x.parent;
+  if(&x != x.parent)
+  {
+    x.parent = &findGroupRep(*x.parent);
+  }
+  return *x.parent;
 }
 
-DisjointSet &DisjointSet::findGroupRep()
+auto DisjointSet::findGroupRep() -> DisjointSet &
 {
-    if (this != this->parent)
-    {
-        this->parent = &findGroupRep(*this->parent);
-    }
-    return *this->parent;
+  if(this != this->parent)
+  {
+    this->parent = &findGroupRep(*this->parent);
+  }
+  return *this->parent;
 }
 
 

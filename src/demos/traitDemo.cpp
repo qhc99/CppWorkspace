@@ -9,41 +9,40 @@ namespace org::nathan::traitDemo
     template<class T>
     struct MyIter
     {
-        [[maybe_unused]] typedef T value_type; // ��Ƕ�ͱ�����
-        T *ptr;
+      using value_type = T; //
+      T *ptr;
 
-        explicit MyIter(T *p = 0) : ptr(p)
-        {}
+      explicit MyIter(T *p = 0) : ptr(p)
+      {}
 
-        T &operator*() const
-        { return *ptr; }
+      auto operator*() const -> T &
+      { return *ptr; }
     };
 
 // class type
     template<class T>
     struct iterator_traits
     {
-        [[maybe_unused]] typedef typename T::value_type value_type;
+      using value_type = typename T::value_type;
     };
     template<class T>
     struct iterator_traits<T *>
     {
-        [[maybe_unused]] typedef T value_type;
+      using value_type = T;
     };
     template<class T>
     struct iterator_traits<const T *>
     {
-        [[maybe_unused]] typedef T value_type;
+      using value_type = T;
     };
 
-    template<class I>
-    typename iterator_traits<I>::value_type
-    func(I ite)
-    {
-        std::cout << typeid(I).name() << std::endl;
-        std::cout << "normal version" << std::endl;
-        return *ite;
-    }
+  template<class I>
+  typename iterator_traits<I>::value_type func(I ite)
+  {
+    std::cout << typeid(I).name() << std::endl;
+    std::cout << "normal version" << std::endl;
+    return *ite;
+  }
 
     [[maybe_unused]] void traitDemo()
     {
