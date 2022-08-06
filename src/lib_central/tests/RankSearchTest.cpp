@@ -3,13 +3,13 @@
 //
 #define BOOST_TEST_MODULE RankSearchTest
 
-#include "algo_cpp/rank_search.hpp"
-#include "utils/utils.h"
+#include "lib_central/rank_search.hpp"
+#include "lib_central/utils.h"
 #include <algorithm>
 #include <boost/test/unit_test.hpp>
 
-using org::nathan::algo_cpp::RankSearch;
-using org::nathan::utils::shuffledRange;
+using org::qhc::lib_central::RankSearch;
+using org::qhc::lib_central::shuffledRange;
 
 BOOST_AUTO_TEST_SUITE(RankSearchAPITest) // NOLINT
 

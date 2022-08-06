@@ -1,6 +1,6 @@
-#include "algo_cpp/DisjointSet.h"
+#include "lib_central/DisjointSet.h"
 
-using namespace org::nathan::algo_cpp;
+using namespace org::qhc::lib_central;
 
 void DisjointSet::link(DisjointSet &x, DisjointSet &y) {
     if (x.rank > y.rank) {

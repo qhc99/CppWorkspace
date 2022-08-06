@@ -3,10 +3,10 @@
 //
 #define BOOST_TEST_MODULE DisjointSetTest
 
-#include "algo_cpp/DisjointSet.h"
+#include "lib_central/DisjointSet.h"
 #include <boost/test/unit_test.hpp>
 
-using org::nathan::algo_cpp::DisjointSet;
+using org::qhc::lib_central::DisjointSet;
 
 BOOST_AUTO_TEST_SUITE(DisjointSetAPITest) // NOLINT
 

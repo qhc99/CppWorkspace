@@ -12,7 +12,7 @@
 #include <stdexcept>
 
 
-namespace org::nathan::utils
+namespace org::qhc::lib_central
 {
 
     using std::chrono::steady_clock;

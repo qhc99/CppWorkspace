@@ -1,9 +1,9 @@
 //
 // Created by Nathan on 2021/3/15.
 //
-#include "include/algo_cpp/utils.h"
+#include "include/lib_central/utils.h"
 
-namespace org::nathan::utils {
+namespace org::qhc::lib_central{
 
     decltype(steady_clock::now()) currentTime() {
         return steady_clock::now();

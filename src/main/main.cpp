@@ -3,7 +3,7 @@
 #include <map>
 #include <string>
 #include <memory>
-#include "algo_cpp/DisjointSet.h"
+#include "lib_central/DisjointSet.h"
 
 using std::cout, std::endl, std::vector, std::shared_ptr, std::unique_ptr, std::cin, std::map, std::string;
 
@@ -118,20 +118,7 @@ public:
   }
 };
 
-using org::nathan::algo_cpp::DisjointSet;
-
-int foo() // code starts at memory address 0x002717f0
+int main(void)
 {
-  return 5;
-}
 
-int main() // NOLINT
-{
-  DisjointSet a{};
-  DisjointSet b{a};
-  int (* fcnPtr)(){&foo};
-
-  derived d{1, 2};
-  std::cout << (*fcnPtr)() << std::endl;
-  return 0;
 }
