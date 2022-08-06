@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.16)
 
-project(algo_cpp_test)
+project(lib_central_test)
 
 find_package(Boost 1.71.0 REQUIRED COMPONENTS unit_test_framework)
 

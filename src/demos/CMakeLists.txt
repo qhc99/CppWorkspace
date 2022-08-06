@@ -10,9 +10,9 @@ add_library(${PROJECT_NAME} STATIC
         templateDemo.cpp
         importsTest.cpp
         )
-add_library(org::nathan::demos ALIAS ${PROJECT_NAME})
+add_library(org::qhc::demos ALIAS ${PROJECT_NAME})
 target_include_directories(${PROJECT_NAME} PUBLIC include)
 target_link_libraries(${PROJECT_NAME}
         PUBLIC
-        org::nathan::algo_cpp
+        org::qhc::lib_central
         )
