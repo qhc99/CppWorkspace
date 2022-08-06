@@ -24,7 +24,7 @@ namespace org::nathan::utils
      *
      * @return steady_clock::now()
      */
-    [[maybe_unused]] auto currentTime() -> decltype(steady_clock::now());
+    auto currentTime() -> decltype(steady_clock::now());
 
 
   /**
@@ -33,7 +33,7 @@ namespace org::nathan::utils
    * @param before before steady_clock::now()
    * @return milliseconds in double
    */
-  [[maybe_unused]] auto timeIntervalToMilli(
+  auto timeIntervalToMilli(
     time_point<steady_clock, duration<double>> current,
     time_point<steady_clock, duration<double>> before) -> double;
 
@@ -45,7 +45,7 @@ namespace org::nathan::utils
    * @param high exclude
    * @return
    */
-  [[maybe_unused]] auto shuffledRange(int low, int high) -> vector<int>;
+  auto shuffledRange(int low, int high) -> vector<int>;
 }
 
 

@@ -8,9 +8,8 @@
 #include <iostream>
 #include <vector>
 #include <string>
-#include "euler/numerics.h"
-#include "utils/utils.h"
-#include "utils/miscellaneous.h"
+#include "algo_cpp/numerics.h"
+#include "algo_cpp/utils.h"
 #include "algo_cpp/DisjointSet.h"
 #include "algo_cpp/rank_search.hpp"
 

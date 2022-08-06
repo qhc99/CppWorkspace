@@ -4,40 +4,32 @@
 
 #include "demos/smartPtrAndIterDemo.h"
 
-namespace org::nathan::smartPtrAndIterDemo
-{
-    class DoubleLinedNode
-    {
+namespace org::nathan::smartPtrAndIterDemo {
+    class DoubleLinedNode {
     public:
         int id;
         bool destroyed = false;
         std::weak_ptr<DoubleLinedNode> left;
         std::shared_ptr<DoubleLinedNode> right = nullptr;
 
-        explicit DoubleLinedNode(int id) noexcept
-        {
+        explicit DoubleLinedNode(int id) noexcept {
             this->id = id;
             std::cout << "create: " << id << std::endl;
         }
 
 
-        DoubleLinedNode(const DoubleLinedNode &other)
-        {
+        DoubleLinedNode(const DoubleLinedNode &other) {
             std::cout << "Node copy " << other.id << std::endl;
             this->id = other.id;
             this->left = other.left;
             this->right = other.right;
         }
 
-        ~DoubleLinedNode()
-        {
-            if (!destroyed)
-            {
+        ~DoubleLinedNode() {
+            if (!destroyed) {
                 std::cout << "destroy: " << id << std::endl;
                 destroyed = true;
-            }
-            else
-            {
+            } else {
                 std::cerr << "destroy " << id << " multiple times" << std::endl;
             }
         }
@@ -45,24 +37,19 @@ namespace org::nathan::smartPtrAndIterDemo
 
     struct DLIter;
 
-    class DoubleLinkedList
-    {
+    class DoubleLinkedList {
         // abuse utils ptr, performance issue
         std::shared_ptr<DoubleLinedNode> sentinel = std::make_shared<DoubleLinedNode>(0);
         std::shared_ptr<DoubleLinedNode> head = nullptr;
     public:
-        void Add(int id)
-        {
-            if (head == nullptr)
-            {
+        void Add(int id) {
+            if (head == nullptr) {
                 head = std::make_shared<DoubleLinedNode>(id);
                 head->left = sentinel;
                 head->right = sentinel;
                 sentinel->left = head;
                 sentinel->right = head;
-            }
-            else
-            {
+            } else {
                 auto left = sentinel->left.lock();
                 auto n = std::make_shared<DoubleLinedNode>(id);
                 sentinel->left = n;
@@ -72,8 +59,7 @@ namespace org::nathan::smartPtrAndIterDemo
             }
         }
 
-        ~DoubleLinkedList()
-        {
+        ~DoubleLinkedList() {
             sentinel->right = nullptr;
         }
 
@@ -82,57 +68,47 @@ namespace org::nathan::smartPtrAndIterDemo
         friend DLIter end(const DoubleLinkedList &dl);
     };
 
-    struct DLIter
-    {
+    struct DLIter {
     private:
         std::shared_ptr<DoubleLinedNode> ptr = nullptr;
     public:
-        explicit DLIter(std::shared_ptr<DoubleLinedNode> n)
-        {
+        explicit DLIter(std::shared_ptr<DoubleLinedNode> n) {
             ptr = std::move(n);
         }
 
-        DLIter(DLIter &other)
-        {
+        DLIter(DLIter &other) {
             std::cout << "DLIter copy" << std::endl;
             this->ptr = other.ptr;
         }
 
-        DoubleLinedNode &operator*() const
-        {
+        DoubleLinedNode &operator*() const {
             return *ptr;
         }
 
-        bool operator!=(const DLIter &other) const
-        {
+        bool operator!=(const DLIter &other) const {
             return other.ptr != ptr;
         }
 
-        bool operator==(const DLIter &other) const
-        {
+        bool operator==(const DLIter &other) const {
             std::cout << "no return, no crash\n";
             return this == &other;
         }
 
-        void operator++()
-        {
+        void operator++() {
             ptr = ptr->right;
         }
     };
 
 
-    inline DLIter begin(const DoubleLinkedList &dl)
-    {
+    inline DLIter begin(const DoubleLinkedList &dl) {
         return DLIter(dl.head);
     }
 
-    inline DLIter end(const DoubleLinkedList &dl)
-    {
+    inline DLIter end(const DoubleLinkedList &dl) {
         return DLIter(dl.sentinel);
     }
 
-    [[maybe_unused]] void destructionAndForRangeDemo()
-    {
+    [[maybe_unused]] void destructionAndForRangeDemo() {
         {
             std::unique_ptr<DoubleLinkedList> dl = std::make_unique<DoubleLinkedList>();
             dl->Add(3);
@@ -141,14 +117,12 @@ namespace org::nathan::smartPtrAndIterDemo
             dl->Add(23);
             dl->Add(7);
             auto t = *dl;
-            for (auto &item : t)
-            {
+            for (auto &item: t) {
                 std::cout << "iterating: " << item.id << std::endl;
                 item.id++;
             }
             std::cout << "iterate end" << std::endl;
-            for (auto &item : *dl)
-            {
+            for (auto &item: *dl) {
                 std::cout << "iterating: " << item.id << std::endl;
             }
         }

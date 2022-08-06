@@ -15,8 +15,6 @@ if(CMAKE_BUILD_TYPE STREQUAL "Debug")
 endif()
 
 add_subdirectory(src/learncpp)
-add_subdirectory(src/numerics)
-add_subdirectory(src/utils)
 add_subdirectory(src/demos)
 add_subdirectory(src/algo_cpp)
 add_subdirectory(src/lispy)

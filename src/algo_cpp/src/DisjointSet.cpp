@@ -2,17 +2,12 @@
 
 using namespace org::nathan::algo_cpp;
 
-void DisjointSet::link(DisjointSet &x, DisjointSet &y)
-{
-    if (x.rank > y.rank)
-    {
+void DisjointSet::link(DisjointSet &x, DisjointSet &y) {
+    if (x.rank > y.rank) {
         y.parent = &x;
-    }
-    else
-    {
+    } else {
         x.parent = &y;
-        if (x.rank == y.rank)
-        {
+        if (x.rank == y.rank) {
             y.rank = y.rank + 1;
         }
     }
@@ -20,25 +15,21 @@ void DisjointSet::link(DisjointSet &x, DisjointSet &y)
 
 auto DisjointSet::findGroupRep(DisjointSet &x) -> DisjointSet &  // NOLINT(misc-no-recursion)
 {
-  if(&x != x.parent)
-  {
-    x.parent = &findGroupRep(*x.parent);
-  }
-  return *x.parent;
+    if (&x != x.parent) {
+        x.parent = &findGroupRep(*x.parent);
+    }
+    return *x.parent;
 }
 
-auto DisjointSet::findGroupRep() -> DisjointSet &
-{
-  if(this != this->parent)
-  {
-    this->parent = &findGroupRep(*this->parent);
-  }
-  return *this->parent;
+auto DisjointSet::findGroupRep() -> DisjointSet & {
+    if (this != this->parent) {
+        this->parent = &findGroupRep(*this->parent);
+    }
+    return *this->parent;
 }
 
 
-[[maybe_unused]] void DisjointSet::unionSet(DisjointSet &a)
-{
+[[maybe_unused]] void DisjointSet::unionSet(DisjointSet &a) {
     link(findGroupRep(), findGroupRep(a));
 }
 

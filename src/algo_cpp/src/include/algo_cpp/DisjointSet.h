@@ -1,36 +1,34 @@
 #ifndef ORG_NATHAN_CPP_ALL_IN_ONE_ALGO_CPP_STRUCTURES_DISJOINT_SET_H
 #define ORG_NATHAN_CPP_ALL_IN_ONE_ALGO_CPP_STRUCTURES_DISJOINT_SET_H
 
-namespace org::nathan::algo_cpp
-{
-    class [[maybe_unused]] DisjointSet
-    {
+namespace org::nathan::algo_cpp {
+    class DisjointSet {
     private:
         int rank{0};
-      DisjointSet *parent{this};
+        DisjointSet *parent{this};
 
 
-      static void link(DisjointSet &x, DisjointSet &y);
+        static void link(DisjointSet &x, DisjointSet &y);
 
-      static auto findGroupRep(DisjointSet &x) -> DisjointSet &;
+        static auto findGroupRep(DisjointSet &x) -> DisjointSet &;
 
     public:
 
-      DisjointSet() = default;
+        DisjointSet() = default;
 
-      DisjointSet(const DisjointSet &other) = default;
+        DisjointSet(const DisjointSet &other) = default;
 
-      DisjointSet(DisjointSet &&other) = default;
+        DisjointSet(DisjointSet &&other) = default;
 
-      auto findGroupRep() -> DisjointSet &;
+        auto findGroupRep() -> DisjointSet &;
 
-      auto operator=(const DisjointSet &other) -> DisjointSet & = default;
+        auto operator=(const DisjointSet &other) -> DisjointSet & = default;
 
-      auto operator=(DisjointSet &&other) -> DisjointSet & = default;
+        auto operator=(DisjointSet &&other) -> DisjointSet & = default;
 
-      [[maybe_unused]] void unionSet(DisjointSet &a);
+        void unionSet(DisjointSet &a);
 
-      virtual ~DisjointSet() = default;
+        virtual ~DisjointSet() = default;
     };
 }
 
