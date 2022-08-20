@@ -2,8 +2,8 @@
 // Created by Nathan on 2021/4/4.
 //
 
-#ifndef ORG_NATHAN_CPP_ALL_IN_ONE_RANK_SEARCH_CPP
-#define ORG_NATHAN_CPP_ALL_IN_ONE_RANK_SEARCH_CPP
+#ifndef ORG_QHC_LIB_CENTRAL_RANK_SEARCH_CPP
+#define ORG_QHC_LIB_CENTRAL_RANK_SEARCH_CPP
 
 #include <vector>
 #include <random>
@@ -18,7 +18,7 @@ namespace org::qhc::lib_central {
   class RankSearch final {
   private:
     template<typename Comparable>
-    static int randPartition(vector<Comparable> &a, int start, int end, RandEngine_t &engine) {
+    static inline int randPartition(vector<Comparable> &a, int start, int end, RandEngine_t &engine) {
       std::uniform_int_distribution<int> dist{start, end - 1};
       int pivot_idx{dist(engine)};
 
@@ -41,7 +41,7 @@ namespace org::qhc::lib_central {
       return i; //pivot idx
     }
 
-    // select ith smallest element in array
+    // select ith element in array
     template<typename Comparable>
     static Comparable rankSearch(vector<Comparable> &a, int start, int end, int ith, RandEngine_t &engine) {
       if ((start - end) == 1) {
@@ -73,4 +73,4 @@ namespace org::qhc::lib_central {
 }
 
 
-#endif //ORG_NATHAN_CPP_ALL_IN_ONE_RANK_SEARCH_CPP
+#endif

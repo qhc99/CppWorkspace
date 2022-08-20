@@ -4,7 +4,7 @@ project(main_cpp)
 add_executable(main main.cpp)
 
 target_link_libraries(main
-        org::qhc::demos
+        org::qhc::lisp
         )
 
 

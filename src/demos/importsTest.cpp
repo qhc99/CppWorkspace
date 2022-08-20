@@ -8,7 +8,7 @@ void importsTest() {
     DisjointSet a{};
     DisjointSet b{};
     b.unionSet(a);
-    cout << "Disjoint set: " << (&b.findGroupRep() == &a) << endl;
+    cout << "Disjoint set: " << (&b.groupRep() == &a) << endl;
     vector<int> v{1, 2, 3};
     cout << RankSearch::find(v, 2) << endl;
     constexpr int len(1000);

@@ -1,2 +1,2 @@
 cmake_minimum_required(VERSION 3.16)
-project(lisp_tests)
+project(lisp_test)

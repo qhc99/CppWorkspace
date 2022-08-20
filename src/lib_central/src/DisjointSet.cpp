@@ -13,23 +13,23 @@ void DisjointSet::link(DisjointSet &x, DisjointSet &y) {
     }
 }
 
-auto DisjointSet::findGroupRep(DisjointSet &x) -> DisjointSet &  // NOLINT(misc-no-recursion)
+auto DisjointSet::findGroupRepOf(DisjointSet &x) -> DisjointSet &  // NOLINT(misc-no-recursion)
 {
     if (&x != x.parent) {
-        x.parent = &findGroupRep(*x.parent);
+        x.parent = &findGroupRepOf(*x.parent);
     }
     return *x.parent;
 }
 
-auto DisjointSet::findGroupRep() -> DisjointSet & {
+auto DisjointSet::groupRep() -> DisjointSet & {
     if (this != this->parent) {
-        this->parent = &findGroupRep(*this->parent);
+        this->parent = &findGroupRepOf(*this->parent);
     }
     return *this->parent;
 }
 
 
 [[maybe_unused]] void DisjointSet::unionSet(DisjointSet &a) {
-    link(findGroupRep(), findGroupRep(a));
+    link(groupRep(), findGroupRepOf(a));
 }
 

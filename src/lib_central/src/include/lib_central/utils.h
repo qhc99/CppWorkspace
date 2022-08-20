@@ -2,8 +2,8 @@
 // Created by Nathan on 2021/3/15.
 //
 
-#ifndef ORG_NATHAN_CPP_ALL_IN_ONE_UTILS_H
-#define ORG_NATHAN_CPP_ALL_IN_ONE_UTILS_H
+#ifndef ORG_QHC_LIB_CENTRAL_UTILS_H
+#define ORG_QHC_LIB_CENTRAL_UTILS_H
 
 #include <chrono>
 #include <vector>
@@ -41,7 +41,7 @@ namespace org::qhc::lib_central
   /**
    * [low, high) shuffled vector
    * @tparam Number
-   * @param low include
+   * @param low public
    * @param high exclude
    * @return
    */
@@ -49,4 +49,4 @@ namespace org::qhc::lib_central
 }
 
 
-#endif //ORG_NATHAN_CPP_ALL_IN_ONE_UTILS_H
+#endif
