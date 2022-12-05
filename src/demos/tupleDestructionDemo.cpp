@@ -12,7 +12,7 @@ namespace org::nathan::tupleDestructionDemo {
     }
 
     void tupleDestructionDemo() {
-        auto [a, b]{returnTuple()}; // used structured binding declaration to put results ptr_of tuple in variables a and b
+        auto [a, b]{returnTuple()}; // used structured binding declaration to put results of tuple in variables a and b
         std::cout << a << ' ' << b << '\n';
     }
 

@@ -1,6 +1,6 @@
 #include "lib_central/DisjointSet.h"
 
-using namespace org::qhc::lib_central;
+using namespace dev::qhc::lib_central;
 
 void DisjointSet::link(DisjointSet &x, DisjointSet &y) {
     if (x.rank > y.rank) {
@@ -13,23 +13,23 @@ void DisjointSet::link(DisjointSet &x, DisjointSet &y) {
     }
 }
 
-auto DisjointSet::findGroupRepOf(DisjointSet &x) -> DisjointSet &  // NOLINT(misc-no-recursion)
+auto DisjointSet::findGroupRep(DisjointSet &x) -> DisjointSet &  // NOLINT(misc-no-recursion)
 {
     if (&x != x.parent) {
-        x.parent = &findGroupRepOf(*x.parent);
+        x.parent = &findGroupRep(*x.parent);
     }
     return *x.parent;
 }
 
-auto DisjointSet::groupRep() -> DisjointSet & {
+auto DisjointSet::findGroupRep() -> DisjointSet & {
     if (this != this->parent) {
-        this->parent = &findGroupRepOf(*this->parent);
+        this->parent = &findGroupRep(*this->parent);
     }
     return *this->parent;
 }
 
 
 [[maybe_unused]] void DisjointSet::unionSet(DisjointSet &a) {
-    link(groupRep(), findGroupRepOf(a));
+    link(findGroupRep(), findGroupRep(a));
 }
 

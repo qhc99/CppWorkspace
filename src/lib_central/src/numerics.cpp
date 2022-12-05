@@ -2,9 +2,9 @@
 // Created by Nathan on 2021/3/25.
 //
 
-#include "include/lib_central/numerics.h"
+#include "lib_central/numerics.h"
 
-auto org::qhc::lib_central::sieveOfEratosthenes(int limit) -> std::vector<int> {
+auto dev::qhc::Euler::sieveOfEratosthenes(int limit) -> std::vector<int> {
     std::vector<bool> prime{};
     prime.reserve(limit + 1);
     prime.assign(limit + 1, true);

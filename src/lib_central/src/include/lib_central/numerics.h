@@ -6,7 +6,7 @@
 #define LEARNCPP_TOOLS_H
 
 #include <vector>
-namespace org::qhc::lib_central
+namespace dev::qhc::Euler
 {
     using std::vector;
 

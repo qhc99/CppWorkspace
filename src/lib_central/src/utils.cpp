@@ -1,9 +1,9 @@
 //
 // Created by Nathan on 2021/3/15.
 //
-#include "include/lib_central/utils.h"
+#include "lib_central/utils.h"
 
-namespace org::qhc::lib_central{
+namespace dev::qhc::utils {
 
     decltype(steady_clock::now()) currentTime() {
         return steady_clock::now();
@@ -26,5 +26,10 @@ namespace org::qhc::lib_central{
         std::generate(r.begin(), r.end(), [n = 0]() mutable { return n++; });
         std::shuffle(r.begin(), r.end(), std::mt19937{std::random_device{}()});
         return std::move(r);
+    }
+
+    decltype(std::mt19937{ std::random_device{}() }) random_engine()
+    {
+        return std::mt19937{ std::random_device{}() };
     }
 }

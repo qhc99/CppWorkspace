@@ -1,7 +1,7 @@
-#ifndef ORG_QHC_LIB_CENTRAL_DISJOINT_SET_H
-#define ORG_QHC_LIB_CENTRAL_DISJOINT_SET_H
+#ifndef ORG_NATHAN_CPP_ALL_IN_ONE_ALGO_CPP_STRUCTURES_DISJOINT_SET_H
+#define ORG_NATHAN_CPP_ALL_IN_ONE_ALGO_CPP_STRUCTURES_DISJOINT_SET_H
 
-namespace org::qhc::lib_central {
+namespace dev::qhc::lib_central {
     class DisjointSet {
     private:
         int rank{0};
@@ -10,7 +10,7 @@ namespace org::qhc::lib_central {
 
         static void link(DisjointSet &x, DisjointSet &y);
 
-        static auto findGroupRepOf(DisjointSet &x) -> DisjointSet &;
+        static auto findGroupRep(DisjointSet &x) -> DisjointSet &;
 
     public:
 
@@ -20,7 +20,7 @@ namespace org::qhc::lib_central {
 
         DisjointSet(DisjointSet &&other) = default;
 
-        auto groupRep() -> DisjointSet &;
+        auto findGroupRep() -> DisjointSet &;
 
         auto operator=(const DisjointSet &other) -> DisjointSet & = default;
 

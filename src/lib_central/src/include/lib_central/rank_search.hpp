@@ -2,15 +2,15 @@
 // Created by Nathan on 2021/4/4.
 //
 
-#ifndef ORG_QHC_LIB_CENTRAL_RANK_SEARCH_CPP
-#define ORG_QHC_LIB_CENTRAL_RANK_SEARCH_CPP
+#ifndef ORG_NATHAN_CPP_ALL_IN_ONE_RANK_SEARCH_CPP
+#define ORG_NATHAN_CPP_ALL_IN_ONE_RANK_SEARCH_CPP
 
 #include <vector>
 #include <random>
 #include <iostream>
 #include <exception>
 
-namespace org::qhc::lib_central {
+namespace dev::qhc::lib_central {
   using RandEngine_t = std::mt19937;
   using std::vector;
   using std::cout, std::endl;
@@ -18,7 +18,7 @@ namespace org::qhc::lib_central {
   class RankSearch final {
   private:
     template<typename Comparable>
-    static inline int randPartition(vector<Comparable> &a, int start, int end, RandEngine_t &engine) {
+    static int randPartition(vector<Comparable> &a, int start, int end, RandEngine_t &engine) {
       std::uniform_int_distribution<int> dist{start, end - 1};
       int pivot_idx{dist(engine)};
 
@@ -41,7 +41,7 @@ namespace org::qhc::lib_central {
       return i; //pivot idx
     }
 
-    // select ith element in array
+    // select ith smallest element in array
     template<typename Comparable>
     static Comparable rankSearch(vector<Comparable> &a, int start, int end, int ith, RandEngine_t &engine) {
       if ((start - end) == 1) {
@@ -73,4 +73,4 @@ namespace org::qhc::lib_central {
 }
 
 
-#endif
+#endif //ORG_NATHAN_CPP_ALL_IN_ONE_RANK_SEARCH_CPP

@@ -9,10 +9,10 @@ add_library(${PROJECT_NAME} STATIC
         tupleDestructionDemo.cpp
         templateDemo.cpp
         importsTest.cpp
-        )
+        linked_graph_prototype.cpp)
 add_library(org::qhc::demos ALIAS ${PROJECT_NAME})
 target_include_directories(${PROJECT_NAME} PUBLIC include)
 target_link_libraries(${PROJECT_NAME}
         PUBLIC
-        org::qhc::lib_central
+        dev::qhc::lib_central
         )

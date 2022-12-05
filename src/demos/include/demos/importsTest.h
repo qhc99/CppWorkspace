@@ -15,10 +15,10 @@
 
 
 using std::cout, std::endl, std::cin, std::string;
-using org::qhc::lib_central::currentTime, org::qhc::lib_central::timeIntervalToMilli;
-using org::qhc::lib_central::sieveOfEratosthenes;
-using org::qhc::lib_central::RankSearch;
-using org::qhc::lib_central::DisjointSet;
+using dev::qhc::utils::currentTime, dev::qhc::utils::timeIntervalToMilli;
+using dev::qhc::Euler::sieveOfEratosthenes;
+using dev::qhc::lib_central::RankSearch;
+using dev::qhc::lib_central::DisjointSet;
 using std::vector;
 
 void importsTest();
