@@ -11,10 +11,6 @@ using dev::qhc::utils::random_engine;
 auto mt{random_engine()};
 std::uniform_real_distribution<float> dist(0.0, 1.0);
 
-float rand_float() {
-    return dist(mt);
-}
-
 void print_pixels(){
     // Image
 
