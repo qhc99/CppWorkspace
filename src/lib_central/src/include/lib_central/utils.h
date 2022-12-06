@@ -23,7 +23,7 @@ namespace dev::qhc::utils {
      *
      * @return steady_clock::now()
      */
-    auto currentTime() -> decltype(steady_clock::now());
+    auto current_time_point() -> decltype(steady_clock::now());
 
 
     /**
@@ -32,7 +32,7 @@ namespace dev::qhc::utils {
      * @param before before steady_clock::now()
      * @return milliseconds in double
      */
-    auto timeIntervalToMilli(
+    auto time_point_interval_to_ms(
         time_point<steady_clock, duration<double>> current,
         time_point<steady_clock, duration<double>> before) -> double;
 
@@ -46,7 +46,7 @@ namespace dev::qhc::utils {
      */
     auto shuffledRange(int low, int high) -> vector<int>;
 
-    decltype(std::mt19937{std::random_device{}()}) random_engine();
+    decltype(std::mt19937{std::random_device{}()}) default_rand_engine();
 
 }
 

@@ -15,7 +15,7 @@
 
 
 using std::cout, std::endl, std::cin, std::string;
-using dev::qhc::utils::currentTime, dev::qhc::utils::timeIntervalToMilli;
+using dev::qhc::utils::current_time_point, dev::qhc::utils::time_point_interval_to_ms;
 using dev::qhc::Euler::sieveOfEratosthenes;
 using dev::qhc::lib_central::RankSearch;
 using dev::qhc::lib_central::DisjointSet;

@@ -3,12 +3,12 @@
 #include <iostream>
 
 
-using dev::qhc::utils::currentTime;
-using dev::qhc::utils::timeIntervalToMilli;
-using dev::qhc::utils::random_engine;
+using dev::qhc::utils::current_time_point;
+using dev::qhc::utils::time_point_interval_to_ms;
+using dev::qhc::utils::default_rand_engine;
 
 
-auto mt{random_engine()};
+auto mt{default_rand_engine()};
 std::uniform_real_distribution<float> dist(0.0, 1.0);
 
 void print_pixels(){

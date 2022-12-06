@@ -5,11 +5,11 @@
 
 namespace dev::qhc::utils {
 
-    decltype(steady_clock::now()) currentTime() {
+    decltype(steady_clock::now()) current_time_point() {
         return steady_clock::now();
     }
 
-    double timeIntervalToMilli(
+    double time_point_interval_to_ms(
             time_point<steady_clock, duration<double>> current,
             time_point<steady_clock, duration<double>> before) {
         if (before > current) {
@@ -28,7 +28,7 @@ namespace dev::qhc::utils {
         return std::move(r);
     }
 
-    decltype(std::mt19937{ std::random_device{}() }) random_engine()
+    decltype(std::mt19937{ std::random_device{}() }) default_rand_engine()
     {
         return std::mt19937{ std::random_device{}() };
     }
