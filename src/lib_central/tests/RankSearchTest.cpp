@@ -6,7 +6,7 @@
 #include "lib_central/rank_search.hpp"
 #include "lib_central/utils.h"
 #include <algorithm>
-#include <boost/test/unit_test.hpp>
+#include "boost/test/unit_test.hpp"
 
 using dev::qhc::lib_central::RankSearch;
 using dev::qhc::utils::shuffledRange;

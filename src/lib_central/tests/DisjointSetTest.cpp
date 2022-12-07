@@ -4,7 +4,7 @@
 #define BOOST_TEST_MODULE DisjointSetTest
 
 #include "lib_central/DisjointSet.h"
-#include <boost/test/unit_test.hpp>
+#include "boost/test/unit_test.hpp"
 
 using dev::qhc::lib_central::DisjointSet;
 
