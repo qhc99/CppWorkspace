@@ -1,3 +1,4 @@
 /out
 /cmake-build*
 /_ReSharper.Caches
+*.ppm

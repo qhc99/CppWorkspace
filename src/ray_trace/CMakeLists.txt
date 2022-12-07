@@ -7,3 +7,4 @@ add_executable(rt rt.cpp vec3.h color.h color.h ray.h)
 target_link_libraries(rt  dev::qhc::lib_central)
 
 
+

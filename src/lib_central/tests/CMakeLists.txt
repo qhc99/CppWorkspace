@@ -1,17 +1,27 @@
 cmake_minimum_required(VERSION 3.20)
 
 project(lib_central_test)
+enable_testing()
+find_package(Boost 1.76)
+if (Boost_FOUND)
+    set(BOOST_INCLUDEDIR ${Boost_INCLUDE_DIRS})
+    set(BOOST_LIBRARYDIR ${Boost_LIBRARY_DIRS})
+else ()
+    message(WARNING "cannot find boost, please specify BOOST_INCLUDEDIR and BOOST_LIBRARYDIR")
+    set(BOOST_INCLUDEDIR $ENV{BOOST_INCLUDEDIR})
+    set(BOOST_LIBRARYDIR $ENV{BOOST_LIBRARYDIR})
+endif ()
 
 
-message("find Boost include dir: $ENV{BOOST_INCLUDEDIR}")
-message("find Boost lib dir: $ENV{BOOST_LIBRARYDIR}")
+message(STATUS "Find Boost include dir: ${BOOST_INCLUDEDIR}")
+message(STATUS "Find Boost lib dir: ${BOOST_LIBRARYDIR}")
 
 add_executable(DisjointSetTest DisjointSetTest.cpp)
 target_link_libraries(DisjointSetTest
         dev::qhc::lib_central
         )
-target_include_directories(DisjointSetTest PRIVATE $ENV{BOOST_INCLUDEDIR})
-target_link_directories(DisjointSetTest PRIVATE $ENV{BOOST_LIBRARYDIR})
+target_include_directories(DisjointSetTest PRIVATE ${BOOST_INCLUDEDIR})
+target_link_directories(DisjointSetTest PRIVATE ${BOOST_LIBRARYDIR})
 
 add_executable(RankSearchTest RankSearchTest.cpp)
 target_link_libraries(RankSearchTest
