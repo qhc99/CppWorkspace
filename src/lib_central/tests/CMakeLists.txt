@@ -1,7 +1,6 @@
 cmake_minimum_required(VERSION 3.20)
 
 project(lib_central_test)
-enable_testing()
 find_package(Boost 1.76)
 if (Boost_FOUND)
     set(BOOST_INCLUDEDIR ${Boost_INCLUDE_DIRS})
@@ -27,5 +26,5 @@ add_executable(RankSearchTest RankSearchTest.cpp)
 target_link_libraries(RankSearchTest
         dev::qhc::lib_central
         )
-target_include_directories(RankSearchTest PRIVATE $ENV{BOOST_INCLUDEDIR})
-target_include_directories(RankSearchTest PRIVATE $ENV{BOOST_LIBRARYDIR})
+target_include_directories(RankSearchTest PRIVATE ${BOOST_INCLUDEDIR})
+target_link_directories(RankSearchTest PRIVATE ${BOOST_LIBRARYDIR})

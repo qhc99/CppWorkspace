@@ -8,3 +8,6 @@ target_link_libraries(rt  dev::qhc::lib_central)
 
 
 
+add_executable(main main.cpp)
+
+target_link_libraries(main dev::qhc::lib_central)
