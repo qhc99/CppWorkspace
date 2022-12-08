@@ -14,7 +14,5 @@ if (CMAKE_BUILD_TYPE STREQUAL "Debug")
 endif ()
 
 add_subdirectory(src/main)
-add_subdirectory(src/demos)
 add_subdirectory(src/lib_central)
-add_subdirectory(src/lispy)
 add_subdirectory(src/ray_trace)
