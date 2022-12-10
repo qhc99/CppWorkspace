@@ -2,6 +2,7 @@ cmake_minimum_required(VERSION 3.20)
 
 project(lib_central_test)
 find_package(Boost 1.76)
+
 if (Boost_FOUND)
     set(BOOST_INCLUDEDIR ${Boost_INCLUDE_DIRS})
     set(BOOST_LIBRARYDIR ${Boost_LIBRARY_DIRS})
