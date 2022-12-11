@@ -12,3 +12,7 @@ add_library(${PROJECT_NAME}
         numerics.cpp)
 add_library(dev::qhc::lib_central ALIAS ${PROJECT_NAME})
 target_include_directories(${PROJECT_NAME} PUBLIC include)
+
+
+add_executable(lib_run main.cpp)
+target_link_libraries(lib_run dev::qhc::lib_central)

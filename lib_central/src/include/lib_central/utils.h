@@ -17,13 +17,19 @@ namespace dev::qhc::utils {
     using std::chrono::steady_clock;
     using std::chrono::time_point;
     using std::chrono::duration;
+    using std::chrono::milliseconds;
+    using std::chrono::seconds;
+    using std::chrono::duration_cast;
     using std::vector;
+    using steady_clock_time_point = decltype(steady_clock::now());
 
     /**
      *
      * @return steady_clock::now()
      */
-    auto current_time_point() -> decltype(steady_clock::now());
+    inline steady_clock_time_point current_time_point() noexcept {
+        return steady_clock::now();
+    }
 
 
     /**
@@ -32,9 +38,12 @@ namespace dev::qhc::utils {
      * @param before before steady_clock::now()
      * @return milliseconds in double
      */
-    auto time_point_interval_to_ms(
-        time_point<steady_clock, duration<double>> current,
-        time_point<steady_clock, duration<double>> before) -> double;
+    inline double time_point_duration_to_ms(steady_clock_time_point current, steady_clock_time_point before) {
+        if (current < before) {
+            throw std::logic_error{"before > current"};
+        }
+        return duration_cast<milliseconds>(current - before).count();
+    }
 
 
     /**
