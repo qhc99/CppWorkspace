@@ -14,5 +14,5 @@ add_library(dev::qhc::lib_central ALIAS ${PROJECT_NAME})
 target_include_directories(${PROJECT_NAME} PUBLIC include)
 
 
-add_executable(lib_run main.cpp)
-target_link_libraries(lib_run dev::qhc::lib_central)
+add_executable(locality_demo locality_demo.cpp)
+target_link_libraries(locality_demo dev::qhc::lib_central)

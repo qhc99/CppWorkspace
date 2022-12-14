@@ -64,9 +64,9 @@ static void mul(float **m1, MatRange m1r,
 }
 
 int main() {
-    constexpr int size_a = 1700;
-    constexpr int size_b = 1700;
-    constexpr int size_c = 1700;
+    constexpr int size_a = 1800;
+    constexpr int size_b = 1800;
+    constexpr int size_c = 1800;
     float **m1 = new float *[size_a];
     float **m2 = new float *[size_b];
     float **m3 = new float *[size_a];
