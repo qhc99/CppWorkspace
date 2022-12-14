@@ -64,9 +64,9 @@ static void mul(float **m1, MatRange m1r,
 }
 
 int main() {
-    constexpr int size_a = 1800;
-    constexpr int size_b = 1800;
-    constexpr int size_c = 1800;
+    constexpr int size_a = 1300;
+    constexpr int size_b = 1300;
+    constexpr int size_c = 1300;
     float **m1 = new float *[size_a];
     float **m2 = new float *[size_b];
     float **m3 = new float *[size_a];
@@ -123,7 +123,7 @@ int main() {
     }
 
     std::cout << "naive par" << std::endl;
-    std::cout << "spend: " << time_point_duration_to_ms(t2, t1) / 1000. << " ms" << std::endl;
+    std::cout << "spend: " << time_point_duration_to_ms(t2, t1) / 1000. << " s" << std::endl;
     std::cout << "sum: " << ans << std::endl;
 
 
@@ -167,6 +167,6 @@ int main() {
     }
 
     std::cout << "locality par" << std::endl;
-    std::cout << "spend: " << time_point_duration_to_ms(t4, t3) / 1000. << " ms" << std::endl;
+    std::cout << "spend: " << time_point_duration_to_ms(t4, t3) / 1000. << " s" << std::endl;
     std::cout << "sum: " << ans << std::endl;
 }
