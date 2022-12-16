@@ -91,11 +91,6 @@ int main() {
             m2[i][j] = dist(rand_engine);
         }
     }
-    for (int i = 0; i < size_a; i++) {
-        for (int j = 0; j < size_c; j++) {
-            m3[i][j] = 0;
-        }
-    }
     std::cout << "start" << std::endl;
     auto &&t1{current_time_point()};
     std::vector<int> loop(size_a);
@@ -109,6 +104,7 @@ int main() {
         loop.end(),
         [&](auto &&i) {
             for (int j = 0; j < size_c; j++) {
+                m3[i][j] = 0;
                 for (int k = 0; k < size_b; k++) {
                     m3[i][j] += m1[i][k] * m2[k][j];
                 }
@@ -126,12 +122,6 @@ int main() {
     std::cout << "spend: " << time_point_duration_to_ms(t2, t1) / 1000. << " s" << std::endl;
     std::cout << "sum: " << ans << std::endl;
 
-
-    for (int i = 0; i < size_a; i++) {
-        for (int j = 0; j < size_c; j++) {
-            m3[i][j] = 0;
-        }
-    }
     auto &&t3{current_time_point()};
     int w_s = 32;
     PartitionMat a1(m1, w_s, size_a, size_b);
@@ -150,6 +140,11 @@ int main() {
         [&](auto &&i) {
             for (int j = 0; j < a3.cols; j++) {
                 MatRange m3r = a3.at(i, j);
+                for (int p = 0; p + m3r.r1 < m3r.r2; p++) {
+                    for (int q = 0; q + m3r.c1 < m3r.c2; q++) {
+                        m3[p + m3r.r1][q + m3r.c1] = 0;
+                    }
+                }
                 for (int k = 0; k < a1.cols; k++) {
                     MatRange m1r = a1.at(i, k);
                     MatRange m2r = a2.at(k, j);
