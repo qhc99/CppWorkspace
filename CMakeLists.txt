@@ -15,3 +15,4 @@ endif ()
 
 add_subdirectory(lib_central)
 add_subdirectory(ray_trace)
+add_subdirectory(cuda_demo)
