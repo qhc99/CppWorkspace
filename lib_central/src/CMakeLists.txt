@@ -2,6 +2,13 @@ cmake_minimum_required(VERSION 3.20)
 
 project(lib_central)
 
+
+#if (${CMAKE_BUILD_TYPE} STREQUAL "Debug" AND UNIX AND ${CMAKE_CXX_COMPILER_ID} STREQUAL "GNU")
+#        message(STATUS "Using GCC Sanitizers")
+#        set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -fno-omit-frame-pointer")
+#        set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -fsanitize=address -fsanitize=undefined -fsanitize=leak")
+#endif ()
+
 add_library(${PROJECT_NAME}
         STATIC
         DisjointSet.cpp
