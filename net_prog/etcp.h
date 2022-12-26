@@ -24,6 +24,7 @@
 #include <netinet/in.h>
 #include <arpa/inet.h>
 #include "skel.h"
+
 #define TRUE 1
 #define FALSE 0
 #define NLISTEN 5 /* max waiting connections */
@@ -33,24 +34,43 @@ extern char *program_name; /* for error */
 #ifdef __SVR4
 #define bzero(b,n) memset( ( b ), 0, ( n ) )
 #endif
-typedef void ( *tofunc_t )( void * );
-void error( int, int, char*, ... );
-int readn( SOCKET, char *, size_t );
-int readvrec( SOCKET, char *, size_t );
-int readcrlf( SOCKET, char *, size_t );
-int readline( SOCKET, char *, size_t );
-int tcp_server( char *, char * );
-int tcp_client( char *, char * );
-int udp_server( char *, char * );
-int udp_client( char *, char *, struct sockaddr_in * );
-int tselect( int, fd_set *, fd_set *, fd_set *);
-unsigned int timeout( tofunc_t, void *, int );
-void untimeout( unsigned int );
-void init_smb( int );
-void *smballoc( void );
-void smbfree( void * );
-void smbsend( SOCKET, void * );
-void *smbrecv( SOCKET );
+
+typedef void ( *tofunc_t )(void *);
+
+void error(int, int, char *, ...);
+
+int readn(SOCKET, char *, size_t);
+
+int readvrec(SOCKET, char *, size_t);
+
+int readcrlf(SOCKET, char *, size_t);
+
+int readline(SOCKET, char *, size_t);
+
+int tcp_server(char *, char *);
+
+int tcp_client(char *, char *);
+
+int udp_server(char *, char *);
+
+int udp_client(char *, char *, struct sockaddr_in *);
+
+int tselect(int, fd_set *, fd_set *, fd_set *);
+
+unsigned int timeout(tofunc_t, void *, int);
+
+void untimeout(unsigned int);
+
+void init_smb(int);
+
+void *smballoc(void);
+
+void smbfree(void *);
+
+void smbsend(SOCKET, void *);
+
+void *smbrecv(SOCKET);
+
 void set_address(char *hname, char *sname,
                  struct sockaddr_in *sap, char *protocol);
 

@@ -5,16 +5,14 @@
  * @param s
  * @param peerp
  */
-static void client( SOCKET s, struct sockaddr_in *peerp )
-{
+static void client(SOCKET s, struct sockaddr_in *peerp) {
     int rc;
-    char buf[ 120 ];
-    for ( ;; )
-    {
-        rc = recv( s, buf, sizeof( buf ), 0 );
-        if ( rc <= 0 )
+    char buf[120];
+    for (;;) {
+        rc = recv(s, buf, sizeof(buf), 0);
+        if (rc <= 0)
             break;
-        write( 1, buf, rc );
+        write(1, buf, rc);
     }
 }
 
