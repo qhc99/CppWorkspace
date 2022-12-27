@@ -11,6 +11,6 @@ add_executable(simple_server simples.c)
 add_executable(tcp_server tcp_server_template.c etcp.h library/tcp_server.c utils.c)
 add_executable(tcp_client tcp_client_template.c etcp.h library/tcp_client.c utils.c)
 
-add_executable(udp_server etcp.h utils.c udp_server_template.c)
-add_executable(udp_client etcp.h utils.c udp_client_template.c)
+add_executable(udp_server etcp.h utils.c udp_server_template.c library/udp_server.c)
+add_executable(udp_client etcp.h utils.c udp_client_template.c library/udp_client.c)
 
