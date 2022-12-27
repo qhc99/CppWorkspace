@@ -49,7 +49,7 @@ namespace dev::qhc::utils {
     /**
      * [low, high) shuffled vector
      * @tparam Number
-     * @param low include
+     * @param low public
      * @param high exclude
      * @return
      */
