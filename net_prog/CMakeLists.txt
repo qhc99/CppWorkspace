@@ -15,5 +15,5 @@ add_executable(udp_server etcp.h utils.c udp_server_template.c lib/udp_server.c 
 add_executable(udp_client etcp.h utils.c udp_client_template.c lib/udp_client.c lib/readn.c)
 
 add_executable(vrs etcp.h utils.c lib/tcp_server.c lib/readn.c lib/readvrec.c vrs.c)
-add_executable(vrc etcp.h utils.c lib/readn.c)
+add_executable(vrc etcp.h utils.c lib/tcp_client.c lib/readn.c lib/readvrec.c vrc.c)
 

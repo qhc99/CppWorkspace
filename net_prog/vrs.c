@@ -4,6 +4,8 @@
 
 #include "etcp.h"
 
+char *program_name;
+
 int main(int argc, char **argv) {
     struct sockaddr_in peer;
     SOCKET s;
