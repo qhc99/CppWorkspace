@@ -5,6 +5,7 @@
 #include "camera.h"
 #include "material.h"
 #include <execution>
+#include <omp.h>
 
 color ray_color(const ray &r, const hittable &world, int depth) {
     hit_record rec;
@@ -77,9 +78,9 @@ int main() {
     // Image
 
     const auto aspect_ratio = 3.0 / 2.0;
-    const int image_width = 300;
+    const int image_width = 300; // 1200
     const int image_height = static_cast<int>(image_width / aspect_ratio);
-    const int samples_per_pixel = 100;
+    const int samples_per_pixel = 100; // 500
     const int max_depth = 50;
 
     // World
@@ -108,49 +109,26 @@ int main() {
     std::vector<int> par{};
     par.reserve(image_width);
 
+#pragma omp parallel for default(none) shared(image_height, world, cam, color_store,std::cerr)
     for (int j = image_height - 1; j >= 0; --j) {
-        par.push_back(j);
+        for (int i = 0; i < image_width; ++i) {
+            auto *pixel_color = new color(0, 0, 0);
+            for (int s = 0; s < samples_per_pixel; ++s) {
+                auto u = (i + random_double()) / (image_width - 1);
+                auto v = (j + random_double()) / (image_height - 1);
+                ray r = cam.get_ray(u, v);
+                *pixel_color += ray_color(r, world, max_depth);
+            }
+            color_store[j][i] = *pixel_color;
+        }
+        std::cerr << j << std::endl;
     }
 
-    std::for_each(
-        std::execution::par,
-        par.begin(),
-        par.end(),
-        [&](auto &&j) {
-            for (int i = 0; i < image_width; ++i) {
-                auto *pixel_color = new color(0, 0, 0);
-                for (int s = 0; s < samples_per_pixel; ++s) {
-                    auto u = (i + random_double()) / (image_width - 1);
-                    auto v = (j + random_double()) / (image_height - 1);
-                    ray r = cam.get_ray(u, v);
-                    *pixel_color += ray_color(r, world, max_depth);
-                }
-                color_store[j][i] = *pixel_color;
-            }
-            std::cerr << j << std::endl;
-        });
     for (int j = image_height - 1; j >= 0; --j) {
         for (int i = 0; i < image_width; ++i) {
             write_color(std::cout, color_store[j][i], samples_per_pixel);
         }
     }
-    //---------------------------------------------------
-
-//    for (int j = image_height - 1; j >= 0; --j) {
-//        std::cerr << "\rScan lines at: " << j << ' ' << std::flush;
-//        for (int i = 0; i < image_width; ++i) {
-//            color pixel_color(0, 0, 0);
-//            for (int s = 0; s < samples_per_pixel; ++s) {
-//                auto u = (i + random_double()) / (image_width - 1);
-//                auto v = (j + random_double()) / (image_height - 1);
-//                ray r = cam.get_ray(u, v);
-//                pixel_color += ray_color(r, world, max_depth);
-//            }
-//            write_color(std::cout, pixel_color, samples_per_pixel);
-//        }
-//    }
-
-
 
     std::cerr << "\nDone.\n";
 }

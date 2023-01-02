@@ -1,28 +1,28 @@
 //
 // Created by Nathan on 2022-12-10.
 //
+#include <cmath>
 #include <random>
 #include <iostream>
 #include "lib_central/utils.h"
 #include <chrono>
-#include <cassert>
 #include <execution>
-#include <cmath>
+#include <omp.h>
 
 using dev::qhc::utils::default_rand_engine;
 using std::chrono::duration_cast, std::chrono::nanoseconds;
 using dev::qhc::utils::current_time_point;
-using dev::qhc::utils::time_point_duration_to_ms;
+using dev::qhc::utils::time_point_duration_to_us;
 
 
-struct MatRange {
-    int r1;
-    int c1;
-    int r2;
-    int c2;
+struct MatBlock {
+    const int r1;
+    const int c1;
+    const int r2;
+    const int c2;
 };
 
-class PartitionMat {
+class MatPartition {
 
 private:
     const int p;
@@ -34,25 +34,25 @@ public:
     const int rows;
     const int cols;
 
-    PartitionMat(float **mat, int parti, int m, int n)
+    MatPartition(float **mat, int parti, int m, int n)
         : p{parti},
           m{m},
           n{n},
-          rows{static_cast<int>(ceil(m / (float) parti))},
-          cols{static_cast<int>(ceil(n / (float) parti))} {
+          rows{static_cast<int>(std::ceil(m / (float) parti))},
+          cols{static_cast<int>(std::ceil(n / (float) parti))} {
 
     }
 
 
-    MatRange at(int i, int j) {
+    [[nodiscard]] MatBlock at(int i, int j) const {
         return {i * p, j * p,
                 std::min(i * p + p, m), std::min(j * p + p, n)};
     }
 };
 
-static void mul(float **m1, MatRange m1r,
-                float **m2, MatRange m2r,
-                float **m3, MatRange m3r) {
+static void mul_mat_block(float **m1, MatBlock m1r,
+                          float **m2, MatBlock m2r,
+                          float **m3, MatBlock m3r) {
     for (int i = 0; i + m3r.r1 < m3r.r2; i++) {
         for (int j = 0; j + m3r.c1 < m3r.c2; j++) {
             for (int k = 0; k + m2r.r1 < m2r.r2; k++) {
@@ -63,13 +63,7 @@ static void mul(float **m1, MatRange m1r,
     }
 }
 
-int main() {
-    constexpr int size_a = 1300;
-    constexpr int size_b = 1300;
-    constexpr int size_c = 1300;
-    float **m1 = new float *[size_a];
-    float **m2 = new float *[size_b];
-    float **m3 = new float *[size_a];
+void reset(float **m1, float **m2, float **m3, int size_a, int size_b, int size_c) {
     std::uniform_real_distribution<float> dist(0, 1);
     auto rand_engine{default_rand_engine()};
     for (int i = 0; i < size_a; i++) {
@@ -91,7 +85,9 @@ int main() {
             m2[i][j] = dist(rand_engine);
         }
     }
-    std::cout << "start" << std::endl;
+}
+
+void native_parallel(float **m1, float **m2, float **m3, const int size_a, const int size_b, const int size_c) {
     auto &&t1{current_time_point()};
     std::vector<int> loop(size_a);
     for (int i = 0; i < size_a; i++) {
@@ -119,49 +115,110 @@ int main() {
     }
 
     std::cout << "naive par" << std::endl;
-    std::cout << "spend: " << time_point_duration_to_ms(t2, t1) / 1000. << " s" << std::endl;
+    std::cout << "spend: " << time_point_duration_to_us(t2, t1) / 1000000. << " s" << std::endl;
     std::cout << "sum: " << ans << std::endl;
+}
 
+void space_locality(float **m1, float **m2, float **m3, const int size_a, const int size_b, const int size_c,
+                    int w_s) {
     auto &&t3{current_time_point()};
-    int w_s = 32;
-    PartitionMat a1(m1, w_s, size_a, size_b);
-    PartitionMat a2(m2, w_s, size_b, size_c);
-    PartitionMat a3(m3, w_s, size_a, size_c);
+    const MatPartition a1(m1, w_s, size_a, size_b);
+    const MatPartition a2(m2, w_s, size_b, size_c);
+    const MatPartition a3(m3, w_s, size_a, size_c);
 
     std::vector<int> loop1(a3.rows);
     for (int i = 0; i < a3.rows; i++) {
-        loop.at(i) = i;
+        loop1.at(i) = i;
     }
 
     std::for_each(
-        std::execution::par,
-        loop.begin(),
-        loop.end(),
-        [&](auto &&i) {
+        std::execution::par_unseq,
+        loop1.begin(),
+        loop1.end(),
+        [&](auto i) {
             for (int j = 0; j < a3.cols; j++) {
-                MatRange m3r = a3.at(i, j);
+                MatBlock m3r = a3.at(i, j);
                 for (int p = 0; p + m3r.r1 < m3r.r2; p++) {
                     for (int q = 0; q + m3r.c1 < m3r.c2; q++) {
                         m3[p + m3r.r1][q + m3r.c1] = 0;
                     }
                 }
                 for (int k = 0; k < a1.cols; k++) {
-                    MatRange m1r = a1.at(i, k);
-                    MatRange m2r = a2.at(k, j);
-                    mul(m1, m1r, m2, m2r, m3, m3r);
+                    MatBlock m1r = a1.at(i, k);
+                    MatBlock m2r = a2.at(k, j);
+                    mul_mat_block(m1, m1r, m2, m2r, m3, m3r);
                 }
             }
         });
     auto &&t4{current_time_point()};
 
-    ans = 0;
+    double ans = 0;
     for (int i = 0; i < size_a; i++) {
         for (int j = 0; j < size_c; j++) {
             ans += m3[i][j];
         }
     }
 
-    std::cout << "locality par" << std::endl;
-    std::cout << "spend: " << time_point_duration_to_ms(t4, t3) / 1000. << " s" << std::endl;
+    std::cout << "\n";
+    std::cout << "locality parallel" << std::endl;
+    std::cout << "spend: " << time_point_duration_to_us(t4, t3) / 1000000. << " s" << std::endl;
     std::cout << "sum: " << ans << std::endl;
+}
+
+void space_locality_openmp(float **m1, float **m2, float **m3, const int size_a, const int size_b, const int size_c, int w_s) {
+    MatPartition a1(m1, w_s, size_a, size_b);
+    MatPartition a2(m2, w_s, size_b, size_c);
+    MatPartition a3(m3, w_s, size_a, size_c);
+    auto &&t5{current_time_point()};
+
+#pragma omp parallel for default(none) shared(a1,a2,a3,m1,m2,m3)
+    for (int i = 0; i < a3.rows; i++) {
+        for (int j = 0; j < a3.cols; j++) {
+            MatBlock m3r = a3.at(i, j);
+            for (int p = 0; p + m3r.r1 < m3r.r2; p++) {
+                for (int q = 0; q + m3r.c1 < m3r.c2; q++) {
+                    m3[p + m3r.r1][q + m3r.c1] = 0;
+                }
+            }
+            for (int k = 0; k < a1.cols; k++) {
+                MatBlock m1r = a1.at(i, k);
+                MatBlock m2r = a2.at(k, j);
+                mul_mat_block(m1, m1r, m2, m2r, m3, m3r);
+            }
+        }
+    }
+
+
+    auto &&t6{current_time_point()};
+
+    double ans = 0;
+    for (int i = 0; i < size_a; i++) {
+        for (int j = 0; j < size_c; j++) {
+            ans += m3[i][j];
+        }
+    }
+
+    std::cout << "\n";
+    std::cout << "locality" << std::endl;
+    std::cout << "spend: " << time_point_duration_to_us(t6, t5) / 1000000. << " s" << std::endl;
+    std::cout << "sum: " << ans << std::endl;
+}
+
+int main() {
+    constexpr int size_a = 2300;
+    constexpr int size_b = 2300;
+    constexpr int size_c = 2300;
+    auto **m1 = new float *[size_a];
+    auto **m2 = new float *[size_b];
+    auto **m3 = new float *[size_a];
+
+//    reset(m1, m2, m3, size_a, size_b, size_c);
+//    native_parallel(m1, m2, m3, size_a, size_b, size_c);
+
+    reset(m1, m2, m3, size_a, size_b, size_c);
+    space_locality(m1, m2, m3, size_a, size_b, size_c, 64);
+
+    reset(m1, m2, m3, size_a, size_b, size_c);
+    space_locality_openmp(m1, m2, m3, size_a, size_b, size_c, 64);
+
 }

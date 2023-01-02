@@ -11,3 +11,5 @@ target_include_directories(${PROJECT_NAME} PUBLIC public)
 
 add_executable(locality_demo locality_demo.cpp)
 target_link_libraries(locality_demo dev::qhc::lib_central)
+target_link_options(locality_demo PUBLIC -fopenmp)
+target_compile_options(locality_demo PUBLIC -fopenmp)
