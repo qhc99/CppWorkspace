@@ -6,9 +6,9 @@
 #define DEV_QHC_CPP_PROJECTS_CAMERA_H
 #include "rtweekend.h"
 
-class camera {
+class Camera {
 public:
-    camera(
+    Camera(
         point3 lookfrom,
         point3 lookat,
         vec3   vup,

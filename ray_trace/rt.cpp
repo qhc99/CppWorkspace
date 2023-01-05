@@ -2,11 +2,12 @@
 #include "color.h"
 #include "hittable_list.h"
 #include "sphere.h"
-#include "camera.h"
+#include "Camera.h"
 #include "material.h"
 #include <execution>
-#include <omp.h>
 
+#pragma clang diagnostic push
+#pragma ide diagnostic ignored "misc-no-recursion"
 color ray_color(const ray &r, const hittable &world, int depth) {
     hit_record rec;
 
@@ -26,6 +27,7 @@ color ray_color(const ray &r, const hittable &world, int depth) {
     auto t = 0.5 * (unit_direction.y() + 1.0);
     return (1.0 - t) * color(1.0, 1.0, 1.0) + t * color(0.5, 0.7, 1.0);
 }
+#pragma clang diagnostic pop
 
 hittable_list random_scene() {
     hittable_list world;
@@ -95,7 +97,7 @@ int main() {
     auto dist_to_focus = 10.0;
     auto aperture = 0.1;
 
-    camera cam(lookfrom, lookat, vup, 20, aspect_ratio, aperture, dist_to_focus);
+    Camera cam(lookfrom, lookat, vup, 20, aspect_ratio, aperture, dist_to_focus);
     // Render
 
     std::cout << "P3\n" << image_width << " " << image_height << "\n255\n";
@@ -112,7 +114,7 @@ int main() {
 #pragma omp parallel for default(none) shared(image_height, world, cam, color_store,std::cerr)
     for (int j = image_height - 1; j >= 0; --j) {
         for (int i = 0; i < image_width; ++i) {
-            auto *pixel_color = new color(0, 0, 0);
+            auto *pixel_color = new color(0, 0, 0); // free when terminate
             for (int s = 0; s < samples_per_pixel; ++s) {
                 auto u = (i + random_double()) / (image_width - 1);
                 auto v = (j + random_double()) / (image_height - 1);
