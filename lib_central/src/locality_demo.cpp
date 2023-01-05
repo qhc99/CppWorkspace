@@ -7,7 +7,6 @@
 #include "lib_central/utils.h"
 #include <chrono>
 #include <execution>
-#include <omp.h>
 
 using dev::qhc::utils::default_rand_engine;
 using std::chrono::duration_cast, std::chrono::nanoseconds;
@@ -34,12 +33,12 @@ public:
     const int rows;
     const int cols;
 
-    MatPartition(float **mat, int parti, int m, int n)
+    MatPartition(int parti, int m, int n)
         : p{parti},
           m{m},
           n{n},
-          rows{static_cast<int>(std::ceil(m / (float) parti))},
-          cols{static_cast<int>(std::ceil(n / (float) parti))} {
+          rows{static_cast<int>(std::ceil(static_cast<float>(m) / static_cast<float> (parti)))},
+          cols{static_cast<int>(std::ceil(static_cast<float>(n) / static_cast<float> (parti)))} {
 
     }
 
@@ -87,44 +86,12 @@ void reset(float **m1, float **m2, float **m3, int size_a, int size_b, int size_
     }
 }
 
-void native_parallel(float **m1, float **m2, float **m3, const int size_a, const int size_b, const int size_c) {
-    auto &&t1{current_time_point()};
-    std::vector<int> loop(size_a);
-    for (int i = 0; i < size_a; i++) {
-        loop.at(i) = i;
-    }
-
-    std::for_each(
-        std::execution::par,
-        loop.begin(),
-        loop.end(),
-        [&](auto &&i) {
-            for (int j = 0; j < size_c; j++) {
-                m3[i][j] = 0;
-                for (int k = 0; k < size_b; k++) {
-                    m3[i][j] += m1[i][k] * m2[k][j];
-                }
-            }
-        });
-    auto &&t2{current_time_point()};
-    double ans = 0;
-    for (int i = 0; i < size_a; i++) {
-        for (int j = 0; j < size_c; j++) {
-            ans += m3[i][j];
-        }
-    }
-
-    std::cout << "naive par" << std::endl;
-    std::cout << "spend: " << time_point_duration_to_us(t2, t1) / 1000000. << " s" << std::endl;
-    std::cout << "sum: " << ans << std::endl;
-}
-
 void space_locality(float **m1, float **m2, float **m3, const int size_a, const int size_b, const int size_c,
                     int w_s) {
     auto &&t3{current_time_point()};
-    const MatPartition a1(m1, w_s, size_a, size_b);
-    const MatPartition a2(m2, w_s, size_b, size_c);
-    const MatPartition a3(m3, w_s, size_a, size_c);
+    const MatPartition a1(w_s, size_a, size_b);
+    const MatPartition a2(w_s, size_b, size_c);
+    const MatPartition a3(w_s, size_a, size_c);
 
     std::vector<int> loop1(a3.rows);
     for (int i = 0; i < a3.rows; i++) {
@@ -160,18 +127,19 @@ void space_locality(float **m1, float **m2, float **m3, const int size_a, const 
     }
 
     std::cout << "\n";
-    std::cout << "locality parallel" << std::endl;
+    std::cout << "locality" << std::endl;
     std::cout << "spend: " << time_point_duration_to_us(t4, t3) / 1000000. << " s" << std::endl;
     std::cout << "sum: " << ans << std::endl;
 }
 
-void space_locality_openmp(float **m1, float **m2, float **m3, const int size_a, const int size_b, const int size_c, int w_s) {
-    MatPartition a1(m1, w_s, size_a, size_b);
-    MatPartition a2(m2, w_s, size_b, size_c);
-    MatPartition a3(m3, w_s, size_a, size_c);
+void space_locality_openmp(float **m1, float **m2, float **m3, const int size_a, const int size_b, const int size_c,
+                           int w_s) {
+    MatPartition a1(w_s, size_a, size_b);
+    MatPartition a2(w_s, size_b, size_c);
+    MatPartition a3(w_s, size_a, size_c);
     auto &&t5{current_time_point()};
 
-#pragma omp parallel for default(none) shared(a1,a2,a3,m1,m2,m3)
+#pragma omp parallel for default(none) shared(a1, a2, a3, m1, m2, m3)
     for (int i = 0; i < a3.rows; i++) {
         for (int j = 0; j < a3.cols; j++) {
             MatBlock m3r = a3.at(i, j);
@@ -199,21 +167,19 @@ void space_locality_openmp(float **m1, float **m2, float **m3, const int size_a,
     }
 
     std::cout << "\n";
-    std::cout << "locality" << std::endl;
+    std::cout << "locality openmp" << std::endl;
     std::cout << "spend: " << time_point_duration_to_us(t6, t5) / 1000000. << " s" << std::endl;
     std::cout << "sum: " << ans << std::endl;
 }
 
 int main() {
-    constexpr int size_a = 2300;
-    constexpr int size_b = 2300;
-    constexpr int size_c = 2300;
+    constexpr int size_a = 1500;
+    constexpr int size_b = 1500;
+    constexpr int size_c = 1500;
     auto **m1 = new float *[size_a];
     auto **m2 = new float *[size_b];
     auto **m3 = new float *[size_a];
 
-//    reset(m1, m2, m3, size_a, size_b, size_c);
-//    native_parallel(m1, m2, m3, size_a, size_b, size_c);
 
     reset(m1, m2, m3, size_a, size_b, size_c);
     space_locality(m1, m2, m3, size_a, size_b, size_c, 64);
