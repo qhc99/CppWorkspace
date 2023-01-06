@@ -87,12 +87,12 @@ __global__ void set_up(HittableList *world_dev, Camera *cam_dev) {
 
     // Camera
 
-    Point3 lookfrom(13, 2, 3);
-    Point3 lookat(0, 0, 0);
+    Point3 look_from(13, 2, 3);
+    Point3 look_at(0, 0, 0);
     Vec3 vup(0, 1, 0);
     auto dist_to_focus = 10.0;
     auto aperture = 0.1;
-    *cam_dev = Camera(lookfrom, lookat, vup, 20, aspect_ratio, aperture, dist_to_focus);
+    *cam_dev = Camera(look_from, look_at, vup, 20, aspect_ratio, aperture, dist_to_focus);
 }
 
 __global__ void ray_trace(HittableList *world_dev, Camera *cam_dev, Color *color_store_dev) {
