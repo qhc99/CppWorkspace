@@ -7,7 +7,6 @@
 #include "utils.h"
 
 
-
 __device__ Color ray_color(const Ray &r, const Hittable *world, int depth, curandState *state) {
     HitRecord rec;
 
@@ -33,7 +32,7 @@ constexpr int cache_size = 500;
 
 __device__ void random_scene(
     HittableList *world_dev,
-    Hittable** obj_ptr_cache,
+    Hittable **obj_ptr_cache,
     Sphere *sphere_cache,
     Lambertian *lambertian_cache,
     Metal *metal_cache,
@@ -48,7 +47,7 @@ __device__ void random_scene(
 
     new(world_dev) HittableList(cache_size, obj_ptr_cache);
     HittableList &world = *world_dev;
-    new (&lambertian_cache[lambertian_cache_idx])Lambertian(Color(0.5, 0.5, 0.5));
+    new(&lambertian_cache[lambertian_cache_idx])Lambertian(Color(0.5, 0.5, 0.5));
     auto ground_material = &lambertian_cache[lambertian_cache_idx];
     lambertian_cache_idx++;
 
@@ -68,7 +67,7 @@ __device__ void random_scene(
                 if (choose_mat < 0.8) {
                     // diffuse
                     auto albedo = Color::random(state) * Color::random(state);
-                    new (&lambertian_cache[lambertian_cache_idx])Lambertian(albedo);
+                    new(&lambertian_cache[lambertian_cache_idx])Lambertian(albedo);
                     sphere_material = &lambertian_cache[lambertian_cache_idx];
                     lambertian_cache_idx++;
                     new(&(sphere_cache[sphere_cache_idx])) Sphere(center, 0.2, sphere_material);
@@ -78,7 +77,7 @@ __device__ void random_scene(
                     // metal
                     auto albedo = Color::random(0.5, 1, state);
                     auto fuzz = random_double(0, 0.5, state);
-                    new (&metal_cache[metal_cache_idx])Metal(albedo, fuzz);
+                    new(&metal_cache[metal_cache_idx])Metal(albedo, fuzz);
                     sphere_material = &metal_cache[metal_cache_idx];
                     metal_cache_idx++;
                     new(&(sphere_cache[sphere_cache_idx]))Sphere(center, 0.2, sphere_material);
@@ -86,7 +85,7 @@ __device__ void random_scene(
                     sphere_cache_idx++;
                 } else {
                     // glass
-                    new (&dielectric_cache[dielectric_cache_idx])Dielectric(1.5);
+                    new(&dielectric_cache[dielectric_cache_idx])Dielectric(1.5);
                     sphere_material = &dielectric_cache[dielectric_cache_idx];
                     dielectric_cache_idx++;
                     new(&(sphere_cache[sphere_cache_idx]))Sphere(center, 0.2, sphere_material);
@@ -97,7 +96,7 @@ __device__ void random_scene(
         }
     }
 
-    new (&dielectric_cache[dielectric_cache_idx])Dielectric(1.5);
+    new(&dielectric_cache[dielectric_cache_idx])Dielectric(1.5);
     auto material1 = &dielectric_cache[dielectric_cache_idx];
     dielectric_cache_idx++;
     new(&(sphere_cache[sphere_cache_idx]))Sphere(Point3(0, 1, 0), 1.0, material1);
@@ -105,7 +104,7 @@ __device__ void random_scene(
     sphere_cache_idx++;
 
     new(&lambertian_cache[lambertian_cache_idx])Lambertian(Color(0.4, 0.2, 0.1));
-    auto material2 =&lambertian_cache[lambertian_cache_idx];
+    auto material2 = &lambertian_cache[lambertian_cache_idx];
     lambertian_cache_idx++;
     new(&(sphere_cache[sphere_cache_idx]))Sphere(Point3(-4, 1, 0), 1.0, material2);
     world.add(&sphere_cache[sphere_cache_idx]);
@@ -129,7 +128,7 @@ constexpr int max_depth = 50;
 
 __global__ void set_up(
     HittableList *world_dev,
-    Hittable** obj_ptr_cache,
+    Hittable **obj_ptr_cache,
     Sphere *sphere_cache,
     Lambertian *lambertian_cache,
     Metal *metal_cache,
@@ -204,7 +203,7 @@ int main() {
 
     // cache
     Hittable **obj_ptr_cache_dev = nullptr;
-    HANDLE_ERROR(cudaMalloc(&obj_ptr_cache_dev, sizeof(Hittable*) * cache_size));
+    HANDLE_ERROR(cudaMalloc(&obj_ptr_cache_dev, sizeof(Hittable *) * cache_size));
     Sphere *sphere_cache_dev = nullptr;
     HANDLE_ERROR(cudaMalloc(&sphere_cache_dev, sizeof(Sphere) * cache_size));
     Lambertian *lambertian_cache_dev = nullptr;
