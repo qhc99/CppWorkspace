@@ -11,7 +11,7 @@
 class Material {
 public:
     __device__ virtual bool scatter(
-        const Ray &r_in, const HitRecord &rec, Color &attenuation, Ray &scattered
+        const Ray &r_in, const HitRecord &rec, Color &attenuation, Ray &scattered,curandState *state
     ) const {
 
     };
@@ -26,9 +26,9 @@ public:
     __device__ explicit Lambertian(const Color &a) : albedo(a) {}
 
     __device__ bool scatter(
-        const Ray &r_in, const HitRecord &rec, Color &attenuation, Ray &scattered
+        const Ray &r_in, const HitRecord &rec, Color &attenuation, Ray &scattered,curandState *state
     ) const override {
-        auto scatter_direction = rec.normal + random_unit_vector();
+        auto scatter_direction = rec.normal + random_unit_vector(state);
 
         // Catch degenerate scatter direction
         if (scatter_direction.near_zero())
@@ -48,10 +48,10 @@ public:
     __device__ Metal(const Color &a, double f) : albedo(a), fuzz(f < 1 ? f : 1) {}
 
     __device__ bool scatter(
-        const Ray &r_in, const HitRecord &rec, Color &attenuation, Ray &scattered
+        const Ray &r_in, const HitRecord &rec, Color &attenuation, Ray &scattered,curandState *state
     ) const override {
         Vec3 reflected = reflect(unit_vector(r_in.direction()), rec.normal);
-        scattered = Ray(rec.p, reflected + fuzz * random_in_unit_sphere());
+        scattered = Ray(rec.p, reflected + fuzz * random_in_unit_sphere(state));
         attenuation = albedo;
         return (dot(scattered.direction(), rec.normal) > 0);
     }
@@ -66,7 +66,7 @@ public:
     __device__ explicit Dielectric(double index_of_refraction) : ir(index_of_refraction) {}
 
     __device__ bool scatter(
-        const Ray &r_in, const HitRecord &rec, Color &attenuation, Ray &scattered
+        const Ray &r_in, const HitRecord &rec, Color &attenuation, Ray &scattered, curandState *state
     ) const override {
         attenuation = Color(1.0, 1.0, 1.0);
         double refraction_ratio = rec.front_face ? (1.0 / ir) : ir;
@@ -81,7 +81,7 @@ public:
         bool cannot_refract = refraction_ratio * sin_theta > 1.0;
         Vec3 direction;
 
-        if (cannot_refract || reflectance(cos_theta, refraction_ratio) > random_double())
+        if (cannot_refract || reflectance(cos_theta, refraction_ratio) > random_double(state))
             direction = reflect(unit_direction, rec.normal);
         else
             direction = refract(unit_direction, rec.normal, refraction_ratio);

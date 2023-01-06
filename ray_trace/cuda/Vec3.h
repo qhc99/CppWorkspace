@@ -147,17 +147,17 @@ __device__ inline Vec3 unit_vector(Vec3 v) {
     return v / v.length();
 }
 
-__device__ Vec3 random_in_unit_sphere() {
+__device__ Vec3 random_in_unit_sphere(curandState *state) {
     while (true) {
-        auto p = Vec3::random(-1, 1);
+        auto p = Vec3::random(-1, 1,state);
         if (p.length_squared() >= 1) continue;
         return p;
     }
 }
 
 
-__device__ Vec3 random_unit_vector() {
-    return unit_vector(random_in_unit_sphere());
+__device__ Vec3 random_unit_vector(curandState *state) {
+    return unit_vector(random_in_unit_sphere(state));
 }
 
 //__device__ Vec3 random_in_hemisphere(const Vec3& normal) {
@@ -179,9 +179,9 @@ __device__ Vec3 refract(const Vec3 &uv, const Vec3 &n, double etai_over_etat) {
     return r_out_perp + r_out_parallel;
 }
 
-__device__ Vec3 random_in_unit_disk() {
+__device__ Vec3 random_in_unit_disk(curandState *state) {
     while (true) {
-        auto p = Vec3(random_double(-1, 1), random_double(-1, 1), 0);
+        auto p = Vec3(random_double(-1, 1,state), random_double(-1, 1,state), 0);
         if (p.length_squared() >= 1) continue;
         return p;
     }

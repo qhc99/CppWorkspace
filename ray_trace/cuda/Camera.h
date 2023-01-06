@@ -35,8 +35,8 @@ public:
         lens_radius = aperture / 2;
     }
 
-    __device__ Ray get_ray(double s, double t) const {
-        Vec3 rd = random_in_unit_disk() * lens_radius;
+    __device__ Ray get_ray(double s, double t, curandState *state) const {
+        Vec3 rd = random_in_unit_disk(state) * lens_radius;
 
         Vec3 offset = u * rd.x() + v * rd.y();
 
