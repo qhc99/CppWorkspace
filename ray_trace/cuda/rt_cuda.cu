@@ -258,5 +258,6 @@ int main() {
     HANDLE_ERROR(cudaFree(lambertian_cache_dev));
     HANDLE_ERROR(cudaFree(metal_cache_dev));
     HANDLE_ERROR(cudaFree(dielectric_cache_dev));
+    HANDLE_ERROR(cudaFree(obj_ptr_cache_dev));
     free(color_store);
 }
