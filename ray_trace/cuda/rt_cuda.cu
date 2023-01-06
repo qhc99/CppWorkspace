@@ -29,7 +29,7 @@ __device__ Color ray_color(const Ray &r, const Hittable *world, int depth, curan
     return (1.0 - t) * Color(1.0, 1.0, 1.0) + t * Color(0.5, 0.7, 1.0);
 }
 
-__device__ void random_scene(HittableList *world_dev, curandState *state) {
+__global__ void random_scene(HittableList *world_dev, Sphere * sphere_cache, curandState *state) {
     new (world_dev) HittableList(200);
     HittableList &world = *world_dev;
     auto ground_material = new Lambertian(Color(0.5, 0.5, 0.5));
@@ -81,9 +81,9 @@ constexpr int image_height = static_cast<int>(image_width / aspect_ratio);
 constexpr int samples_per_pixel = 500; // 500
 constexpr int max_depth = 50;
 
-__global__ void set_up(HittableList *world_dev, Camera *cam_dev, curandState *state) {
+__global__ void set_up(HittableList *world_dev, Sphere * sphere_cache, Camera *cam_dev, curandState *state) {
     // World
-    random_scene(world_dev, state);
+    random_scene<<<1,1>>>(world_dev, sphere_cache, state);
 
     // Camera
     Point3 look_from(13, 2, 3);
@@ -129,7 +129,7 @@ int main() {
 
     std::cout << "P3\n" << image_width << " " << image_height << "\n255\n";
 
-    //---------------------------------------------------
+    // var
     auto *color_store = static_cast<Color *>(malloc(sizeof(Color) * image_width * image_height));
     Color *color_store_dev = nullptr;
     HANDLE_ERROR(cudaMalloc(&color_store_dev, sizeof(Color) * image_width * image_height));
@@ -139,14 +139,21 @@ int main() {
     HANDLE_ERROR(cudaMalloc(&cam_dev, sizeof(Camera)));
     curandState *d_state;
     HANDLE_ERROR(cudaMalloc(&d_state, sizeof(curandState)));
-    set_up<<<1, 1>>>(world_dev, cam_dev, d_state);
+    const int sphere_cache_size = 200;
+    Sphere *sphere_cache_dev = nullptr;
+    HANDLE_ERROR(cudaMalloc(&color_store_dev, sizeof(Sphere)*sphere_cache_size));
 
+    // set up
+    set_up<<<1, 1>>>(world_dev, sphere_cache_dev, cam_dev, d_state);
+
+    // metric var
     cudaEvent_t start, stop;
     HANDLE_ERROR(cudaEventCreate(&start));
     HANDLE_ERROR(cudaEventCreate(&stop));
     HANDLE_ERROR(cudaEventRecord(start));
 
 
+    // kernel
     ray_trace<<<grid_dims, block_dims>>>(world_dev, cam_dev, color_store_dev, d_state);
 
     HANDLE_ERROR(cudaEventRecord(stop));
