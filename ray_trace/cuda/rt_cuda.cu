@@ -8,7 +8,7 @@
 #include <execution>
 
 
-__device__ Color ray_color(const Ray &r, const Hittable *world, int depth,curandState *state) {
+__device__ Color ray_color(const Ray &r, const Hittable *world, int depth, curandState *state) {
     HitRecord rec;
 
     // If we've exceeded the ray bounce limit, no more light is gathered.
@@ -18,8 +18,8 @@ __device__ Color ray_color(const Ray &r, const Hittable *world, int depth,curand
     if (world->hit(r, 0.001, infinity, rec)) {
         Ray scattered;
         Color attenuation;
-        if (rec.mat_ptr->scatter(r, rec, attenuation, scattered,state)) {
-            return attenuation * ray_color(scattered, world, depth - 1,state);
+        if (rec.mat_ptr->scatter(r, rec, attenuation, scattered, state)) {
+            return attenuation * ray_color(scattered, world, depth - 1, state);
         }
         return {0, 0, 0};
     }
@@ -30,8 +30,8 @@ __device__ Color ray_color(const Ray &r, const Hittable *world, int depth,curand
 }
 
 __device__ void random_scene(HittableList *world_dev, curandState *state) {
-    HittableList world{50};
-
+    new (world_dev) HittableList(50);
+    HittableList &world = *world_dev;
     auto ground_material = new Lambertian(Color(0.5, 0.5, 0.5));
     world.add(new Sphere(Point3(0, -1000, 0), 1000, ground_material));
 
@@ -50,8 +50,8 @@ __device__ void random_scene(HittableList *world_dev, curandState *state) {
                     world.add(new Sphere(center, 0.2, sphere_material));
                 } else if (choose_mat < 0.95) {
                     // metal
-                    auto albedo = Color::random(0.5, 1,state);
-                    auto fuzz = random_double(0, 0.5,state);
+                    auto albedo = Color::random(0.5, 1, state);
+                    auto fuzz = random_double(0, 0.5, state);
                     sphere_material = new Metal(albedo, fuzz);
                     world.add(new Sphere(center, 0.2, sphere_material));
                 } else {
@@ -103,8 +103,8 @@ __global__ void ray_trace(HittableList *world_dev, Camera *cam_dev, Color *color
             for (int s = 0; s < samples_per_pixel; ++s) {
                 auto u = (i + random_double(state)) / (image_width - 1);
                 auto v = (j + random_double(state)) / (image_height - 1);
-                Ray r = cam_dev->get_ray(u, v,state);
-                *pixel_color += ray_color(r, world_dev, max_depth,state);
+                Ray r = cam_dev->get_ray(u, v, state);
+                *pixel_color += ray_color(r, world_dev, max_depth, state);
             }
             color_store_dev[j * image_width + i] = *pixel_color;
         }
@@ -139,7 +139,7 @@ int main() {
     HANDLE_ERROR(cudaMalloc(&cam_dev, sizeof(Camera)));
     curandState *d_state;
     HANDLE_ERROR(cudaMalloc(&d_state, sizeof(curandState)));
-    set_up<<<1, 1>>>(world_dev, cam_dev,d_state);
+    set_up<<<1, 1>>>(world_dev, cam_dev, d_state);
 
     cudaEvent_t start, stop;
     HANDLE_ERROR(cudaEventCreate(&start));
@@ -147,7 +147,7 @@ int main() {
     HANDLE_ERROR(cudaEventRecord(start));
 
 
-    ray_trace<<<grid_dims, block_dims>>>(world_dev, cam_dev, color_store_dev,d_state);
+    ray_trace<<<grid_dims, block_dims>>>(world_dev, cam_dev, color_store_dev, d_state);
 
     HANDLE_ERROR(cudaEventRecord(stop));
     HANDLE_ERROR(cudaEventSynchronize(stop));
