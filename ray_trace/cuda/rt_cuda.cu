@@ -8,14 +8,14 @@
 #include <execution>
 
 
-__device__ Color ray_color(const Ray &r, const Hittable &world, int depth) {
+__device__ Color ray_color(const Ray &r, const Hittable *world, int depth) {
     HitRecord rec;
 
     // If we've exceeded the ray bounce limit, no more light is gathered.
     if (depth <= 0) {
         return {0, 0, 0};
     }
-    if (world.hit(r, 0.001, infinity, rec)) {
+    if (world->hit(r, 0.001, infinity, rec)) {
         Ray scattered;
         Color attenuation;
         if (rec.mat_ptr->scatter(r, rec, attenuation, scattered)) {
@@ -105,7 +105,7 @@ __global__ void ray_trace(HittableList *world_dev, Camera *cam_dev, Color *color
                 auto u = (i + random_double()) / (image_width - 1);
                 auto v = (j + random_double()) / (image_height - 1);
                 Ray r = cam_dev->get_ray(u, v);
-                *pixel_color += ray_color(r, *world_dev, max_depth);
+                *pixel_color += ray_color(r, world_dev, max_depth);
             }
             color_store_dev[j * image_width + i] = *pixel_color;
         }
