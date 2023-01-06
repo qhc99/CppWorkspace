@@ -8,7 +8,7 @@
 
 class Ray {
 public:
-    __device__ Ray() = default;;
+    __device__ Ray(){};;
     __device__ Ray(const Point3& origin, const Vec3& direction)
         : orig(origin), dir(direction)
     {}

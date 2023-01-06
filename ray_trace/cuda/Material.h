@@ -14,7 +14,9 @@ public:
         const Ray &r_in, const HitRecord &rec, Color &attenuation, Ray &scattered
     ) const = 0;
 
-    __device__ virtual ~Material() = default;
+    __device__ virtual ~Material() {
+
+    };
 };
 
 class Lambertian : public Material {

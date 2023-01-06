@@ -11,19 +11,20 @@
 
 class Sphere : public Hittable {
 public:
-    __device__ Sphere() = default;;
-    __device__ Sphere(Point3 cen, double r, Material* m)
+    __device__ Sphere() {};
+
+    __device__ Sphere(Point3 cen, double r, Material *m)
         : center(cen), radius(r), mat_ptr(m) {};
 
     __device__ virtual bool hit(
-        const Ray& r, double t_min, double t_max, HitRecord& rec) const;
+        const Ray &r, double t_min, double t_max, HitRecord &rec) const;
 
 public:
     Point3 center;
     double radius{};
-    Material* mat_ptr{};
+    Material *mat_ptr{};
 
-    __device__ virtual ~Sphere(){
+    __device__ virtual ~Sphere() {
         delete mat_ptr;
     }
 };
