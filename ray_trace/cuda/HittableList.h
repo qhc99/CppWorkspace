@@ -13,11 +13,11 @@ private:
     int idx{0};
     int len{0};
 public:
-    __device__ static void init(HittableList* self,int max_len){
-        self->len = max_len;
-        self->objects = new Hittable *[max_len];
-        for (int i = 0; i < self->len; i++) {
-            self->objects[i] = nullptr;
+    __device__ HittableList(int max_len){
+        len = max_len;
+        objects = new Hittable *[max_len];
+        for (int i = 0; i < len; i++) {
+            objects[i] = nullptr;
         }
     }
 
