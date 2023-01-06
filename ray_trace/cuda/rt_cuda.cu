@@ -160,6 +160,10 @@ int main() {
             write_color(std::cout, color_store[j * image_width + i], samples_per_pixel);
         }
     }
-
     std::cerr << "\nDone.\n";
+
+    HANDLE_ERROR(cudaFree(world_dev));
+    HANDLE_ERROR(cudaFree(cam_dev));
+    HANDLE_ERROR(cudaFree(color_store_dev));
+    free(color_store);
 }
