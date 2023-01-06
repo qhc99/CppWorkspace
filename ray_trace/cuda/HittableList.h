@@ -28,10 +28,6 @@ public:
         }
     }
 
-//    __device__ HittableList& operator=(const HittableList& other){
-//        objects = other.objects;
-//    };
-
     __device__ bool hit(
         const Ray &r, double t_min, double t_max, HitRecord &rec) const override;
 

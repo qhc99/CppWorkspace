@@ -31,7 +31,7 @@ __device__ Color ray_color(const Ray &r, const Hittable &world, int depth) {
 
 __device__ void random_scene(HittableList *world_dev) {
     HittableList *world = world_dev;
-    HittableList::init(world_dev, 40);
+    HittableList::init(world_dev, 100);
 
     auto ground_material = new Lambertian(Color(0.5, 0.5, 0.5));
     world->add(new Sphere(Point3(0, -1000, 0), 1000, ground_material));
