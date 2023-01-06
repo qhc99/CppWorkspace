@@ -31,12 +31,6 @@ public:
     __device__ bool hit(
         const Ray &r, double t_min, double t_max, HitRecord &rec) const override;
 
-    __device__ ~HittableList() override {
-        for (int i = 0; i < idx; i++) {
-            delete objects[i];
-        }
-        delete objects;
-    }
 
 public:
     Hittable **objects{};

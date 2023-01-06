@@ -29,12 +29,33 @@ __device__ Color ray_color(const Ray &r, const Hittable *world, int depth, curan
     return (1.0 - t) * Color(1.0, 1.0, 1.0) + t * Color(0.5, 0.7, 1.0);
 }
 
-__global__ void random_scene(HittableList *world_dev, Sphere * sphere_cache, curandState *state) {
-    new (world_dev) HittableList(200);
-    HittableList &world = *world_dev;
-    auto ground_material = new Lambertian(Color(0.5, 0.5, 0.5));
-    world.add(new Sphere(Point3(0, -1000, 0), 1000, ground_material));
+constexpr int cache_size = 200;
 
+__global__ void random_scene(
+    HittableList *world_dev,
+    Sphere *sphere_cache,
+    Lambertian *lambertian_cache,
+    Metal *metal_cache,
+    Dielectric *dielectric_cache,
+    curandState *state) {
+
+    int
+        sphere_cache_idx = 0,
+        lambertian_cache_idx = 0,
+        metal_cache_idx = 0,
+        dielectric_cache_idx = 0;
+
+    new(world_dev) HittableList(cache_size);
+    HittableList &world = *world_dev;
+    new (&lambertian_cache[lambertian_cache_idx])Lambertian(Color(0.5, 0.5, 0.5));
+    auto &ground_material = lambertian_cache[lambertian_cache_idx];
+    lambertian_cache_idx++;
+
+    new(&sphere_cache[sphere_cache_idx]) Sphere(Point3(0, -1000, 0), 1000, &ground_material);
+    world.add(&sphere_cache[sphere_cache_idx]);
+    sphere_cache_idx++;
+
+    // should consider cache size
     for (int a = -11; a < 11; a++) {
         for (int b = -11; b < 11; b++) {
             auto choose_mat = random_double(state);
@@ -46,31 +67,55 @@ __global__ void random_scene(HittableList *world_dev, Sphere * sphere_cache, cur
                 if (choose_mat < 0.8) {
                     // diffuse
                     auto albedo = Color::random(state) * Color::random(state);
-                    sphere_material = new Lambertian(albedo);
-                    world.add(new Sphere(center, 0.2, sphere_material));
+                    new (&lambertian_cache[lambertian_cache_idx])Lambertian(albedo);
+                    sphere_material = &lambertian_cache[lambertian_cache_idx];
+                    lambertian_cache_idx++;
+                    new(&(sphere_cache[sphere_cache_idx])) Sphere(center, 0.2, sphere_material);
+                    world.add(&sphere_cache[sphere_cache_idx]);
+                    sphere_cache_idx++;
                 } else if (choose_mat < 0.95) {
                     // metal
                     auto albedo = Color::random(0.5, 1, state);
                     auto fuzz = random_double(0, 0.5, state);
-                    sphere_material = new Metal(albedo, fuzz);
-                    world.add(new Sphere(center, 0.2, sphere_material));
+                    new (&metal_cache[metal_cache_idx])Metal(albedo, fuzz);
+                    sphere_material = &metal_cache[metal_cache_idx];
+                    metal_cache_idx++;
+                    new(&(sphere_cache[sphere_cache_idx]))Sphere(center, 0.2, sphere_material);
+                    world.add(&sphere_cache[sphere_cache_idx]);
+                    sphere_cache_idx++;
                 } else {
                     // glass
-                    sphere_material = new Dielectric(1.5);
-                    world.add(new Sphere(center, 0.2, sphere_material));
+                    new (&dielectric_cache[dielectric_cache_idx])Dielectric(1.5);
+                    sphere_material = &dielectric_cache[dielectric_cache_idx];
+                    dielectric_cache_idx++;
+                    new(&(sphere_cache[sphere_cache_idx]))Sphere(center, 0.2, sphere_material);
+                    world.add(&sphere_cache[sphere_cache_idx]);
+                    sphere_cache_idx++;
                 }
             }
         }
     }
 
-    auto material1 = new Dielectric(1.5);
-    world.add(new Sphere(Point3(0, 1, 0), 1.0, material1));
+    new (&dielectric_cache[dielectric_cache_idx])Dielectric(1.5);
+    auto material1 = &dielectric_cache[dielectric_cache_idx];
+    dielectric_cache_idx++;
+    new(&(sphere_cache[sphere_cache_idx]))Sphere(Point3(0, 1, 0), 1.0, material1);
+    world.add(&sphere_cache[sphere_cache_idx]);
+    sphere_cache_idx++;
 
-    auto material2 = new Lambertian(Color(0.4, 0.2, 0.1));
-    world.add(new Sphere(Point3(-4, 1, 0), 1.0, material2));
+    new(&lambertian_cache[lambertian_cache_idx])Lambertian(Color(0.4, 0.2, 0.1));
+    auto material2 =&lambertian_cache[lambertian_cache_idx];
+    lambertian_cache_idx++;
+    new(&(sphere_cache[sphere_cache_idx]))Sphere(Point3(-4, 1, 0), 1.0, material2);
+    world.add(&sphere_cache[sphere_cache_idx]);
+    sphere_cache_idx++;
 
-    auto material3 = new Metal(Color(0.7, 0.6, 0.5), 0.0);
-    world.add(new Sphere(Point3(4, 1, 0), 1.0, material3));
+    new(&metal_cache[metal_cache_idx])Metal(Color(0.7, 0.6, 0.5), 0.0);
+    auto material3 = &metal_cache[metal_cache_idx];
+    metal_cache_idx++;
+    new(&(sphere_cache[sphere_cache_idx]))Sphere(Point3(4, 1, 0), 1.0, material3);
+    world.add(&sphere_cache[sphere_cache_idx]);
+    sphere_cache_idx++;
 
     *world_dev = world;
 }
@@ -81,9 +126,22 @@ constexpr int image_height = static_cast<int>(image_width / aspect_ratio);
 constexpr int samples_per_pixel = 500; // 500
 constexpr int max_depth = 50;
 
-__global__ void set_up(HittableList *world_dev, Sphere * sphere_cache, Camera *cam_dev, curandState *state) {
+__global__ void set_up(
+    HittableList *world_dev,
+    Sphere *sphere_cache,
+    Lambertian *lambertian_cache,
+    Metal *metal_cache,
+    Dielectric *dielectric_cache,
+    Camera *cam_dev,
+    curandState *state) {
     // World
-    random_scene<<<1,1>>>(world_dev, sphere_cache, state);
+    random_scene<<<1, 1>>>(
+        world_dev,
+        sphere_cache,
+        lambertian_cache,
+        metal_cache,
+        dielectric_cache,
+        state);
 
     // Camera
     Point3 look_from(13, 2, 3);
@@ -137,14 +195,28 @@ int main() {
     HANDLE_ERROR(cudaMalloc(&world_dev, sizeof(HittableList)));
     Camera *cam_dev = nullptr;
     HANDLE_ERROR(cudaMalloc(&cam_dev, sizeof(Camera)));
-    curandState *d_state;
-    HANDLE_ERROR(cudaMalloc(&d_state, sizeof(curandState)));
-    const int sphere_cache_size = 200;
+    curandState *rnd_state_dev;
+    HANDLE_ERROR(cudaMalloc(&rnd_state_dev, sizeof(curandState)));
+
+    // cache
     Sphere *sphere_cache_dev = nullptr;
-    HANDLE_ERROR(cudaMalloc(&color_store_dev, sizeof(Sphere)*sphere_cache_size));
+    HANDLE_ERROR(cudaMalloc(&color_store_dev, sizeof(Sphere) * cache_size));
+    Lambertian *lambertian_cache_dev = nullptr;
+    HANDLE_ERROR(cudaMalloc(&color_store_dev, sizeof(Lambertian) * cache_size));
+    Metal *metal_cache_dev = nullptr;
+    HANDLE_ERROR(cudaMalloc(&color_store_dev, sizeof(Metal) * cache_size));
+    Dielectric *dielectric_cache_dev = nullptr;
+    HANDLE_ERROR(cudaMalloc(&color_store_dev, sizeof(Dielectric) * cache_size));
 
     // set up
-    set_up<<<1, 1>>>(world_dev, sphere_cache_dev, cam_dev, d_state);
+    set_up<<<1, 1>>>(
+        world_dev,
+        sphere_cache_dev,
+        lambertian_cache_dev,
+        metal_cache_dev,
+        dielectric_cache_dev,
+        cam_dev,
+        rnd_state_dev);
 
     // metric var
     cudaEvent_t start, stop;
@@ -154,7 +226,7 @@ int main() {
 
 
     // kernel
-    ray_trace<<<grid_dims, block_dims>>>(world_dev, cam_dev, color_store_dev, d_state);
+    ray_trace<<<grid_dims, block_dims>>>(world_dev, cam_dev, color_store_dev, rnd_state_dev);
 
     HANDLE_ERROR(cudaEventRecord(stop));
     HANDLE_ERROR(cudaEventSynchronize(stop));
@@ -173,6 +245,10 @@ int main() {
     HANDLE_ERROR(cudaFree(world_dev));
     HANDLE_ERROR(cudaFree(cam_dev));
     HANDLE_ERROR(cudaFree(color_store_dev));
-    HANDLE_ERROR(cudaFree(d_state));
+    HANDLE_ERROR(cudaFree(rnd_state_dev));
+    HANDLE_ERROR(cudaFree(sphere_cache_dev));
+    HANDLE_ERROR(cudaFree(lambertian_cache_dev));
+    HANDLE_ERROR(cudaFree(metal_cache_dev));
+    HANDLE_ERROR(cudaFree(dielectric_cache_dev));
     free(color_store);
 }

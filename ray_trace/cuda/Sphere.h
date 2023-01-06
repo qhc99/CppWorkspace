@@ -23,10 +23,6 @@ public:
     Point3 center;
     double radius{};
     Material *mat_ptr{};
-
-    __device__ ~Sphere() override {
-        delete mat_ptr;
-    }
 };
 
 
