@@ -29,8 +29,8 @@ __device__ Color ray_color(const Ray &r, const Hittable *world, int depth,curand
     return (1.0 - t) * Color(1.0, 1.0, 1.0) + t * Color(0.5, 0.7, 1.0);
 }
 
-__device__ void random_scene(HittableList *world_dev, curandState *state) {
-    HittableList world{50};
+__device__ void random_scene(HittableList **world_dev, curandState *state) {
+    HittableList &world = *new HittableList{50};
 
     auto ground_material = new Lambertian(Color(0.5, 0.5, 0.5));
     world.add(new Sphere(Point3(0, -1000, 0), 1000, ground_material));
@@ -72,7 +72,7 @@ __device__ void random_scene(HittableList *world_dev, curandState *state) {
     auto material3 = new Metal(Color(0.7, 0.6, 0.5), 0.0);
     world.add(new Sphere(Point3(4, 1, 0), 1.0, material3));
 
-    *world_dev = world;
+    *world_dev = &world;
 }
 
 constexpr auto aspect_ratio = 3.0 / 2.0;
@@ -81,7 +81,7 @@ constexpr int image_height = static_cast<int>(image_width / aspect_ratio);
 constexpr int samples_per_pixel = 500; // 500
 constexpr int max_depth = 50;
 
-__global__ void set_up(HittableList *world_dev, Camera *cam_dev, curandState *state) {
+__global__ void set_up(HittableList **world_dev, Camera *cam_dev, curandState *state) {
     // World
     random_scene(world_dev, state);
 
@@ -134,12 +134,11 @@ int main() {
     Color *color_store_dev = nullptr;
     HANDLE_ERROR(cudaMalloc(&color_store_dev, sizeof(Color) * image_width * image_height));
     HittableList *world_dev = nullptr;
-    HANDLE_ERROR(cudaMalloc(&world_dev, sizeof(HittableList)));
     Camera *cam_dev = nullptr;
     HANDLE_ERROR(cudaMalloc(&cam_dev, sizeof(Camera)));
     curandState *d_state;
     HANDLE_ERROR(cudaMalloc(&d_state, sizeof(curandState)));
-    set_up<<<1, 1>>>(world_dev, cam_dev,d_state);
+    set_up<<<1, 1>>>(&world_dev, cam_dev,d_state);
 
     cudaEvent_t start, stop;
     HANDLE_ERROR(cudaEventCreate(&start));
