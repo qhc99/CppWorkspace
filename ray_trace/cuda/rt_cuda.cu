@@ -4,6 +4,7 @@
 #include "Sphere.h"
 #include "Camera.h"
 #include "Material.h"
+#include "utils.h"
 #include <execution>
 
 
@@ -97,8 +98,8 @@ __device__ void set_up() {
 __global__ void ray_trace(HittableList *world_dev, Camera *cam_dev, Color *color_store_dev) {
     auto x = threadIdx.x + blockIdx.x * blockDim.x;
     auto y = threadIdx.y + blockIdx.y * blockDim.y;
-    for (auto j = x; j < image_height; j+=gridDim.x * blockDim.x) {
-        for (auto i = y; i < image_width; i+=gridDim.y*blockDim.y) {
+    for (auto j = x; j < image_height; j += gridDim.x * blockDim.x) {
+        for (auto i = y; i < image_width; i += gridDim.y * blockDim.y) {
             auto *pixel_color = new Color(0, 0, 0); // free when terminate
             for (int s = 0; s < samples_per_pixel; ++s) {
                 auto u = (i + random_double()) / (image_width - 1);
@@ -130,14 +131,27 @@ int main() {
     std::cout << "P3\n" << image_width << " " << image_height << "\n255\n";
 
     //---------------------------------------------------
-    auto **color_store = new Color *[image_height];
-    for (int i = 0; i < image_height; i++) {
-        color_store[i] = static_cast<Color *>(malloc(sizeof(Color) * (image_width)));
-    }
+    auto *color_store = static_cast<Color *>(malloc(sizeof(Color) * image_width * image_height));
+    Color *color_store_dev = nullptr;
+    HANDLE_ERROR(cudaMalloc(&color_store_dev, sizeof(Color) * image_width * image_height));
+    cudaEvent_t start, stop;
+    HANDLE_ERROR(cudaEventCreate(&start));
+    HANDLE_ERROR(cudaEventCreate(&stop));
+    HANDLE_ERROR(cudaEventRecord(start));
+
+
+    ray_trace<<<grid_dims, block_dims>>>();
+
+    HANDLE_ERROR(cudaEventRecord(stop));
+    HANDLE_ERROR(cudaEventSynchronize(stop));
+    float elapsedTime;
+    HANDLE_ERROR(cudaEventElapsedTime(&elapsedTime,
+                                      start, stop));
+    printf("Time to generate:  %3.1f ms\n", elapsedTime);
 
     for (int j = image_height - 1; j >= 0; --j) {
         for (int i = 0; i < image_width; ++i) {
-            write_color(std::cout, color_store[j][i], samples_per_pixel);
+            write_color(std::cout, color_store[j * image_width + i], samples_per_pixel);
         }
     }
 

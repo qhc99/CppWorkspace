@@ -42,7 +42,7 @@ if (DEFINED ENV{CUDACXX})
             cuda/rtweekend.h
             cuda/Camera.h
             cuda/Material.h
-            cuda/rt_cuda.cu)
+            cuda/rt_cuda.cu cuda/utils.h)
     set_target_properties(${TARGET_RT_CUDA} PROPERTIES
             CUDA_SEPARABLE_COMPILATION ON)
     target_compile_options(${TARGET_RT_CUDA} PRIVATE $<$<CONFIG:Debug>:-G>)
