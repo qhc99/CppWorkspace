@@ -13,6 +13,8 @@ public:
     __device__ virtual bool scatter(
         const Ray &r_in, const HitRecord &rec, Color &attenuation, Ray &scattered
     ) const = 0;
+
+    __device__ virtual ~Material() = default;
 };
 
 class Lambertian : public Material {

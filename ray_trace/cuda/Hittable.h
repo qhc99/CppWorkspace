@@ -6,6 +6,7 @@
 #define DEV_QHC_CPP_PROJECTS_HITTABLE_H
 #include "rtweekend.h"
 #include "Ray.h"
+//#include "Material.h"
 
 class Material;
 
@@ -16,7 +17,7 @@ struct HitRecord {
     bool front_face{};
     Material* mat_ptr{};
 
-    __device__  HitRecord(){};
+    __device__  HitRecord()= default;;
 
     __device__ inline void set_face_normal(const Ray& r, const Vec3& outward_normal) {
         front_face = dot(r.direction(), outward_normal) < 0;

@@ -6,11 +6,12 @@
 #define DEV_QHC_CPP_PROJECTS_SPHERE_H
 
 #include "Hittable.h"
+#include "Material.h"
 #include "Vec3.h"
 
 class Sphere : public Hittable {
 public:
-    __device__ Sphere() {};
+    __device__ Sphere() = default;;
     __device__ Sphere(Point3 cen, double r, Material* m)
         : center(cen), radius(r), mat_ptr(m) {};
 
@@ -21,6 +22,10 @@ public:
     Point3 center;
     double radius{};
     Material* mat_ptr{};
+
+    __device__ virtual ~Sphere(){
+        delete mat_ptr;
+    }
 };
 
 
