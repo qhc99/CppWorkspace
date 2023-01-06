@@ -13,12 +13,9 @@ private:
     int idx{0};
     int len{0};
 public:
-    __device__ explicit HittableList(int max_len) {
+    __device__ explicit HittableList(int max_len, Hittable** obj_ptr_cache) {
         len = max_len;
-        objects = new Hittable *[max_len];
-        for (int i = 0; i < len; i++) {
-            objects[i] = nullptr;
-        }
+        objects = obj_ptr_cache;
     }
 
     __device__ void add(Hittable *object) {

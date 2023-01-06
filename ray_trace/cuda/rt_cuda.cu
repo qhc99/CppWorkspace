@@ -33,6 +33,7 @@ constexpr int cache_size = 500;
 
 __device__ void random_scene(
     HittableList *world_dev,
+    Hittable** obj_ptr_cache,
     Sphere *sphere_cache,
     Lambertian *lambertian_cache,
     Metal *metal_cache,
@@ -45,7 +46,7 @@ __device__ void random_scene(
         metal_cache_idx = 0,
         dielectric_cache_idx = 0;
 
-    new(world_dev) HittableList(cache_size);
+    new(world_dev) HittableList(cache_size, obj_ptr_cache);
     HittableList &world = *world_dev;
     new (&lambertian_cache[lambertian_cache_idx])Lambertian(Color(0.5, 0.5, 0.5));
     auto ground_material = &lambertian_cache[lambertian_cache_idx];
@@ -128,6 +129,7 @@ constexpr int max_depth = 50;
 
 __global__ void set_up(
     HittableList *world_dev,
+    Hittable** obj_ptr_cache,
     Sphere *sphere_cache,
     Lambertian *lambertian_cache,
     Metal *metal_cache,
@@ -137,6 +139,7 @@ __global__ void set_up(
     // World
     random_scene(
         world_dev,
+        obj_ptr_cache,
         sphere_cache,
         lambertian_cache,
         metal_cache,
@@ -198,7 +201,10 @@ int main() {
     curandState *rnd_state_dev;
     HANDLE_ERROR(cudaMalloc(&rnd_state_dev, sizeof(curandState)));
 
+
     // cache
+    Hittable **obj_ptr_cache_dev = nullptr;
+    HANDLE_ERROR(cudaMalloc(&obj_ptr_cache_dev, sizeof(Hittable*) * cache_size));
     Sphere *sphere_cache_dev = nullptr;
     HANDLE_ERROR(cudaMalloc(&sphere_cache_dev, sizeof(Sphere) * cache_size));
     Lambertian *lambertian_cache_dev = nullptr;
@@ -211,6 +217,7 @@ int main() {
     // set up
     set_up<<<1, 1>>>(
         world_dev,
+        obj_ptr_cache_dev,
         sphere_cache_dev,
         lambertian_cache_dev,
         metal_cache_dev,
