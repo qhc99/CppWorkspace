@@ -5,7 +5,7 @@
 #include "Camera.h"
 #include "Material.h"
 #include "utils.h"
-#include <execution>
+
 
 
 __device__ Color ray_color(const Ray &r, const Hittable *world, int depth, curandState *state) {
@@ -31,7 +31,7 @@ __device__ Color ray_color(const Ray &r, const Hittable *world, int depth, curan
 
 constexpr int cache_size = 200;
 
-__global__ void random_scene(
+__device__ void random_scene(
     HittableList *world_dev,
     Sphere *sphere_cache,
     Lambertian *lambertian_cache,
@@ -135,7 +135,7 @@ __global__ void set_up(
     Camera *cam_dev,
     curandState *state) {
     // World
-    random_scene<<<1, 1>>>(
+    random_scene(
         world_dev,
         sphere_cache,
         lambertian_cache,
