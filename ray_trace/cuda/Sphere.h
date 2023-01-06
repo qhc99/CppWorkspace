@@ -16,8 +16,8 @@ public:
     __device__ Sphere(Point3 cen, double r, Material *m)
         : center(cen), radius(r), mat_ptr(m) {};
 
-    __device__ virtual bool hit(
-        const Ray &r, double t_min, double t_max, HitRecord &rec) const;
+    __device__ bool hit(
+        const Ray &r, double t_min, double t_max, HitRecord &rec) const override;
 
 public:
     Point3 center;
@@ -30,7 +30,7 @@ public:
 };
 
 
-__device__ bool Sphere::hit(const Ray &r, double t_min, double t_max, HitRecord &rec) const {
+__device__ bool Sphere::hit(const Ray &r, double t_min, double t_max, HitRecord &rec) const  {
     Vec3 oc = r.origin() - center;
     auto a = r.direction().length_squared();
     auto half_b = dot(oc, r.direction());
