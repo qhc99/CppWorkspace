@@ -12,7 +12,9 @@ class Material {
 public:
     __device__ virtual bool scatter(
         const Ray &r_in, const HitRecord &rec, Color &attenuation, Ray &scattered
-    ) const = 0;
+    ) const {
+
+    };
 
     __device__ virtual ~Material() {
 

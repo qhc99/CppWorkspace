@@ -10,7 +10,7 @@
 
 class Sphere : public Hittable {
 public:
-    Sphere() = default;
+    Sphere() = default;;
     Sphere(Point3 cen, double r, shared_ptr<Material> m)
         : center(cen), radius(r), mat_ptr(std::move(m)) {};
 
