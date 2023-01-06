@@ -114,7 +114,7 @@ int grid_dim(int desired, int block_dim, int up_limit) {
     if (desired * block_dim <= up_limit) {
         return desired;
     } else {
-        return ceil(up_limit / static_cast<float>(block_dim));
+        return ceil(static_cast<float>(up_limit) / static_cast<float>(block_dim));
     }
 }
 
@@ -144,7 +144,7 @@ int main() {
     HANDLE_ERROR(cudaEventRecord(start));
 
 
-    ray_trace<<<grid_dims, block_dims>>>();
+    ray_trace<<<grid_dims, block_dims>>>(world_dev,cam_dev,color_store_dev);
 
     HANDLE_ERROR(cudaEventRecord(stop));
     HANDLE_ERROR(cudaEventSynchronize(stop));
