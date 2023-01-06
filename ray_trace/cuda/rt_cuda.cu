@@ -76,9 +76,9 @@ __device__ void random_scene(HittableList *world_dev) {
 }
 
 constexpr auto aspect_ratio = 3.0 / 2.0;
-constexpr int image_width = 300; // 1200
+constexpr int image_width = 1200; // 1200
 constexpr int image_height = static_cast<int>(image_width / aspect_ratio);
-constexpr int samples_per_pixel = 100; // 500
+constexpr int samples_per_pixel = 500; // 500
 constexpr int max_depth = 50;
 
 __global__ void set_up(HittableList *world_dev, Camera *cam_dev) {
@@ -86,7 +86,6 @@ __global__ void set_up(HittableList *world_dev, Camera *cam_dev) {
     random_scene(world_dev);
 
     // Camera
-
     Point3 look_from(13, 2, 3);
     Point3 look_at(0, 0, 0);
     Vec3 vup(0, 1, 0);
