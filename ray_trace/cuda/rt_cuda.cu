@@ -30,7 +30,7 @@ __device__ Color ray_color(const Ray &r, const Hittable *world, int depth, curan
 }
 
 __device__ void random_scene(HittableList *world_dev, curandState *state) {
-    new (world_dev) HittableList(50);
+    new (world_dev) HittableList(200);
     HittableList &world = *world_dev;
     auto ground_material = new Lambertian(Color(0.5, 0.5, 0.5));
     world.add(new Sphere(Point3(0, -1000, 0), 1000, ground_material));
