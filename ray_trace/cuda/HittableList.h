@@ -13,10 +13,6 @@ private:
     int idx{0};
     int len{0};
 public:
-    __device__ explicit HittableList(int max_len) {
-        init(this,max_len);
-    }
-
     __device__ static void init(HittableList* self,int max_len){
         self->len = max_len;
         self->objects = new Hittable *[max_len];

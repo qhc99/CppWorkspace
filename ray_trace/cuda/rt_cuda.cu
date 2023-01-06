@@ -29,11 +29,12 @@ __device__ Color ray_color(const Ray &r, const Hittable &world, int depth) {
     return (1.0 - t) * Color(1.0, 1.0, 1.0) + t * Color(0.5, 0.7, 1.0);
 }
 
-__device__ HittableList random_scene() {
-    HittableList world{40};
+__device__ void random_scene(HittableList *world_dev) {
+    HittableList *world = world_dev;
+    HittableList::init(world_dev, 40);
 
     auto ground_material = new Lambertian(Color(0.5, 0.5, 0.5));
-    world.add(new Sphere(Point3(0, -1000, 0), 1000, ground_material));
+    world->add(new Sphere(Point3(0, -1000, 0), 1000, ground_material));
 
     for (int a = -11; a < 11; a++) {
         for (int b = -11; b < 11; b++) {
@@ -47,32 +48,30 @@ __device__ HittableList random_scene() {
                     // diffuse
                     auto albedo = Color::random() * Color::random();
                     sphere_material = new Lambertian(albedo);
-                    world.add(new Sphere(center, 0.2, sphere_material));
+                    world->add(new Sphere(center, 0.2, sphere_material));
                 } else if (choose_mat < 0.95) {
                     // metal
                     auto albedo = Color::random(0.5, 1);
                     auto fuzz = random_double(0, 0.5);
                     sphere_material = new Metal(albedo, fuzz);
-                    world.add(new Sphere(center, 0.2, sphere_material));
+                    world->add(new Sphere(center, 0.2, sphere_material));
                 } else {
                     // glass
                     sphere_material = new Dielectric(1.5);
-                    world.add(new Sphere(center, 0.2, sphere_material));
+                    world->add(new Sphere(center, 0.2, sphere_material));
                 }
             }
         }
     }
 
     auto material1 = new Dielectric(1.5);
-    world.add(new Sphere(Point3(0, 1, 0), 1.0, material1));
+    world->add(new Sphere(Point3(0, 1, 0), 1.0, material1));
 
     auto material2 = new Lambertian(Color(0.4, 0.2, 0.1));
-    world.add(new Sphere(Point3(-4, 1, 0), 1.0, material2));
+    world->add(new Sphere(Point3(-4, 1, 0), 1.0, material2));
 
     auto material3 = new Metal(Color(0.7, 0.6, 0.5), 0.0);
-    world.add(new Sphere(Point3(4, 1, 0), 1.0, material3));
-
-    return world;
+    world->add(new Sphere(Point3(4, 1, 0), 1.0, material3));
 }
 
 constexpr auto aspect_ratio = 3.0 / 2.0;
@@ -81,8 +80,8 @@ constexpr int image_height = static_cast<int>(image_width / aspect_ratio);
 constexpr int samples_per_pixel = 100; // 500
 constexpr int max_depth = 50;
 
-__device__ void set_up() {
-    auto world = random_scene();
+__global__ void set_up(HittableList *world_dev, Camera *cam_dev) {
+    random_scene(world_dev);
 
     // Camera
 
@@ -91,8 +90,7 @@ __device__ void set_up() {
     Vec3 vup(0, 1, 0);
     auto dist_to_focus = 10.0;
     auto aperture = 0.1;
-
-    //Camera cam(lookfrom, lookat, vup, 20, aspect_ratio, aperture, dist_to_focus);
+    Camera::init_camera(cam_dev, lookfrom, lookat, vup, 20, aspect_ratio, aperture, dist_to_focus);
 }
 
 __global__ void ray_trace(HittableList *world_dev, Camera *cam_dev, Color *color_store_dev) {
@@ -134,6 +132,12 @@ int main() {
     auto *color_store = static_cast<Color *>(malloc(sizeof(Color) * image_width * image_height));
     Color *color_store_dev = nullptr;
     HANDLE_ERROR(cudaMalloc(&color_store_dev, sizeof(Color) * image_width * image_height));
+    HittableList *world_dev = nullptr;
+    HANDLE_ERROR(cudaMalloc(&world_dev, sizeof(HittableList)));
+    Camera *cam_dev = nullptr;
+    HANDLE_ERROR(cudaMalloc(&cam_dev, sizeof(Camera)));
+    set_up<<<1, 1>>>(world_dev, cam_dev);
+
     cudaEvent_t start, stop;
     HANDLE_ERROR(cudaEventCreate(&start));
     HANDLE_ERROR(cudaEventCreate(&stop));
