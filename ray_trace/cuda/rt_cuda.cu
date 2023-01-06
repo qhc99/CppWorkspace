@@ -157,14 +157,14 @@ __global__ void ray_trace(HittableList *world_dev, Camera *cam_dev, Color *color
     auto y = threadIdx.y + blockIdx.y * blockDim.y;
     for (auto j = x; j < image_height; j += gridDim.x * blockDim.x) {
         for (auto i = y; i < image_width; i += gridDim.y * blockDim.y) {
-            auto *pixel_color = new Color(0, 0, 0); // free when terminate
+            auto pixel_color = Color(0, 0, 0); // free when terminate
             for (int s = 0; s < samples_per_pixel; ++s) {
                 auto u = (i + random_double(state)) / (image_width - 1);
                 auto v = (j + random_double(state)) / (image_height - 1);
                 Ray r = cam_dev->get_ray(u, v, state);
-                *pixel_color += ray_color(r, world_dev, max_depth, state);
+                pixel_color += ray_color(r, world_dev, max_depth, state);
             }
-            color_store_dev[j * image_width + i] = *pixel_color;
+            color_store_dev[j * image_width + i] = pixel_color;
         }
     }
 }
