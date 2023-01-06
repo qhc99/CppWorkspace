@@ -22,15 +22,13 @@ __device__ inline double degrees_to_radians(double degrees) {
 }
 
 
-__device__ inline double random_double() {
-    curandState_t state{};
-    curand_init(clock(), 0, 0, &state);
-    return curand_uniform(&state);
+__device__ inline double random_double(curandState *state) {
+    return curand_uniform(state);
 }
 
-__device__ inline double random_double(double min, double max) {
+__device__ inline double random_double(double min, double max,curandState *state) {
     // Returns a random real in [min,max).
-    return min + (max-min)*random_double();
+    return min + (max-min)*random_double(state);
 }
 
 inline double clamp(double x, double min, double max) {

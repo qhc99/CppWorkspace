@@ -83,12 +83,12 @@ public:
     }
 
 
-    __device__ inline static Vec3 random() {
-        return {random_double(), random_double(), random_double()};
+    __device__ inline static Vec3 random(curandState *state) {
+        return {random_double(state), random_double(state), random_double(state)};
     }
 
-    __device__ inline static Vec3 random(double min, double max) {
-        return {random_double(min, max), random_double(min, max), random_double(min, max)};
+    __device__ inline static Vec3 random(double min, double max,curandState *state) {
+        return {random_double(min, max,state), random_double(min, max,state), random_double(min, max, state)};
     }
 
     __device__ bool near_zero() const {

@@ -29,7 +29,7 @@ __device__ Color ray_color(const Ray &r, const Hittable *world, int depth) {
     return (1.0 - t) * Color(1.0, 1.0, 1.0) + t * Color(0.5, 0.7, 1.0);
 }
 
-__device__ void random_scene(HittableList *world_dev) {
+__device__ void random_scene(HittableList *world_dev, curandState *state) {
     HittableList world{50};
 
     auto ground_material = new Lambertian(Color(0.5, 0.5, 0.5));
@@ -37,21 +37,21 @@ __device__ void random_scene(HittableList *world_dev) {
 
     for (int a = -11; a < 11; a++) {
         for (int b = -11; b < 11; b++) {
-            auto choose_mat = random_double();
-            Point3 center(a + 0.9 * random_double(), 0.2, b + 0.9 * random_double());
+            auto choose_mat = random_double(state);
+            Point3 center(a + 0.9 * random_double(state), 0.2, b + 0.9 * random_double(state));
 
             if ((center - Point3(4, 0.2, 0)).length() > 0.9) {
                 Material *sphere_material;
 
                 if (choose_mat < 0.8) {
                     // diffuse
-                    auto albedo = Color::random() * Color::random();
+                    auto albedo = Color::random(state) * Color::random(state);
                     sphere_material = new Lambertian(albedo);
                     world.add(new Sphere(center, 0.2, sphere_material));
                 } else if (choose_mat < 0.95) {
                     // metal
-                    auto albedo = Color::random(0.5, 1);
-                    auto fuzz = random_double(0, 0.5);
+                    auto albedo = Color::random(0.5, 1,state);
+                    auto fuzz = random_double(0, 0.5,state);
                     sphere_material = new Metal(albedo, fuzz);
                     world.add(new Sphere(center, 0.2, sphere_material));
                 } else {
@@ -81,9 +81,9 @@ constexpr int image_height = static_cast<int>(image_width / aspect_ratio);
 constexpr int samples_per_pixel = 500; // 500
 constexpr int max_depth = 50;
 
-__global__ void set_up(HittableList *world_dev, Camera *cam_dev) {
+__global__ void set_up(HittableList *world_dev, Camera *cam_dev, curandState *state) {
     // World
-    random_scene(world_dev);
+    random_scene(world_dev, state);
 
     // Camera
     Point3 look_from(13, 2, 3);
@@ -94,15 +94,15 @@ __global__ void set_up(HittableList *world_dev, Camera *cam_dev) {
     *cam_dev = Camera(look_from, look_at, vup, 20, aspect_ratio, aperture, dist_to_focus);
 }
 
-__global__ void ray_trace(HittableList *world_dev, Camera *cam_dev, Color *color_store_dev) {
+__global__ void ray_trace(HittableList *world_dev, Camera *cam_dev, Color *color_store_dev, curandState *state) {
     auto x = threadIdx.x + blockIdx.x * blockDim.x;
     auto y = threadIdx.y + blockIdx.y * blockDim.y;
     for (auto j = x; j < image_height; j += gridDim.x * blockDim.x) {
         for (auto i = y; i < image_width; i += gridDim.y * blockDim.y) {
             auto *pixel_color = new Color(0, 0, 0); // free when terminate
             for (int s = 0; s < samples_per_pixel; ++s) {
-                auto u = (i + random_double()) / (image_width - 1);
-                auto v = (j + random_double()) / (image_height - 1);
+                auto u = (i + random_double(state)) / (image_width - 1);
+                auto v = (j + random_double(state)) / (image_height - 1);
                 Ray r = cam_dev->get_ray(u, v);
                 *pixel_color += ray_color(r, world_dev, max_depth);
             }
@@ -137,7 +137,9 @@ int main() {
     HANDLE_ERROR(cudaMalloc(&world_dev, sizeof(HittableList)));
     Camera *cam_dev = nullptr;
     HANDLE_ERROR(cudaMalloc(&cam_dev, sizeof(Camera)));
-    set_up<<<1, 1>>>(world_dev, cam_dev);
+    curandState *d_state;
+    HANDLE_ERROR(cudaMalloc(&d_state, sizeof(curandState)));
+    set_up<<<1, 1>>>(world_dev, cam_dev,d_state);
 
     cudaEvent_t start, stop;
     HANDLE_ERROR(cudaEventCreate(&start));
@@ -145,7 +147,7 @@ int main() {
     HANDLE_ERROR(cudaEventRecord(start));
 
 
-    ray_trace<<<grid_dims, block_dims>>>(world_dev, cam_dev, color_store_dev);
+    ray_trace<<<grid_dims, block_dims>>>(world_dev, cam_dev, color_store_dev,d_state);
 
     HANDLE_ERROR(cudaEventRecord(stop));
     HANDLE_ERROR(cudaEventSynchronize(stop));
@@ -164,5 +166,6 @@ int main() {
     HANDLE_ERROR(cudaFree(world_dev));
     HANDLE_ERROR(cudaFree(cam_dev));
     HANDLE_ERROR(cudaFree(color_store_dev));
+    HANDLE_ERROR(cudaFree(d_state));
     free(color_store);
 }
