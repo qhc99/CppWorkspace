@@ -28,8 +28,8 @@ public:
         }
     }
 
-    __device__ bool hit(
-        const Ray &r, double t_min, double t_max, HitRecord &rec) const override;
+    __device__ virtual bool hit(
+        const Ray &r, double t_min, double t_max, HitRecord &rec) const;
 
 public:
     Hittable **objects{};
