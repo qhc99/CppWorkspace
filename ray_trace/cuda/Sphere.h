@@ -24,7 +24,7 @@ public:
     double radius{};
     Material *mat_ptr{};
 
-    __device__ virtual ~Sphere() {
+    __device__ ~Sphere() override {
         delete mat_ptr;
     }
 };
