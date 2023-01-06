@@ -1,0 +1,60 @@
+//
+// Created by Nathan on 2022-12-11.
+//
+
+#ifndef DEV_QHC_CPP_PROJECTS_CAMERA_H
+#define DEV_QHC_CPP_PROJECTS_CAMERA_H
+
+#include "rtweekend.h"
+
+class Camera {
+public:
+    __device__ Ray get_ray(double s, double t) const {
+        Vec3 rd = random_in_unit_disk() * lens_radius;
+
+        Vec3 offset = u * rd.x() + v * rd.y();
+
+        return Ray(
+            origin + offset,
+            lower_left_corner + s * horizontal + t * vertical - origin - offset
+        );
+    }
+
+
+    Point3 origin;
+    Point3 lower_left_corner;
+    Vec3 horizontal;
+    Vec3 vertical;
+    Vec3 u, v, w;
+    double lens_radius;
+
+};
+
+__global__ static void init_camera(
+    Camera *self,
+    Point3 lookfrom,
+    Point3 lookat,
+    Vec3 vup,
+    double vfov, // vertical field-of-view in degrees
+    double aspect_ratio,
+    double aperture,
+    double focus_dist) {
+
+    auto theta = degrees_to_radians(vfov);
+    auto h = tan(theta / 2);
+    auto viewport_height = 2.0 * h;
+    auto viewport_width = aspect_ratio * viewport_height;
+
+    self->w = unit_vector(lookfrom - lookat);
+    self->u = unit_vector(cross(vup, self->w));
+    self->v = cross(self->w, self->u);
+
+    self->origin = lookfrom;
+    self->horizontal = focus_dist * viewport_width * self->u;
+    self->vertical = focus_dist * viewport_height * self->v;
+    self->lower_left_corner = self->origin - self->horizontal / 2 - self->vertical / 2 - focus_dist * self->w;
+
+    self->lens_radius = aperture / 2;
+}
+
+#endif //DEV_QHC_CPP_PROJECTS_CAMERA_H
