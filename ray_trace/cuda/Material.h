@@ -16,9 +16,9 @@ public:
 
     };
 
-    __device__ virtual ~Material(){
-
-    }
+//    __device__ virtual ~Material(){
+//
+//    }
 };
 
 class Lambertian : public Material {

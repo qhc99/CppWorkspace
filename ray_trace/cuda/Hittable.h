@@ -30,7 +30,7 @@ class Hittable {
 public:
     __device__ virtual bool hit(const Ray &r, double t_min, double t_max, HitRecord &rec) const {};
 
-    __device__ virtual ~Hittable(){};
+//    __device__ virtual ~Hittable(){};
 };
 
 #endif //DEV_QHC_CPP_PROJECTS_HITTABLE_H

@@ -13,9 +13,9 @@ private:
     int idx{0};
     int len{0};
 public:
-    __device__ explicit HittableList(int max_len) {
+    __device__ explicit HittableList(int max_len, Hittable** obj_arr) {
         len = max_len;
-        objects = new Hittable * [max_len];
+        objects = obj_arr;
     }
 
     __device__ void add(Hittable *object) {
@@ -28,12 +28,12 @@ public:
     __device__ bool hit(
         const Ray &r, double t_min, double t_max, HitRecord &rec) const override;
 
-    __device__ ~HittableList() override{
-        for(int i =0; i < idx; i++){
-            delete objects[i];
-        }
-        delete[] objects;
-    }
+//    __device__ ~HittableList() override{
+//        for(int i =0; i < idx; i++){
+//            delete objects[i];
+//        }
+//        delete[] objects;
+//    }
 public:
     Hittable **objects{};
 };
