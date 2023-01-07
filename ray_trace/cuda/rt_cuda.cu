@@ -30,9 +30,7 @@ __device__ Color ray_color(const Ray &r, const Hittable *world, int depth, curan
 
 constexpr int cache_size = 500;
 
-__device__ void random_scene(
-    HittableList *world_dev,
-    curandState *state) {
+__device__ void random_scene(HittableList *world_dev,curandState *state) {
 
 
     new(world_dev) HittableList(cache_size);
@@ -87,14 +85,9 @@ constexpr int image_height = static_cast<int>(image_width / aspect_ratio);
 constexpr int samples_per_pixel = 500; // 500
 constexpr int max_depth = 50;
 
-__global__ void set_up(
-    HittableList *world_dev,
-    Camera *cam_dev,
-    curandState *state) {
+__global__ void set_up(HittableList *world_dev, Camera *cam_dev, curandState *state) {
     // World
-    random_scene(
-        world_dev,
-        state);
+    random_scene(world_dev, state);
 
     // Camera
     Point3 look_from(13, 2, 3);
@@ -102,7 +95,7 @@ __global__ void set_up(
     Vec3 vup(0, 1, 0);
     auto dist_to_focus = 10.0;
     auto aperture = 0.1;
-    new (cam_dev) Camera(look_from, look_at, vup, 20, aspect_ratio, aperture, dist_to_focus);
+    new(cam_dev) Camera(look_from, look_at, vup, 20, aspect_ratio, aperture, dist_to_focus);
 }
 
 __global__ void ray_trace(HittableList *world_dev, Camera *cam_dev, Color *color_store_dev, curandState *state) {
