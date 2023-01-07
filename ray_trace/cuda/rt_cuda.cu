@@ -28,7 +28,7 @@ __device__ Color ray_color(const Ray &r, const Hittable *world, int depth, curan
     return (1.0 - t) * Color(1.0, 1.0, 1.0) + t * Color(0.5, 0.7, 1.0);
 }
 
-constexpr int cache_size = 500;
+constexpr int cache_size = 1000;
 
 __device__ void random_scene(
     HittableList *world_dev,
