@@ -103,9 +103,9 @@ __device__ void random_scene(
     world_dev->add(&sphere_cache[sphere_idx]);
     sphere_idx++;
 
-    new (&metal_cache[metal_idx])Metal(Color(0.7, 0.6, 0.5), 0.0);
+    new(&metal_cache[metal_idx])Metal(Color(0.7, 0.6, 0.5), 0.0);
     auto material3 = &metal_cache[metal_idx];
-    new (&sphere_cache[sphere_idx])Sphere(Point3(4, 1, 0), 1.0, material3);
+    new(&sphere_cache[sphere_idx])Sphere(Point3(4, 1, 0), 1.0, material3);
     world_dev->add(&sphere_cache[sphere_idx]);
 }
 
@@ -236,6 +236,8 @@ int main() {
                                       start, stop));
     printf("Time to generate:  %3.1f ms\n", elapsedTime);
 
+    // output image
+    cudaMemcpy(color_store, color_store_dev, sizeof(Color) * image_height * image_width, cudaMemcpyDeviceToHost);
     for (int j = image_height - 1; j >= 0; --j) {
         for (int i = 0; i < image_width; ++i) {
             write_color(std::cout, color_store[j * image_width + i], samples_per_pixel);
