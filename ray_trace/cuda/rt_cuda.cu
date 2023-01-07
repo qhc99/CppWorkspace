@@ -247,5 +247,10 @@ int main() {
     HANDLE_ERROR(cudaFree(cam_dev));
     HANDLE_ERROR(cudaFree(color_store_dev));
     HANDLE_ERROR(cudaFree(rnd_state_dev));
+    HANDLE_ERROR(cudaFree(sphere_cache_dev));
+    HANDLE_ERROR(cudaFree(hittable_cache_dev));
+    HANDLE_ERROR(cudaFree(lambertian_cache_dev));
+    HANDLE_ERROR(cudaFree(metal_cache_dev));
+    HANDLE_ERROR(cudaFree(dielectric_cache_dev));
     free(color_store);
 }
