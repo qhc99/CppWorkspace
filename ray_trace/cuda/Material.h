@@ -15,6 +15,10 @@ public:
     ) const {
 
     };
+
+    __device__ virtual ~Material(){
+
+    }
 };
 
 class Lambertian : public Material {

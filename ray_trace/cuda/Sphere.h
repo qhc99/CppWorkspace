@@ -19,6 +19,10 @@ public:
     __device__ bool hit(
         const Ray &r, double t_min, double t_max, HitRecord &rec) const override;
 
+    __device__ ~Sphere() override{
+        delete mat_ptr;
+    }
+
 public:
     Point3 center;
     double radius{};
