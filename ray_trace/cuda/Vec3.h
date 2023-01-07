@@ -6,9 +6,10 @@
 #define DEV_QHC_CPP_PROJECTS_VEC3_H
 
 #include <iostream>
+#include <limits>
 
 using std::sqrt;
-
+const double nan_literal = std::numeric_limits<double>::quiet_NaN();
 class Vec3 {
 public:
 
@@ -21,6 +22,11 @@ public:
         this->e1 = e1;
         this->e2 = e2;
     }
+
+    __device__ Vec3 operator=(const Vec3 &other) {
+        return {other.e0, other.e1, other.e2};
+    }
+
 
     __device__  double x() const { return e0; }
 
@@ -40,21 +46,9 @@ public:
                 return e2;
 
         }
-        return e0;
+        return NAN;
     }
 
-    __device__ double &operator[](int i) {
-        switch (i) {
-            case 0:
-                return e0;
-            case 1:
-                return e1;
-            case 2:
-                return e2;
-
-        }
-        return e0;
-    }
 
     __device__ Vec3 &operator+=(const Vec3 &v) {
         e0 += v.e0;
@@ -87,8 +81,8 @@ public:
         return {random_double(state), random_double(state), random_double(state)};
     }
 
-    __device__ inline static Vec3 random(double min, double max,curandState *state) {
-        return {random_double(min, max,state), random_double(min, max,state), random_double(min, max, state)};
+    __device__ inline static Vec3 random(double min, double max, curandState *state) {
+        return {random_double(min, max, state), random_double(min, max, state), random_double(min, max, state)};
     }
 
     __device__ bool near_zero() const {
@@ -149,7 +143,7 @@ __device__ inline Vec3 unit_vector(Vec3 v) {
 
 __device__ Vec3 random_in_unit_sphere(curandState *state) {
     while (true) {
-        auto p = Vec3::random(-1, 1,state);
+        auto p = Vec3::random(-1, 1, state);
         if (p.length_squared() >= 1) continue;
         return p;
     }
@@ -181,7 +175,7 @@ __device__ Vec3 refract(const Vec3 &uv, const Vec3 &n, double etai_over_etat) {
 
 __device__ Vec3 random_in_unit_disk(curandState *state) {
     while (true) {
-        auto p = Vec3(random_double(-1, 1,state), random_double(-1, 1,state), 0);
+        auto p = Vec3(random_double(-1, 1, state), random_double(-1, 1, state), 0);
         if (p.length_squared() >= 1) continue;
         return p;
     }
