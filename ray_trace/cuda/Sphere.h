@@ -30,7 +30,7 @@ public:
 };
 
 
-__device__ bool Sphere::hit(const Ray &r, double t_min, double t_max, HitRecord &rec) const  {
+__device__ inline bool Sphere::hit(const Ray &r, double t_min, double t_max, HitRecord &rec) const  {
     Vec3 oc = r.origin() - center;
     auto a = r.direction().length_squared();
     auto half_b = dot(oc, r.direction());

@@ -47,7 +47,7 @@ __device__ void random_scene(HittableList *world_dev,curandState *state) {
                     // diffuse
                     auto albedo = Color::random(state) * Color::random(state);
 
-                    sphere_material = new Lambertian(albedo);;
+                    sphere_material = new Lambertian(albedo);
                     world_dev->add(new Sphere(center, 0.2, sphere_material));
                 } else if (choose_mat < 0.95) {
                     // metal
