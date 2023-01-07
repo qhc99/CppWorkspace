@@ -28,12 +28,8 @@ __device__ Color ray_color(const Ray &r, const Hittable *world, int depth, curan
     return (1.0 - t) * Color(1.0, 1.0, 1.0) + t * Color(0.5, 0.7, 1.0);
 }
 
-constexpr int cache_size = 500;
-
 __device__ void random_scene(HittableList *world_dev,curandState *state) {
-
-
-    new(world_dev) HittableList(cache_size);
+    new(world_dev) HittableList(1000);
 
     auto ground_material = new Lambertian(Color(0.5, 0.5, 0.5));
     world_dev->add(new Sphere(Point3(0, -1000, 0), 1000, ground_material));
@@ -58,8 +54,6 @@ __device__ void random_scene(HittableList *world_dev,curandState *state) {
                     auto albedo = Color::random(0.5, 1, state);
                     auto fuzz = random_double(0, 0.5, state);
                     sphere_material = new Metal(albedo, fuzz);
-
-
                     world_dev->add(new Sphere(center, 0.2, sphere_material));
                 } else {
                     // glass
