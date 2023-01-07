@@ -23,7 +23,7 @@ __device__ inline double degrees_to_radians(double degrees) {
 
 
 __device__ inline double random_double(curandState *state) {
-    return curand_uniform(state);
+    return -curand_uniform(state)+2.0;
 }
 
 __device__ inline double random_double(double min, double max,curandState *state) {

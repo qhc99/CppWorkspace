@@ -218,7 +218,6 @@ int main() {
         cam_dev,
         rnd_state_dev);
 
-    cudaDeviceSynchronize();
     // metric var
     cudaEvent_t start, stop;
     HANDLE_ERROR(cudaEventCreate(&start));
