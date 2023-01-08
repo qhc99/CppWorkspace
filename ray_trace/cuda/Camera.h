@@ -40,10 +40,10 @@ public:
 
         Vec3 offset = u * rd.x() + v * rd.y();
 
-        return Ray(
+        return {
             origin + offset,
             lower_left_corner + s * horizontal + t * vertical - origin - offset
-        );
+        };
     }
 
 private:

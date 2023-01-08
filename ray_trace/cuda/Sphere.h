@@ -9,7 +9,7 @@
 #include "Material.h"
 #include "Vec3.h"
 
-class Sphere : public Hittable {
+class Sphere  {
 public:
     __device__ Sphere() {};
 
@@ -17,7 +17,7 @@ public:
         : center(cen), radius(r), mat_ptr(m) {};
 
     __device__ bool hit(
-        const Ray &r, double t_min, double t_max, HitRecord &rec) const override;
+        const Ray &r, double t_min, double t_max, HitRecord &rec) const ;
 
 //    __device__ ~Sphere() override{
 //        delete mat_ptr;

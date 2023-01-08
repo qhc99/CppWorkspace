@@ -23,13 +23,6 @@ public:
         this->e2 = e2;
     }
 
-    __device__ Vec3& operator=(const Vec3 &other) {
-        this->e0 = other.e0;
-		this->e1 = other.e1;
-		this->e2 = other.e2;
-		return *this;
-    }
-
 
     __device__  double x() const { return e0; }
 

@@ -6,19 +6,19 @@
 #define DEV_QHC_CPP_PROJECTS_HITTABLELIST_H
 
 #include "Hittable.h"
-
+#include "Sphere.h"
 
 class HittableList : public Hittable {
 private:
     int idx{0};
     int len{0};
 public:
-    __device__ explicit HittableList(int max_len, Hittable** obj_arr) {
+    __device__ explicit HittableList(int max_len) {
         len = max_len;
-        objects = obj_arr;
+        objects = new Sphere * [max_len];
     }
 
-    __device__ void add(Hittable *object) {
+    __device__ void add(Sphere *object) {
         if (idx < len) {
             objects[idx] = object;
             idx++;
@@ -35,7 +35,7 @@ public:
 //        delete[] objects;
 //    }
 public:
-    Hittable **objects{};
+    Sphere **objects{};
 };
 
 __device__ inline bool HittableList::hit(const Ray &r, double t_min, double t_max, HitRecord &rec) const {
@@ -44,9 +44,8 @@ __device__ inline bool HittableList::hit(const Ray &r, double t_min, double t_ma
     auto closest_so_far = t_max;
 
     for (int i = 0; i < idx; i++) {
-        auto &object = *objects[i];
 
-        if (object.hit(r, t_min, closest_so_far, temp_rec)) {
+        if (objects[i]->hit(r, t_min, closest_so_far, temp_rec)) {
             hit_anything = true;
             closest_so_far = temp_rec.t;
             rec = temp_rec;
