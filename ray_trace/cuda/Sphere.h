@@ -9,7 +9,7 @@
 #include "Material.h"
 #include "Vec3.h"
 
-class Sphere  {
+class Sphere {
 public:
     __device__ Sphere() {};
 
@@ -17,7 +17,7 @@ public:
         : center(cen), radius(r), mat_ptr(m) {};
 
     __device__ bool hit(
-        const Ray &r, double t_min, double t_max, HitRecord &rec) const ;
+        const Ray &r, double t_min, double t_max, HitRecord &rec) const;
 
 //    __device__ ~Sphere() override{
 //        delete mat_ptr;
@@ -30,8 +30,10 @@ public:
 };
 
 
-__device__ inline bool Sphere::hit(const Ray &r, double t_min, double t_max, HitRecord &rec) const  {
-    Vec3 oc = r.origin() - center;
+__device__ inline bool Sphere::hit(const Ray &r, double t_min, double t_max, HitRecord &rec) const {
+    Vec3 oc = r.origin();
+    Vec3 t{center};
+    oc = oc - t;
     auto a = r.direction().length_squared();
     auto half_b = dot(oc, r.direction());
     auto c = oc.length_squared() - radius * radius;

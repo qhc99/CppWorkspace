@@ -21,7 +21,7 @@ public:
     }
 
 public:
-    Point3 orig;
-    Vec3 dir;
+    Point3 orig{};
+    Vec3 dir{};
 };
 #endif //DEV_QHC_CPP_PROJECTS_RAY_H

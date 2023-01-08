@@ -30,7 +30,7 @@ public:
 
     __device__ double z() const { return e2; }
 
-    __device__ Vec3 operator-() const { return {-e0, -e1, -e2}; }
+    __device__  Vec3 operator-() const { return {-e0, -e1, -e2}; }
 
     __device__ double operator[](int i) const {
         switch (i) {
@@ -101,7 +101,7 @@ __device__ inline Vec3 operator+(const Vec3 &u, const Vec3 &v) {
     return {u.e0 + v.e0, u.e1 + v.e1, u.e2 + v.e2};
 }
 
-__device__ inline Vec3 operator-(const Vec3 &u, const Vec3 &v) {
+__device__ Vec3 operator-(const Vec3 &u, const Vec3 &v) {
     return {u.e0 - v.e0, u.e1 - v.e1, u.e2 - v.e2};
 }
 
