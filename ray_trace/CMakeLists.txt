@@ -32,18 +32,15 @@ if (DEFINED ENV{CUDACXX})
     set(CMAKE_CUDA_STANDARD_REQUIRED True)
 
     add_executable(${TARGET_RT_CUDA}
-            cuda/Vec3.h
-            cuda/write_color.h
-            cuda/write_color.h
-            cuda/Ray.h
-            cuda/Hittable.h
-            cuda/Sphere.h
-            cuda/HittableList.h
-            cuda/rtweekend.h
-            cuda/Camera.h
-            cuda/Material.h
-            cuda/rt_cuda.cu
-            cuda/utils.h)
+            cuda/camera.h
+            cuda/hitable.h
+            cuda/hitable_list.h
+            cuda/main.cu
+            cuda/material.h
+            cuda/main.cu
+            cuda/ray.h
+            cuda/sphere.h
+            cuda/vec3.h)
     set_target_properties(${TARGET_RT_CUDA} PROPERTIES
             CUDA_SEPARABLE_COMPILATION ON)
     target_compile_options(${TARGET_RT_CUDA} PRIVATE $<$<CONFIG:Debug>:-G>)

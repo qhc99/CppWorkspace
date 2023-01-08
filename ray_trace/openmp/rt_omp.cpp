@@ -5,6 +5,7 @@
 #include "camera.h"
 #include "material.h"
 #include <execution>
+#include "lib_central/utils.h"
 
 #pragma clang diagnostic push
 #pragma ide diagnostic ignored "misc-no-recursion"
@@ -80,9 +81,9 @@ int main() {
     // Image
 
     const auto aspect_ratio = 3.0 / 2.0;
-    const int image_width = 300; // 1200
+    const int image_width = 1200; // 1200
     const int image_height = static_cast<int>(image_width / aspect_ratio);
-    const int samples_per_pixel = 100; // 500
+    const int samples_per_pixel = 500; // 500
     const int max_depth = 50;
 
     // World
@@ -107,7 +108,7 @@ int main() {
     for (int i = 0; i < image_height; i++) {
         color_store[i] = new Color[image_width];
     }
-
+    auto t1{dev::qhc::utils::current_time_point()};
 #pragma omp parallel for default(none) shared(image_height, world, cam, color_store,std::cerr)
     for (int j = image_height - 1; j >= 0; --j) {
         for (int i = 0; i < image_width; ++i) {
@@ -123,12 +124,14 @@ int main() {
         std::cerr << j << std::endl;
     }
 
+    auto t2{dev::qhc::utils::current_time_point()};
+
     for (int j = image_height - 1; j >= 0; --j) {
         for (int i = 0; i < image_width; ++i) {
             write_color(std::cout, color_store[j][i], samples_per_pixel);
         }
     }
-
+    std::cerr << "Spend " << dev::qhc::utils::time_point_duration_to_us(t2,t1)/1000000.0 << "s" << std::endl;
     std::cerr << "\nDone.\n";
 
     for (int i = 0; i < image_height; i++) {
