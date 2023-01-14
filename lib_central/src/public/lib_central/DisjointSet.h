@@ -20,7 +20,7 @@ namespace dev::qhc::lib_central {
 
         DisjointSet(DisjointSet &&other) = default;
 
-        auto findGroupRep() -> DisjointSet &;
+        auto groupRep() -> DisjointSet &;
 
         auto operator=(const DisjointSet &other) -> DisjointSet & = default;
 

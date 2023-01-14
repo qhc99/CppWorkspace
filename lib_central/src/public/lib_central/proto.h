@@ -14,6 +14,8 @@
  * KMP
  * RB Tree template and iterator
  * BST printer
+ * LinkedGraph and Dijkstra
+ * fix jispy and write lis.py
  *
  */
 

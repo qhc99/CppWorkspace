@@ -21,7 +21,7 @@ auto DisjointSet::findGroupRep(DisjointSet &x) -> DisjointSet &  // NOLINT(misc-
     return *x.parent;
 }
 
-auto DisjointSet::findGroupRep() -> DisjointSet & {
+auto DisjointSet::groupRep() -> DisjointSet & {
     if (this != this->parent) {
         this->parent = &findGroupRep(*this->parent);
     }
@@ -30,6 +30,6 @@ auto DisjointSet::findGroupRep() -> DisjointSet & {
 
 
 [[maybe_unused]] void DisjointSet::unionSet(DisjointSet &a) {
-    link(findGroupRep(), findGroupRep(a));
+    link(groupRep(), findGroupRep(a));
 }
 

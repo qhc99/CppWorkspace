@@ -18,8 +18,8 @@ BOOST_AUTO_TEST_SUITE(DisjointSetAPITest) // NOLINT
         DisjointSet b{};
         b.unionSet(p);
         DisjointSet f{};
-        BOOST_CHECK_EQUAL(&a.findGroupRep(), &b.findGroupRep());
-        BOOST_CHECK_NE(&a.findGroupRep(), &f.findGroupRep());
+        BOOST_CHECK_EQUAL(&a.groupRep(), &b.groupRep());
+        BOOST_CHECK_NE(&a.groupRep(), &f.groupRep());
     }
 
 BOOST_AUTO_TEST_SUITE_END() // NOLINT
