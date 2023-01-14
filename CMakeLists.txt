@@ -8,11 +8,11 @@ if (NOT DEFINED ENV{CUDACXX})
     message(STATUS "Added net prog")
     add_subdirectory(misc)
     message(STATUS "Added misc")
-endif ()
-add_subdirectory(ray_trace)
-if (DEFINED ENV{CUDACXX})
-
+else ()
     add_subdirectory(cuda_demos)
     message(STATUS "Added cuda demo")
 endif ()
+add_subdirectory(ray_trace)
+message(STATUS "Added ray trace")
+
 
