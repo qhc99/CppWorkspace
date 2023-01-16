@@ -38,7 +38,7 @@ namespace dev::qhc::utils {
      * @param before before steady_clock::now()
      * @return milliseconds in double
      */
-    inline double time_point_duration_to_us(steady_clock_time_point current, steady_clock_time_point before) {
+    inline long time_point_duration_to_us(steady_clock_time_point current, steady_clock_time_point before) {
         if (current < before) {
             throw std::logic_error{"before > current"};
         }
