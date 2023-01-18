@@ -22,7 +22,7 @@ namespace dev::qhc::utils {
     using std::chrono::duration_cast;
     using std::vector;
     using steady_clock_time_point = decltype(steady_clock::now());
-
+    using std::string;
     /**
      *
      * @return steady_clock::now()
@@ -55,7 +55,16 @@ namespace dev::qhc::utils {
      */
     auto shuffledRange(int low, int high) -> vector<int>;
 
-    decltype(std::mt19937{std::random_device{}()}) default_rand_engine();
+    inline decltype(std::mt19937{ std::random_device{}() }) default_rand_engine()
+    {
+        return std::mt19937{ std::random_device{}() };
+    };
+
+#define ERR_MESSAGE(message)
+
+    inline string position_in_file(){
+        return string(__FILE__) + string(",") + std::to_string(__LINE__);
+    }
 
 }
 

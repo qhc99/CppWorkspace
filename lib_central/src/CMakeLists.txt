@@ -5,12 +5,15 @@ add_library(lib_central
         DisjointSet.cpp
         utils.cpp
         numerics.cpp
-        )
-add_library(dev::qhc::lib_central ALIAS lib_central)
+        public/lib_central/DisjointSet.h
+        public/lib_central/numerics.h
+        public/lib_central/utils.h
+        public/lib_central/rank_search.hpp
+        public/lib_central/TernaryTries.hpp)
 target_include_directories(lib_central PUBLIC public)
 
 add_executable(
         lib_main
         main.cpp)
-target_link_libraries(lib_main PUBLIC dev::qhc::lib_central)
+target_link_libraries(lib_main PUBLIC lib_central)
 

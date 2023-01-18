@@ -4,13 +4,13 @@ if (NOT DEFINED ENV{CUDACXX})
     set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_LINKER_FLAGS_DEBUG} -fno-omit-frame-pointer -fsanitize=address")
     add_executable(DisjointSetTest DisjointSetTest.cpp)
     target_link_libraries(DisjointSetTest
-            dev::qhc::lib_central
+            lib_central
             Boost::unit_test_framework
             )
 
     add_executable(RankSearchTest RankSearchTest.cpp)
     target_link_libraries(RankSearchTest
-            dev::qhc::lib_central
+            lib_central
             Boost::unit_test_framework
             )
 endif ()

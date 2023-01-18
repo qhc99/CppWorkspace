@@ -1,6 +1,7 @@
 //
 // Created by Nathan on 2021/3/15.
 //
+#include <string>
 #include "lib_central/utils.h"
 
 namespace dev::qhc::utils {
@@ -15,8 +16,6 @@ namespace dev::qhc::utils {
         return std::move(r);
     }
 
-    decltype(std::mt19937{ std::random_device{}() }) default_rand_engine()
-    {
-        return std::mt19937{ std::random_device{}() };
-    }
+
+
 }
