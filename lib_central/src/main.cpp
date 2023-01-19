@@ -13,6 +13,6 @@ int main()
 {
     TernaryTries<int> t{};
 
-
+    t.remove("  ",nullptr);
     return 0;
 }

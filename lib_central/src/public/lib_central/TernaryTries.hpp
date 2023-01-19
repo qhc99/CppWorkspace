@@ -20,10 +20,18 @@ public:
     class Node;
 
 private:
+
+    enum class Direction {
+        LEFT,
+        MID,
+        RIGHT,
+        NONE
+    };
+
     Node *root{nullptr};
     int count{};
 
-    bool get(Node *n, const string &key, int depth, T_Val &ret) {
+    bool get(Node *n, const string &key, int depth, T_Val *ret) {
         if (n == nullptr) {
             return false;
         }
@@ -32,7 +40,7 @@ private:
         else if (c > n->chr) { return get(n->right, key, depth); }
         else if (depth < key.length() - 1) { return get(n->mid, key, depth + 1); }
         else {
-            ret = n->val;
+            *ret = n->val;
             return true;
         }
     }
@@ -68,6 +76,10 @@ private:
             }
         }
         return n;
+    }
+
+    static bool remove_node(Node *n, Node *p, Direction direct, const string &key, int d, T_Val *ret) {
+        return true;
     }
 
 public:
@@ -158,7 +170,7 @@ public:
      * @param ret value
      * @return if key exists
      */
-    bool getValueOfKey(const string &key, T_Val &ret) {
+    bool getValueOfKey(const string &key, T_Val *ret) {
         if (key.empty()) {
             return false;
         }
@@ -167,6 +179,19 @@ public:
 
     void insert(const string &key, T_Val val, bool replace = true) {
         root = insert(root, key, val, 0, replace);
+    }
+
+    bool remove(const string &key, T_Val *ret) {
+        if (key.empty()) {
+            return false;
+        }
+
+        if (remove_node(root, nullptr, Direction::NONE, key, 0, ret)) {
+            count--;
+            return true;
+        } else {
+            return false;
+        }
     }
 };
 
