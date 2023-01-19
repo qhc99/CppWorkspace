@@ -60,12 +60,6 @@ namespace dev::qhc::utils {
         return std::mt19937{ std::random_device{}() };
     };
 
-#define ERR_MESSAGE(message)
-
-    inline string position_in_file(){
-        return string(__FILE__) + string(",") + std::to_string(__LINE__);
-    }
-
 }
 
 

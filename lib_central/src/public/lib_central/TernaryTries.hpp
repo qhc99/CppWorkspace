@@ -9,9 +9,12 @@
 #include "lib_central/utils.h"
 
 using std::string;
-using dev::qhc::utils::position_in_file;
 
-template<typename T_Val_Copyable>
+/**
+ *
+ * @tparam T_Val copyable
+ */
+template<typename T_Val>
 class TernaryTries final {
 public:
     class Node;
@@ -20,7 +23,7 @@ private:
     Node *root{nullptr};
     int count{};
 
-    bool get(Node *n, const string &key, int depth, T_Val_Copyable &ret) {
+    bool get(Node *n, const string &key, int depth, T_Val &ret) {
         if (n == nullptr) {
             return false;
         }
@@ -34,7 +37,7 @@ private:
         }
     }
 
-    void recursive_release(Node *n) noexcept {
+    static void recursive_release(Node *n) noexcept {
         if (n->left != nullptr) {
             recursive_release(n->left);
         }
@@ -47,6 +50,26 @@ private:
         delete n;
     }
 
+    static Node *insert(Node *n, const string &key, const T_Val &val, int depth, bool replace) {
+        char c = key.at(depth);
+        if (n == nullptr) {
+            n = new Node{};
+            n->chr = c;
+        }
+        if (c < n->c) { n->left = insert(n->left, key, val, depth, replace); }
+        else if (c > n->c) { n->right = insert(n->right, key, val, depth, replace); }
+        else if (depth < key.length() - 1) { n->mid = insert(n->mid, key, val, depth + 1); }
+        else {
+            if (!replace && n->contain) {
+                return n;
+            } else {
+                n->val = val;
+                n->contain = true;
+            }
+        }
+        return n;
+    }
+
 public:
 
     class Node {
@@ -55,11 +78,12 @@ public:
         char chr{};
         bool contain{false};
         Node *left{nullptr}, *mid{nullptr}, *right{nullptr};
-        T_Val_Copyable val{};
+        T_Val val{};
 
         Node() = default;
 
         ~Node() = default;
+
     public:
 
         [[nodiscard]] char getNodeChar() const {
@@ -74,7 +98,7 @@ public:
          *
          * @return return copy or return pointer
          */
-        T_Val_Copyable getValue() const {
+        T_Val getValue() const {
             return val;
         }
 
@@ -103,9 +127,9 @@ public:
 
     TernaryTries() = default;
 
-    TernaryTries(const TernaryTries<T_Val_Copyable> &other) = delete;
+    TernaryTries(const TernaryTries<T_Val> &other) = delete;
 
-    TernaryTries(TernaryTries<T_Val_Copyable> &&other) noexcept = default;
+    TernaryTries(TernaryTries<T_Val> &&other) noexcept = default;
 
     TernaryTries &operator=(const TernaryTries &other) = delete;
 
@@ -134,11 +158,15 @@ public:
      * @param ret value
      * @return if key exists
      */
-    bool getValueOfKey(const string &key, T_Val_Copyable &ret) {
+    bool getValueOfKey(const string &key, T_Val &ret) {
         if (key.empty()) {
             return false;
         }
         return get(root, key, ret);
+    }
+
+    void insert(const string &key, T_Val val, bool replace = true) {
+        root = insert(root, key, val, 0, replace);
     }
 };
 
