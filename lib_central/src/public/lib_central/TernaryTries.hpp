@@ -14,7 +14,52 @@ using dev::qhc::utils::position_in_file;
 template<typename T_Val_Copyable>
 class TernaryTries final {
 public:
+    class Node;
+
+private:
+    Node *root{nullptr};
+    int count{};
+
+    bool get(Node *n, const string &key, int depth, T_Val_Copyable &ret) {
+        if (n == nullptr) {
+            return false;
+        }
+        char c = key.at(depth);
+        if (c < n->chr) { return get(n->left, key, depth); }
+        else if (c > n->chr) { return get(n->right, key, depth); }
+        else if (depth < key.length() - 1) { return get(n->mid, key, depth + 1); }
+        else {
+            ret = n->val;
+            return true;
+        }
+    }
+
+    void recursive_release(Node *n) noexcept {
+        if (n->left != nullptr) {
+            recursive_release(n->left);
+        }
+        if (n->mid != nullptr) {
+            recursive_release(n->mid);
+        }
+        if (n->right != nullptr) {
+            recursive_release(n->right);
+        }
+        delete n;
+    }
+
+public:
+
     class Node {
+    private:
+        friend TernaryTries;
+        char chr{};
+        bool contain{false};
+        Node *left{nullptr}, *mid{nullptr}, *right{nullptr};
+        T_Val_Copyable val{};
+
+        Node() = default;
+
+        ~Node() = default;
     public:
 
         [[nodiscard]] char getNodeChar() const {
@@ -53,18 +98,8 @@ public:
 
         Node &operator=(Node &&other) = delete;
 
-    private:
-        friend TernaryTries;
-        char chr{};
-        bool contain{false};
-        Node *left{nullptr}, mid{nullptr}, right{nullptr};
-        T_Val_Copyable val{};
 
-        Node() = default;
-
-        ~Node() = default;
     };
-
 
     TernaryTries() = default;
 
@@ -104,34 +139,6 @@ public:
             return false;
         }
         return get(root, key, ret);
-    }
-
-
-private:
-    Node *root{nullptr};
-    int count{};
-
-    bool get(Node *n, const string &key, int depth, T_Val_Copyable &ret) {
-        if (n == nullptr || depth >= key.size()) {
-            return false;
-        }
-        char c = key.at(depth);
-        if (c < n->chr) { return get(n->left, key, depth); }
-        else if (c > n->chr) { return get(n->right, key, depth); }
-        else { return get(n->mid, key, depth + 1); }
-    }
-
-    void recursive_release(Node *n) noexcept {
-        if (n->left != nullptr) {
-            recursive_release(n->left);
-        }
-        if (n->mid != nullptr) {
-            recursive_release(n->mid);
-        }
-        if (n->right != nullptr) {
-            recursive_release(n->right);
-        }
-        delete n;
     }
 };
 

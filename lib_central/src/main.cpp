@@ -11,7 +11,8 @@
 
 int main()
 {
-    TernaryTries<int>::Node* n;
+    TernaryTries<int> t{};
+
 
     return 0;
 }
