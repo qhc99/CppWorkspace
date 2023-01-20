@@ -31,16 +31,18 @@ private:
     Node *root{nullptr};
     int count{};
 
-    bool get(Node *n, const string &key, int depth, T_Val *ret) {
+    bool get_value(Node *n, const string &key, int depth, T_Val *ret) {
         if (n == nullptr) {
             return false;
         }
         char c = key.at(depth);
-        if (c < n->chr) { return get(n->left, key, depth); }
-        else if (c > n->chr) { return get(n->right, key, depth); }
-        else if (depth < key.length() - 1) { return get(n->mid, key, depth + 1); }
+        if (c < n->chr) { return get_value(n->left, key, depth); }
+        else if (c > n->chr) { return get_value(n->right, key, depth); }
+        else if (depth < key.length() - 1) { return get_value(n->mid, key, depth + 1); }
         else {
-            *ret = n->val;
+            if(ret != nullptr){
+                *ret = n->val;
+            }
             return true;
         }
     }
@@ -110,7 +112,7 @@ private:
             remove_dangle_node(n, p, direct);
             return b;
         }
-        else if(c > n->c){
+        else if(c > n->chr){
             bool b{remove_node(n->right, n, Direction::RIGHT, key, d, ret)};
             remove_dangle_node(n, p, direct);
             return b;
@@ -221,11 +223,15 @@ public:
      * @param ret value
      * @return if key exists
      */
-    bool getValueOfKey(const string &key, T_Val *ret) {
+    bool try_get(const string &key, T_Val *ret) {
         if (key.empty()) {
             return false;
         }
-        return get(root, key, ret);
+        return get_value(root, key, ret);
+    }
+
+    bool contain_key(const string& key){
+        return get_value(root, key, nullptr);
     }
 
     /**
