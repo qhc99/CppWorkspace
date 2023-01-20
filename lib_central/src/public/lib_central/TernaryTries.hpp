@@ -58,21 +58,22 @@ private:
         delete n;
     }
 
-    static Node *insert(Node *n, const string &key, const T_Val &val, int depth, bool replace) {
+    Node *insert_node(Node *n, const string &key, const T_Val &val, int depth, bool replace) {
         char c = key.at(depth);
         if (n == nullptr) {
             n = new Node{};
             n->chr = c;
         }
-        if (c < n->c) { n->left = insert(n->left, key, val, depth, replace); }
-        else if (c > n->c) { n->right = insert(n->right, key, val, depth, replace); }
-        else if (depth < key.length() - 1) { n->mid = insert(n->mid, key, val, depth + 1); }
+        if (c < n->c) { n->left = insert_node(n->left, key, val, depth, replace); }
+        else if (c > n->c) { n->right = insert_node(n->right, key, val, depth, replace); }
+        else if (depth < key.length() - 1) { n->mid = insert_node(n->mid, key, val, depth + 1); }
         else {
             if (!replace && n->contain) {
                 return n;
             } else {
                 n->val = val;
                 n->contain = true;
+                count++;
             }
         }
         return n;
@@ -127,10 +128,6 @@ private:
         else{
             return false;
         }
-    }
-
-    static Node* put(Node* n, const string& key, T_Val val, int depth){
-
     }
 
 public:
@@ -232,13 +229,13 @@ public:
     }
 
     /**
-     * insert key value pair
+     * insert_node key value pair
      * @param key
      * @param val
      * @param replace whether replace existing value, default true
      */
-    void insert(const string &key, T_Val val, bool replace = true) {
-        root = insert(root, key, val, 0, replace);
+    void insert(const string &key, const T_Val& val, bool replace = true) {
+        root = insert_node(root, key, val, 0, replace);
     }
 
     /**
@@ -257,10 +254,6 @@ public:
             return true;
         }
         return false;
-    }
-
-    void put(const string& key, T_Val val){
-
     }
 };
 
