@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.20)
 
 if (NOT DEFINED ENV{CUDACXX})
-    message(STATUS "Added ray trace")
+    message(STATUS "Added ray trace omp")
     project(ray_trace CXX)
     SET(TARGET_RT_OMP rt_omp)
     add_executable(${TARGET_RT_OMP}

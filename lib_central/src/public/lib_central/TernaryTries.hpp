@@ -40,7 +40,7 @@ private:
         else if (c > n->chr) { return get_value(n->right, key, depth); }
         else if (depth < key.length() - 1) { return get_value(n->mid, key, depth + 1); }
         else {
-            if(ret != nullptr){
+            if (ret != nullptr) {
                 *ret = n->val;
             }
             return true;
@@ -81,9 +81,9 @@ private:
         return n;
     }
 
-    void remove_dangle_node(Node* n, Node* p, Direction direct){
-        if(!n->contain && n->left == nullptr && n->mid == nullptr && n->right == nullptr && p != nullptr){
-            switch(direct){
+    void remove_dangle_node(Node *n, Node *p, Direction direct) {
+        if (!n->contain && n->left == nullptr && n->mid == nullptr && n->right == nullptr && p != nullptr) {
+            switch (direct) {
                 case Direction::MID:
                     delete p->mid;
                     p->mid = nullptr;
@@ -98,37 +98,47 @@ private:
                     break;
             }
         }
-        if(p == nullptr && !n->contain && n->left == nullptr && n->mid == nullptr && n->right == nullptr){
+        if (p == nullptr && !n->contain && n->left == nullptr && n->mid == nullptr && n->right == nullptr) {
             delete root;
             root = nullptr;
         }
     }
 
     bool remove_node(Node *n, Node *p, Direction direct, const string &key, int d, T_Val *ret) {
-        if(n == nullptr){ return false; }
+        if (n == nullptr) { return false; }
         char c = key.at(d);
-        if(c < n->chr){
+        if (c < n->chr) {
             bool b{remove_node(n->left, n, Direction::LEFT, key, d, ret)};
             remove_dangle_node(n, p, direct);
             return b;
-        }
-        else if(c > n->chr){
+        } else if (c > n->chr) {
             bool b{remove_node(n->right, n, Direction::RIGHT, key, d, ret)};
             remove_dangle_node(n, p, direct);
             return b;
-        }
-        else if(d < key.length() - 1){
-            bool b{remove_node(n->mid, n, Direction::MID, key, d + 1,ret)};
+        } else if (d < key.length() - 1) {
+            bool b{remove_node(n->mid, n, Direction::MID, key, d + 1, ret)};
             remove_dangle_node(n, p, direct);
             return b;
-        }
-        else if(n->contain){
+        } else if (n->contain) {
             n->contain = false;
             remove_dangle_node(n, p, direct);
             return true;
-        }
-        else{
+        } else {
             return false;
+        }
+    }
+
+    static void recursive_clone(Node **c_n, Node *n) {
+        if (n == nullptr) {
+            return;
+        } else {
+            *c_n = new Node{};
+            *c_n->chr = n->chr;
+            *c_n->contain = n->contain;
+            *c_n->val = n->val;
+            recursive_clone(&c_n->left, n->left);
+            recursive_clone(&c_n->mid, n->mid);
+            recursive_clone(&c_n->right, n->right);
         }
     }
 
@@ -197,8 +207,10 @@ public:
 
     TernaryTries &operator=(TernaryTries &&other) noexcept = default;
 
-    TernaryTries &clone() {
-
+    TernaryTries clone() {
+        TernaryTries<T_Val> cloned{};
+        recursive_clone(&cloned.root, root);
+        return std::move(cloned);
     }
 
     ~TernaryTries() {
@@ -230,7 +242,7 @@ public:
         return get_value(root, key, ret);
     }
 
-    bool contain_key(const string& key){
+    bool contain_key(const string &key) {
         return get_value(root, key, nullptr);
     }
 
@@ -240,7 +252,7 @@ public:
      * @param val
      * @param replace whether replace existing value, default true
      */
-    void insert(const string &key, const T_Val& val, bool replace = true) {
+    void insert(const string &key, const T_Val &val, bool replace = true) {
         root = insert_node(root, key, val, 0, replace);
     }
 
