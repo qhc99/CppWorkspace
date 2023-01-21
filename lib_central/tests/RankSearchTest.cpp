@@ -7,7 +7,7 @@
 #include "lib_central/utils.h"
 #include <algorithm>
 #include <gtest/gtest.h>
-
+#include <iostream>
 using dev::qhc::lib_central::RankSearch;
 using dev::qhc::utils::shuffledRange;
 
@@ -18,5 +18,6 @@ TEST(RankSearchAPITest, rank_search) {
         std::sort(data.begin(), data.end());
         EXPECT_EQ(data[10], r);
     }
+    std::cout << "rank";
 }
 

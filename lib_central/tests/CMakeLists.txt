@@ -12,18 +12,13 @@ if (NOT DEFINED ENV{CUDACXX})
 
     enable_testing()
     set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_LINKER_FLAGS_DEBUG} -fno-omit-frame-pointer -fsanitize=address")
-    add_executable(DisjointSetTest DisjointSetTest.cpp)
-    target_link_libraries(DisjointSetTest
-            lib_central
-            GTest::gtest_main
-            )
 
-    add_executable(RankSearchTest RankSearchTest.cpp)
-    target_link_libraries(RankSearchTest
+    add_executable(data_struct_test DisjointSetTest.cpp RankSearchTest.cpp)
+    target_link_libraries(data_struct_test
             lib_central
             GTest::gtest_main
             )
 
     include(GoogleTest)
-    gtest_discover_tests(RankSearchTest DisjointSetTest )
+    gtest_discover_tests(data_struct_test )
 endif ()

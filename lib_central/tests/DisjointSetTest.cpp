@@ -5,6 +5,7 @@
 
 #include "lib_central/DisjointSet.h"
 #include <gtest/gtest.h>
+#include <iostream>
 
 using dev::qhc::lib_central::DisjointSet;
 
@@ -17,5 +18,6 @@ TEST(DisjointSetAPITest, find_set){
     DisjointSet f{};
     EXPECT_EQ(&a.groupRep(), &b.groupRep());
     EXPECT_NE(&a.groupRep(), &f.groupRep());
+    std::cout << "dis";
 }
 
