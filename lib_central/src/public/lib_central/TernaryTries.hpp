@@ -32,19 +32,16 @@ private:
     Node *root{nullptr};
     int count{};
 
-    bool get_value(Node *n, const string &key, int depth, T_Val *ret) {
+    Node * get_node_of_key(Node *n, const string &key, int depth) {
         if (n == nullptr) {
-            return false;
+            return nullptr;
         }
         char c = key.at(depth);
-        if (c < n->chr) { return get_value(n->left, key, depth); }
-        else if (c > n->chr) { return get_value(n->right, key, depth); }
-        else if (depth < key.length() - 1) { return get_value(n->mid, key, depth + 1); }
+        if (c < n->chr) { return get_node_of_key(n->left, key, depth); }
+        else if (c > n->chr) { return get_node_of_key(n->right, key, depth); }
+        else if (depth < key.length() - 1) { return get_node_of_key(n->mid, key, depth + 1); }
         else {
-            if (ret != nullptr) {
-                *ret = n->val;
-            }
-            return true;
+            return n;
         }
     }
 
@@ -67,9 +64,9 @@ private:
             n = new Node{};
             n->chr = c;
         }
-        if (c < n->c) { n->left = insert_node(n->left, key, val, depth, replace); }
-        else if (c > n->c) { n->right = insert_node(n->right, key, val, depth, replace); }
-        else if (depth < key.length() - 1) { n->mid = insert_node(n->mid, key, val, depth + 1); }
+        if (c < n->chr) { n->left = insert_node(n->left, key, val, depth, replace); }
+        else if (c > n->chr) { n->right = insert_node(n->right, key, val, depth, replace); }
+        else if (depth < key.length() - 1) { n->mid = insert_node(n->mid, key, val, depth + 1, replace); }
         else {
             if (!replace && n->contain) {
                 return n;
@@ -148,8 +145,9 @@ private:
     static void collect(Node* x, string& prefix, std::deque<string>& queue){
         if(x == nullptr){ return; }
         collect(x->left, prefix, queue);
-        if(x->contain){ queue.push_back(string{prefix + x->chr}); }
-        collect(x->mid, prefix.append(x->c), queue);
+        if(x->contain){ queue.emplace_back(string{prefix + x->chr}); }
+        prefix.push_back(x->chr);
+        collect(x->mid, prefix, queue);
         prefix.erase(prefix.length() - 1,1);
         collect(x->right, prefix, queue);
     }
@@ -252,11 +250,16 @@ public:
         if (key.empty()) {
             return false;
         }
-        return get_value(root, key, ret);
+        Node * n{get_node_of_key(root, key, ret)};
+        if(n == nullptr) return false;
+        else{
+            *ret = n->val;
+            return true;
+        }
     }
 
     bool contain_key(const string &key) {
-        return get_value(root, key, nullptr);
+        return get_node_of_key(root, key, nullptr);
     }
 
     /**
@@ -300,12 +303,12 @@ public:
         int i = 0;
         while (x != nullptr && i < query.length()) {
             char c{query.at(i)};
-            if (c < x.c) { x = x.left; }
-            else if (c > x.c) { x = x.right; }
+            if (c < x->chr) { x = x->left; }
+            else if (c > x->chr) { x = x->right; }
             else {
                 i++;
-                if (x.contain) { length = i; }
-                x = x.mid;
+                if (x->contain) { length = i; }
+                x = x->mid;
             }
         }
         return query.substr(0, length);
@@ -313,16 +316,18 @@ public:
 
     std::deque<string> keys(){
         std::deque<string> queue{};
-        collect(root, "", queue);
+        string s_builder{};
+        collect(root, s_builder, queue);
         return std::move(queue);
     }
 
     std::deque<string> keysWithPrefix( const string& prefix){
         std::deque<string> queue{};
-        Node* x{get(root, prefix, 0)};
+        Node* x{get_node_of_key(root, prefix, 0)};
         if(x == nullptr){ return queue; }
-        if(x->contain){ queue.push_back(prefix); }
-        collect(x->mid, "", queue);
+        if(x->contain){ queue.emplace_back(prefix); }
+        string s_builder{prefix};
+        collect(x->mid, s_builder, queue);
         return queue;
     }
 };

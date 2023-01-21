@@ -12,7 +12,7 @@ if (NOT DEFINED ENV{CUDACXX})
 
     enable_testing()
 
-    add_executable(data_struct_test DisjointSetTest.cpp RankSearchTest.cpp)
+    add_executable(data_struct_test DisjointSetTest.cpp RankSearchTest.cpp TernaryTriesTest.cpp)
     target_link_libraries(data_struct_test
             lib_central
             GTest::gtest_main
