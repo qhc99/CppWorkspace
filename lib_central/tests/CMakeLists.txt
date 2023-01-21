@@ -11,13 +11,14 @@ if (NOT DEFINED ENV{CUDACXX})
     FetchContent_MakeAvailable(googletest)
 
     enable_testing()
-    set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_LINKER_FLAGS_DEBUG} -fno-omit-frame-pointer -fsanitize=address")
 
     add_executable(data_struct_test DisjointSetTest.cpp RankSearchTest.cpp)
     target_link_libraries(data_struct_test
             lib_central
             GTest::gtest_main
             )
+    target_compile_options(data_struct_test PRIVATE -fno-omit-frame-pointer -fsanitize=address)
+    target_link_options(data_struct_test PRIVATE -fno-omit-frame-pointer -fsanitize=address)
 
     include(GoogleTest)
     gtest_discover_tests(data_struct_test )

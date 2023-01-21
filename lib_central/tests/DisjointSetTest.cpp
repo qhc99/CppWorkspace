@@ -9,6 +9,8 @@
 
 using dev::qhc::lib_central::DisjointSet;
 
+
+
 TEST(DisjointSetAPITest, find_set){
     DisjointSet p{};
     DisjointSet a{};
@@ -18,6 +20,5 @@ TEST(DisjointSetAPITest, find_set){
     DisjointSet f{};
     EXPECT_EQ(&a.groupRep(), &b.groupRep());
     EXPECT_NE(&a.groupRep(), &f.groupRep());
-    std::cout << "dis";
 }
 

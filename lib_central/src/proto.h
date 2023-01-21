@@ -9,14 +9,14 @@
  * TernaryTries
  * dancing links, sudoku
  * level db
- * TreelikeArray
- * SegmentTree
+ * fix jispy and write lis.py
+ * LinkedGraph and Dijkstra
  * reimplement DisjointSet
- * KMP
  * BST printer
  * RB Tree template and iterator
- * LinkedGraph and Dijkstra
- * fix jispy and write lis.py
+ * KMP
+ * TreelikeArray
+ * SegmentTree
  * SharedList
  *
  */
