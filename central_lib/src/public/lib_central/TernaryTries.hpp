@@ -262,7 +262,7 @@ public:
 
     bool contain_key(const string &key) {
         auto n{get_node_of_key(root, key, 0)};
-        return n != nullptr;
+        return n != nullptr && n->contain;
     }
 
     /**
