@@ -84,6 +84,8 @@ private:
     void remove_dangle_node(Node *n, Node *p, Direction direct) {
         if (!n->contain && n->left == nullptr && n->mid == nullptr && n->right == nullptr && p != nullptr) {
             switch (direct) {
+                case Direction::NONE:
+                    throw std::runtime_error("algorithm implementation error");
                 case Direction::MID:
                     delete p->mid;
                     p->mid = nullptr;
@@ -277,7 +279,7 @@ public:
 
 
     string longestPrefixOf(const string &query) {
-        if (query.length() == 0) { return null; }
+        if (query.length() == 0) { return ""; }
         int length = 0;
         auto x{root};
         int i = 0;
