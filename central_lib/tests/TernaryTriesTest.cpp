@@ -68,5 +68,59 @@ TEST_F(TernaryTriesTest, KeysWithPrefixTest) {
 }
 
 TEST_F(TernaryTriesTest, RemoveTest) {
+    EXPECT_EQ(7, case2.getCount());
 
+
+    EXPECT_TRUE(case2.remove("by", nullptr));
+    EXPECT_FALSE(case2.contain_key("by"));
+    EXPECT_TRUE(case2.contain_key("she"));
+    EXPECT_TRUE(case2.contain_key("shells"));
+    EXPECT_TRUE(case2.contain_key("sea"));
+    EXPECT_TRUE(case2.contain_key("sells"));
+    EXPECT_TRUE(case2.contain_key("shore"));
+    EXPECT_TRUE(case2.contain_key("the"));
+    EXPECT_EQ(6, case2.getCount());
+
+    EXPECT_TRUE(case2.remove("she", nullptr));
+    EXPECT_FALSE(case2.contain_key("she"));
+    EXPECT_TRUE(case2.contain_key("shells"));
+    EXPECT_TRUE(case2.contain_key("sea"));
+    EXPECT_TRUE(case2.contain_key("sells"));
+    EXPECT_TRUE(case2.contain_key("shore"));
+    EXPECT_TRUE(case2.contain_key("the"));
+    EXPECT_EQ(5, case2.getCount());
+
+    EXPECT_TRUE(case2.remove("shells", nullptr));
+    EXPECT_FALSE(case2.contain_key("shells"));
+    EXPECT_TRUE(case2.contain_key("sea"));
+    EXPECT_TRUE(case2.contain_key("sells"));
+    EXPECT_TRUE(case2.contain_key("shore"));
+    EXPECT_TRUE(case2.contain_key("the"));
+    EXPECT_EQ(4, case2.getCount());
+
+    EXPECT_FALSE(case2.remove("aaaa", nullptr));
+
+    EXPECT_TRUE(case2.remove("sea", nullptr));
+    EXPECT_FALSE(case2.contain_key("sea"));
+    EXPECT_TRUE(case2.contain_key("sells"));
+    EXPECT_TRUE(case2.contain_key("shore"));
+    EXPECT_TRUE(case2.contain_key("the"));
+    EXPECT_EQ(3, case2.getCount());
+
+    EXPECT_TRUE(case2.remove("sells", nullptr));
+    EXPECT_FALSE(case2.contain_key("sells"));
+    EXPECT_TRUE(case2.contain_key("shore"));
+    EXPECT_TRUE(case2.contain_key("the"));
+    EXPECT_EQ(2, case2.getCount());
+
+    EXPECT_TRUE(case2.remove("shore", nullptr));
+    EXPECT_FALSE(case2.contain_key("shore"));
+    EXPECT_TRUE(case2.contain_key("the"));
+    EXPECT_EQ(1, case2.getCount());
+
+    EXPECT_TRUE(case2.remove("the", nullptr));
+    EXPECT_FALSE(case2.contain_key("the"));
+
+    EXPECT_EQ(nullptr, case2.getRoot());
+    EXPECT_EQ(0, case2.getCount());
 }

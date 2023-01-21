@@ -225,7 +225,9 @@ public:
     }
 
     ~TernaryTries() {
-        recursive_release(root);
+        if(root != nullptr){
+            recursive_release(root);
+        }
     }
 
     const Node *getRoot() {
@@ -259,7 +261,8 @@ public:
     }
 
     bool contain_key(const string &key) {
-        return get_node_of_key(root, key, nullptr);
+        auto n{get_node_of_key(root, key, 0)};
+        return n != nullptr;
     }
 
     /**

@@ -13,6 +13,7 @@
       <file path="$PROJECT_DIR$/cmake-build-debug-visual-studio" />
       <file path="$PROJECT_DIR$/cmake-build-debug-visual-studio-drmemory" />
       <file path="$PROJECT_DIR$/cmake-build-debug-wsl" />
+      <file path="$PROJECT_DIR$/cmake-build-debug-wsl-coverage" />
       <file path="$PROJECT_DIR$/cmake-build-release" />
       <file path="$PROJECT_DIR$/cmake-build-release-clang64" />
       <file path="$PROJECT_DIR$/cmake-build-release-mingw" />
