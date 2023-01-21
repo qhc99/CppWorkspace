@@ -133,12 +133,12 @@ private:
             return;
         } else {
             *c_n = new Node{};
-            *c_n->chr = n->chr;
-            *c_n->contain = n->contain;
-            *c_n->val = n->val;
-            recursive_clone(&c_n->left, n->left);
-            recursive_clone(&c_n->mid, n->mid);
-            recursive_clone(&c_n->right, n->right);
+            (*c_n)->chr = n->chr;
+            (*c_n)->contain = n->contain;
+            (*c_n)->val = n->val;
+            recursive_clone(&(*c_n)->left, n->left);
+            recursive_clone(&(*c_n)->mid, n->mid);
+            recursive_clone(&(*c_n)->right, n->right);
         }
     }
 
@@ -211,16 +211,25 @@ public:
 
     TernaryTries(const TernaryTries<T_Val> &other) = delete;
 
-    TernaryTries(TernaryTries<T_Val> &&other) noexcept = default;
+    TernaryTries(TernaryTries<T_Val> &&other) noexcept{
+        root = other.root;
+        count = other.count;
+        other.root = nullptr;
+    };
 
     TernaryTries &operator=(const TernaryTries &other) = delete;
 
-    TernaryTries &operator=(TernaryTries &&other) noexcept = default;
+    TernaryTries &operator=(TernaryTries &&other) noexcept{
+        root = other.root;
+        count = other.count;
+        other.root = nullptr;
+    };
 
     TernaryTries clone() {
         TernaryTries<T_Val> cloned{};
         cloned.count = count;
         recursive_clone(&cloned.root, root);
+
         return std::move(cloned);
     }
 

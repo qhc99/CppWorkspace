@@ -148,3 +148,28 @@ TEST_F(TernaryTriesTest, TryGetTest) {
     EXPECT_TRUE(case2.try_get("the",&val));
     EXPECT_EQ(2,val);
 }
+
+TEST_F(TernaryTriesTest,CloneTest){
+    auto case3 = case2.clone();
+    EXPECT_EQ(7, case3.getCount());
+
+
+    EXPECT_TRUE(case3.remove("by", nullptr));
+    EXPECT_TRUE(case3.remove("she", nullptr));
+    EXPECT_TRUE(case3.remove("shells", nullptr));
+    EXPECT_FALSE(case3.remove("aaaa", nullptr));
+    EXPECT_TRUE(case3.remove("sea", nullptr));
+
+    int val{};
+    EXPECT_FALSE(case3.try_get("by", &val));
+    EXPECT_FALSE(case3.try_get("she", &val));
+    EXPECT_FALSE(case3.try_get("shells", &val));
+    EXPECT_FALSE(case3.try_get("sea", &val));
+
+    EXPECT_TRUE(case3.try_get("sells", &val));
+    EXPECT_EQ(3,val);
+    EXPECT_TRUE(case3.try_get("shore",&val));
+    EXPECT_EQ(4,val);
+    EXPECT_TRUE(case3.try_get("the",&val));
+    EXPECT_EQ(2,val);
+}
