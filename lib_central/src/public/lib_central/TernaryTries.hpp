@@ -209,6 +209,7 @@ public:
 
     TernaryTries clone() {
         TernaryTries<T_Val> cloned{};
+        cloned.count = count;
         recursive_clone(&cloned.root, root);
         return std::move(cloned);
     }
@@ -272,6 +273,25 @@ public:
             return true;
         }
         return false;
+    }
+
+
+    string longestPrefixOf(const string &query) {
+        if (query.length() == 0) { return null; }
+        int length = 0;
+        auto x{root};
+        int i = 0;
+        while (x != nullptr && i < query.length()) {
+            char c{query.at(i)};
+            if (c < x.c) { x = x.left; }
+            else if (c > x.c) { x = x.right; }
+            else {
+                i++;
+                if (x.contain) { length = i; }
+                x = x.mid;
+            }
+        }
+        return query.substr(0, length);
     }
 };
 
