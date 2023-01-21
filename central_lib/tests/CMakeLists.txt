@@ -14,7 +14,7 @@ if (NOT DEFINED ENV{CUDACXX})
 
     add_executable(data_struct_test DisjointSetTest.cpp RankSearchTest.cpp TernaryTriesTest.cpp)
     target_link_libraries(data_struct_test
-            lib_central
+            central_lib
             GTest::gtest_main
             )
     target_compile_options(data_struct_test PRIVATE -fno-omit-frame-pointer -fsanitize=address)

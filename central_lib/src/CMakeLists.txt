@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.20)
 
-add_library(lib_central
+add_library(central_lib
         STATIC
         DisjointSet.cpp
         utils.cpp
@@ -10,10 +10,10 @@ add_library(lib_central
         public/lib_central/utils.h
         public/lib_central/rank_search.hpp
         public/lib_central/TernaryTries.hpp)
-target_include_directories(lib_central PUBLIC public)
+target_include_directories(central_lib PUBLIC public)
 
 add_executable(
         lib_main
         main.cpp)
-target_link_libraries(lib_main PUBLIC lib_central)
+target_link_libraries(lib_main PUBLIC central_lib)
 

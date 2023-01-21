@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.20)
 
 project(cpp_projects)
 if (NOT DEFINED ENV{CUDACXX})
-    add_subdirectory(lib_central)
+    add_subdirectory(central_lib)
     message(STATUS "Added lib central")
     add_subdirectory(net_prog)
     message(STATUS "Added net prog")
