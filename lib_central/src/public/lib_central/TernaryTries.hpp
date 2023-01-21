@@ -7,6 +7,7 @@
 
 #include <string>
 #include "lib_central/utils.h"
+#include <deque>
 
 using std::string;
 
@@ -144,6 +145,15 @@ private:
         }
     }
 
+    static void collect(Node* x, string& prefix, std::deque<string>& queue){
+        if(x == nullptr){ return; }
+        collect(x->left, prefix, queue);
+        if(x->contain){ queue.push_back(string{prefix + x->chr}); }
+        collect(x->mid, prefix.append(x->c), queue);
+        prefix.erase(prefix.length() - 1,1);
+        collect(x->right, prefix, queue);
+    }
+
 public:
 
     class Node {
@@ -278,6 +288,11 @@ public:
     }
 
 
+    /**
+     * find longest prefix that can match the dictionary
+     * @param query
+     * @return
+     */
     string longestPrefixOf(const string &query) {
         if (query.length() == 0) { return ""; }
         int length = 0;
@@ -294,6 +309,21 @@ public:
             }
         }
         return query.substr(0, length);
+    }
+
+    std::deque<string> keys(){
+        std::deque<string> queue{};
+        collect(root, "", queue);
+        return std::move(queue);
+    }
+
+    std::deque<string> keysWithPrefix( const string& prefix){
+        std::deque<string> queue{};
+        Node* x{get(root, prefix, 0)};
+        if(x == nullptr){ return queue; }
+        if(x->contain){ queue.push_back(prefix); }
+        collect(x->mid, "", queue);
+        return queue;
     }
 };
 
