@@ -252,8 +252,8 @@ public:
         if (key.empty()) {
             return false;
         }
-        Node * n{get_node_of_key(root, key, ret)};
-        if(n == nullptr) return false;
+        Node * n{get_node_of_key(root, key, 0)};
+        if(n == nullptr || !n->contain) return false;
         else{
             *ret = n->val;
             return true;
