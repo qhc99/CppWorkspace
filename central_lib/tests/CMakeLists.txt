@@ -17,8 +17,20 @@ if (NOT DEFINED ENV{CUDACXX})
             central_lib
             GTest::gtest_main
             )
-    target_compile_options(data_struct_test PRIVATE -fno-omit-frame-pointer -fsanitize=address)
-    target_link_options(data_struct_test PRIVATE -fno-omit-frame-pointer -fsanitize=address)
+    target_compile_options(data_struct_test PRIVATE
+            -fsanitize=leak
+            -fsanitize=address
+            -fsanitize=undefined
+            -fno-omit-frame-pointer
+            -fno-optimize-sibling-calls
+            -fsanitize-address-use-after-scope)
+    target_link_options(data_struct_test PRIVATE
+            -fsanitize=leak
+            -fsanitize=address
+            -fsanitize=undefined
+            -fno-omit-frame-pointer
+            -fno-optimize-sibling-calls
+            -fsanitize-address-use-after-scope)
 
     include(GoogleTest)
     gtest_discover_tests(data_struct_test )
