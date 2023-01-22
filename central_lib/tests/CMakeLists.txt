@@ -1,6 +1,5 @@
 cmake_minimum_required(VERSION 3.20)
 if (NOT DEFINED ENV{CUDACXX})
-    #    find_package(Boost 1.74 REQUIRED COMPONENTS unit_test_framework)
     include(FetchContent)
     FetchContent_Declare(
             googletest
@@ -23,14 +22,20 @@ if (NOT DEFINED ENV{CUDACXX})
             -fsanitize=undefined
             -fno-omit-frame-pointer
             -fno-optimize-sibling-calls
-            -fsanitize-address-use-after-scope)
+            -fsanitize-address-use-after-scope
+
+            --coverage
+            )
     target_link_options(data_struct_test PRIVATE
             -fsanitize=leak
             -fsanitize=address
             -fsanitize=undefined
             -fno-omit-frame-pointer
             -fno-optimize-sibling-calls
-            -fsanitize-address-use-after-scope)
+            -fsanitize-address-use-after-scope
+
+            --coverage
+            )
 
     include(GoogleTest)
     gtest_discover_tests(data_struct_test )
