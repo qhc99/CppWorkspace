@@ -150,7 +150,7 @@ TEST_F(TernaryTriesTest, TryGetTest) {
 }
 
 TEST_F(TernaryTriesTest,CloneTest){
-    auto case3 = case2.clone();
+    auto case3 {case2.clone()};
     EXPECT_EQ(7, case3.getCount());
 
 
