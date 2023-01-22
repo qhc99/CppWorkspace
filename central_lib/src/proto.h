@@ -7,17 +7,14 @@
 
 /**
  * TernaryTries
- * dancing links, sudoku
  * level db
  * fix jispy and write lis.py
  * LinkedGraph and Dijkstra
  * reimplement DisjointSet
  * BST printer
  * RB Tree template and iterator
- * KMP
  * TreelikeArray
  * SegmentTree
- * SharedList
  *
  */
 
