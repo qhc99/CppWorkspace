@@ -23,11 +23,11 @@ void copy_from(Value **ptr, Value *val) {
         *ptr = n;
     }else if (val_type == typeid(String)) {
         auto *n = new String{};
-        n->val = dynamic_cast<String *>(val)->val;
+        n->ptr = dynamic_cast<String *>(val)->ptr;
         *ptr = n;
     }else if (val_type == typeid(Symbol)) {
         auto *n = new Symbol{};
-        n->val = dynamic_cast<Symbol *>(val)->val;
+        n->ptr = dynamic_cast<Symbol *>(val)->ptr;
         *ptr = n;
     }
     else if (val_type == typeid(Pair)) {
