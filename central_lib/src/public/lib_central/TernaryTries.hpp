@@ -212,7 +212,7 @@ public:
     TernaryTries(const TernaryTries<T_Val> &other) = delete;
 
     TernaryTries(TernaryTries<T_Val> &&other) noexcept {
-        if (other != this) {
+        if (&other != this) {
             root = other.root;
             count = other.count;
             other.root = nullptr;
@@ -222,7 +222,7 @@ public:
     TernaryTries &operator=(const TernaryTries &other) = delete;
 
     TernaryTries &operator=(TernaryTries &&other) noexcept {
-        if (other != this) {
+        if (&other != this) {
             root = other.root;
             count = other.count;
             other.root = nullptr;
