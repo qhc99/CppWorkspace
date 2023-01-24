@@ -66,25 +66,14 @@ public:
     std::string val{};
 };
 
+void copy_from(Value **ptr, Value *val) ;
+
 class Pair : public Value {
 public:
     Value *car{};
     Value *cdr{};
 
-    static void copy(Value **ptr, Value *val) {
-        const auto &val_type = typeid(*val);
-        if (val_type == typeid(Int)) {
-            auto *n = new Int{};
-            n->val = dynamic_cast<Int *>(val)->val;
-        } else if (val_type == typeid(Double)) {
-            auto *n = new Double{};
-            n->val = dynamic_cast<Double *>(val)->val;
-        } else if (val_type == typeid(Complex)) {
-            auto *n = new Complex{};
-            n->val = dynamic_cast<Complex *>(val)->val;
-        }
 
-    }
 
     Pair(Value *car, Value *cdr) {
         this->car = car;
@@ -97,25 +86,38 @@ public:
     }
 
     Pair(const Pair &other) {
-
+        if (&other != this) {
+            copy_from(&this->car, other.car);
+            copy_from(&this->cdr, other.cdr);
+        }
     }
 
     Pair(Pair &&other) noexcept {
-
+        if (&other != this) {
+            this->car = other.car;
+            this->cdr = other.cdr;
+            other.car = nullptr;
+            other.cdr = nullptr;
+        }
     }
 
     Pair &operator=(const Pair &other) {
-        copy(&this->car,other.car);
-        copy(&this->cdr,other.cdr);
+        if (&other != this) {
+            copy_from(&this->car, other.car);
+            copy_from(&this->cdr, other.cdr);
+        }
+        return *this;
     }
 
-    Pair &operator=(Pair &&other) {
-
+    Pair &operator=(Pair &&other) noexcept {
+        if (&other != this) {
+            this->car = other.car;
+            this->cdr = other.cdr;
+            other.car = nullptr;
+            other.cdr = nullptr;
+        }
+        return *this;
     }
 };
-
-void test() {
-
-}
 
 #endif //DEV_QHC_CPP_PROJECTS_VALUES_H
