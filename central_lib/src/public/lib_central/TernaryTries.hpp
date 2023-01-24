@@ -32,7 +32,7 @@ private:
     Node *root{nullptr};
     int count{};
 
-    Node * get_node_of_key(Node *n, const string &key, int depth) {
+    Node *get_node_of_key(Node *n, const string &key, int depth) {
         if (n == nullptr) {
             return nullptr;
         }
@@ -142,13 +142,13 @@ private:
         }
     }
 
-    static void collect(Node* x, string& prefix, std::deque<string>& queue){
-        if(x == nullptr){ return; }
+    static void collect(Node *x, string &prefix, std::deque<string> &queue) {
+        if (x == nullptr) { return; }
         collect(x->left, prefix, queue);
-        if(x->contain){ queue.emplace_back(string{prefix + x->chr}); }
+        if (x->contain) { queue.emplace_back(string{prefix + x->chr}); }
         prefix.push_back(x->chr);
         collect(x->mid, prefix, queue);
-        prefix.erase(prefix.length() - 1,1);
+        prefix.erase(prefix.length() - 1, 1);
         collect(x->right, prefix, queue);
     }
 
@@ -211,18 +211,22 @@ public:
 
     TernaryTries(const TernaryTries<T_Val> &other) = delete;
 
-    TernaryTries(TernaryTries<T_Val> &&other) noexcept{
-        root = other.root;
-        count = other.count;
-        other.root = nullptr;
+    TernaryTries(TernaryTries<T_Val> &&other) noexcept {
+        if (other != this) {
+            root = other.root;
+            count = other.count;
+            other.root = nullptr;
+        }
     };
 
     TernaryTries &operator=(const TernaryTries &other) = delete;
 
-    TernaryTries &operator=(TernaryTries &&other) noexcept{
-        root = other.root;
-        count = other.count;
-        other.root = nullptr;
+    TernaryTries &operator=(TernaryTries &&other) noexcept {
+        if (other != this) {
+            root = other.root;
+            count = other.count;
+            other.root = nullptr;
+        }
     };
 
     TernaryTries clone() {
@@ -234,7 +238,7 @@ public:
     }
 
     ~TernaryTries() {
-        if(root != nullptr){
+        if (root != nullptr) {
             recursive_release(root);
         }
     }
@@ -261,9 +265,9 @@ public:
         if (key.empty()) {
             return false;
         }
-        Node * n{get_node_of_key(root, key, 0)};
-        if(n == nullptr || !n->contain) return false;
-        else{
+        Node *n{get_node_of_key(root, key, 0)};
+        if (n == nullptr || !n->contain) return false;
+        else {
             *ret = n->val;
             return true;
         }
@@ -326,18 +330,18 @@ public:
         return query.substr(0, length);
     }
 
-    std::deque<string> keys(){
+    std::deque<string> keys() {
         std::deque<string> queue{};
         string s_builder{};
         collect(root, s_builder, queue);
         return std::move(queue);
     }
 
-    std::deque<string> keysWithPrefix( const string& prefix){
+    std::deque<string> keysWithPrefix(const string &prefix) {
         std::deque<string> queue{};
-        Node* x{get_node_of_key(root, prefix, 0)};
-        if(x == nullptr){ return queue; }
-        if(x->contain){ queue.emplace_back(prefix); }
+        Node *x{get_node_of_key(root, prefix, 0)};
+        if (x == nullptr) { return queue; }
+        if (x->contain) { queue.emplace_back(prefix); }
         string s_builder{prefix};
         collect(x->mid, s_builder, queue);
         return queue;
