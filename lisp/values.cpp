@@ -3,38 +3,16 @@
 //
 
 #include "values.h"
-void copy_from(Value **ptr, Value *val) {
+
+void copy_from(shared_ptr<Value> &ptr, const shared_ptr<Value> &val) {
     const auto &val_type = typeid(*val);
-    if (val_type == typeid(Int)) {
-        auto *n = new Int{};
-        n->val = dynamic_cast<Int *>(val)->val;
-        *ptr = n;
-    } else if (val_type == typeid(Double)) {
-        auto *n = new Double{};
-        n->val = dynamic_cast<Double *>(val)->val;
-        *ptr = n;
-    } else if (val_type == typeid(Complex)) {
-        auto *n = new Complex{};
-        n->val = dynamic_cast<Complex *>(val)->val;
-        *ptr = n;
-    }else if (val_type == typeid(Bool)) {
-        auto *n = new Bool{};
-        n->val = dynamic_cast<Bool *>(val)->val;
-        *ptr = n;
-    }else if (val_type == typeid(String)) {
-        auto *n = new String{};
-        n->ptr = dynamic_cast<String *>(val)->ptr;
-        *ptr = n;
-    }else if (val_type == typeid(Symbol)) {
-        auto *n = new Symbol{};
-        n->ptr = dynamic_cast<Symbol *>(val)->ptr;
-        *ptr = n;
-    }
-    else if (val_type == typeid(Pair)) {
-        auto *n = new Pair{nullptr,nullptr};
-        auto*p{dynamic_cast<Pair *>(val)};
-        n->car = p->car;
-        n->cdr = p->cdr;
-        *ptr = n;
+    if (val_type == typeid(Pair)) {
+        auto n = std::make_shared<Pair>(nullptr, nullptr);
+        auto val_p{std::dynamic_pointer_cast<Pair>(val)};
+        copy_from(n->car, val_p->car);
+        copy_from(n->cdr, val_p->cdr);
+        ptr = n;
+    } else {
+        ptr = val;
     }
 }

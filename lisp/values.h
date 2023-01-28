@@ -59,83 +59,96 @@ public:
 
 class String : public Value {
 public:
-    shared_ptr<string> ptr{};
+    string val{};
 
     String() = default;
 
-    String(const std::string &str) : ptr(std::make_shared<string>(str)) {} // NOLINT(google-explicit-constructor)
+    String(std::string str) : val(std::move(str)) {} // NOLINT(google-explicit-constructor)
 
-    operator shared_ptr<string>() const { // NOLINT(google-explicit-constructor)
-        return ptr;
+    operator string() const { // NOLINT(google-explicit-constructor)
+        return val;
     }
 
     String(const String& other){
         if(this != &other){
-            this->ptr = std::make_shared<string>(*other.ptr);
+            this->val = other.val;
         }
     }
 
     String(String&& other) noexcept {
         if(this != &other){
-            this->ptr = std::move(other.ptr);
+            this->val = std::move(other.val);
         }
     }
 
     String& operator=(const String& other){
         if(this != &other){
-            this->ptr = std::make_shared<string>(*other.ptr);
+            this->val = other.val;
         }
         return *this;
     }
 
     String& operator=(String&& other) noexcept {
         if(this != &other){
-            this->ptr = std::move(other.ptr);
+            this->val = std::move(other.val);
         }
         return *this;
+    }
+
+    bool operator==(const String& p) const
+    {
+        return val == p.val;
     }
 };
 
 class Symbol : public Value {
 public:
-    shared_ptr<string> ptr{};
+    string val{};
 
     Symbol() = default;
 
-    explicit Symbol(const string& str) : ptr(std::make_shared<string>(str)) {}
+    explicit Symbol(string  str) : val(std::move(str)) {}
 
-
-    explicit Symbol(const shared_ptr<string>& p) : ptr(p) {}
 
     Symbol(const Symbol& other){
         if(&other != this){
-            this->ptr = std::make_shared<string>(*other.ptr);
+            this->val = other.val;
         }
     };
 
     Symbol(Symbol&& other) noexcept {
         if(&other != this){
-            this->ptr = std::move(other.ptr);
-
+            this->val = std::move(other.val);
         }
     };
 
     Symbol& operator=(const Symbol& other) {
         if(&other != this){
-            this->ptr = std::make_shared<string>(*other.ptr);
+            this->val = other.val;
         }
         return *this;
     }
 
     Symbol& operator=(Symbol&& other)  noexcept {
         if(&other != this){
-            this->ptr = std::move(other.ptr);
+            this->val = std::move(other.val);
         }
         return *this;
     }
 };
 
+namespace std {
+    template <>
+    struct hash<String> {
+        auto operator()(const String &xyz) const -> size_t {
+            return hash<string>{}(xyz.val);
+        }
+    };
+}  // namespace std
+
 namespace SYMBOLS{
+
+
     Symbol QUOTE_SYM{"quote"};
     const Symbol IF_SYM{"if"};
     const Symbol SET_SYM{"set!"};
@@ -147,11 +160,11 @@ namespace SYMBOLS{
     const Symbol UNQUOTE_SYM{"unquote"};
     const Symbol UNQUOTE_SPLICING_SYM{"unquote-splicing"};
     const Symbol EOF_SYM{"#<symbol-eof>"};
-    std::unordered_map<string, Symbol> QUOTES_MAP = {
-        {"'",  QUOTE_SYM},
-        {"`",  QUASI_QUOTE_SYM},
-        {",",  UNQUOTE_SYM},
-        {",@", UNQUOTE_SPLICING_SYM},
+    std::unordered_map<String, Symbol> QUOTES_MAP = {
+        {string{"'"},  QUOTE_SYM},
+        {string{"`"},  QUASI_QUOTE_SYM},
+        {string{","},  UNQUOTE_SYM},
+        {string{",@"}, UNQUOTE_SPLICING_SYM},
     };
 
     const Symbol APPEND_SYM{"append"};
@@ -159,28 +172,25 @@ namespace SYMBOLS{
     const Symbol LET_SYM{"let"};
 }
 
-void copy_from(Value **ptr, Value *val);
+void copy_from(shared_ptr<Value> &ptr, const shared_ptr<Value>& val);
 
 class Pair : public Value {
 public:
-    Value *car{};
-    Value *cdr{};
+    shared_ptr<Value> car{};
+    shared_ptr<Value> cdr{};
 
 
-    Pair(Value *car, Value *cdr) {
-        this->car = car;
-        this->cdr = cdr;
+    Pair(shared_ptr<Value> car, shared_ptr<Value> cdr) {
+        this->car = std::move(car);
+        this->cdr = std::move(cdr);
     }
 
-    ~Pair() override {
-        delete car;
-        delete cdr;
-    }
+    ~Pair() override = default;
 
     Pair(const Pair &other) {
         if (&other != this) {
-            copy_from(&this->car, other.car);
-            copy_from(&this->cdr, other.cdr);
+             copy_from(this->car, other.car);
+             copy_from(this->cdr, other.cdr);
         }
     }
 
@@ -195,8 +205,8 @@ public:
 
     Pair &operator=(const Pair &other) {
         if (&other != this) {
-            copy_from(&this->car, other.car);
-            copy_from(&this->cdr, other.cdr);
+             copy_from(this->car, other.car);
+             copy_from(this->cdr, other.cdr);
         }
         return *this;
     }
