@@ -147,9 +147,7 @@ namespace std {
 }  // namespace std
 
 namespace SYMBOLS{
-
-
-    Symbol QUOTE_SYM{"quote"};
+    const Symbol QUOTE_SYM{"quote"};
     const Symbol IF_SYM{"if"};
     const Symbol SET_SYM{"set!"};
     const Symbol DEFINE_SYM{"define"};
@@ -160,7 +158,7 @@ namespace SYMBOLS{
     const Symbol UNQUOTE_SYM{"unquote"};
     const Symbol UNQUOTE_SPLICING_SYM{"unquote-splicing"};
     const Symbol EOF_SYM{"#<symbol-eof>"};
-    std::unordered_map<string, Symbol> QUOTES_MAP = {
+    const std::unordered_map<string, Symbol> QUOTES_MAP = {
         {"'",  QUOTE_SYM},
         {"`",  QUASI_QUOTE_SYM},
         {",",  UNQUOTE_SYM},
