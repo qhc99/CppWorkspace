@@ -256,7 +256,7 @@ public:
         env(std::move(e)) {}
 
     inline Env(shared_ptr<Value> params, shared_ptr<Pair> args, shared_ptr<Env> outer) : outer(std::move(outer)) {
-
+        // TODO unfinished
     }
 };
 
@@ -279,15 +279,12 @@ public:
 
 class Procedure : public Func {
 public:
-    shared_ptr<Value> exp{};
-    shared_ptr<Value> params{};
-    shared_ptr<Env> env{};
+    const shared_ptr<Value> exp{};
+    const shared_ptr<Value> params{};
+    const shared_ptr<Env> env{};
 
     inline Procedure(const shared_ptr<Value> &params, const shared_ptr<Value> &exp, const shared_ptr<Env> &env)
-        : Func() {
-        this->exp = exp;
-        this->params = params;
-        this->env = env;
+        : Func(), exp(exp), params(params), env(env) {
         func = [=](const shared_ptr<Pair> &args) {
             return eval(exp, make_shared<Env>(params, args, env));
         };
