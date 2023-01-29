@@ -26,7 +26,7 @@ class Int : public Value {
 public:
     int val{};
 
-    inline Int(int v) : val(v) {}
+    inline Int(int v) : val(v) {} // NOLINT(google-explicit-constructor)
 
     inline operator int() const { // NOLINT(google-explicit-constructor)
         return val;
@@ -37,7 +37,7 @@ class Double : public Value {
 public:
     double val{};
 
-    inline Double(double d) : val(d) {}
+    inline Double(double d) : val(d) {} // NOLINT(google-explicit-constructor)
 
     inline operator double() const { // NOLINT(google-explicit-constructor)
         return val;
@@ -48,7 +48,7 @@ class Complex : public Value {
 public:
     std::complex<double> val{};
 
-    inline Complex(std::complex<double> v) : val(v) {}
+    inline Complex(std::complex<double> v) : val(v) {} // NOLINT(google-explicit-constructor)
 
     inline operator std::complex<double>() const { // NOLINT(google-explicit-constructor)
         return val;
@@ -59,7 +59,7 @@ class Bool : public Value {
 public:
     bool val{};
 
-    inline Bool(bool b) : val{b} {}
+    inline Bool(bool b) : val{b} {} // NOLINT(google-explicit-constructor)
 
     inline operator bool() const { // NOLINT(google-explicit-constructor)
         return val;
@@ -252,9 +252,10 @@ public:
     unordered_map<shared_ptr<Value>, shared_ptr<Value>> env{};
     shared_ptr<Env> outer{};
 
-    inline Env(unordered_map<shared_ptr<Value>, shared_ptr<Value>> e) : env(std::move(e)) {}
+    inline Env(unordered_map<shared_ptr<Value>, shared_ptr<Value>> e) : env(
+        std::move(e)) {} // NOLINT(google-explicit-constructor)
 
-    inline Env(shared_ptr<Value> params, shared_ptr<Pair> args, shared_ptr<Env> outer) : outer(outer) {
+    inline Env(shared_ptr<Value> params, shared_ptr<Pair> args, shared_ptr<Env> outer) : outer(std::move(outer)) {
 
     }
 };
@@ -262,16 +263,14 @@ public:
 shared_ptr<Value> eval(shared_ptr<Value> x, shared_ptr<Env> env);
 
 class Func : public Value {
+protected:
+    inline Func() = default;
+
 public:
     std::function<shared_ptr<Value>(shared_ptr<Pair>)> func{};
 
-    inline Func(std::function<shared_ptr<Value>(shared_ptr<Pair>)> f) : func(std::move(f)) {}
-
-    inline Func(const shared_ptr<Value>& params, const shared_ptr<Value>& exp, const shared_ptr<Env>& env) {
-        func = [=](const shared_ptr<Pair>& args) {
-            return eval(exp, make_shared<Env>(params, args, env));
-        };
-    }
+    inline Func(std::function<shared_ptr<Value>(shared_ptr<Pair>)> f) : // NOLINT(google-explicit-constructor)
+        func(std::move(f)) {}
 
     inline shared_ptr<Value> operator()(shared_ptr<Pair> args) const {
         return func(std::move(args));
@@ -280,7 +279,19 @@ public:
 
 class Procedure : public Func {
 public:
+    shared_ptr<Value> exp{};
+    shared_ptr<Value> params{};
+    shared_ptr<Env> env{};
 
+    inline Procedure(const shared_ptr<Value> &params, const shared_ptr<Value> &exp, const shared_ptr<Env> &env)
+        : Func() {
+        this->exp = exp;
+        this->params = params;
+        this->env = env;
+        func = [=](const shared_ptr<Pair> &args) {
+            return eval(exp, make_shared<Env>(params, args, env));
+        };
+    }
 };
 
 #endif //DEV_QHC_CPP_PROJECTS_VALUES_H
