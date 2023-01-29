@@ -12,8 +12,9 @@
 #include <unordered_map>
 #include <memory>
 #include <utility>
+#include <functional>
 
-using std::string, std::shared_ptr;
+using std::string, std::shared_ptr, std::unordered_map, std::make_shared;
 
 class Value {
 public:
@@ -25,6 +26,8 @@ class Int : public Value {
 public:
     int val{};
 
+    inline Int(int v) : val(v) {}
+
     inline operator int() const { // NOLINT(google-explicit-constructor)
         return val;
     }
@@ -33,6 +36,8 @@ public:
 class Double : public Value {
 public:
     double val{};
+
+    inline Double(double d) : val(d) {}
 
     inline operator double() const { // NOLINT(google-explicit-constructor)
         return val;
@@ -43,6 +48,8 @@ class Complex : public Value {
 public:
     std::complex<double> val{};
 
+    inline Complex(std::complex<double> v) : val(v) {}
+
     inline operator std::complex<double>() const { // NOLINT(google-explicit-constructor)
         return val;
     }
@@ -51,6 +58,8 @@ public:
 class Bool : public Value {
 public:
     bool val{};
+
+    inline Bool(bool b) : val{b} {}
 
     inline operator bool() const { // NOLINT(google-explicit-constructor)
         return val;
@@ -236,6 +245,42 @@ public:
         }
         return *this;
     }
+};
+
+class Env : public Value {
+public:
+    unordered_map<shared_ptr<Value>, shared_ptr<Value>> env{};
+    shared_ptr<Env> outer{};
+
+    inline Env(unordered_map<shared_ptr<Value>, shared_ptr<Value>> e) : env(std::move(e)) {}
+
+    inline Env(shared_ptr<Value> params, shared_ptr<Pair> args, shared_ptr<Env> outer) : outer(outer) {
+
+    }
+};
+
+shared_ptr<Value> eval(shared_ptr<Value> x, shared_ptr<Env> env);
+
+class Func : public Value {
+public:
+    std::function<shared_ptr<Value>(shared_ptr<Pair>)> func{};
+
+    inline Func(std::function<shared_ptr<Value>(shared_ptr<Pair>)> f) : func(std::move(f)) {}
+
+    inline Func(const shared_ptr<Value>& params, const shared_ptr<Value>& exp, const shared_ptr<Env>& env) {
+        func = [=](const shared_ptr<Pair>& args) {
+            return eval(exp, make_shared<Env>(params, args, env));
+        };
+    }
+
+    inline shared_ptr<Value> operator()(shared_ptr<Pair> args) const {
+        return func(std::move(args));
+    }
+};
+
+class Procedure : public Func {
+public:
+
 };
 
 #endif //DEV_QHC_CPP_PROJECTS_VALUES_H
