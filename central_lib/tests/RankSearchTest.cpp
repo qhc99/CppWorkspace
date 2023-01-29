@@ -1,7 +1,7 @@
 //
 // Created by Nathan on 2021/4/4.
 //
-#define BOOST_TEST_MODULE RankSearchTest
+
 
 #include "lib_central/rank_search.hpp"
 #include "lib_central/utils.h"

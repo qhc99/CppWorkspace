@@ -1,7 +1,7 @@
 //
 // Created by Nathan on 2021/4/4.
 //
-#define BOOST_TEST_MODULE DisjointSetTest
+
 
 #include "lib_central/DisjointSet.h"
 #include <gtest/gtest.h>

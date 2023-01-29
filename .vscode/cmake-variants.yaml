@@ -1,0 +1,24 @@
+build_type:
+  default: debug
+  choices:
+    debug:
+      short: Debug
+      long: Emit debug information
+      buildType: Debug
+    release:
+      short: Release
+      long: Optimize generated code
+      buildType: Release
+    debug-nvcc:
+      short: NVCC-Debug
+      long: NVCC Debug mode
+      buildType: Debug
+      env:
+        CUDACXX: "/usr/local/cuda-12/bin/nvcc"
+    release-nvcc:
+      short: NVCC-Release
+      long:  NVCC Release mode
+      buildType: Release
+      env:
+        CUDACXX: "/usr/local/cuda-12/bin/nvcc"
+

@@ -69,34 +69,33 @@ public:
         return val;
     }
 
-    String(const String& other){
-        if(this != &other){
+    String(const String &other) {
+        if (this != &other) {
             this->val = other.val;
         }
     }
 
-    String(String&& other) noexcept {
-        if(this != &other){
+    String(String &&other) noexcept {
+        if (this != &other) {
             this->val = std::move(other.val);
         }
     }
 
-    String& operator=(const String& other){
-        if(this != &other){
+    String &operator=(const String &other) {
+        if (this != &other) {
             this->val = other.val;
         }
         return *this;
     }
 
-    String& operator=(String&& other) noexcept {
-        if(this != &other){
+    String &operator=(String &&other) noexcept {
+        if (this != &other) {
             this->val = std::move(other.val);
         }
         return *this;
     }
 
-    bool operator==(const String& p) const
-    {
+    bool operator==(const String &p) const {
         return val == p.val;
     }
 };
@@ -107,38 +106,56 @@ public:
 
     Symbol() = default;
 
-    explicit Symbol(string  str) : val(std::move(str)) {}
+    explicit Symbol(string str) : val(std::move(str)) {}
 
 
-    Symbol(const Symbol& other){
-        if(&other != this){
+    Symbol(const Symbol &other) {
+        if (&other != this) {
             this->val = other.val;
         }
     };
 
-    Symbol(Symbol&& other) noexcept {
-        if(&other != this){
+    Symbol(Symbol &&other) noexcept {
+        if (&other != this) {
             this->val = std::move(other.val);
         }
     };
 
-    Symbol& operator=(const Symbol& other) {
-        if(&other != this){
+    Symbol &operator=(const Symbol &other) {
+        if (&other != this) {
             this->val = other.val;
         }
         return *this;
     }
 
-    Symbol& operator=(Symbol&& other)  noexcept {
-        if(&other != this){
+    Symbol &operator=(Symbol &&other) noexcept {
+        if (&other != this) {
             this->val = std::move(other.val);
         }
         return *this;
+    }
+
+    bool operator==(const Symbol &&other) const {
+        return val == other.val;
+    }
+
+    bool operator!=(const Symbol &&other) const {
+        return val != other.val;
     }
 };
 
+inline std::ostream &operator<<(std::ostream &out, const Symbol &sym) {
+    out << "Symbol(" << sym.val << ")";
+    return out;
+}
+
+inline std::ostream &operator<<(std::ostream &out, const String &str) {
+    out << str.val ;
+    return out;
+}
+
 namespace std {
-    template <>
+    template<>
     struct hash<String> {
         auto operator()(const String &xyz) const -> size_t {
             return hash<string>{}(xyz.val);
@@ -146,7 +163,7 @@ namespace std {
     };
 }  // namespace std
 
-namespace SYMBOLS{
+namespace SYMBOLS {
     const Symbol QUOTE_SYM{"quote"};
     const Symbol IF_SYM{"if"};
     const Symbol SET_SYM{"set!"};
@@ -170,7 +187,7 @@ namespace SYMBOLS{
     const Symbol LET_SYM{"let"};
 }
 
-void copy_from(shared_ptr<Value> &ptr, const shared_ptr<Value>& val);
+void copy_from(shared_ptr<Value> &ptr, const shared_ptr<Value> &val);
 
 class Pair : public Value {
 public:
@@ -187,8 +204,8 @@ public:
 
     Pair(const Pair &other) {
         if (&other != this) {
-             copy_from(this->car, other.car);
-             copy_from(this->cdr, other.cdr);
+            copy_from(this->car, other.car);
+            copy_from(this->cdr, other.cdr);
         }
     }
 
@@ -203,8 +220,8 @@ public:
 
     Pair &operator=(const Pair &other) {
         if (&other != this) {
-             copy_from(this->car, other.car);
-             copy_from(this->cdr, other.cdr);
+            copy_from(this->car, other.car);
+            copy_from(this->cdr, other.cdr);
         }
         return *this;
     }
