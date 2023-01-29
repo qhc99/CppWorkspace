@@ -160,11 +160,11 @@ namespace SYMBOLS{
     const Symbol UNQUOTE_SYM{"unquote"};
     const Symbol UNQUOTE_SPLICING_SYM{"unquote-splicing"};
     const Symbol EOF_SYM{"#<symbol-eof>"};
-    std::unordered_map<String, Symbol> QUOTES_MAP = {
-        {string{"'"},  QUOTE_SYM},
-        {string{"`"},  QUASI_QUOTE_SYM},
-        {string{","},  UNQUOTE_SYM},
-        {string{",@"}, UNQUOTE_SPLICING_SYM},
+    std::unordered_map<string, Symbol> QUOTES_MAP = {
+        {"'",  QUOTE_SYM},
+        {"`",  QUASI_QUOTE_SYM},
+        {",",  UNQUOTE_SYM},
+        {",@", UNQUOTE_SPLICING_SYM},
     };
 
     const Symbol APPEND_SYM{"append"};
