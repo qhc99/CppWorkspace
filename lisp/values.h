@@ -25,7 +25,7 @@ class Int : public Value {
 public:
     int val{};
 
-    operator int() const { // NOLINT(google-explicit-constructor)
+    inline operator int() const { // NOLINT(google-explicit-constructor)
         return val;
     }
 };
@@ -34,7 +34,7 @@ class Double : public Value {
 public:
     double val{};
 
-    operator double() const { // NOLINT(google-explicit-constructor)
+    inline operator double() const { // NOLINT(google-explicit-constructor)
         return val;
     }
 };
@@ -43,7 +43,7 @@ class Complex : public Value {
 public:
     std::complex<double> val{};
 
-    operator std::complex<double>() const { // NOLINT(google-explicit-constructor)
+    inline operator std::complex<double>() const { // NOLINT(google-explicit-constructor)
         return val;
     }
 };
@@ -52,7 +52,7 @@ class Bool : public Value {
 public:
     bool val{};
 
-    operator bool() const { // NOLINT(google-explicit-constructor)
+    inline operator bool() const { // NOLINT(google-explicit-constructor)
         return val;
     }
 };
@@ -61,85 +61,90 @@ class String : public Value {
 public:
     string val{};
 
-    String() = default;
+    inline String() = default;
 
-    String(std::string str) : val(std::move(str)) {} // NOLINT(google-explicit-constructor)
+    inline String(std::string str) : val(std::move(str)) {} // NOLINT(google-explicit-constructor)
 
-    operator string() const { // NOLINT(google-explicit-constructor)
+    inline operator string() const { // NOLINT(google-explicit-constructor)
         return val;
     }
 
-    String(const String &other) {
+    inline String(const String &other) {
         if (this != &other) {
             this->val = other.val;
         }
     }
 
-    String(String &&other) noexcept {
+    inline String(String &&other) noexcept {
         if (this != &other) {
             this->val = std::move(other.val);
         }
     }
 
-    String &operator=(const String &other) {
+    inline String &operator=(const String &other) {
         if (this != &other) {
             this->val = other.val;
         }
         return *this;
     }
 
-    String &operator=(String &&other) noexcept {
+    inline String &operator=(String &&other) noexcept {
         if (this != &other) {
             this->val = std::move(other.val);
         }
         return *this;
     }
 
-    bool operator==(const String &p) const {
+    inline bool operator==(const String &p) const {
         return val == p.val;
     }
 };
+
+inline std::ostream &operator<<(std::ostream &out, const String &str) {
+    out << str.val;
+    return out;
+}
 
 class Symbol : public Value {
 public:
     string val{};
 
-    Symbol() = default;
+    inline Symbol() = default;
 
-    explicit Symbol(string str) : val(std::move(str)) {}
+    inline explicit Symbol(string str) : val(std::move(str)) {}
 
 
-    Symbol(const Symbol &other) {
+    inline Symbol(const Symbol &other) {
         if (&other != this) {
             this->val = other.val;
         }
     };
 
-    Symbol(Symbol &&other) noexcept {
+    inline Symbol(Symbol &&other) noexcept {
         if (&other != this) {
             this->val = std::move(other.val);
         }
     };
 
-    Symbol &operator=(const Symbol &other) {
+    inline Symbol &operator=(const Symbol &other) {
         if (&other != this) {
             this->val = other.val;
         }
         return *this;
     }
 
-    Symbol &operator=(Symbol &&other) noexcept {
+    inline Symbol &operator=(Symbol &&other) noexcept {
         if (&other != this) {
             this->val = std::move(other.val);
         }
         return *this;
     }
 
-    bool operator==(const Symbol &&other) const {
+    inline bool operator==(const Symbol &&other) const {
         return val == other.val;
     }
 
-    bool operator!=(const Symbol &&other) const {
+    inline bool operator!=(const Symbol &&other) const {
         return val != other.val;
     }
 };
@@ -149,15 +154,11 @@ inline std::ostream &operator<<(std::ostream &out, const Symbol &sym) {
     return out;
 }
 
-inline std::ostream &operator<<(std::ostream &out, const String &str) {
-    out << str.val ;
-    return out;
-}
 
 namespace std {
     template<>
     struct hash<String> {
-        auto operator()(const String &xyz) const -> size_t {
+        inline auto operator()(const String &xyz) const -> size_t {
             return hash<string>{}(xyz.val);
         }
     };
@@ -195,21 +196,21 @@ public:
     shared_ptr<Value> cdr{};
 
 
-    Pair(shared_ptr<Value> car, shared_ptr<Value> cdr) {
+    inline Pair(shared_ptr<Value> car, shared_ptr<Value> cdr) {
         this->car = std::move(car);
         this->cdr = std::move(cdr);
     }
 
-    ~Pair() override = default;
+    inline  ~Pair() override = default;
 
-    Pair(const Pair &other) {
+    inline Pair(const Pair &other) {
         if (&other != this) {
             copy_from(this->car, other.car);
             copy_from(this->cdr, other.cdr);
         }
     }
 
-    Pair(Pair &&other) noexcept {
+    inline Pair(Pair &&other) noexcept {
         if (&other != this) {
             this->car = other.car;
             this->cdr = other.cdr;
@@ -218,7 +219,7 @@ public:
         }
     }
 
-    Pair &operator=(const Pair &other) {
+    inline Pair &operator=(const Pair &other) {
         if (&other != this) {
             copy_from(this->car, other.car);
             copy_from(this->cdr, other.cdr);
@@ -226,7 +227,7 @@ public:
         return *this;
     }
 
-    Pair &operator=(Pair &&other) noexcept {
+    inline Pair &operator=(Pair &&other) noexcept {
         if (&other != this) {
             this->car = other.car;
             this->cdr = other.cdr;
