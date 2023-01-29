@@ -252,8 +252,8 @@ public:
     unordered_map<shared_ptr<Value>, shared_ptr<Value>> env{};
     shared_ptr<Env> outer{};
 
-    inline Env(unordered_map<shared_ptr<Value>, shared_ptr<Value>> e) : env(
-        std::move(e)) {} // NOLINT(google-explicit-constructor)
+    inline Env(unordered_map<shared_ptr<Value>, shared_ptr<Value>> e) : // NOLINT(google-explicit-constructor)
+        env(std::move(e)) {}
 
     inline Env(shared_ptr<Value> params, shared_ptr<Pair> args, shared_ptr<Env> outer) : outer(std::move(outer)) {
 
