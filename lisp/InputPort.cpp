@@ -8,8 +8,8 @@ shared_ptr<Value> InputPort::next_token() {
     string line_cache{};
     while (true) {
         if (!queue.empty()) {
-            auto ret{make_shared<String>(queue.back())};
-            queue.pop_back();
+            auto ret{make_shared<String>(queue.front())};
+            queue.pop_front();
             return std::move(ret);
         }
         if (input->eof()) {
@@ -26,10 +26,9 @@ shared_ptr<Value> InputPort::next_token() {
         for (auto i = match_begin; i != match_end; ++i) {
             const std::smatch& match = *i;
             std::string match_str = match[1].str();
-            if(match_str.rfind(';',0) != 0){
+            if(match_str.rfind(';',0) != 0 && !match_str.empty()){
                 queue.push_back(std::move(match_str));
             }
-
         }
     }
 }

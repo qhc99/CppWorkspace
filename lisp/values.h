@@ -250,7 +250,7 @@ public:
 class Env : public Value {
 public:
     unordered_map<shared_ptr<Value>, shared_ptr<Value>> env{};
-    shared_ptr<Env> outer{};
+    shared_ptr<Env> outer{nullptr};
 
     inline Env(unordered_map<shared_ptr<Value>, shared_ptr<Value>> e) : // NOLINT(google-explicit-constructor)
         env(std::move(e)) {}
@@ -265,9 +265,9 @@ shared_ptr<Value> eval(shared_ptr<Value> x, shared_ptr<Env> env);
 class Func : public Value {
 protected:
     inline Func() = default;
+    std::function<shared_ptr<Value>(shared_ptr<Pair>)> func{};
 
 public:
-    std::function<shared_ptr<Value>(shared_ptr<Pair>)> func{};
 
     inline Func(std::function<shared_ptr<Value>(shared_ptr<Pair>)> f) : // NOLINT(google-explicit-constructor)
         func(std::move(f)) {}
