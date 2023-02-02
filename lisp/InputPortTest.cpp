@@ -2,6 +2,7 @@
 #include <memory>
 #include <iostream>
 #include <sstream>
+#include <array>
 #include "InputPort.h"
 #include "values.h"
 
@@ -10,7 +11,7 @@ TEST(InputPortTest, test_next_token_simple){
     auto s{make_unique<stringstream>("(define x 0)")};
     auto i{InputPort{std::move(s)}};
     shared_ptr<Value> token{};
-    string ans[] = {"(", "define", "x","0",")"};
+    std::array<string,5> ans {{"(", "define", "x","0",")"}};
     int idx{};
     do{
         token = i.next_token();
@@ -18,4 +19,5 @@ TEST(InputPortTest, test_next_token_simple){
             EXPECT_EQ(ans[idx++], std::dynamic_pointer_cast<String>(token)->val);
         }
     }while(typeid(*token) != typeid(Symbol));
+    EXPECT_EQ(idx, ans.size());
 }
