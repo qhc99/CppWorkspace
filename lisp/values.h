@@ -199,6 +199,7 @@ namespace SYMBOLS {
 
 void copy_from(shared_ptr<Value> &ptr, const shared_ptr<Value> &val);
 
+
 class Pair : public Value {
 public:
     shared_ptr<Value> car{};
@@ -247,6 +248,7 @@ public:
     }
 };
 
+
 class Env : public Value {
 public:
     unordered_map<shared_ptr<Value>, shared_ptr<Value>> env{};
@@ -256,7 +258,38 @@ public:
         env(std::move(e)) {}
 
     inline Env(shared_ptr<Value> params, shared_ptr<Pair> args, shared_ptr<Env> outer) : outer(std::move(outer)) {
-        // TODO unfinished
+        this->outer = outer;
+        if (typeid(*params) == typeid(Symbol)) {
+            env.insert({params, args});
+        } else {
+            // TODO unfinished
+            shared_ptr<Pair> p{std::dynamic_pointer_cast<Pair>(params)};
+            while(p != nullptr){
+                env.insert({p->car, args->car});
+                p = std::dynamic_pointer_cast<Pair>(p->cdr);
+                args = std::dynamic_pointer_cast<Pair>(args->cdr);
+            }
+            if(args != nullptr){
+
+            }
+
+            /**
+      List<Object> p = (List<Object>) params;
+      if (p.size() == args.size()) {
+        var pi = p.iterator();
+        var ai = args.iterator();
+        while (pi.hasNext()) {
+          put(pi.next(), ai.next());
+        }
+      }
+      else {
+        throw new Exceptions.TypeException(String.format("expected %s, given %s",
+                evalToString(params),
+                evalToString(args)));
+      }
+             */
+
+        }
     }
 };
 
@@ -265,6 +298,7 @@ shared_ptr<Value> eval(shared_ptr<Value> x, shared_ptr<Env> env);
 class Func : public Value {
 protected:
     inline Func() = default;
+
     std::function<shared_ptr<Value>(shared_ptr<Pair>)> func{};
 
 public:

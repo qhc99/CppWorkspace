@@ -5,7 +5,7 @@ add_library(simple_lisp
         values.cpp
         values.h lisp.cpp
         InputPort.cpp
-        InputPort.h Interpreter.cpp Interpreter.h)
+        InputPort.h Interpreter.cpp Interpreter.h exceptions.h)
 target_include_directories(simple_lisp PUBLIC pub)
 
 # add gtest
