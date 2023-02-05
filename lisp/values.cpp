@@ -18,3 +18,25 @@ void copy_from(shared_ptr<Value> &ptr, const shared_ptr<Value> &val) {
 }
 
 
+std::string to_string(const shared_ptr<Value>& val_ptr) {
+
+}
+
+
+Env::Env(const shared_ptr<Value> &params, shared_ptr<Pair> args, shared_ptr<Env> outer) : outer(std::move(outer)) {
+    this->outer = outer;
+    if (typeid(*params) == typeid(Symbol)) {
+        env.insert({params, args});
+    } else {
+        shared_ptr<Pair> p{std::dynamic_pointer_cast<Pair>(params)};
+        while (p != nullptr) {
+            env.insert({p->car, args->car});
+            p = std::dynamic_pointer_cast<Pair>(p->cdr);
+            args = std::dynamic_pointer_cast<Pair>(args->cdr);
+        }
+        if (args != nullptr) {
+            auto msg{"expected: " + to_string(params) + ", " + "given: " + to_string(args)};
+            throw TypeException{msg.c_str()};
+        }
+    }
+}

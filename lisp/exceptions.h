@@ -14,6 +14,11 @@ class BaseException : public std::exception {
     string msg;
 
 public:
+    /**
+     *
+     * @param msg will be copied
+     * @param type
+     */
     explicit BaseException(const char *msg, const std::type_info &type) {
         string a{type.name()};
         a = "[" + a;
