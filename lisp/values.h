@@ -20,6 +20,8 @@ using std::string, std::shared_ptr, std::unordered_map, std::make_shared;
 class Value {
 public:
     virtual ~Value() = default;
+
+    virtual string to_string() = 0;
 };
 
 
@@ -32,6 +34,10 @@ public:
     inline operator int() const { // NOLINT(google-explicit-constructor)
         return val;
     }
+
+    inline string to_string() override{
+        return std::to_string(val);
+    }
 };
 
 class Double : public Value {
@@ -42,6 +48,10 @@ public:
 
     inline operator double() const { // NOLINT(google-explicit-constructor)
         return val;
+    }
+
+    inline string to_string() override{
+        return std::to_string(val);
     }
 };
 
@@ -54,6 +64,10 @@ public:
     inline operator std::complex<double>() const { // NOLINT(google-explicit-constructor)
         return val;
     }
+
+    inline string to_string() override{
+        return std::to_string(val.real()) + " + " + std::to_string(val.imag()) + "j";
+    }
 };
 
 class Bool : public Value {
@@ -64,6 +78,10 @@ public:
 
     inline operator bool() const { // NOLINT(google-explicit-constructor)
         return val;
+    }
+
+    inline string to_string() override{
+        return std::to_string(val);
     }
 };
 
@@ -107,6 +125,10 @@ public:
 
     inline bool operator==(const String &p) const {
         return val == p.val;
+    }
+
+    inline string to_string() override{
+        return val;
     }
 };
 
@@ -156,6 +178,10 @@ public:
 
     inline bool operator!=(const Symbol &&other) const {
         return val != other.val;
+    }
+
+    inline string to_string() override{
+        return val;
     }
 };
 
@@ -247,6 +273,10 @@ public:
         }
         return *this;
     }
+
+    inline string to_string() override{
+        return string{"( "} + car->to_string() + " . " + cdr->to_string() + " )";
+    }
 };
 
 
@@ -259,6 +289,10 @@ public:
         env(std::move(e)) {}
 
     Env(const shared_ptr<Value> &params, shared_ptr<Pair> args, shared_ptr<Env> outer);
+
+    inline string to_string() override{
+        return "#{Env}";
+    }
 };
 
 shared_ptr<Value> eval(shared_ptr<Value> x, shared_ptr<Env> env);
@@ -277,6 +311,10 @@ public:
     inline shared_ptr<Value> operator()(shared_ptr<Pair> args) const {
         return func(std::move(args));
     }
+
+    inline string to_string() override{
+        return "#{Func}";
+    }
 };
 
 class Procedure : public Func {
@@ -291,10 +329,11 @@ public:
             return eval(exp, make_shared<Env>(params, args, env));
         };
     }
+
+    inline string to_string() override{
+        return "#{Procedure}";
+    }
 };
-
-
-std::string to_string(const shared_ptr<Value>& val_ptr);
 
 
 #endif //DEV_QHC_CPP_PROJECTS_VALUES_H
