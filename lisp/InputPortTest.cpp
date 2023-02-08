@@ -6,7 +6,7 @@
 #include "InputPort.h"
 #include "values.h"
 
-using std::unique_ptr,std::stringstream,std::make_unique,std::shared_ptr;
+using std::stringstream,std::make_unique,std::shared_ptr;
 TEST(InputPortTest, test_next_token_simple){
     auto s{make_unique<stringstream>("(define x 0)")};
     auto i{InputPort{std::move(s)}};

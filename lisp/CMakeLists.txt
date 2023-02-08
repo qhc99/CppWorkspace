@@ -5,9 +5,12 @@ set(CMAKE_CXX_STANDARD 20)
 add_library(simple_lisp
         STATIC
         values.cpp
-        values.h lisp.cpp
+        values.h 
         InputPort.cpp
-        InputPort.h Interpreter.cpp Interpreter.h exceptions.h)
+        InputPort.h 
+        Interpreter.cpp 
+        Interpreter.h 
+        exceptions.h)
 target_include_directories(simple_lisp PUBLIC pub)
 
 # add gtest
@@ -37,6 +40,7 @@ target_compile_options(lisp_test PRIVATE
 
         --coverage
         )
+
 target_link_options(lisp_test PRIVATE
         -fsanitize=leak
         -fsanitize=address
@@ -49,4 +53,5 @@ target_link_options(lisp_test PRIVATE
         )
 
 include(GoogleTest)
+
 gtest_discover_tests(lisp_test)
