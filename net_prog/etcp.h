@@ -1,5 +1,5 @@
 //
-// Created by Nathan on 2022-12-25.
+// Created by QC on 2022-12-25.
 //
 
 #ifndef DEV_QHC_CPP_PROJECTS_ETCP_H

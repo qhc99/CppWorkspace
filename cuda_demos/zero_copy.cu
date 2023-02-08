@@ -1,5 +1,5 @@
 //
-// Created by Nathan on 2022-12-23.
+// Created by QC on 2022-12-23.
 //
 #include <cstdio>
 #define imin(a,b) (a<b?a:b)

@@ -1,5 +1,5 @@
 //
-// Created by Nathan on 2021/3/25.
+// Created by QC on 2021/3/25.
 //
 
 #ifndef LEARNCPP_TOOLS_H

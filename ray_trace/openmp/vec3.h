@@ -1,5 +1,5 @@
 //
-// Created by Nathan on 2022-12-05.
+// Created by QC on 2022-12-05.
 //
 
 #ifndef DEV_QHC_CPP_PROJECTS_VEC3_H

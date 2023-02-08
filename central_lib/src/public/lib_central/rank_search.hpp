@@ -1,9 +1,9 @@
 //
-// Created by Nathan on 2021/4/4.
+// Created by QC on 2021/4/4.
 //
 
-#ifndef ORG_NATHAN_CPP_ALL_IN_ONE_RANK_SEARCH_CPP
-#define ORG_NATHAN_CPP_ALL_IN_ONE_RANK_SEARCH_CPP
+#ifndef ORG_QC_CPP_ALL_IN_ONE_RANK_SEARCH_CPP
+#define ORG_QC_CPP_ALL_IN_ONE_RANK_SEARCH_CPP
 
 #include <vector>
 #include <random>
@@ -73,4 +73,4 @@ namespace dev::qhc::lib_central {
 }
 
 
-#endif //ORG_NATHAN_CPP_ALL_IN_ONE_RANK_SEARCH_CPP
+#endif //ORG_QC_CPP_ALL_IN_ONE_RANK_SEARCH_CPP

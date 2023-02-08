@@ -1,5 +1,5 @@
 //
-// Created by Nathan on 2023-01-14.
+// Created by QC on 2023-01-14.
 //
 #include "proto.h"
 #include "lib_central/DisjointSet.h"

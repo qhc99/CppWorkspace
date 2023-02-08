@@ -1,15 +1,23 @@
 //
-// Created by Nathan on 2023-01-29.
+// Created by QC on 2023-01-29.
 //
 
 #ifndef DEV_QHC_CPP_PROJECTS_INTERPRETER_H
 #define DEV_QHC_CPP_PROJECTS_INTERPRETER_H
-#include <memory>
 #include "values.h"
+#include <memory>
 
 using std::shared_ptr;
 
 class Interpreter final {
+private:
+  static shared_ptr<Value> parse(shared_ptr<Value> source,
+                                 Interpreter &interpreter);
+
+  inline shared_ptr<Value> parse(shared_ptr<Value> source) {
+    return parse(source, *this);
+  }
+
 public:
   void repl();
 

@@ -1,9 +1,9 @@
 //
-// Created by Nathan on 2021/3/15.
+// Created by QC on 2021/3/15.
 //
 
-#ifndef ORG_NATHAN_CPP_ALL_IN_ONE_UTILS_H
-#define ORG_NATHAN_CPP_ALL_IN_ONE_UTILS_H
+#ifndef ORG_QC_CPP_ALL_IN_ONE_UTILS_H
+#define ORG_QC_CPP_ALL_IN_ONE_UTILS_H
 
 #include <chrono>
 #include <vector>
@@ -63,4 +63,4 @@ namespace dev::qhc::utils {
 }
 
 
-#endif //ORG_NATHAN_CPP_ALL_IN_ONE_UTILS_H
+#endif //ORG_QC_CPP_ALL_IN_ONE_UTILS_H

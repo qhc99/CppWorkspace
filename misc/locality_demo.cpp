@@ -1,5 +1,5 @@
 //
-// Created by Nathan on 2022-12-10.
+// Created by QC on 2022-12-10.
 //
 #include <cmath>
 #include <random>

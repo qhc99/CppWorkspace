@@ -1,5 +1,5 @@
 //
-// Created by Nathan on 2023-02-01.
+// Created by QC on 2023-02-01.
 //
 
 #ifndef DEV_QHC_CPP_PROJECTS_EXCEPTIONS_H

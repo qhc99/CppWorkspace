@@ -1,5 +1,5 @@
 //
-// Created by Nathan on 2023-01-24.
+// Created by QC on 2023-01-24.
 //
 
 #ifndef DEV_QHC_CPP_PROJECTS_INPUTPORT_H
@@ -13,17 +13,22 @@
 #include <regex>
 #include <string>
 
-using std::string, std::deque, std::unique_ptr, std::make_shared;
+using std::string, std::deque;
 
 class InputPort {
 
     deque<string> queue{};
     const std::regex pattern{
         R"(\s*(,@|[('`,)]|"(?:[\\].|[^\\"])*"|;.*|[^\s('"`,;)]*))"};
-    unique_ptr<std::istream> input{};
+    std::istream* input{};
 
 public:
-    explicit InputPort(unique_ptr<std::istream> s) : input(std::move(s)) {}
+    /**
+     * @brief Construct a new Input Port object
+     * 
+     * @param s lifetime should be longer than InputPort
+     */
+    explicit InputPort(std::istream& s) : input(&s) {}
 
     /**
      * @return String or EOF Symbol

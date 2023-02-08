@@ -1,5 +1,5 @@
 //
-// Created by Nathan on 2023-01-17.
+// Created by QC on 2023-01-17.
 //
 
 #ifndef DEV_QHC_CPP_PROJECTS_TERNARYTRIES_HPP
