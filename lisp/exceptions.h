@@ -6,7 +6,10 @@
 #define DEV_QHC_CPP_PROJECTS_EXCEPTIONS_H
 
 #include <exception>
+#include <memory>
 #include <string>
+
+class Value;
 
 using std::string;
 
@@ -53,6 +56,13 @@ public:
 class TypeException : BaseException {
 public:
   inline explicit TypeException(const char *msg)
+      : BaseException(msg, typeid(TypeException)) {}
+};
+
+class RuntimeWarning : BaseException {
+public:
+  std::shared_ptr<Value> ret_value{};
+  inline explicit RuntimeWarning(const char *msg)
       : BaseException(msg, typeid(TypeException)) {}
 };
 
