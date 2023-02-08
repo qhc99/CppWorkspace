@@ -85,6 +85,15 @@ public:
     }
 };
 
+class Nil : public Value {
+public:
+    inline string to_string() override{
+        return "#Nil";
+    }
+};
+
+const shared_ptr<Nil> NIL{};
+
 class String : public Value {
 public:
     string val{};
@@ -172,11 +181,11 @@ public:
         return *this;
     }
 
-    inline bool operator==(const Symbol &&other) const {
+    inline bool operator==(const Symbol &other) const {
         return val == other.val;
     }
 
-    inline bool operator!=(const Symbol &&other) const {
+    inline bool operator!=(const Symbol &other) const {
         return val != other.val;
     }
 
@@ -229,8 +238,8 @@ void copy_from(shared_ptr<Value> &ptr, const shared_ptr<Value> &val);
 
 class Pair : public Value {
 public:
-    shared_ptr<Value> car{};
-    shared_ptr<Value> cdr{};
+    shared_ptr<Value> car{NIL};
+    shared_ptr<Value> cdr{NIL};
 
 
     inline Pair(shared_ptr<Value> car, shared_ptr<Value> cdr) {
@@ -276,62 +285,6 @@ public:
 
     inline string to_string() override{
         return string{"( "} + car->to_string() + " . " + cdr->to_string() + " )";
-    }
-};
-
-
-class Env : public Value {
-public:
-    unordered_map<shared_ptr<Value>, shared_ptr<Value>> env{};
-    shared_ptr<Env> outer{nullptr};
-
-    inline Env(unordered_map<shared_ptr<Value>, shared_ptr<Value>> e) : // NOLINT(google-explicit-constructor)
-        env(std::move(e)) {}
-
-    Env(const shared_ptr<Value> &params, shared_ptr<Pair> args, shared_ptr<Env> outer);
-
-    inline string to_string() override{
-        return "#{Env}";
-    }
-};
-
-shared_ptr<Value> eval(shared_ptr<Value> x, shared_ptr<Env> env);
-
-class Func : public Value {
-protected:
-    inline Func() = default;
-
-    std::function<shared_ptr<Value>(shared_ptr<Pair>)> func{};
-
-public:
-
-    inline Func(std::function<shared_ptr<Value>(shared_ptr<Pair>)> f) : // NOLINT(google-explicit-constructor)
-        func(std::move(f)) {}
-
-    inline shared_ptr<Value> operator()(shared_ptr<Pair> args) const {
-        return func(std::move(args));
-    }
-
-    inline string to_string() override{
-        return "#{Func}";
-    }
-};
-
-class Procedure : public Func {
-public:
-    const shared_ptr<Value> exp{};
-    const shared_ptr<Value> params{};
-    const shared_ptr<Env> env{};
-
-    inline Procedure(const shared_ptr<Value> &params, const shared_ptr<Value> &exp, const shared_ptr<Env> &env)
-        : Func(), exp(exp), params(params), env(env) {
-        func = [=](const shared_ptr<Pair> &args) {
-            return eval(exp, make_shared<Env>(params, args, env));
-        };
-    }
-
-    inline string to_string() override{
-        return "#{Procedure}";
     }
 };
 
