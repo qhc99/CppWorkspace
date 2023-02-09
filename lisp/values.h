@@ -207,6 +207,13 @@ namespace std {
             return hash<string>{}(xyz.val);
         }
     };
+
+    template<>
+    struct hash<Symbol> {
+        inline auto operator()(const Symbol &xyz) const -> size_t {
+            return hash<string>{}(xyz.val);
+        }
+    };
 }  // namespace std
 
 namespace SYMBOLS {

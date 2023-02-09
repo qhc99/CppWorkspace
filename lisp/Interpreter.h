@@ -5,6 +5,7 @@
 #ifndef DEV_QHC_CPP_PROJECTS_INTERPRETER_H
 #define DEV_QHC_CPP_PROJECTS_INTERPRETER_H
 #include "env.h"
+#include "func.h"
 #include "values.h"
 #include <memory>
 #include <unordered_map>
@@ -15,10 +16,14 @@ class Func;
 class Interpreter final {
 private:
   friend class Procedure;
+
   static shared_ptr<Value> let(shared_ptr<Pair> args, Interpreter &interpreter);
 
   shared_ptr<Env> global_env{std::make_shared<Env>(Env::new_std_env())};
-//   const std::unordered_map<Symbol, Func> macro_table = ;
+  std::unordered_map<Symbol, shared_ptr<Func>> macro_table = {
+      {SYMBOLS::LET_SYM, std::make_shared<Func>([this](shared_ptr<Pair> args) {
+         return Interpreter::let(args, *this);
+       })}};
 
   static shared_ptr<Value> parse(shared_ptr<Value> source,
                                  Interpreter &interpreter);
