@@ -15,7 +15,7 @@
 #include <functional>
 #include "exceptions.h"
 
-using std::string, std::shared_ptr, std::unordered_map, std::make_shared;
+using std::string, std::shared_ptr, std::unordered_map;
 
 class Value {
 public:
