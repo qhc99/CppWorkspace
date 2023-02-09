@@ -31,11 +31,10 @@ shared_ptr<Value> Interpreter::eval(shared_ptr<Value> x, shared_ptr<Env> env) {
 }
 
 void Interpreter::repl() {
-  // TODO unfinished
-  const string prompt{"lisp++>"};
+  const string prompt{"lisp++ >"};
   auto in_port{make_shared<InputPort>(std::cin)};
 
-  std::cout << ">>lisp++ interpreter<<" << std::endl;
+  std::cout << ">>>lisp++ interpreter<<<" << std::endl << std::flush;
   while (true) {
     try {
       std::cout << prompt << std::flush;
@@ -43,35 +42,20 @@ void Interpreter::repl() {
       if (x == nullptr) {
         continue;
       } else if (typeid(*x) == typeid(Symbol)) {
-        auto s{std::dynamic_pointer_cast<Symbol>(x)};
-        if (SYMBOLS::EOF_SYM == (*s)) {
+        auto syms{std::dynamic_pointer_cast<Symbol>(x)};
+        if (SYMBOLS::EOF_SYM == (*syms)) {
           continue;
         }
 
-        auto val{eval(s, this->global_env)};
+        auto val{eval(syms, this->global_env)};
+        if (val != nullptr) {
+          std::cout << val->to_string() << std::flush;
+        }
       }
     } catch (BaseException &e) {
+      std::cout << e.what() << std::endl << std::flush;
     }
   }
-  /*
-  String prompt = "Jis.py>";
-  InputPort inPort = new InputPort(System.in);
-  System.out.println("Jispy version 2.0");
-  while(true) {
-    try{
-      System.out.print(prompt);
-      var x = parse(inPort);
-      if(x == null){ continue; }
-      else if(x.equals(eof)){ continue; }
-      evalAndPrint(x);
-      flushConsole();
-    }
-    catch(Exception e){
-      consoleWriteLine(e.toString());
-      flushConsole();
-    }
-  }
-  */
 }
 
 void Interpreter::run_file(std::istream file) {
