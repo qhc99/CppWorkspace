@@ -4,6 +4,8 @@
 
 #include "Interpreter.h"
 #include "InputPort.h"
+#include "exceptions.h"
+#include "utils.h"
 #include "values.h"
 #include <iostream>
 #include <memory.h>
@@ -16,30 +18,40 @@ using std::string;
 shared_ptr<Value> Interpreter::let(shared_ptr<Pair> args,
                                    Interpreter &interpreter) {
   // TODO unfinished
-  /*
-  List<Object> x = treeList(_let);
-        x.add(args);
-        require(x, x.size() > 1);
-        List<List<Object>> bindings;
-        try {
-            bindings = (List<List<Object>>) args.get(0);
-        } catch (ClassCastException e) {
-            throw new ClassCastException("illegal binding list");
-        }
-        List<Object> body = args.subList(1, args.size());
-        require(x, bindings.stream().allMatch(b -> b != null &&
-                b.size() == 2 &&
-                b.get(0) instanceof Symbol), "illegal binding list");
-        List<Object> vars = bindings.stream().map(l -> l.get(0)).
-            collect(Collectors.toList());
-        List<Object> vals = bindings.stream().map(l -> l.get(1)).toList();
-        var t = treeList(_lambda, vars);
-        t.addAll(body.stream().map(interpreter::expand).toList());
-        var r = treeList(t);
-        r.addAll(vals.stream().map(interpreter::expand).toList());
-        return r;
-  */
+  auto x{std::make_shared<Pair>(std::make_shared<Symbol>(SYMBOLS::LET_SYM))};
+  x->cdr = args;
+  int args_len{args->lenth()};
+  require(x, args_len + 1 > 1);
+  auto bindings{std::dynamic_pointer_cast<Pair>(args->car)};
+  if (bindings == nullptr) {
+    throw SyntaxException{"illegal binding list"};
+  }
+  auto body{args->cdr};
+
   return nullptr;
+  /*
+    List<Object> x = treeList(_let);
+    x.add(args);
+    require(x, x.size() > 1);
+    List<List<Object>> bindings;
+    try {
+        bindings = (List<List<Object>>) args.get(0);
+    } catch (ClassCastException e) {
+        throw new ClassCastException("illegal binding list");
+    }
+    List<Object> body = args.subList(1, args.size());
+    require(x, bindings.stream().allMatch(b -> b != null &&
+            b.size() == 2 &&
+            b.get(0) instanceof Symbol), "illegal binding list");
+    List<Object> vars = bindings.stream().map(l -> l.get(0)).
+        collect(Collectors.toList());
+    List<Object> vals = bindings.stream().map(l -> l.get(1)).toList();
+    var t = treeList(_lambda, vars);
+    t.addAll(body.stream().map(interpreter::expand).toList());
+    var r = treeList(t);
+    r.addAll(vals.stream().map(interpreter::expand).toList());
+    return r;
+  */
 }
 
 shared_ptr<Value> Interpreter::parse(shared_ptr<Value> source,
@@ -147,7 +159,6 @@ void Interpreter::repl() {
 }
 
 void Interpreter::run_file(std::istream file) {
-  // TODO unfinished
   auto in_port{make_shared<InputPort>(file)};
   while (true) {
     try {

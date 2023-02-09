@@ -1,5 +1,5 @@
-#ifndef QC_CPP_PROJECTS_LISP_ENV
-#define QC_CPP_PROJECTS_LISP_ENV
+#ifndef QC_CPP_PROJECTS_LISP_ENV_H
+#define QC_CPP_PROJECTS_LISP_ENV_H
 #include "values.h"
 
 class Env : public Value {

@@ -1,5 +1,5 @@
-#ifndef QC_CPP_PROJECTS_LISP
-#define QC_CPP_PROJECTS_LISP
+#ifndef QC_CPP_PROJECTS_LISP_FUNC_H
+#define QC_CPP_PROJECTS_LISP_FUNC_H
 #include "values.h"
 
 
