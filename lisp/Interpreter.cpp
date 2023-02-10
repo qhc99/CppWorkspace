@@ -27,7 +27,11 @@ shared_ptr<Value> Interpreter::let(shared_ptr<Pair> args,
     throw SyntaxException{"illegal binding list"};
   }
   auto body{args->cdr};
-
+  require(x, Pair::all_match(bindings, [](shared_ptr<Pair> p) -> bool {
+            return p != nullptr && p->lenth() == 2 &&
+                   typeid(p->car) == typeid(Symbol);
+          }));
+          
   return nullptr;
   /*
     List<Object> x = treeList(_let);

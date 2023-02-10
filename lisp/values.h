@@ -15,7 +15,6 @@
 #include <unordered_map>
 #include <utility>
 
-
 using std::string, std::shared_ptr, std::unordered_map;
 
 class Value {
@@ -228,6 +227,20 @@ class Pair : public Value {
 public:
   shared_ptr<Value> car{NIL};
   shared_ptr<Value> cdr{NIL};
+
+  static inline bool all_match(shared_ptr<Pair> p, std::function<bool(shared_ptr<Pair>)> pred){
+    shared_ptr<Value> ptr{p};
+    while(typeid(*ptr) == typeid(Pair)){
+        if(!pred(std::dynamic_pointer_cast<Pair>(ptr))){
+            return false;
+        }
+    }
+    return true;
+  }
+
+  static inline shared_ptr<Pair> map(shared_ptr<Pair> p, std::function<shared_ptr<Value>(shared_ptr<Value>)> m){
+    
+  }
 
   inline Pair(shared_ptr<Value> car, shared_ptr<Value> cdr) {
     this->car = std::move(car);
