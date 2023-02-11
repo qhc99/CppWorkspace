@@ -228,18 +228,35 @@ public:
   shared_ptr<Value> car{NIL};
   shared_ptr<Value> cdr{NIL};
 
-  static inline bool all_match(shared_ptr<Pair> p, std::function<bool(shared_ptr<Pair>)> pred){
+  static inline bool all_match(shared_ptr<Pair> p,
+                               std::function<bool(shared_ptr<Value>)> pred) {
     shared_ptr<Value> ptr{p};
-    while(typeid(*ptr) == typeid(Pair)){
-        if(!pred(std::dynamic_pointer_cast<Pair>(ptr))){
-            return false;
-        }
+    while (typeid(*ptr) == typeid(Pair)) {
+      if (!pred(std::dynamic_pointer_cast<Pair>(ptr)->car)) {
+        return false;
+      }
     }
     return true;
   }
 
-  static inline shared_ptr<Pair> map(shared_ptr<Pair> p, std::function<shared_ptr<Value>(shared_ptr<Value>)> m){
-    
+  static inline shared_ptr<Pair>
+  map(shared_ptr<Pair> p,
+      std::function<shared_ptr<Value>(shared_ptr<Value>)> m) {
+    shared_ptr<Pair> ret{nullptr};
+    shared_ptr<Value> tail{nullptr};
+    shared_ptr<Value> ptr{p};
+    while (typeid(*ptr) == typeid(Pair)) {
+      if (ret == nullptr) {
+        ret = std::make_shared<Pair>(m(std::dynamic_pointer_cast<Pair>(ptr)->car));
+        tail = ret;
+      }
+      else{
+        auto tail_pair{std::dynamic_pointer_cast<Pair>(tail)};
+        tail_pair->cdr = std::make_shared<Pair>(m(std::dynamic_pointer_cast<Pair>(ptr)->car));
+        tail = tail_pair->cdr;
+      }
+    }
+    return std::move(ret);
   }
 
   inline Pair(shared_ptr<Value> car, shared_ptr<Value> cdr) {

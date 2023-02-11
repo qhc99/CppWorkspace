@@ -17,7 +17,7 @@ using std::string;
 
 shared_ptr<Value> Interpreter::let(shared_ptr<Pair> args,
                                    Interpreter &interpreter) {
-  // TODO unfinished
+  
   auto x{std::make_shared<Pair>(std::make_shared<Symbol>(SYMBOLS::LET_SYM))};
   x->cdr = args;
   int args_len{args->lenth()};
@@ -27,11 +27,21 @@ shared_ptr<Value> Interpreter::let(shared_ptr<Pair> args,
     throw SyntaxException{"illegal binding list"};
   }
   auto body{args->cdr};
-  require(x, Pair::all_match(bindings, [](shared_ptr<Pair> p) -> bool {
-            return p != nullptr && p->lenth() == 2 &&
-                   typeid(p->car) == typeid(Symbol);
+  require(x, Pair::all_match(bindings, [](shared_ptr<Value> l) -> bool {
+            auto pl{std::dynamic_pointer_cast<Pair>(l)};
+            if (pl == nullptr)
+              return false;
+            return pl->lenth() == 2 && typeid(pl->car) == typeid(Symbol);
           }));
-          
+  auto vars{Pair::map(bindings, [](shared_ptr<Value> v) -> shared_ptr<Value> {
+    auto vl{std::dynamic_pointer_cast<Pair>(v)};
+    return vl->car;
+  })};
+  auto vals{Pair::map(bindings, [](shared_ptr<Value> v) -> shared_ptr<Value> {
+    auto vl{std::dynamic_pointer_cast<Pair>(v)};
+    return vl->cdr;
+  })};
+  // TODO unfinished
   return nullptr;
   /*
     List<Object> x = treeList(_let);
