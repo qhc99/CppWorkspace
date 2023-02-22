@@ -172,7 +172,7 @@ void space_locality_openmp(float **m1, float **m2, float **m3, const int size_a,
     std::cout << "sum: " << ans << std::endl;
 }
 
-int main() {
+void run_demo(){
     constexpr int size_a = 1500;
     constexpr int size_b = 1500;
     constexpr int size_c = 1500;
@@ -186,5 +186,9 @@ int main() {
 
     reset(m1, m2, m3, size_a, size_b, size_c);
     space_locality_openmp(m1, m2, m3, size_a, size_b, size_c, 64);
+}
 
+int main(){
+    run_demo();
+    return 0;
 }
