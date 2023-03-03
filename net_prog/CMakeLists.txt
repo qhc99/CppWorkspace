@@ -17,3 +17,8 @@ add_executable(vrs etcp.h utils.c lib/tcp_server.c lib/readn.c lib/readvrec.c vr
 add_executable(vrc etcp.h utils.c lib/tcp_client.c lib/readn.c lib/readvrec.c vrc.c)
 
 add_executable(sock_tutor sock_tutor.c)
+add_executable(sock_serv stream_sock_serv.c)
+add_executable(sock_client stream_sock_client.c)
+add_executable(dgram_serv dgram_sock_serv.c)
+add_executable(dgram_client dgram_sock_client.c)
+add_executable(chat_room chat_room.c)
