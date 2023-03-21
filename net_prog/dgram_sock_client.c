@@ -1,28 +1,27 @@
 /*
 ** talker.c -- 一个 datagram "client" 的 demo
 */
+#include <arpa/inet.h>
+#include <errno.h>
+#include <netdb.h>
+#include <netinet/in.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <unistd.h>
-#include <errno.h>
 #include <string.h>
-#include <sys/types.h>
 #include <sys/socket.h>
-#include <netinet/in.h>
-#include <arpa/inet.h>
-#include <netdb.h>
+#include <sys/types.h>
+#include <unistd.h>
 
 #define SERVERPORT "4950" // 用户所要连接的 port
 
-int main(int argc, char *argv[])
-{
+int main(int argc, char *argv[]) {
   int sockfd;
   struct addrinfo hints, *servinfo, *p;
   int rv;
   int numbytes;
 
   if (argc != 3) {
-    fprintf(stderr,"usage: talker hostname message\n");
+    fprintf(stderr, "usage: talker hostname message\n");
     exit(1);
   }
 
@@ -36,9 +35,8 @@ int main(int argc, char *argv[])
   }
 
   // 用循环找出全部的结果，并产生一个 socket
-  for(p = servinfo; p != NULL; p = p->ai_next) {
-    if ((sockfd = socket(p->ai_family, p->ai_socktype,
-        p->ai_protocol)) == -1) {
+  for (p = servinfo; p != NULL; p = p->ai_next) {
+    if ((sockfd = socket(p->ai_family, p->ai_socktype, p->ai_protocol)) == -1) {
       perror("talker: socket");
       continue;
     }
@@ -51,8 +49,8 @@ int main(int argc, char *argv[])
     return 2;
   }
 
-  if ((numbytes = sendto(sockfd, argv[2], strlen(argv[2]), 0,
-     p->ai_addr, p->ai_addrlen)) == -1) {
+  if ((numbytes = sendto(sockfd, argv[2], strlen(argv[2]), 0, p->ai_addr,
+                         p->ai_addrlen)) == -1) {
 
     perror("talker: sendto");
     exit(1);

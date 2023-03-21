@@ -1,40 +1,38 @@
+#include <arpa/inet.h>
+#include <errno.h>
+#include <netdb.h>
+#include <netinet/in.h>
+#include <signal.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <unistd.h>
-#include <errno.h>
 #include <string.h>
-#include <sys/types.h>
 #include <sys/socket.h>
-#include <netinet/in.h>
-#include <netdb.h>
-#include <arpa/inet.h>
+#include <sys/types.h>
 #include <sys/wait.h>
-#include <signal.h>
+#include <unistd.h>
 #define PORT "3490" // 提供给用戶连接的 port
 #define BACKLOG 10 // 有多少个特定的连接队列（pending connections queue）
 
-void sigchld_handler(int s)
-{
-  while(waitpid(-1, NULL, WNOHANG) > 0);
+void sigchld_handler(int s) {
+  while (waitpid(-1, NULL, WNOHANG) > 0)
+    ;
 }
 
 // 取得 sockaddr，IPv4 或 IPv6：
-void *get_in_addr(struct sockaddr *sa)
-{
+void *get_in_addr(struct sockaddr *sa) {
   if (sa->sa_family == AF_INET) {
-    return &(((struct sockaddr_in*)sa)->sin_addr);
+    return &(((struct sockaddr_in *)sa)->sin_addr);
   }
-  return &(((struct sockaddr_in6*)sa)->sin6_addr);
+  return &(((struct sockaddr_in6 *)sa)->sin6_addr);
 }
 
-int main(void)
-{
+int main(void) {
   int sockfd, new_fd; // 在 sock_fd 进行 listen，new_fd 是新的连接
   struct addrinfo hints, *servinfo, *p;
   struct sockaddr_storage their_addr; // 连接者的地址资料
   socklen_t sin_size;
   struct sigaction sa;
-  int yes=1;
+  int yes = 1;
   char s[INET6_ADDRSTRLEN];
   int rv;
 
@@ -49,15 +47,13 @@ int main(void)
   }
 
   // 以循环找出全部的结果，并绑定（bind）到第一个能用的结果
-  for(p = servinfo; p != NULL; p = p->ai_next) {
-    if ((sockfd = socket(p->ai_family, p->ai_socktype,
-      p->ai_protocol)) == -1) {
+  for (p = servinfo; p != NULL; p = p->ai_next) {
+    if ((sockfd = socket(p->ai_family, p->ai_socktype, p->ai_protocol)) == -1) {
       perror("server: socket");
       continue;
     }
 
-    if (setsockopt(sockfd, SOL_SOCKET, SO_REUSEADDR, &yes,
-        sizeof(int)) == -1) {
+    if (setsockopt(sockfd, SOL_SOCKET, SO_REUSEADDR, &yes, sizeof(int)) == -1) {
       perror("setsockopt");
       exit(1);
     }
@@ -94,9 +90,9 @@ int main(void)
 
   printf("server: waiting for connections...\n");
 
-  while(1) { // 主要的 accept() 循环
-  
-  sin_size = sizeof their_addr;
+  while (1) { // 主要的 accept() 循环
+
+    sin_size = sizeof their_addr;
     new_fd = accept(sockfd, (struct sockaddr *)&their_addr, &sin_size);
 
     if (new_fd == -1) {
@@ -104,12 +100,11 @@ int main(void)
       continue;
     }
 
-    inet_ntop(their_addr.ss_family,
-    get_in_addr((struct sockaddr *)&their_addr),
-      s, sizeof s);
+    inet_ntop(their_addr.ss_family, get_in_addr((struct sockaddr *)&their_addr),
+              s, sizeof s);
     printf("server: got connection from %s\n", s);
- 
-    if (!fork()) { // 这个是 child process
+
+    if (!fork()) {   // 这个是 child process
       close(sockfd); // child 不需要 listener
 
       if (send(new_fd, "Hello, world!", 13, 0) == -1)

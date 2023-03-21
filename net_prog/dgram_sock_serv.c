@@ -1,32 +1,30 @@
 /*
 ** listener.c -- 一个 datagram sockets "server" 的 demo
 */
+#include <arpa/inet.h>
+#include <errno.h>
+#include <netdb.h>
+#include <netinet/in.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <unistd.h>
-#include <errno.h>
 #include <string.h>
-#include <sys/types.h>
 #include <sys/socket.h>
-#include <netinet/in.h>
-#include <arpa/inet.h>
-#include <netdb.h>
+#include <sys/types.h>
+#include <unistd.h>
 
 #define MYPORT "4950" // 用戶所要连线的 port
 #define MAXBUFLEN 100
 
 // get sockaddr, IPv4 or IPv6:
-void *get_in_addr(struct sockaddr *sa)
-{
+void *get_in_addr(struct sockaddr *sa) {
   if (sa->sa_family == AF_INET) {
-  return &(((struct sockaddr_in*)sa)->sin_addr);
+    return &(((struct sockaddr_in *)sa)->sin_addr);
+  }
+
+  return &(((struct sockaddr_in6 *)sa)->sin6_addr);
 }
 
-  return &(((struct sockaddr_in6*)sa)->sin6_addr);
-}
-
-int main(void)
-{
+int main(void) {
   int sockfd;
   struct addrinfo hints, *servinfo, *p;
   int rv;
@@ -48,10 +46,9 @@ int main(void)
   }
 
   // 用循环找出全部的结果，并 bind 到首先找到能 bind 的
-  for(p = servinfo; p != NULL; p = p->ai_next) {
+  for (p = servinfo; p != NULL; p = p->ai_next) {
 
-    if ((sockfd = socket(p->ai_family, p->ai_socktype,
-         p->ai_protocol)) == -1) {
+    if ((sockfd = socket(p->ai_family, p->ai_socktype, p->ai_protocol)) == -1) {
       perror("listener: socket");
       continue;
     }
@@ -74,8 +71,8 @@ int main(void)
   printf("listener: waiting to recvfrom...\n");
   addr_len = sizeof their_addr;
 
-  if ((numbytes = recvfrom(sockfd, buf, MAXBUFLEN-1 , 0, 
-    (struct sockaddr *)&their_addr, &addr_len)) == -1) {
+  if ((numbytes = recvfrom(sockfd, buf, MAXBUFLEN - 1, 0,
+                           (struct sockaddr *)&their_addr, &addr_len)) == -1) {
 
     perror("recvfrom");
     exit(1);
@@ -83,9 +80,9 @@ int main(void)
 
   printf("listener: got packet from %s\n",
 
-  inet_ntop(their_addr.ss_family,
+         inet_ntop(their_addr.ss_family,
 
-  get_in_addr((struct sockaddr *)&their_addr), s, sizeof s));
+                   get_in_addr((struct sockaddr *)&their_addr), s, sizeof s));
 
   printf("listener: packet is %d bytes long\n", numbytes);
 
