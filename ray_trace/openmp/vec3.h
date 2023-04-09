@@ -5,9 +5,9 @@
 #ifndef DEV_QHC_CPP_PROJECTS_VEC3_H
 #define DEV_QHC_CPP_PROJECTS_VEC3_H
 
-
-#include "../../../../usr/include/c++/11/cmath"
-#include "../../../../usr/include/c++/11/iostream"
+#include <cmath>
+#include <iostream>
+#include "rtweekend.h"
 
 using std::sqrt;
 

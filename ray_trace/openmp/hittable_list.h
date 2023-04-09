@@ -2,13 +2,13 @@
 // Created by QC on 2022-12-11.
 //
 
-#ifndef DEV_QHC_CPP_PROJECTS_HITTABLELIST_H
+#ifndef DEV_QHC_CPP_PROJECTS_HITTABLE_LIST_H
 #define DEV_QHC_CPP_PROJECTS_HITTABLE_LIST_H
 
 #include "hittable.h"
 
-#include "../../../../usr/include/c++/11/memory"
-#include "../../../../usr/include/c++/11/vector"
+#include <memory>
+#include <vector>
 
 using std::shared_ptr;
 using std::make_shared;

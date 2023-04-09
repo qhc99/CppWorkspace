@@ -2,12 +2,11 @@
 // Created by QC on 2022-12-05.
 //
 
-#ifndef DEV_QHC_CPP_PROJECTS_WRITE_COLOR_H
+#ifndef DEV_QHC_CPP_PROJECTS_COLOR_H
 #define DEV_QHC_CPP_PROJECTS_COLOR_H
 
 #include "vec3.h"
-
-#include "../../../../usr/include/c++/11/iostream"
+#include <iostream>
 
 void write_color(std::ostream &out, Color pixel_color, int samples_per_pixel) {
     auto r = pixel_color.x();

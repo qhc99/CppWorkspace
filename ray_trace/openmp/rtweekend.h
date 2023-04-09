@@ -4,11 +4,11 @@
 
 #ifndef DEV_QHC_CPP_PROJECTS_RTWEEKEND_H
 #define DEV_QHC_CPP_PROJECTS_RTWEEKEND_H
-#include "../../../../usr/include/c++/11/cmath"
-#include "../../../../usr/include/c++/11/limits"
-#include "../../../../usr/include/c++/11/memory"
-#include "../../../../usr/include/c++/11/random"
-#include "../../../../usr/include/c++/11/iostream"
+#include <cmath>
+#include <limits>
+#include <memory>
+#include <random>
+#include <iostream>
 // Usings
 
 using std::shared_ptr;

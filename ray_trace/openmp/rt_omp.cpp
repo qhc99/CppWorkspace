@@ -7,8 +7,7 @@
 #include <execution>
 #include "lib_central/utils.h"
 
-#pragma clang diagnostic push
-#pragma ide diagnostic ignored "misc-no-recursion"
+
 Color ray_color(const Ray &r, const Hittable &world, int depth) {
     HitRecord rec;
 
@@ -28,7 +27,6 @@ Color ray_color(const Ray &r, const Hittable &world, int depth) {
     auto t = 0.5 * (unit_direction.y() + 1.0);
     return (1.0 - t) * Color(1.0, 1.0, 1.0) + t * Color(0.5, 0.7, 1.0);
 }
-#pragma clang diagnostic pop
 
 HittableList random_scene() {
     HittableList world;
@@ -80,25 +78,38 @@ int main() {
 
     // Image
 
-    const auto aspect_ratio = 3.0 / 2.0;
-    const int image_width = 1200; // 1200
+    const auto aspect_ratio = 16.0 / 9.0;
+    const int image_width = 600; // 1200
     const int image_height = static_cast<int>(image_width / aspect_ratio);
     const int samples_per_pixel = 500; // 500
     const int max_depth = 50;
 
     // World
 
-    auto world = random_scene();
+    // auto world = random_scene();
+    HittableList world;
+
+    auto material_ground = make_shared<Lambertian>(Color(0.8, 0.8, 0.0));
+    auto material_center = make_shared<Lambertian>(Color(0.7, 0.3, 0.3));
+    auto material_left   = make_shared<Metal>(Color(0.8, 0.8, 0.8), 0.3);
+    auto material_right  = make_shared<Metal>(Color(0.8, 0.6, 0.2), 1.0);
+
+    world.add(make_shared<Sphere>(Point3( 0.0, -100.5, -1.0), 100.0, material_ground));
+    world.add(make_shared<Sphere>(Point3( 0.0,    0.0, -1.0),   0.5, material_center));
+    world.add(make_shared<Sphere>(Point3(-1.0,    0.0, -1.0),   0.5, material_left));
+    world.add(make_shared<Sphere>(Point3( 1.0,    0.0, -1.0),   0.5, material_right));
 
     // Camera
 
-    Point3 lookfrom(13, 2, 3);
+    Point3 lookfrom(0, 0, 3);
     Point3 lookat(0, 0, 0);
     Vec3 vup(0, 1, 0);
-    auto dist_to_focus = 10.0;
+    auto dist_to_focus = 5;
     auto aperture = 0.1;
 
-    Camera cam(lookfrom, lookat, vup, 20, aspect_ratio, aperture, dist_to_focus);
+    // Camera cam(lookfrom, lookat, vup, 20, aspect_ratio, aperture, dist_to_focus);
+
+    VirtualCamera cam(lookfrom, lookat, vup, 20, aspect_ratio);
     // Render
 
     std::cout << "P3\n" << image_width << " " << image_height << "\n255\n";
