@@ -21,4 +21,4 @@ endfunction()
 
 add_single_test(tries_test TernaryTriesTest.cpp)
 add_single_test(rank_search_test RankSearchTest.cpp)
-add_single_test(disjoint_set_Test DisjointSetTest.cpp)
+add_single_test(disjoint_set_test DisjointSetTest.cpp)
