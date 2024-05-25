@@ -20,21 +20,28 @@ function(target_compile_link_options target visibility options)
     target_link_options(${target} ${visibility} ${${options}})
 endfunction()
 
-function(add_single_test single_file link_lib)
-    set(name ${single_file})
+function(remove_dot_suffix str)
+    # Remove everything after the first dot
+    string(REGEX REPLACE "\\..*$" "" modified_string ${str})
+    set(LATEST_RETURN ${modified_string} PARENT_SCOPE)
+endfunction()
 
-    # Remove the .cpp suffix
-    string(REGEX REPLACE "\\.cpp$" "" name ${name})
-
+function(to_lowercase_underline str)
     # Transform CamelCase to lowercase with underscores
-    string(REGEX REPLACE "([A-Z])" "_\\1" name ${name})
-    string(TOLOWER ${name} name)
-
+    string(REGEX REPLACE "([A-Z])" "_\\1" str ${str})
+    string(TOLOWER ${str} str)
     # Remove leading underline
-    string(REGEX REPLACE "^_" "" name ${name})
+    string(REGEX REPLACE "^_" "" str ${str})
+    set(LATEST_RETURN ${str} PARENT_SCOPE)
+endfunction()
 
-    message("---test name: " ${name} ", link_lib: " ${link_lib})
-    message("---include path: " ${DOCTEST_INCLUDE_DIR})
+function(add_single_test single_file link_lib)
+    remove_dot_suffix(${single_file})
+    to_lowercase_underline(${LATEST_RETURN})
+    set(name ${LATEST_RETURN})
+
+    message("--- Add test name: " ${name} ", link_lib: " ${link_lib})
+    message("--- Link include path: " ${DOCTEST_INCLUDE_DIR})
 
     add_executable(${name} ${single_file})
     target_link_libraries(${name}
