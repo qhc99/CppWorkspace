@@ -5,7 +5,7 @@
 #define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
 #include "lib_central/rank_search.hpp"
 #include "lib_central/utils.h"
-#include "lib_central/doctest.h"
+#include "doctest.h"
 #include <algorithm>
 
 using dev::qhc::lib_central::RankSearch;
