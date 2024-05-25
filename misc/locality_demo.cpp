@@ -1,15 +1,15 @@
 //
 // Created by QC on 2022-12-10.
 //
+#include "lib_central/utils.h"
 #include <cmath>
 #include <random>
 #include <iostream>
-#include "lib_central/utils.h"
 #include <chrono>
 #include <execution>
 
 using dev::qhc::utils::default_rand_engine;
-using std::chrono::duration_cast, std::chrono::nanoseconds;
+using std::chrono::nanoseconds;
 using dev::qhc::utils::current_time_point;
 using dev::qhc::utils::time_point_duration_to_us;
 

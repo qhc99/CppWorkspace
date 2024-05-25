@@ -6,10 +6,11 @@
 #include "InputPort.h"
 #include "values.h"
 
-using std::stringstream,std::make_unique,std::shared_ptr;
+using std::stringstream,std::make_shared,std::shared_ptr;
+
 TEST(InputPortTest, test_next_token_simple){
-    auto s{make_unique<stringstream>("(define x 0)")};
-    auto i{InputPort{std::move(s)}};
+    auto s{make_shared<stringstream>("(define x 0)")};
+    auto i{InputPort{*s}};
     shared_ptr<Value> token{};
     std::array<string,5> ans {{"(", "define", "x","0",")"}};
     int idx{};

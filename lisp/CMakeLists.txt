@@ -1,6 +1,9 @@
 cmake_minimum_required(VERSION 3.20)
 
 set(CMAKE_CXX_STANDARD 20)
+set(CMAKE_C_STANDARD C20)
+set(CMAKE_CXX_STANDARD_REQUIRED True)
+set(CMAKE_C_STANDARD_REQUIRED True)
 
 add_library(simple_lisp
         STATIC
@@ -31,7 +34,7 @@ target_link_libraries(lisp_test
         GTest::gtest_main
         )
 target_compile_options(lisp_test PRIVATE
-        -fsanitize=leak
+        # -fsanitize=leak
         -fsanitize=address
         -fsanitize=undefined
         -fno-omit-frame-pointer

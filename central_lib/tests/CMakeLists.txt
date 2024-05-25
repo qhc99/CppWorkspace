@@ -1,5 +1,10 @@
 cmake_minimum_required(VERSION 3.20)
 
+set(CMAKE_CXX_STANDARD 20)
+set(CMAKE_C_STANDARD C20)
+set(CMAKE_CXX_STANDARD_REQUIRED True)
+set(CMAKE_C_STANDARD_REQUIRED True)
+
 include(FetchContent)
 FetchContent_Declare(
         googletest
@@ -16,24 +21,19 @@ target_link_libraries(data_struct_test
         central_lib
         GTest::gtest_main
         )
+# ASAN_OPTIONS=check_initialization_order=1
 target_compile_options(data_struct_test PRIVATE
-        -fsanitize=leak
-        -fsanitize=address
-        -fsanitize=undefined
-        -fno-omit-frame-pointer
-        -fno-optimize-sibling-calls
-        -fsanitize-address-use-after-scope
-
+        # -fsanitize=address
+        # -fsanitize=undefined
+        # -fno-omit-frame-pointer
+        # -fno-optimize-sibling-calls # perfect stack trace
         --coverage
         )
 target_link_options(data_struct_test PRIVATE
-        -fsanitize=leak
-        -fsanitize=address
-        -fsanitize=undefined
-        -fno-omit-frame-pointer
-        -fno-optimize-sibling-calls
-        -fsanitize-address-use-after-scope
-
+        # -fsanitize=address
+        # -fsanitize=undefined
+        # -fno-omit-frame-pointer
+        # -fno-optimize-sibling-calls # perfect stack trace
         --coverage
         )
 

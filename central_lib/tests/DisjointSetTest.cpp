@@ -5,7 +5,6 @@
 
 #include "lib_central/DisjointSet.h"
 #include <gtest/gtest.h>
-#include <iostream>
 
 using dev::qhc::lib_central::DisjointSet;
 
