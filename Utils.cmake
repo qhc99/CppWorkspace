@@ -50,6 +50,7 @@ function(add_single_test single_file link_lib)
     )
     target_include_directories(${name} PUBLIC ${DOCTEST_INCLUDE_DIR})
 
+    # Lib coverage and sanitizer options
     if(CMAKE_SYSTEM_NAME STREQUAL "Linux" AND CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
         target_compile_link_options(${name} PRIVATE CLANG_SANITIZERS_OPTIONS)
         target_compile_link_options(${link_lib} PRIVATE CLANG_SANITIZERS_OPTIONS)
@@ -58,8 +59,10 @@ function(add_single_test single_file link_lib)
     target_compile_link_options(${name} PRIVATE CLANG_TEST_OPTIONS)
     target_compile_link_options(${link_lib} PRIVATE CLANG_TEST_OPTIONS)
 
+    # CTest intergration
     add_test(NAME ${name} COMMAND ${name})
 
+    # Test coverage
     add_custom_target(run_${name}_coverage
         COMMAND ${CMAKE_COMMAND} -E echo "---Executable path: $<TARGET_FILE:${name}>"
         COMMAND $<TARGET_FILE:${name}>
