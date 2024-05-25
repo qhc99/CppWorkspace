@@ -23,7 +23,7 @@ function(target_compile_link_options target visibility options)
 endfunction()
 
 if(NOT DEFINED ENV{CUDACXX})
-    enable_testing()
+    enable_testing() # Enable at top level to use test UI
     add_subdirectory(central_lib)
     message(STATUS "Added lib central")
 
