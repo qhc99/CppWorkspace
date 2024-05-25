@@ -4,7 +4,7 @@
 
 #define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
 #include "lib_central/TernaryTries.hpp"
-#include "lib_central/doctest.h"
+#include "doctest.h"
 #include <string>
 #include <unordered_set>
 

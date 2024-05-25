@@ -4,7 +4,7 @@
 
 #define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
 #include "lib_central/DisjointSet.h"
-#include "lib_central/doctest.h"
+#include "doctest.h"
 
 using dev::qhc::lib_central::DisjointSet;
 
