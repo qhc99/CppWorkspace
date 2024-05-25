@@ -5,3 +5,6 @@
 .vs
 /build
 .cache
+/html_cov_report
+*.profraw
+*.profdata

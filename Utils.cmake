@@ -22,28 +22,42 @@ endfunction()
 
 function(add_single_test single_file link_lib)
     set(name ${single_file})
+
     # Remove the .cpp suffix
     string(REGEX REPLACE "\\.cpp$" "" name ${name})
+
     # Transform CamelCase to lowercase with underscores
     string(REGEX REPLACE "([A-Z])" "_\\1" name ${name})
     string(TOLOWER ${name} name)
+
     # Remove leading underline
     string(REGEX REPLACE "^_" "" name ${name})
-    
+
     message("---test name: " ${name} ", link_lib: " ${link_lib})
     message("---include path: " ${DOCTEST_INCLUDE_DIR})
 
     add_executable(${name} ${single_file})
     target_link_libraries(${name}
-            PRIVATE
-            ${link_lib}
-            )
+        PRIVATE
+        ${link_lib}
+    )
     target_include_directories(${name} PUBLIC ${DOCTEST_INCLUDE_DIR})
-    
+
     if(CMAKE_SYSTEM_NAME STREQUAL "Linux" AND CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
         target_compile_link_options(${name} PRIVATE CLANG_SANITIZERS_OPTIONS)
+        target_compile_link_options(${link_lib} PRIVATE CLANG_SANITIZERS_OPTIONS)
     endif()
+
     target_compile_link_options(${name} PRIVATE CLANG_TEST_OPTIONS)
-    
+    target_compile_link_options(${link_lib} PRIVATE CLANG_TEST_OPTIONS)
+
     add_test(NAME ${name} COMMAND ${name})
+
+    add_custom_target(run_${name}_coverage
+        COMMAND ${CMAKE_COMMAND} -E echo "---Executable path: $<TARGET_FILE:${name}>"
+        COMMAND $<TARGET_FILE:${name}>
+        COMMAND llvm-profdata merge -sparse default.profraw -o temp.profdata
+        COMMAND llvm-cov show -format=html -o ${CMAKE_SOURCE_DIR}/html_cov_report $<TARGET_FILE:${name}> -instr-profile="temp.profdata"
+        COMMENT "---Test coverage output: ${CMAKE_SOURCE_DIR}/html_cov_report"
+    )
 endfunction()
