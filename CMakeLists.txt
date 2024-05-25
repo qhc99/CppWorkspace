@@ -3,8 +3,8 @@ cmake_minimum_required(VERSION 3.20)
 project(cpp_projects)
 
 
-include(CMakeDoctest.txt)
-include(CMakeUtils.txt)
+include(Doctest.cmake)
+include(Utils.cmake)
 
 if(NOT DEFINED ENV{CUDACXX})
     enable_testing()
