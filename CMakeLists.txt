@@ -23,6 +23,7 @@ function(target_compile_link_options target visibility options)
 endfunction()
 
 if(NOT DEFINED ENV{CUDACXX})
+    enable_testing()
     add_subdirectory(central_lib)
     message(STATUS "Added lib central")
 

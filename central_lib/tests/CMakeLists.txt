@@ -5,45 +5,20 @@ set(CMAKE_C_STANDARD C20)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
 set(CMAKE_C_STANDARD_REQUIRED True)
 
-enable_testing()
+function(add_single_test name single_file)
+    add_executable(${name} ${single_file})
+    target_link_libraries(${name}
+            central_lib
+            )
+    
+    if(CMAKE_SYSTEM_NAME STREQUAL "Linux" AND CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
+        target_compile_link_options(${name} PRIVATE CLANG_SANITIZERS_OPTIONS)
+    endif()
+    target_compile_link_options(${name} PRIVATE CLANG_TEST_OPTIONS)
+    
+    add_test(NAME ${name} COMMAND ${name})
+endfunction()
 
-set(TARGET_LIB_DATA_STRUC_TEST tries_test)
-add_executable(${TARGET_LIB_DATA_STRUC_TEST} TernaryTriesTest.cpp)
-target_link_libraries(${TARGET_LIB_DATA_STRUC_TEST}
-        central_lib
-        )
-
-if(CMAKE_SYSTEM_NAME STREQUAL "Linux" AND CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
-    target_compile_link_options(${TARGET_LIB_DATA_STRUC_TEST} PRIVATE CLANG_SANITIZERS_OPTIONS)
-endif()
-target_compile_link_options(${TARGET_LIB_DATA_STRUC_TEST} PRIVATE CLANG_TEST_OPTIONS)
-
-add_test(NAME ${TARGET_LIB_DATA_STRUC_TEST} COMMAND ${TARGET_LIB_DATA_STRUC_TEST})
-# ====
-
-set(TARGET_LIB_DISJOINT_SET_TEST disjoint_set_test)
-add_executable(${TARGET_LIB_DISJOINT_SET_TEST} DisjointSetTest.cpp)
-target_link_libraries(${TARGET_LIB_DISJOINT_SET_TEST}
-        central_lib
-        )
-
-if(CMAKE_SYSTEM_NAME STREQUAL "Linux" AND CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
-    target_compile_link_options(${TARGET_LIB_DISJOINT_SET_TEST} PRIVATE CLANG_SANITIZERS_OPTIONS)
-endif()
-target_compile_link_options(${TARGET_LIB_DISJOINT_SET_TEST} PRIVATE CLANG_TEST_OPTIONS)
-
-add_test(NAME ${TARGET_LIB_DISJOINT_SET_TEST} COMMAND ${TARGET_LIB_DISJOINT_SET_TEST})
-# ====
-
-set(TARGET_LIB_RANK_SEARCH_TEST rank_search_test)
-add_executable(${TARGET_LIB_RANK_SEARCH_TEST} RankSearchTest.cpp)
-target_link_libraries(${TARGET_LIB_RANK_SEARCH_TEST}
-        central_lib
-        )
-
-if(CMAKE_SYSTEM_NAME STREQUAL "Linux" AND CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
-    target_compile_link_options(${TARGET_LIB_RANK_SEARCH_TEST} PRIVATE CLANG_SANITIZERS_OPTIONS)
-endif()
-target_compile_link_options(${TARGET_LIB_RANK_SEARCH_TEST} PRIVATE CLANG_TEST_OPTIONS)
-
-add_test(NAME ${TARGET_LIB_RANK_SEARCH_TEST} COMMAND ${TARGET_LIB_RANK_SEARCH_TEST})
+add_single_test(tries_test TernaryTriesTest.cpp)
+add_single_test(rank_search_test RankSearchTest.cpp)
+add_single_test(disjoint_set_Test DisjointSetTest.cpp)
