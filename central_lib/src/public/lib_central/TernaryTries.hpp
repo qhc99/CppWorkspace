@@ -5,11 +5,9 @@
 #ifndef DEV_QHC_CPP_PROJECTS_TERNARYTRIES_HPP
 #define DEV_QHC_CPP_PROJECTS_TERNARYTRIES_HPP
 
+#include <stdexcept>
 #include <string>
-#include "lib_central/utils.h"
 #include <deque>
-
-using std::string;
 
 /**
  *
@@ -17,6 +15,7 @@ using std::string;
  */
 template<typename T_Val>
 class TernaryTries final {
+    
 public:
     class Node;
 
@@ -32,7 +31,7 @@ private:
     Node *root{nullptr};
     int count{};
 
-    Node *get_node_of_key(Node *n, const string &key, int depth) {
+    Node *get_node_of_key(Node *n, const std::string &key, int depth) {
         if (n == nullptr) {
             return nullptr;
         }
@@ -58,7 +57,7 @@ private:
         delete n;
     }
 
-    Node *insert_node(Node *n, const string &key, const T_Val &val, int depth, bool replace) {
+    Node *insert_node(Node *n, const std::string &key, const T_Val &val, int depth, bool replace) {
         char c = key.at(depth);
         if (n == nullptr) {
             n = new Node{};
@@ -104,7 +103,7 @@ private:
         }
     }
 
-    bool remove_node(Node *n, Node *p, Direction direct, const string &key, int d, T_Val *ret) {
+    bool remove_node(Node *n, Node *p, Direction direct, const std::string &key, int d, T_Val *ret) {
         if (n == nullptr) { return false; }
         char c = key.at(d);
         if (c < n->chr) {
@@ -142,10 +141,10 @@ private:
         }
     }
 
-    static void collect(Node *x, string &prefix, std::deque<string> &queue) {
+    static void collect(Node *x, std::string &prefix, std::deque<std::string> &queue) {
         if (x == nullptr) { return; }
         collect(x->left, prefix, queue);
-        if (x->contain) { queue.emplace_back(string{prefix + x->chr}); }
+        if (x->contain) { queue.emplace_back(std::string{prefix + x->chr}); }
         prefix.push_back(x->chr);
         collect(x->mid, prefix, queue);
         prefix.erase(prefix.length() - 1, 1);
@@ -261,7 +260,7 @@ public:
      * @param ret value
      * @return if key exists
      */
-    bool try_get(const string &key, T_Val *ret) {
+    bool try_get(const std::string &key, T_Val *ret) {
         if (key.empty()) {
             return false;
         }
@@ -273,7 +272,7 @@ public:
         }
     }
 
-    bool contain_key(const string &key) {
+    bool contain_key(const std::string &key) {
         auto n{get_node_of_key(root, key, 0)};
         return n != nullptr && n->contain;
     }
@@ -284,7 +283,7 @@ public:
      * @param val
      * @param replace whether replace existing value, default true
      */
-    void insert(const string &key, const T_Val &val, bool replace = true) {
+    void insert(const std::string &key, const T_Val &val, bool replace = true) {
         root = insert_node(root, key, val, 0, replace);
     }
 
@@ -294,7 +293,7 @@ public:
      * @param ret the place to save returned value
      * @return
      */
-    bool remove(const string &key, T_Val *ret) {
+    bool remove(const std::string &key, T_Val *ret) {
         if (key.empty()) {
             return false;
         }
@@ -312,7 +311,7 @@ public:
      * @param query
      * @return
      */
-    string longestPrefixOf(const string &query) {
+    std::string longestPrefixOf(const std::string &query) {
         if (query.length() == 0) { return ""; }
         int length = 0;
         auto x{root};
@@ -330,19 +329,19 @@ public:
         return query.substr(0, length);
     }
 
-    std::deque<string> keys() {
-        std::deque<string> queue{};
-        string s_builder{};
+    std::deque<std::string> keys() {
+        std::deque<std::string> queue{};
+        std::string s_builder{};
         collect(root, s_builder, queue);
         return queue;
     }
 
-    std::deque<string> keysWithPrefix(const string &prefix) {
-        std::deque<string> queue{};
+    std::deque<std::string> keysWithPrefix(const std::string &prefix) {
+        std::deque<std::string> queue{};
         Node *x{get_node_of_key(root, prefix, 0)};
         if (x == nullptr) { return queue; }
         if (x->contain) { queue.emplace_back(prefix); }
-        string s_builder{prefix};
+        std::string s_builder{prefix};
         collect(x->mid, s_builder, queue);
         return queue;
     }

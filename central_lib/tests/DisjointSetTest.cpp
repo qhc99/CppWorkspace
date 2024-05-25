@@ -2,22 +2,31 @@
 // Created by QC on 2021/4/4.
 //
 
-
+#define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
 #include "lib_central/DisjointSet.h"
-#include <gtest/gtest.h>
+#include "lib_central/doctest.h"
 
 using dev::qhc::lib_central::DisjointSet;
 
 
 
-TEST(DisjointSetAPITest, find_set){
+TEST_CASE("DisjointSetAPITest.find_set"){
     DisjointSet p{};
     DisjointSet a{};
     a.unionSet(p);
     DisjointSet b{};
     b.unionSet(p);
     DisjointSet f{};
-    EXPECT_EQ(&a.groupRep(), &b.groupRep());
-    EXPECT_NE(&a.groupRep(), &f.groupRep());
+    REQUIRE(&a.groupRep() == &b.groupRep());
+    REQUIRE(&a.groupRep() != &f.groupRep());
+}
+
+TEST_CASE("ASAN.leak"){
+    std::vector<int> t{};
+    t.reserve(3);
+    t.push_back(2);
+    t.push_back(3);
+    t.push_back(t[10]);
+    REQUIRE(t.size() == 3);
 }
 

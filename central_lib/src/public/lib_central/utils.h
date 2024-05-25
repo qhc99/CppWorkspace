@@ -7,7 +7,6 @@
 
 #include <chrono>
 #include <vector>
-#include <algorithm>
 #include <random>
 #include <stdexcept>
 
@@ -22,7 +21,6 @@ namespace dev::qhc::utils {
     using std::chrono::duration_cast;
     using std::vector;
     using steady_clock_time_point = decltype(steady_clock::now());
-    using std::string;
     /**
      *
      * @return steady_clock::now()

@@ -21,5 +21,5 @@ auto dev::qhc::Euler::sieveOfEratosthenes(int limit) -> std::vector<int> {
             primeNumbers.push_back(i);
         }
     }
-    return std::move(primeNumbers);
+    return primeNumbers;
 }

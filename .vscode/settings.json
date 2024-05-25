@@ -1,3 +1,5 @@
 {
     "cmake.options.statusBarVisibility": "compact",
+    "cmake.automaticReconfigure": false,
+    "cmake.configureOnEdit": false,
 }

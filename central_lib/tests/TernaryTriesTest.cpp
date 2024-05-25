@@ -1,21 +1,22 @@
 //
 // Created by QC on 2023-01-21.
 //
-#include <gtest/gtest.h>
+
+#define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
+#include "lib_central/TernaryTries.hpp"
+#include "lib_central/doctest.h"
 #include <string>
 #include <unordered_set>
-#include "lib_central/TernaryTries.hpp"
 
-using std::string, std::unordered_set, std::deque;
 
-class TernaryTriesTest : public ::testing::Test {
+class TernaryTriesTestFixture {
 
 public:
     TernaryTries<int> case1{};
-    unordered_set<string> keys{};
+    std::unordered_set<std::string> keys{};
     TernaryTries<int> case2{};
 
-    TernaryTriesTest() {
+    TernaryTriesTestFixture() {
         case1.insert("by", 0);
         case1.insert("she", 1);
         case1.insert("shells", 2);
@@ -44,132 +45,132 @@ public:
 
 };
 
-TEST_F(TernaryTriesTest, TestLongestPrefix) {
-    EXPECT_EQ("she", case1.longestPrefixOf("shell"));
-    EXPECT_EQ("shells", case1.longestPrefixOf("shellsort"));
+TEST_CASE_FIXTURE(TernaryTriesTestFixture, "TestLongestPrefix") {
+    REQUIRE("she" == case1.longestPrefixOf("shell"));
+    REQUIRE("shells" == case1.longestPrefixOf("shellsort"));
 }
 
-TEST_F(TernaryTriesTest, KeysTest) {
+TEST_CASE_FIXTURE(TernaryTriesTestFixture, "KeysTest") {
     auto ks{case1.keys()};
-    for (const auto &k: ks) {
-        EXPECT_TRUE(keys.contains(k));
+    for (const std::string &k: ks) {
+        REQUIRE(keys.contains(k));
     }
 }
 
-TEST_F(TernaryTriesTest, KeysWithPrefixTest) {
-    deque<string> d{};
+TEST_CASE_FIXTURE(TernaryTriesTestFixture, "KeysWithPrefixTest") {
+    std::deque<std::string> d{};
     d.emplace_back("she");
     d.emplace_back("shells");
     d.emplace_back("shore");
     auto res = case1.keysWithPrefix("sh");
     for (const auto &i: res) {
-        EXPECT_TRUE(std::find(d.begin(), d.end(), i) != d.end());
+        REQUIRE((std::find(d.begin(), d.end(), i) != d.end()) == true);
     }
 }
 
-TEST_F(TernaryTriesTest, RemoveTest) {
-    EXPECT_EQ(7, case2.getCount());
+TEST_CASE_FIXTURE(TernaryTriesTestFixture, "RemoveTest") {
+    REQUIRE(7 == case2.getCount());
 
 
-    EXPECT_TRUE(case2.remove("by", nullptr));
-    EXPECT_FALSE(case2.contain_key("by"));
-    EXPECT_TRUE(case2.contain_key("she"));
-    EXPECT_TRUE(case2.contain_key("shells"));
-    EXPECT_TRUE(case2.contain_key("sea"));
-    EXPECT_TRUE(case2.contain_key("sells"));
-    EXPECT_TRUE(case2.contain_key("shore"));
-    EXPECT_TRUE(case2.contain_key("the"));
-    EXPECT_EQ(6, case2.getCount());
+    REQUIRE(case2.remove("by", nullptr) == true);
+    REQUIRE(case2.contain_key("by") == false);
+    REQUIRE(case2.contain_key("she") == true);
+    REQUIRE(case2.contain_key("shells") == true);
+    REQUIRE(case2.contain_key("sea") == true);
+    REQUIRE(case2.contain_key("sells") == true);
+    REQUIRE(case2.contain_key("shore") == true);
+    REQUIRE(case2.contain_key("the") == true);
+    REQUIRE(6 == case2.getCount());
 
-    EXPECT_TRUE(case2.remove("she", nullptr));
-    EXPECT_FALSE(case2.contain_key("she"));
-    EXPECT_TRUE(case2.contain_key("shells"));
-    EXPECT_TRUE(case2.contain_key("sea"));
-    EXPECT_TRUE(case2.contain_key("sells"));
-    EXPECT_TRUE(case2.contain_key("shore"));
-    EXPECT_TRUE(case2.contain_key("the"));
-    EXPECT_EQ(5, case2.getCount());
+    REQUIRE(case2.remove("she", nullptr) == true);
+    REQUIRE(case2.contain_key("she") == false);
+    REQUIRE(case2.contain_key("shells") == true);
+    REQUIRE(case2.contain_key("sea") == true);
+    REQUIRE(case2.contain_key("sells") == true);
+    REQUIRE(case2.contain_key("shore") == true);
+    REQUIRE(case2.contain_key("the") == true);
+    REQUIRE(5 == case2.getCount());
 
-    EXPECT_TRUE(case2.remove("shells", nullptr));
-    EXPECT_FALSE(case2.contain_key("shells"));
-    EXPECT_TRUE(case2.contain_key("sea"));
-    EXPECT_TRUE(case2.contain_key("sells"));
-    EXPECT_TRUE(case2.contain_key("shore"));
-    EXPECT_TRUE(case2.contain_key("the"));
-    EXPECT_EQ(4, case2.getCount());
+    REQUIRE(case2.remove("shells", nullptr) == true);
+    REQUIRE(case2.contain_key("shells") == false);
+    REQUIRE(case2.contain_key("sea") == true);
+    REQUIRE(case2.contain_key("sells") == true);
+    REQUIRE(case2.contain_key("shore") == true);
+    REQUIRE(case2.contain_key("the") == true);
+    REQUIRE(4 == case2.getCount());
 
-    EXPECT_FALSE(case2.remove("aaaa", nullptr));
+    REQUIRE(case2.remove("aaaa", nullptr) == false);
 
-    EXPECT_TRUE(case2.remove("sea", nullptr));
-    EXPECT_FALSE(case2.contain_key("sea"));
-    EXPECT_TRUE(case2.contain_key("sells"));
-    EXPECT_TRUE(case2.contain_key("shore"));
-    EXPECT_TRUE(case2.contain_key("the"));
-    EXPECT_EQ(3, case2.getCount());
+    REQUIRE(case2.remove("sea", nullptr) == true);
+    REQUIRE(case2.contain_key("sea") == false);
+    REQUIRE(case2.contain_key("sells") == true);
+    REQUIRE(case2.contain_key("shore") == true);
+    REQUIRE(case2.contain_key("the") == true);
+    REQUIRE(3 == case2.getCount());
 
-    EXPECT_TRUE(case2.remove("sells", nullptr));
-    EXPECT_FALSE(case2.contain_key("sells"));
-    EXPECT_TRUE(case2.contain_key("shore"));
-    EXPECT_TRUE(case2.contain_key("the"));
-    EXPECT_EQ(2, case2.getCount());
+    REQUIRE(case2.remove("sells", nullptr) == true);
+    REQUIRE(case2.contain_key("sells") == false);
+    REQUIRE(case2.contain_key("shore") == true);
+    REQUIRE(case2.contain_key("the") == true);
+    REQUIRE(2 == case2.getCount());
 
-    EXPECT_TRUE(case2.remove("shore", nullptr));
-    EXPECT_FALSE(case2.contain_key("shore"));
-    EXPECT_TRUE(case2.contain_key("the"));
-    EXPECT_EQ(1, case2.getCount());
+    REQUIRE(case2.remove("shore", nullptr) == true);
+    REQUIRE(case2.contain_key("shore") == false);
+    REQUIRE(case2.contain_key("the") == true);
+    REQUIRE(1 == case2.getCount());
 
-    EXPECT_TRUE(case2.remove("the", nullptr));
-    EXPECT_FALSE(case2.contain_key("the"));
+    REQUIRE(case2.remove("the", nullptr) == true);
+    REQUIRE(case2.contain_key("the") == false);
 
-    EXPECT_EQ(nullptr, case2.getRoot());
-    EXPECT_EQ(0, case2.getCount());
+    REQUIRE(nullptr == case2.getRoot());
+    REQUIRE(0 == case2.getCount());
 }
 
-TEST_F(TernaryTriesTest, TryGetTest) {
-    EXPECT_EQ(7, case2.getCount());
+TEST_CASE_FIXTURE(TernaryTriesTestFixture, "TryGetTest") {
+    REQUIRE(7 == case2.getCount());
 
 
-    EXPECT_TRUE(case2.remove("by", nullptr));
-    EXPECT_TRUE(case2.remove("she", nullptr));
-    EXPECT_TRUE(case2.remove("shells", nullptr));
-    EXPECT_FALSE(case2.remove("aaaa", nullptr));
-    EXPECT_TRUE(case2.remove("sea", nullptr));
+    REQUIRE(case2.remove("by", nullptr) == true);
+    REQUIRE(case2.remove("she", nullptr) == true);
+    REQUIRE(case2.remove("shells", nullptr) == true);
+    REQUIRE(case2.remove("aaaa", nullptr) == false);
+    REQUIRE(case2.remove("sea", nullptr) == true);
 
     int val{};
-    EXPECT_FALSE(case2.try_get("by", &val));
-    EXPECT_FALSE(case2.try_get("she", &val));
-    EXPECT_FALSE(case2.try_get("shells", &val));
-    EXPECT_FALSE(case2.try_get("sea", &val));
+    REQUIRE(case2.try_get("by", &val) == false);
+    REQUIRE(case2.try_get("she", &val) == false);
+    REQUIRE(case2.try_get("shells", &val) == false);
+    REQUIRE(case2.try_get("sea", &val) == false);
 
-    EXPECT_TRUE(case2.try_get("sells", &val));
-    EXPECT_EQ(3,val);
-    EXPECT_TRUE(case2.try_get("shore",&val));
-    EXPECT_EQ(4,val);
-    EXPECT_TRUE(case2.try_get("the",&val));
-    EXPECT_EQ(2,val);
+    REQUIRE(case2.try_get("sells", &val) == true);
+    REQUIRE(3 == val);
+    REQUIRE(case2.try_get("shore",&val) == true);
+    REQUIRE(4 == val);
+    REQUIRE(case2.try_get("the",&val) == true);
+    REQUIRE(2 == val);
 }
 
-TEST_F(TernaryTriesTest,CloneTest){
+TEST_CASE_FIXTURE(TernaryTriesTestFixture,"CloneTest"){
     auto case3 {case2.clone()};
-    EXPECT_EQ(7, case3.getCount());
+    REQUIRE(7 == case3.getCount());
 
 
-    EXPECT_TRUE(case3.remove("by", nullptr));
-    EXPECT_TRUE(case3.remove("she", nullptr));
-    EXPECT_TRUE(case3.remove("shells", nullptr));
-    EXPECT_FALSE(case3.remove("aaaa", nullptr));
-    EXPECT_TRUE(case3.remove("sea", nullptr));
+    REQUIRE(case3.remove("by", nullptr) == true);
+    REQUIRE(case3.remove("she", nullptr) == true);
+    REQUIRE(case3.remove("shells", nullptr) == true);
+    REQUIRE(case3.remove("aaaa", nullptr) == false);
+    REQUIRE(case3.remove("sea", nullptr) == true);
 
     int val{};
-    EXPECT_FALSE(case3.try_get("by", &val));
-    EXPECT_FALSE(case3.try_get("she", &val));
-    EXPECT_FALSE(case3.try_get("shells", &val));
-    EXPECT_FALSE(case3.try_get("sea", &val));
+    REQUIRE(case3.try_get("by", &val) == false);
+    REQUIRE(case3.try_get("she", &val) == false);
+    REQUIRE(case3.try_get("shells", &val) == false);
+    REQUIRE(case3.try_get("sea", &val) == false);
 
-    EXPECT_TRUE(case3.try_get("sells", &val));
-    EXPECT_EQ(3,val);
-    EXPECT_TRUE(case3.try_get("shore",&val));
-    EXPECT_EQ(4,val);
-    EXPECT_TRUE(case3.try_get("the",&val));
-    EXPECT_EQ(2,val);
+    REQUIRE(case3.try_get("sells", &val) == true);
+    REQUIRE(3 == val);
+    REQUIRE(case3.try_get("shore",&val) == true);
+    REQUIRE(4 == val);
+    REQUIRE(case3.try_get("the",&val) == true);
+    REQUIRE(2 == val);
 }
