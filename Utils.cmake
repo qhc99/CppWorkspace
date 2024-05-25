@@ -51,10 +51,10 @@ function(add_single_test single_file link_lib)
 
     # Test coverage
     add_custom_target(run_${name}_coverage
-        COMMAND ${CMAKE_COMMAND} -E echo "---Executable path: $<TARGET_FILE:${name}>"
+        COMMAND ${CMAKE_COMMAND} -E echo "--- Executable path: $<TARGET_FILE:${name}>"
         COMMAND $<TARGET_FILE:${name}>
         COMMAND llvm-profdata merge -sparse default.profraw -o temp.profdata
         COMMAND llvm-cov show -format=html -o ${CMAKE_SOURCE_DIR}/html_cov_report $<TARGET_FILE:${name}> -instr-profile="temp.profdata"
-        COMMENT "---Test coverage output: ${CMAKE_SOURCE_DIR}/html_cov_report"
+        COMMENT "--- Test coverage output: ${CMAKE_SOURCE_DIR}/html_cov_report"
     )
 endfunction()

@@ -8,7 +8,7 @@ set(CLANG_SANITIZERS_OPTIONS
     -fno-optimize-sibling-calls # perfect stack trace
 )
 
-# Use in multithread programming
+# Used in multithread programming
 set(CLANG_THREAD_SANITIZERS_OPTIONS
     -fsanitize=undefined
     -fsanitize=thread # not compatible with leak, address and memory
