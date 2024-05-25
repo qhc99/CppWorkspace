@@ -3,7 +3,6 @@ cmake_minimum_required(VERSION 3.20)
 project(cpp_projects)
 
 set(COMMON_CLANG_SANITIZERS_COMPILE_LINK_OPTIONS_IN_TEST
-    -Wall 
     -fsanitize=address 
     -fsanitize=undefined
     -fno-omit-frame-pointer
@@ -35,7 +34,5 @@ else ()
         message(STATUS "Added cuda demo")
     endif ()
 endif ()
+
 add_subdirectory(ray_trace)
-message(STATUS "Added ray trace project")
-
-
