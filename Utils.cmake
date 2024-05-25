@@ -26,11 +26,13 @@ function(add_single_test single_file link_lib)
     string(REGEX REPLACE "\\.cpp$" "" name ${name})
     # Transform CamelCase to lowercase with underscores
     string(REGEX REPLACE "([A-Z])" "_\\1" name ${name})
+    string(TOLOWER ${name} name)
     # Remove leading underline
     string(REGEX REPLACE "^_" "" name ${name})
-    string(TOLOWER ${name} name)
-    message("test name: " ${name} ", link_lib: " ${link_lib})
-    message("include path: " ${DOCTEST_INCLUDE_DIR})
+    
+    message("---test name: " ${name} ", link_lib: " ${link_lib})
+    message("---include path: " ${DOCTEST_INCLUDE_DIR})
+
     add_executable(${name} ${single_file})
     target_link_libraries(${name}
             PRIVATE
