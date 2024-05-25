@@ -8,7 +8,6 @@ set(COMMON_CLANG_SANITIZERS_COMPILE_LINK_OPTIONS_IN_TEST
     -fsanitize=undefined
     -fno-omit-frame-pointer
     -fno-optimize-sibling-calls # perfect stack trace
-    --coverage
     )
 
 set(COMMON_CLANG_COMPILE_LINK_OPTIONS_IN_TEST
@@ -21,7 +20,7 @@ if (NOT DEFINED ENV{CUDACXX})
     add_subdirectory(central_lib)
     message(STATUS "Added lib central")
     if (NOT WIN32)
-        add_subdirectory(net_prog)
+        add_subdirectory(legacy/net_prog)
         message(STATUS "Added net prog")
 
     endif ()
@@ -32,7 +31,7 @@ if (NOT DEFINED ENV{CUDACXX})
 
 else ()
     if (NOT WIN32)
-        add_subdirectory(cuda_demos)
+        add_subdirectory(legacy/cuda_demos)
         message(STATUS "Added cuda demo")
     endif ()
 endif ()
