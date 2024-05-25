@@ -7,7 +7,7 @@ include(Doctest.cmake)
 include(Utils.cmake)
 
 if(NOT DEFINED ENV{CUDACXX})
-    enable_testing()
+    enable_testing() # Enable at top level to use test UI
     add_subdirectory(central_lib)
     message(STATUS "Added lib central")
 
