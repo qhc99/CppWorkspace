@@ -1,6 +1,16 @@
 cmake_minimum_required(VERSION 3.20)
 
 project(cpp_projects)
+
+set(COMMON_CLANG_COMPILE_OPTIONS_IN_TEST 
+    -Wall 
+    -fsanitize=address 
+    -fsanitize=undefined
+    -fno-omit-frame-pointer
+    -fno-optimize-sibling-calls # perfect stack trace
+    --coverage
+    )
+
 if (NOT DEFINED ENV{CUDACXX})
     add_subdirectory(central_lib)
     message(STATUS "Added lib central")

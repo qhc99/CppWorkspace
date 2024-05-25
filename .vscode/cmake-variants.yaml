@@ -10,14 +10,14 @@ build_type:
       long: Optimize generated code
       buildType: Release
     debug-nvcc:
-      short: NVCC-Debug
-      long: NVCC Debug mode
+      short: WSL-NVCC-Debug
+      long: WSL NVCC Debug mode
       buildType: Debug
       env:
         CUDACXX: "/usr/local/cuda-12/bin/nvcc"
     release-nvcc:
-      short: NVCC-Release
-      long:  NVCC Release mode
+      short: WSL-NVCC-Release
+      long:  WSL NVCC Release mode
       buildType: Release
       env:
         CUDACXX: "/usr/local/cuda-12/bin/nvcc"

@@ -15,27 +15,18 @@ set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
 FetchContent_MakeAvailable(googletest)
 
 enable_testing()
-
-add_executable(data_struct_test DisjointSetTest.cpp RankSearchTest.cpp TernaryTriesTest.cpp)
-target_link_libraries(data_struct_test
+set(TARGET_LIB_DATA_STRUC_TEST data_struct_test)
+add_executable(${TARGET_LIB_DATA_STRUC_TEST} DisjointSetTest.cpp RankSearchTest.cpp TernaryTriesTest.cpp)
+target_link_libraries(${TARGET_LIB_DATA_STRUC_TEST}
         central_lib
         GTest::gtest_main
         )
 # ASAN_OPTIONS=check_initialization_order=1
-target_compile_options(data_struct_test PRIVATE
-        # -fsanitize=address
-        # -fsanitize=undefined
-        # -fno-omit-frame-pointer
-        # -fno-optimize-sibling-calls # perfect stack trace
-        --coverage
-        )
-target_link_options(data_struct_test PRIVATE
-        # -fsanitize=address
-        # -fsanitize=undefined
-        # -fno-omit-frame-pointer
-        # -fno-optimize-sibling-calls # perfect stack trace
-        --coverage
-        )
+if(CMAKE_CXX_COMPILER_ID MATCHES "Clang" AND CMAKE_SYSTEM_NAME STREQUAL "Linux")
+    target_compile_options(${TARGET_LIB_DATA_STRUC_TEST} PRIVATE ${COMMON_CLANG_COMPILE_OPTIONS_IN_TEST})
+    target_link_options(${TARGET_LIB_DATA_STRUC_TEST} PRIVATE ${COMMON_CLANG_COMPILE_OPTIONS_IN_TEST})
+endif()
+
 
 include(GoogleTest)
-gtest_discover_tests(data_struct_test)
+gtest_discover_tests(${TARGET_LIB_DATA_STRUC_TEST})
