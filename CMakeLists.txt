@@ -2,13 +2,19 @@ cmake_minimum_required(VERSION 3.20)
 
 project(cpp_projects)
 
-set(COMMON_CLANG_COMPILE_OPTIONS_IN_TEST 
+set(COMMON_CLANG_SANITIZERS_COMPILE_LINK_OPTIONS_IN_TEST
     -Wall 
     -fsanitize=address 
     -fsanitize=undefined
     -fno-omit-frame-pointer
     -fno-optimize-sibling-calls # perfect stack trace
     --coverage
+    )
+
+set(COMMON_CLANG_COMPILE_LINK_OPTIONS_IN_TEST
+    -Wall 
+    -fprofile-instr-generate 
+    -fcoverage-mapping
     )
 
 if (NOT DEFINED ENV{CUDACXX})

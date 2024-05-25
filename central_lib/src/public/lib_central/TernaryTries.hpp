@@ -334,7 +334,7 @@ public:
         std::deque<string> queue{};
         string s_builder{};
         collect(root, s_builder, queue);
-        return std::move(queue);
+        return queue;
     }
 
     std::deque<string> keysWithPrefix(const string &prefix) {
