@@ -4,7 +4,7 @@
 
 #ifndef DEV_QHC_CPP_PROJECTS_TERNARYTRIES_HPP
 #define DEV_QHC_CPP_PROJECTS_TERNARYTRIES_HPP
-
+#include "lib_central/concepts_utils.h"
 #include <stdexcept>
 #include <string>
 #include <deque>
@@ -13,7 +13,7 @@
  *
  * @tparam T_Val copyable
  */
-template<typename T_Val>
+template<concepts_utils::Assignable T_Val>
 class TernaryTries final {
     
 public:
