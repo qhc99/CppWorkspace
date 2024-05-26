@@ -9,16 +9,19 @@ build_type:
       short: Release
       long: Optimize generated code
       buildType: Release
-    debug-nvcc:
-      short: WSL-NVCC-Debug
-      long: WSL NVCC Debug mode
-      buildType: Debug
+
+nvcc_path:
+  default: "none"
+  choices:
+    "win":
+      short: WSL-NVCC
       env:
         CUDACXX: "/usr/local/cuda-12/bin/nvcc"
-    release-nvcc:
-      short: WSL-NVCC-Release
-      long:  WSL NVCC Release mode
-      buildType: Release
+    "wsl":
+      short: WIN-NVCC
       env:
-        CUDACXX: "/usr/local/cuda-12/bin/nvcc"
+        CUDACXX: "C:/\"Program Files"/\"NVIDIA GPU Computing Toolkit\"/CUDA/v12.0/bin/nvcc.exe"
+    "none":
+      short: No-NVCC
+        
 

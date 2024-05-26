@@ -27,8 +27,8 @@ function(add_single_test single_file link_lib)
     to_lowercase_underline(${LATEST_RETURN})
     set(name ${LATEST_RETURN})
 
-    message("--- Add test name: " ${name} ", link_lib: " ${link_lib})
-    message("--- Link include path: " ${DOCTEST_INCLUDE_DIR})
+    message(STATUS "--- Add test name: " ${name} ", link_lib: " ${link_lib})
+    message(STATUS "--- Link include path: " ${DOCTEST_INCLUDE_DIR})
 
     add_executable(${name} ${single_file})
     target_link_libraries(${name}

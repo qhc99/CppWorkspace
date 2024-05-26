@@ -9,12 +9,12 @@ include(Utils.cmake)
 if(NOT DEFINED ENV{CUDACXX})
     enable_testing() # Enable at top level to use test UI
     add_subdirectory(central_lib)
-    message(STATUS "Added lib central")
+    message(STATUS "--- Added lib central")
 
     # add_subdirectory(lisp)
-    # message(STATUS "Added lisp interpreter")
+    # message(STATUS "--- Added lisp interpreter")
     add_subdirectory(misc)
-    message(STATUS "Added misc")
+    message(STATUS "--- Added misc")
 endif()
 
 add_subdirectory(ray_trace)
