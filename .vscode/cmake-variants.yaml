@@ -13,14 +13,14 @@ build_type:
 nvcc_path:
   default: "none"
   choices:
-    "win":
+    "wsl":
       short: WSL-NVCC
       env:
         CUDACXX: "/usr/local/cuda-12/bin/nvcc"
-    "wsl":
+    "win":
       short: WIN-NVCC
       env:
-        CUDACXX: "C:/\"Program Files"/\"NVIDIA GPU Computing Toolkit\"/CUDA/v12.0/bin/nvcc.exe"
+        CUDACXX: "C:/\"Program Files\"/\"NVIDIA GPU Computing Toolkit\"/CUDA/v12.0/bin/nvcc.exe"
     "none":
       short: No-NVCC
         
