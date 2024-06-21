@@ -4,7 +4,7 @@ add_library(central_lib
         STATIC
         DisjointSet.cpp
         utils.cpp
-        numerics.cpp)
+        numeric_utils.cpp)
 target_include_directories(central_lib PUBLIC public)
 
 add_executable(

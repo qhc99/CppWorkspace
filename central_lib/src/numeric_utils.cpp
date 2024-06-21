@@ -2,7 +2,7 @@
 // Created by QC on 2021/3/25.
 //
 
-#include "lib_central/numerics.h"
+#include "lib_central/numeric_utils.h"
 
 auto dev::qhc::Euler::sieveOfEratosthenes(int limit) -> std::vector<int> {
     std::vector<bool> prime{};
