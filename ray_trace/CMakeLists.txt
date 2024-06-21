@@ -1,32 +1,31 @@
 cmake_minimum_required(VERSION 3.20)
 
-if (NOT DEFINED ENV{CUDACXX})
-    message(STATUS "--- Added ray trace omp")
-    project(ray_trace CXX)
-    SET(TARGET_RT_OMP rt_omp)
-    add_executable(${TARGET_RT_OMP}
-            openmp/rt_omp.cpp
-            openmp/vec3.h
-            openmp/color.h
-            openmp/color.h
-            openmp/ray.h
-            openmp/hittable.h
-            openmp/sphere.h
-            openmp/hittable_list.h
-            openmp/rtweekend.h
-            openmp/camera.h
-            openmp/material.h)
+message(STATUS "--- Added ray trace omp")
+project(ray_trace LANGUAGES CXX)
+SET(TARGET_RT_OMP rt_omp)
+add_executable(${TARGET_RT_OMP}
+        openmp/rt_omp.cpp
+        openmp/vec3.h
+        openmp/color.h
+        openmp/color.h
+        openmp/ray.h
+        openmp/hittable.h
+        openmp/sphere.h
+        openmp/hittable_list.h
+        openmp/rtweekend.h
+        openmp/camera.h
+        openmp/material.h)
 
-    target_link_libraries(${TARGET_RT_OMP} central_lib)
-    target_compile_options(${TARGET_RT_OMP} PUBLIC -fopenmp)
-    target_link_options(${TARGET_RT_OMP} PUBLIC -fopenmp)
-    set_property(TARGET ${TARGET_RT_OMP} PROPERTY CMAKE_CXX_STANDARD 17)
-    set_property(TARGET ${TARGET_RT_OMP} PROPERTY CMAKE_CXX_STANDARD_REQUIRED True)
-endif ()
+target_link_libraries(${TARGET_RT_OMP} central_lib)
+target_compile_options(${TARGET_RT_OMP} PUBLIC -fopenmp)
+target_link_options(${TARGET_RT_OMP} PUBLIC -fopenmp)
+set_property(TARGET ${TARGET_RT_OMP} PROPERTY CMAKE_CXX_STANDARD 17)
+set_property(TARGET ${TARGET_RT_OMP} PROPERTY CMAKE_CXX_STANDARD_REQUIRED True)
 
-if (DEFINED ENV{CUDACXX})
+if (DEFINED ENV{CUDACXX} AND CMAKE_SYSTEM_NAME STREQUAL "Linux")
     message(STATUS "--- Added ray trace cuda")
-    project(ray_trace_cuda CUDA)
+    project(ray_trace_cuda LANGUAGES CUDA CXX)
+    find_package(CUDA REQUIRED)
     set(TARGET_RT_CUDA rt_cuda)
     set(CMAKE_CUDA_STANDARD 17)
     set(CMAKE_CUDA_STANDARD_REQUIRED True)
