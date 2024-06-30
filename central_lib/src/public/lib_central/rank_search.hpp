@@ -5,6 +5,7 @@
 #ifndef ORG_QC_CPP_ALL_IN_ONE_RANK_SEARCH_CPP
 #define ORG_QC_CPP_ALL_IN_ONE_RANK_SEARCH_CPP
 
+#include "lib_central/concepts_utils.h"
 #include <vector>
 #include <random>
 #include <iostream>
@@ -17,8 +18,8 @@ namespace dev::qhc::lib_central {
 
   class RankSearch final {
   private:
-    template<typename Comparable>
-    static int randPartition(vector<Comparable> &a, int start, int end, RandEngine_t &engine) {
+    template<concepts_utils::Comparable T>
+    static int randPartition(vector<T> &a, int start, int end, RandEngine_t &engine) {
       std::uniform_int_distribution<int> dist{start, end - 1};
       int pivot_idx{dist(engine)};
 
@@ -42,8 +43,8 @@ namespace dev::qhc::lib_central {
     }
 
     // select ith smallest element in array
-    template<typename Comparable>
-    static Comparable rankSearch(vector<Comparable> &a, int start, int end, int ith, RandEngine_t &engine) {
+    template<typename T>
+    static T rankSearch(vector<T> &a, int start, int end, int ith, RandEngine_t &engine) {
       if ((start - end) == 1) {
         return a.at(start);
       }
@@ -60,8 +61,8 @@ namespace dev::qhc::lib_central {
 
 
   public:
-    template<typename Comparable>
-    [[maybe_unused]] static Comparable find(vector<Comparable> &a, int ith) {
+    template<typename T>
+    [[maybe_unused]] static T find(vector<T> &a, int ith) {
       if (a.empty()) {
         throw std::logic_error{"size is zero."};
       }
