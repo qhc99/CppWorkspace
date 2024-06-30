@@ -6,8 +6,6 @@
 int main()
 {
     int t{2};
-    std::vector<int> v{1,2,3};
-    v[t*2] = 5;
-    std::cout << "out";
+    std::cout << t;
     return 0;
 }
