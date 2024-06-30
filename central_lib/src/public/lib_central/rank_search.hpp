@@ -9,7 +9,6 @@
 #include <vector>
 #include <random>
 #include <iostream>
-#include <exception>
 
 namespace dev::qhc::lib_central {
   using RandEngine_t = std::mt19937;
