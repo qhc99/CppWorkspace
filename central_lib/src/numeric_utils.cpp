@@ -8,19 +8,16 @@ auto dev::qhc::Euler::sieveOfEratosthenes(int limit) -> std::vector<int> {
     std::vector<bool> prime{};
     prime.reserve(limit + 1);
     prime.assign(limit + 1, true);
-    for(int i = 0; i < limit + 1; ++i){
-        prime[i] = true;
-    }
     for (int p = 2; p * p <= limit; p++) {
-        if (prime[p]) {
+        if (prime.at(p)) {
             for (int i = p * 2; i <= limit; i += p) {
-                prime[i] = false;
+                prime.at(i) = false;
             }
         }
     }
     std::vector<int> primeNumbers{};
     for (int i = 2; i <= limit; i++) {
-        if (prime[i]) {
+        if (prime.at(i)) {
             primeNumbers.push_back(i);
         }
     }
