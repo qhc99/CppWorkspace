@@ -25,7 +25,7 @@ namespace dev::qhc::lib_central {
 
       auto pivot{a.at(pivot_idx)};
 
-      auto temp{a.at(end - 1)};
+      auto& temp{a.at(end - 1)};
       a.at(end - 1) = pivot;
       a.at(pivot_idx) = temp;
 
