@@ -1,5 +1,4 @@
 #include <concepts>
-#include <type_traits>
 
 namespace concepts_utils {
 template <typename T>
