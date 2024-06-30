@@ -1,10 +1,6 @@
 #include <concepts>
 
 namespace concepts_utils {
-template <typename T>
-concept Assignable = requires(T a, T b) {
-  { a = b } -> std::same_as<T &>;
-};
 
 template <typename T>
 concept Comparable = requires(T a, T b) {
