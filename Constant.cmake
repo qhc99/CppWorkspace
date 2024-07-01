@@ -29,4 +29,5 @@ set(CLANG_TEST_OPTIONS
     -fprofile-instr-generate
     -fcoverage-mapping
     -v
+    -detect-odr-violations
 )
