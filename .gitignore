@@ -8,3 +8,5 @@
 /html_cov_report
 *.profraw
 *.profdata
+.cache
+.codechecker
