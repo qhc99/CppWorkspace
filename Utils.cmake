@@ -35,7 +35,7 @@ function(add_single_test single_file link_lib)
     remove_dot_suffix(${single_file})
     to_lowercase_underline(${LATEST_RETURN})
     set(name ${LATEST_RETURN})
-    # set(LATEST_RETURN ${LATEST_RETURN} PARENT_SCOPE)
+    set(LATEST_RETURN ${LATEST_RETURN} PARENT_SCOPE)
 
     print_info("Add test name: ${name}, link_lib: ${link_lib}")
     print_info("Link include path: ${DOCTEST_INCLUDE_DIR}")
