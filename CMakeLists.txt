@@ -11,8 +11,6 @@ enable_testing() # Enable at top level to use test UI
 add_subdirectory(central_lib)
 print_info("Added lib central")
 
-# add_subdirectory(lisp)
-# message(STATUS "--- Added lisp interpreter")
 add_subdirectory(misc)
 print_info("Added misc")
 
