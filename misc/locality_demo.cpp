@@ -173,9 +173,9 @@ void space_locality_openmp(float **m1, float **m2, float **m3, const int size_a,
 }
 
 void run_demo(){
-    constexpr int size_a = 1500;
-    constexpr int size_b = 1500;
-    constexpr int size_c = 1500;
+    constexpr int size_a = 900;
+    constexpr int size_b = 900;
+    constexpr int size_c = 900;
     auto **m1 = new float *[size_a];
     auto **m2 = new float *[size_b];
     auto **m3 = new float *[size_a];

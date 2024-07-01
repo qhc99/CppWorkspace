@@ -50,11 +50,12 @@ function(add_single_test single_file link_lib)
     # Lib coverage and sanitizer options
     if(CMAKE_SYSTEM_NAME STREQUAL "Linux" AND CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
         target_compile_link_options(${name} PUBLIC CLANG_SANITIZERS_OPTIONS)
-        target_compile_link_options(${link_lib} PUBLIC CLANG_SANITIZERS_OPTIONS)
+        # set options only for test
+        target_compile_link_options(${link_lib} PRIVATE CLANG_SANITIZERS_OPTIONS)
     endif()
 
     target_compile_link_options(${name} PUBLIC CLANG_TEST_OPTIONS)
-    target_compile_link_options(${link_lib} PUBLIC CLANG_TEST_OPTIONS)
+    target_compile_link_options(${link_lib} PRIVATE CLANG_TEST_OPTIONS)
     
     # CTest intergration
     add_test(NAME ${name} COMMAND ${name})
