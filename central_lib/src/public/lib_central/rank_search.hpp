@@ -2,8 +2,8 @@
 // Created by QC on 2021/4/4.
 //
 
-#ifndef ORG_QC_CPP_ALL_IN_ONE_RANK_SEARCH_CPP
-#define ORG_QC_CPP_ALL_IN_ONE_RANK_SEARCH_CPP
+#ifndef ORG_QC_CPP_CENTRAL_LIB_RANK_SEARCH_CPP
+#define ORG_QC_CPP_CENTRAL_LIB_RANK_SEARCH_CPP
 
 #include <iostream>
 #include <random>
@@ -76,4 +76,4 @@ template <typename T>
 
 } // namespace dev::qhc::central_lib::rank_search
 
-#endif // ORG_QC_CPP_ALL_IN_ONE_RANK_SEARCH_CPP
+#endif // ORG_QC_CPP_CENTRAL_LIB_RANK_SEARCH_CPP
