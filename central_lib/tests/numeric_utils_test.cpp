@@ -1,11 +1,10 @@
 #define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
-#include "lib_central/numeric_utils.h"
 #include "doctest.h"
+#include "lib_central/numeric_utils.h"
 
-
-
-TEST_CASE("numeric_utils.sieveOfEratosthenes") {
-    auto ret {dev::qhc::Euler::sieveOfEratosthenes(20)};
+TEST_CASE("numeric_utils.sieveOfEratosthenes")
+{
+    auto ret { dev::qhc::Euler::sieveOfEratosthenes(20) };
     REQUIRE(ret.at(0) == 2);
     REQUIRE(ret.at(1) == 3);
     REQUIRE(ret.at(2) == 5);
@@ -16,4 +15,3 @@ TEST_CASE("numeric_utils.sieveOfEratosthenes") {
     REQUIRE(ret.at(7) == 19);
     REQUIRE(ret.size() == 8);
 }
-

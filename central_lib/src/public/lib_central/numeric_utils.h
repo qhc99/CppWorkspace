@@ -6,16 +6,15 @@
 #define LEARNCPP_TOOLS_H
 
 #include <vector>
-namespace dev::qhc::Euler
-{
-    using std::vector;
+namespace dev::qhc::Euler {
+using std::vector;
 
-    /**
-     * first limit primes
-     * @param limit
-     * @return
-     */
-    vector<int> sieveOfEratosthenes(int limit);
-}
+/**
+ * first limit primes
+ * @param limit
+ * @return
+ */
+vector<int> sieveOfEratosthenes(int limit);
+} // namespace dev::qhc::Euler
 
-#endif //LEARNCPP_TOOLS_H
+#endif // LEARNCPP_TOOLS_H

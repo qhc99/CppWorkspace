@@ -8,17 +8,17 @@
 #include <string>
 #include <unordered_set>
 
-
 class TernaryTriesTestFixture {
 
 public:
-    TernaryTries<int> case1{};
-    std::unordered_set<std::string> keys{};
-    TernaryTries<int> case2{};
-    TernaryTries<int> case3{};
-    TernaryTries<int> case4{};
+    TernaryTries<int> case1 {};
+    std::unordered_set<std::string> keys {};
+    TernaryTries<int> case2 {};
+    TernaryTries<int> case3 {};
+    TernaryTries<int> case4 {};
 
-    TernaryTriesTestFixture() {
+    TernaryTriesTestFixture()
+    {
         case1.insert("by", 0);
         case1.insert("she", 1);
         case1.insert("shells", 2);
@@ -45,45 +45,47 @@ public:
 
         case4.insert("a", 0);
     }
-
-
 };
 
-TEST_CASE_FIXTURE(TernaryTriesTestFixture, "TestLongestPrefix") {
+TEST_CASE_FIXTURE(TernaryTriesTestFixture, "TestLongestPrefix")
+{
     REQUIRE("she" == case1.longestPrefixOf("shell"));
     REQUIRE("shells" == case1.longestPrefixOf("shellsort"));
     REQUIRE("" == case1.longestPrefixOf("a"));
 }
 
-TEST_CASE_FIXTURE(TernaryTriesTestFixture, "KeysTest") {
-    auto ks{case1.keys()};
-    for (const std::string &k: ks) {
+TEST_CASE_FIXTURE(TernaryTriesTestFixture, "KeysTest")
+{
+    auto ks { case1.keys() };
+    for (const std::string& k : ks) {
         REQUIRE(keys.contains(k));
     }
 }
 
-TEST_CASE_FIXTURE(TernaryTriesTestFixture, "KeysWithPrefixTest") {
-    std::deque<std::string> d{};
+TEST_CASE_FIXTURE(TernaryTriesTestFixture, "KeysWithPrefixTest")
+{
+    std::deque<std::string> d {};
     d.emplace_back("she");
     d.emplace_back("shells");
     d.emplace_back("shore");
     auto res = case1.keysWithPrefix("sh");
-    for (const auto &i: res) {
+    for (const auto& i : res) {
         REQUIRE((std::find(d.begin(), d.end(), i) != d.end()) == true);
     }
 
-    std::deque<std::string> d2{};
+    std::deque<std::string> d2 {};
     d2.emplace_back("by");
     auto res2 = case1.keysWithPrefix("b");
-    for (const auto &i: res2) {
+    for (const auto& i : res2) {
         REQUIRE((std::find(d2.begin(), d2.end(), i) != d2.end()) == true);
     }
 }
 
-TEST_CASE_FIXTURE(TernaryTriesTestFixture, "RemoveTest") {
+TEST_CASE_FIXTURE(TernaryTriesTestFixture, "RemoveTest")
+{
     REQUIRE(7 == case2.getCount());
 
-    int val{};
+    int val {};
     REQUIRE(case2.remove("by", &val) == true);
     REQUIRE(case2.contain_key("by") == false);
     REQUIRE(case2.contain_key("she") == true);
@@ -145,9 +147,9 @@ TEST_CASE_FIXTURE(TernaryTriesTestFixture, "RemoveTest") {
     REQUIRE(0 == case2.getCount());
 }
 
-TEST_CASE_FIXTURE(TernaryTriesTestFixture, "TryGetTest") {
+TEST_CASE_FIXTURE(TernaryTriesTestFixture, "TryGetTest")
+{
     REQUIRE(7 == case2.getCount());
-
 
     REQUIRE(case2.remove("by", nullptr) == true);
     REQUIRE(case2.remove("she", nullptr) == true);
@@ -155,7 +157,7 @@ TEST_CASE_FIXTURE(TernaryTriesTestFixture, "TryGetTest") {
     REQUIRE(case2.remove("aaaa", nullptr) == false);
     REQUIRE(case2.remove("sea", nullptr) == true);
 
-    int val{};
+    int val {};
     REQUIRE(case2.try_get("by", &val) == false);
     REQUIRE(case2.try_get("she", &val) == false);
     REQUIRE(case2.try_get("shells", &val) == false);
@@ -163,18 +165,18 @@ TEST_CASE_FIXTURE(TernaryTriesTestFixture, "TryGetTest") {
 
     REQUIRE(case2.try_get("sells", &val) == true);
     REQUIRE(3 == val);
-    REQUIRE(case2.try_get("shore",&val) == true);
+    REQUIRE(case2.try_get("shore", &val) == true);
     REQUIRE(4 == val);
-    REQUIRE(case2.try_get("the",&val) == true);
+    REQUIRE(case2.try_get("the", &val) == true);
     REQUIRE(2 == val);
 }
 
-TEST_CASE_FIXTURE(TernaryTriesTestFixture,"CloneTest"){
-    auto case3 {case2.clone()};
+TEST_CASE_FIXTURE(TernaryTriesTestFixture, "CloneTest")
+{
+    auto case3 { case2.clone() };
     REQUIRE(7 == case3.getCount());
 
-
-    int val{};
+    int val {};
     REQUIRE(case3.remove("by", nullptr) == true);
     REQUIRE(case3.remove("she", nullptr) == true);
     REQUIRE(case3.remove("shells", nullptr) == true);
@@ -188,14 +190,15 @@ TEST_CASE_FIXTURE(TernaryTriesTestFixture,"CloneTest"){
 
     REQUIRE(case3.try_get("sells", &val) == true);
     REQUIRE(3 == val);
-    REQUIRE(case3.try_get("shore",&val) == true);
+    REQUIRE(case3.try_get("shore", &val) == true);
     REQUIRE(4 == val);
-    REQUIRE(case3.try_get("the",&val) == true);
+    REQUIRE(case3.try_get("the", &val) == true);
     REQUIRE(2 == val);
 }
 
-TEST_CASE_FIXTURE(TernaryTriesTestFixture, "CornerCaseTest") {
-    int val{};
+TEST_CASE_FIXTURE(TernaryTriesTestFixture, "CornerCaseTest")
+{
+    int val {};
     // empty strings
     REQUIRE(case1.try_get("", &val) == false);
     REQUIRE(case1.remove("", &val) == false);
@@ -203,7 +206,7 @@ TEST_CASE_FIXTURE(TernaryTriesTestFixture, "CornerCaseTest") {
 
     REQUIRE(case1.remove("shellsFalse", &val) == false);
     case1.insert("by", 1, false);
-    
+
     // empty and single string
     REQUIRE(0 == case3.keysWithPrefix("a").size());
     REQUIRE(1 == case4.keysWithPrefix("a").size());

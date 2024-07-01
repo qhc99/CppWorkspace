@@ -1,36 +1,33 @@
 #ifndef ORG_QC_CPP_ALL_IN_ONE_ALGO_CPP_STRUCTURES_DISJOINT_SET_H
 #define ORG_QC_CPP_ALL_IN_ONE_ALGO_CPP_STRUCTURES_DISJOINT_SET_H
 
-namespace dev::qhc::lib_central {
-    class DisjointSet {
-    private:
-        int rank{0};
-        DisjointSet *parent{this};
+namespace dev::qhc::central_lib {
+class DisjointSet {
+private:
+    int rank { 0 };
+    DisjointSet* parent { this };
 
+    static void link(DisjointSet& x, DisjointSet& y);
 
-        static void link(DisjointSet &x, DisjointSet &y);
+    static auto findGroupRep(DisjointSet& x) -> DisjointSet&;
 
-        static auto findGroupRep(DisjointSet &x) -> DisjointSet &;
+public:
+    DisjointSet() = default;
 
-    public:
+    DisjointSet(const DisjointSet& other) = default;
 
-        DisjointSet() = default;
+    DisjointSet(DisjointSet&& other) = default;
 
-        DisjointSet(const DisjointSet &other) = default;
+    auto groupRep() -> DisjointSet&;
 
-        DisjointSet(DisjointSet &&other) = default;
+    auto operator=(const DisjointSet& other) -> DisjointSet& = default;
 
-        auto groupRep() -> DisjointSet &;
+    auto operator=(DisjointSet&& other) -> DisjointSet& = default;
 
-        auto operator=(const DisjointSet &other) -> DisjointSet & = default;
+    void unionSet(DisjointSet& a);
 
-        auto operator=(DisjointSet &&other) -> DisjointSet & = default;
-
-        void unionSet(DisjointSet &a);
-
-        virtual ~DisjointSet() = default;
-    };
-}
-
+    virtual ~DisjointSet() = default;
+};
+} // namespace dev::qhc::central_lib
 
 #endif
