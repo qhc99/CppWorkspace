@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.20)
 
-message(STATUS "--- Added ray trace omp")
+print_info("Added ray trace omp")
 project(ray_trace LANGUAGES CXX)
 SET(TARGET_RT_OMP rt_omp)
 add_executable(${TARGET_RT_OMP}
@@ -23,9 +23,8 @@ set_property(TARGET ${TARGET_RT_OMP} PROPERTY CMAKE_CXX_STANDARD 17)
 set_property(TARGET ${TARGET_RT_OMP} PROPERTY CMAKE_CXX_STANDARD_REQUIRED True)
 
 if (DEFINED ENV{CUDACXX} AND CMAKE_SYSTEM_NAME STREQUAL "Linux")
-    message(STATUS "--- Added ray trace cuda")
+    print_info("Added ray trace cuda")
     project(ray_trace_cuda LANGUAGES CUDA CXX)
-    find_package(CUDA REQUIRED)
     set(TARGET_RT_CUDA rt_cuda)
     set(CMAKE_CUDA_STANDARD 17)
     set(CMAKE_CUDA_STANDARD_REQUIRED True)
