@@ -15,6 +15,8 @@ public:
     TernaryTries<int> case1{};
     std::unordered_set<std::string> keys{};
     TernaryTries<int> case2{};
+    TernaryTries<int> case3{};
+    TernaryTries<int> case4{};
 
     TernaryTriesTestFixture() {
         case1.insert("by", 0);
@@ -40,6 +42,8 @@ public:
         case2.insert("shore", 4);
         case2.insert("she", 5);
         case2.insert("sea", 6);
+
+        case4.insert("a", 0);
     }
 
 
@@ -48,6 +52,7 @@ public:
 TEST_CASE_FIXTURE(TernaryTriesTestFixture, "TestLongestPrefix") {
     REQUIRE("she" == case1.longestPrefixOf("shell"));
     REQUIRE("shells" == case1.longestPrefixOf("shellsort"));
+    REQUIRE("" == case1.longestPrefixOf("a"));
 }
 
 TEST_CASE_FIXTURE(TernaryTriesTestFixture, "KeysTest") {
@@ -66,13 +71,20 @@ TEST_CASE_FIXTURE(TernaryTriesTestFixture, "KeysWithPrefixTest") {
     for (const auto &i: res) {
         REQUIRE((std::find(d.begin(), d.end(), i) != d.end()) == true);
     }
+
+    std::deque<std::string> d2{};
+    d2.emplace_back("by");
+    auto res2 = case1.keysWithPrefix("b");
+    for (const auto &i: res2) {
+        REQUIRE((std::find(d2.begin(), d2.end(), i) != d2.end()) == true);
+    }
 }
 
 TEST_CASE_FIXTURE(TernaryTriesTestFixture, "RemoveTest") {
     REQUIRE(7 == case2.getCount());
 
-
-    REQUIRE(case2.remove("by", nullptr) == true);
+    int val{};
+    REQUIRE(case2.remove("by", &val) == true);
     REQUIRE(case2.contain_key("by") == false);
     REQUIRE(case2.contain_key("she") == true);
     REQUIRE(case2.contain_key("shells") == true);
@@ -81,8 +93,9 @@ TEST_CASE_FIXTURE(TernaryTriesTestFixture, "RemoveTest") {
     REQUIRE(case2.contain_key("shore") == true);
     REQUIRE(case2.contain_key("the") == true);
     REQUIRE(6 == case2.getCount());
+    REQUIRE(1 == val);
 
-    REQUIRE(case2.remove("she", nullptr) == true);
+    REQUIRE(case2.remove("she", &val) == true);
     REQUIRE(case2.contain_key("she") == false);
     REQUIRE(case2.contain_key("shells") == true);
     REQUIRE(case2.contain_key("sea") == true);
@@ -90,37 +103,43 @@ TEST_CASE_FIXTURE(TernaryTriesTestFixture, "RemoveTest") {
     REQUIRE(case2.contain_key("shore") == true);
     REQUIRE(case2.contain_key("the") == true);
     REQUIRE(5 == case2.getCount());
+    REQUIRE(5 == val);
 
-    REQUIRE(case2.remove("shells", nullptr) == true);
+    REQUIRE(case2.remove("shells", &val) == true);
     REQUIRE(case2.contain_key("shells") == false);
     REQUIRE(case2.contain_key("sea") == true);
     REQUIRE(case2.contain_key("sells") == true);
     REQUIRE(case2.contain_key("shore") == true);
     REQUIRE(case2.contain_key("the") == true);
     REQUIRE(4 == case2.getCount());
+    REQUIRE(0 == val);
 
     REQUIRE(case2.remove("aaaa", nullptr) == false);
 
-    REQUIRE(case2.remove("sea", nullptr) == true);
+    REQUIRE(case2.remove("sea", &val) == true);
     REQUIRE(case2.contain_key("sea") == false);
     REQUIRE(case2.contain_key("sells") == true);
     REQUIRE(case2.contain_key("shore") == true);
     REQUIRE(case2.contain_key("the") == true);
     REQUIRE(3 == case2.getCount());
+    REQUIRE(6 == val);
 
-    REQUIRE(case2.remove("sells", nullptr) == true);
+    REQUIRE(case2.remove("sells", &val) == true);
     REQUIRE(case2.contain_key("sells") == false);
     REQUIRE(case2.contain_key("shore") == true);
     REQUIRE(case2.contain_key("the") == true);
     REQUIRE(2 == case2.getCount());
+    REQUIRE(3 == val);
 
-    REQUIRE(case2.remove("shore", nullptr) == true);
+    REQUIRE(case2.remove("shore", &val) == true);
     REQUIRE(case2.contain_key("shore") == false);
     REQUIRE(case2.contain_key("the") == true);
     REQUIRE(1 == case2.getCount());
+    REQUIRE(4 == val);
 
-    REQUIRE(case2.remove("the", nullptr) == true);
+    REQUIRE(case2.remove("the", &val) == true);
     REQUIRE(case2.contain_key("the") == false);
+    REQUIRE(2 == val);
 
     REQUIRE(nullptr == case2.getRoot());
     REQUIRE(0 == case2.getCount());
@@ -155,13 +174,13 @@ TEST_CASE_FIXTURE(TernaryTriesTestFixture,"CloneTest"){
     REQUIRE(7 == case3.getCount());
 
 
+    int val{};
     REQUIRE(case3.remove("by", nullptr) == true);
     REQUIRE(case3.remove("she", nullptr) == true);
     REQUIRE(case3.remove("shells", nullptr) == true);
     REQUIRE(case3.remove("aaaa", nullptr) == false);
     REQUIRE(case3.remove("sea", nullptr) == true);
 
-    int val{};
     REQUIRE(case3.try_get("by", &val) == false);
     REQUIRE(case3.try_get("she", &val) == false);
     REQUIRE(case3.try_get("shells", &val) == false);
@@ -173,4 +192,19 @@ TEST_CASE_FIXTURE(TernaryTriesTestFixture,"CloneTest"){
     REQUIRE(4 == val);
     REQUIRE(case3.try_get("the",&val) == true);
     REQUIRE(2 == val);
+}
+
+TEST_CASE_FIXTURE(TernaryTriesTestFixture, "CornerCaseTest") {
+    int val{};
+    REQUIRE(case1.try_get("", &val) == false);
+    REQUIRE(case1.remove("", &val) == false);
+    REQUIRE(case1.remove("shellsFalse", &val) == false);
+    REQUIRE("" == case1.longestPrefixOf(""));
+
+    case1.insert("by", 1, false);
+    
+    REQUIRE(0 == case3.keysWithPrefix("a").size());
+    REQUIRE(1 == case4.keysWithPrefix("a").size());
+
+    REQUIRE(case1.remove("sh", nullptr) == false);
 }
