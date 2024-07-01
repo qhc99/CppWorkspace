@@ -1,9 +1,0 @@
-[
-    {
-        "name": "WSL NVCC 12",
-        "compilers": {
-            "C": "/usr/local/cuda-12/nvcc",
-            "CXX": "/usr/local/cuda-12/nvcc"
-        }
-    }
-]

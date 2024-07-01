@@ -13,11 +13,12 @@ build_type:
 nvcc_path:
   default: "none"
   choices:
-    "wsl":
+    "none":
+      short: default
+    "nvcc":
       short: WSL-NVCC
       env:
-        CUDACXX: "/usr/local/cuda-12/bin/nvcc"
-    "none":
-      short: No-NVCC
+        CUDACXX: "/usr/local/cuda-12.5/bin/nvcc"
+
         
 
