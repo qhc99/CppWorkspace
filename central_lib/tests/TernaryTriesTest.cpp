@@ -196,15 +196,18 @@ TEST_CASE_FIXTURE(TernaryTriesTestFixture,"CloneTest"){
 
 TEST_CASE_FIXTURE(TernaryTriesTestFixture, "CornerCaseTest") {
     int val{};
+    // empty strings
     REQUIRE(case1.try_get("", &val) == false);
     REQUIRE(case1.remove("", &val) == false);
-    REQUIRE(case1.remove("shellsFalse", &val) == false);
     REQUIRE("" == case1.longestPrefixOf(""));
 
+    REQUIRE(case1.remove("shellsFalse", &val) == false);
     case1.insert("by", 1, false);
     
+    // empty and single string
     REQUIRE(0 == case3.keysWithPrefix("a").size());
     REQUIRE(1 == case4.keysWithPrefix("a").size());
 
+    // has prefix but not contain
     REQUIRE(case1.remove("sh", nullptr) == false);
 }
