@@ -8,14 +8,9 @@
 #include <concepts>
 #include <cstddef>
 #include <deque>
-#include <optional>
 #include <stdexcept>
 #include <string>
 
-/**
- *
- * @tparam T_Val copyable
- */
 template <typename T_Val = std::nullptr_t>
     requires std::copyable<T_Val>
 class TernaryTries final {
