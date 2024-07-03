@@ -214,3 +214,12 @@ TEST_CASE_FIXTURE(TernaryTriesTestFixture, "CornerCaseTest")
     // has prefix but not contain
     REQUIRE(case1.remove("sh", nullptr) == false);
 }
+
+TEST_CASE_FIXTURE(TernaryTriesTestFixture, "KeyOnlyTest")
+{
+    TernaryTries t{};
+    t.insert("a");
+    REQUIRE(t.contain_key("a"));
+    t.remove("a");
+    REQUIRE(!t.contain_key("a"));
+}

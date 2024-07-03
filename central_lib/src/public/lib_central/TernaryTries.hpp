@@ -6,7 +6,9 @@
 #define DEV_QHC_CENTRAL_LIB_TERNARYTRIES_HPP
 
 #include <concepts>
+#include <cstddef>
 #include <deque>
+#include <optional>
 #include <stdexcept>
 #include <string>
 
@@ -14,7 +16,7 @@
  *
  * @tparam T_Val copyable
  */
-template <typename T_Val>
+template <typename T_Val = std::nullptr_t>
     requires std::copyable<T_Val>
 class TernaryTries final {
 public:
@@ -60,7 +62,7 @@ private:
         delete n;
     }
 
-    Node* insert_node(Node* n, const std::string& key, const T_Val& val,
+    Node* insert_node(Node* n, const std::string& key, const T_Val* val,
         int depth, bool replace)
     {
         char c = key.at(depth);
@@ -78,7 +80,9 @@ private:
             if (!replace && n->contain) {
                 return n;
             } else {
-                n->val = val;
+                if (val != nullptr) {
+                    n->val = *val;
+                }
                 n->contain = true;
                 count++;
             }
@@ -174,6 +178,19 @@ private:
         collect(x->right, prefix, queue);
     }
 
+    bool __remove(const std::string& key, T_Val* ret)
+    {
+        if (key.empty()) {
+            return false;
+        }
+
+        if (remove_node(root, nullptr, Direction::NONE, key, 0, ret)) {
+            count--;
+            return true;
+        }
+        return false;
+    }
+
 public:
     class Node {
     private:
@@ -181,7 +198,7 @@ public:
         char chr {};
         bool contain { false };
         Node *left { nullptr }, *mid { nullptr }, *right { nullptr };
-        T_Val val {};
+        T_Val val;
 
         Node() = default;
 
@@ -256,18 +273,23 @@ public:
     const Node* getRoot() { return root; }
 
     /**
-     *
-     * @return count of inserted key value pair
+     * @brief count of inserted key value pairs
+     * 
+     * @return int 
      */
     int getCount() { return count; }
 
+    template <typename U = T_Val>
+        requires(!std::is_same_v<U, std::nullptr_t>)
     /**
-     *
-     * @param key string eky
-     * @param ret value
-     * @return if key exists
+     * @brief 
+     * 
+     * @param key 
+     * @param ret 
+     * @return true if key exists
+     * @return false 
      */
-    bool try_get(const std::string& key, T_Val* ret)
+    bool try_get(const std::string& key, U* ret)
     {
         if (key.empty()) {
             return false;
@@ -287,40 +309,74 @@ public:
         return n != nullptr && n->contain;
     }
 
+    template <typename U = T_Val>
+        requires(!std::is_same_v<U, std::nullptr_t>)
     /**
-     * insert_node key value pair
-     * @param key
-     * @param val
+     * @brief insert key and its associated value 
+     * 
+     * @param key 
+     * @param val 
      * @param replace whether replace existing value, default true
      */
-    void insert(const std::string& key, const T_Val& val, bool replace = true)
+    void insert(const std::string& key, const U& val, bool replace = true)
     {
-        root = insert_node(root, key, val, 0, replace);
+        root = insert_node(root, key, &val, 0, replace);
     }
 
+    template <typename U = std::nullptr_t>
+        requires std::is_same_v<U, std::nullptr_t>
+    void insert(const std::string& key)
+    {
+        root = insert_node(root, key, nullptr, 0, false);
+    }
+
+    template <typename U = T_Val>
+        requires(!std::is_same_v<U, std::nullptr_t>)
     /**
-     * remove key and return value
+     * @brief remove key and return value
+     *
      * @param key
      * @param ret the place to save returned value
-     * @return
+     * @return true
+     * @return false not contain key
      */
-    bool remove(const std::string& key, T_Val* ret)
+    bool remove(const std::string& key, U* ret)
     {
-        if (key.empty()) {
-            return false;
-        }
+        return __remove(key, ret);
+    }
 
-        if (remove_node(root, nullptr, Direction::NONE, key, 0, ret)) {
-            count--;
-            return true;
-        }
-        return false;
+    template <typename U = std::nullptr_t>
+        requires std::is_same_v<U, std::nullptr_t>
+    /**
+     * @brief remove key
+     *
+     * @param key
+     * @param ret
+     * @return true
+     * @return false
+     */
+    bool remove(const std::string& key, U ret)
+    {
+        return __remove(key, ret);
     }
 
     /**
-     * find longest prefix that can match the dictionary
+     * @brief remove key
+     *
+     * @param key
+     * @return true
+     * @return false
+     */
+    bool remove(const std::string& key)
+    {
+        return __remove(key, nullptr);
+    }
+
+    /**
+     * @brief find longest prefix that can match the dictionary
+     *
      * @param query
-     * @return
+     * @return std::string
      */
     std::string longestPrefixOf(const std::string& query)
     {
@@ -347,6 +403,11 @@ public:
         return query.substr(0, length);
     }
 
+    /**
+     * @brief get all keys
+     *
+     * @return std::deque<std::string>
+     */
     std::deque<std::string> keys()
     {
         std::deque<std::string> queue {};
@@ -355,6 +416,12 @@ public:
         return queue;
     }
 
+    /**
+     * @brief get all keys with the prefix
+     *
+     * @param prefix
+     * @return std::deque<std::string>
+     */
     std::deque<std::string> keysWithPrefix(const std::string& prefix)
     {
         std::deque<std::string> queue {};
