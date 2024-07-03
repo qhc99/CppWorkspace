@@ -310,7 +310,7 @@ public:
     }
 
     template <typename U = T_Val>
-        requires(!std::is_same_v<U, std::nullptr_t>)
+        requires(!std::is_same_v<U, std::nullptr_t> && std::is_same_v<U, T_Val>)
     /**
      * @brief insert key and its associated value 
      * 
@@ -331,7 +331,7 @@ public:
     }
 
     template <typename U = T_Val>
-        requires(!std::is_same_v<U, std::nullptr_t>)
+        requires(!std::is_same_v<U, std::nullptr_t> && std::is_same_v<U, T_Val>)
     /**
      * @brief remove key and return value
      *
