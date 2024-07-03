@@ -1,11 +1,7 @@
-//
-// Created by QC on 2023-01-14.
-//
-#include <iostream>
-#include <vector>
+#include <fmt/core.h>
+
 int main()
 {
-    int t { 2 };
-    std::cout << t;
+    fmt::print("Hello World!\n");
     return 0;
 }
