@@ -9,16 +9,3 @@ build_type:
       short: Release
       long: Optimize generated code
       buildType: Release
-
-nvcc_path:
-  default: none
-  choices:
-    none:
-      short: default
-    nvcc:
-      short: WSL-NVCC
-      env:
-        CUDACXX: "/usr/local/cuda-12.5/bin/nvcc"
-
-        
-
