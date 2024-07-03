@@ -272,11 +272,6 @@ public:
 
     const Node* getRoot() { return root; }
 
-    /**
-     * @brief count of inserted key value pairs
-     * 
-     * @return int 
-     */
     int getCount() { return count; }
 
     template <typename U = T_Val>
@@ -347,26 +342,11 @@ public:
 
     template <typename U = std::nullptr_t>
         requires std::is_same_v<U, std::nullptr_t>
-    /**
-     * @brief remove key
-     *
-     * @param key
-     * @param ret
-     * @return true
-     * @return false
-     */
     bool remove(const std::string& key, U ret)
     {
         return __remove(key, ret);
     }
 
-    /**
-     * @brief remove key
-     *
-     * @param key
-     * @return true
-     * @return false
-     */
     bool remove(const std::string& key)
     {
         return __remove(key, nullptr);
@@ -403,11 +383,6 @@ public:
         return query.substr(0, length);
     }
 
-    /**
-     * @brief get all keys
-     *
-     * @return std::deque<std::string>
-     */
     std::deque<std::string> keys()
     {
         std::deque<std::string> queue {};
@@ -416,12 +391,6 @@ public:
         return queue;
     }
 
-    /**
-     * @brief get all keys with the prefix
-     *
-     * @param prefix
-     * @return std::deque<std::string>
-     */
     std::deque<std::string> keysWithPrefix(const std::string& prefix)
     {
         std::deque<std::string> queue {};
