@@ -219,7 +219,7 @@ TEST_CASE_FIXTURE(TernaryTriesTestFixture, "KeyOnlyTest")
 {
     TernaryTries t{};
     t.insert("a");
-    REQUIRE(t.contain_key("a"));
+    REQUIRE(true == t.contain_key("a"));
     t.remove("a");
-    REQUIRE(!t.contain_key("a"));
+    REQUIRE(false == t.contain_key("a"));
 }
