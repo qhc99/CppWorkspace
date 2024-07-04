@@ -173,7 +173,7 @@ private:
         collect(x->right, prefix, queue);
     }
 
-    bool __remove(const std::string& key, T_Val* ret)
+    bool remove_kv(const std::string& key, T_Val* ret)
     {
         if (key.empty()) {
             return false;
@@ -332,19 +332,19 @@ public:
      */
     bool remove(const std::string& key, U* ret)
     {
-        return __remove(key, ret);
+        return remove_kv(key, ret);
     }
 
     template <typename U = std::nullptr_t>
         requires std::is_same_v<U, std::nullptr_t>
     bool remove(const std::string& key, U ret)
     {
-        return __remove(key, ret);
+        return remove_kv(key, ret);
     }
 
     bool remove(const std::string& key)
     {
-        return __remove(key, nullptr);
+        return remove_kv(key, nullptr);
     }
 
     /**

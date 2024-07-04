@@ -5,15 +5,14 @@
 #ifndef ORG_QC_CPP_CENTRAL_LIB_RANK_SEARCH_CPP
 #define ORG_QC_CPP_CENTRAL_LIB_RANK_SEARCH_CPP
 
-#include <iostream>
 #include <random>
+#include <stdexcept>
 #include <vector>
 
 #include "lib_central/concepts_utils.h"
 
 namespace dev::qhc::central_lib::rank_search {
 using RandEngine_t = std::mt19937;
-using std::cout, std::endl;
 using std::vector;
 
 namespace {
@@ -64,7 +63,7 @@ namespace {
 } // namespace
 
 template <typename T>
-[[maybe_unused]] static T find(vector<T>& a, int ith)
+static T find(vector<T>& a, int ith)
 {
     if (a.empty()) {
         throw std::logic_error { "size is zero." };

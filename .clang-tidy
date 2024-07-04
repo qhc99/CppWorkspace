@@ -1,0 +1,8 @@
+Checks: 
+'bugprone-*, 
+clang-diagnostic-*,
+clang-analyzer-*,
+modernize-*,
+concurrency-*,
+performance-*,
+-modernize-use-trailing-return-type'
