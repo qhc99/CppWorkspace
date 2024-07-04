@@ -12,10 +12,7 @@
 .codechecker
 Debug
 Release
-/.build-debug
-/.build-release
-/build-debug
-/build-release
+/_build
 
 CMakeLists.txt.user
 CMakeCache.txt
