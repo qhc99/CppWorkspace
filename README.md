@@ -8,4 +8,5 @@
     1. `llvm` (test coverages)
     1. `vcpkg`
     1. `ninja-build`
-- Build target `doctest` before building all or test targets
+- Generate cmake build folder: `cmake --preset=vcpkg`
+- Build target `doctest`: `cmake --build build -t doctest` before building all or test targets

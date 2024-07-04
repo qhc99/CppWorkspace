@@ -2,7 +2,6 @@ cmake_minimum_required(VERSION 3.20)
 
 project(cpp_projects)
 
-include($ENV{VCPKG_ROOT}/scripts/buildsystems/vcpkg.cmake)
 include(Doctest.cmake)
 include(Utils.cmake)
 

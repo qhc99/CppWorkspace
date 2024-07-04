@@ -11,9 +11,9 @@ function(print_info str)
     message(STATUS ">>> ${str}")
 endfunction()
 
-# 
+#
 # Remove everything after the first dot
-function(remove_dot_suffix str)  
+function(remove_dot_suffix str)
     string(REGEX REPLACE "\\..*$" "" modified_string ${str})
     set(LATEST_RETURN ${modified_string} PARENT_SCOPE)
 endfunction()
@@ -22,12 +22,13 @@ function(to_lowercase_underline str)
     # Transform CamelCase to lowercase with underscores
     string(REGEX REPLACE "([A-Z])" "_\\1" str ${str})
     string(TOLOWER ${str} str)
+
     # Remove leading underline
     string(REGEX REPLACE "^_" "" str ${str})
     set(LATEST_RETURN ${str} PARENT_SCOPE)
 endfunction()
 
-# 
+#
 # Add single test file and library, generate test target and coverage target
 #
 # Return generated test name $LATEST_RETURN
@@ -54,9 +55,11 @@ function(add_single_test single_file link_lib)
         target_compile_link_options(${link_lib} PRIVATE CLANG_SANITIZERS_OPTIONS)
     endif()
 
-    target_compile_link_options(${name} PRIVATE CLANG_TEST_OPTIONS)
-    target_compile_link_options(${link_lib} PRIVATE CLANG_TEST_OPTIONS)
-    
+    if(CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
+        target_compile_link_options(${name} PRIVATE CLANG_TEST_OPTIONS)
+        target_compile_link_options(${link_lib} PRIVATE CLANG_TEST_OPTIONS)
+    endif()
+
     # CTest intergration
     add_test(NAME ${name} COMMAND ${name})
 

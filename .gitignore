@@ -10,6 +10,8 @@
 *.profdata
 .cache
 .codechecker
+Debug
+Release
 
 CMakeLists.txt.user
 CMakeCache.txt
