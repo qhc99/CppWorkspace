@@ -5,13 +5,15 @@
 .vs
 /build
 .cache
-/html_cov_report
+/_html_cov_report
 *.profraw
 *.profdata
 .cache
 .codechecker
 Debug
 Release
+/.build-debug
+/.build-release
 
 CMakeLists.txt.user
 CMakeCache.txt

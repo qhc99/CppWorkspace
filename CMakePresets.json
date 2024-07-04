@@ -4,7 +4,7 @@
         {
             "name": "Debug",
             "generator": "Ninja",
-            "binaryDir": "${sourceDir}/Debug",
+            "binaryDir": "${sourceDir}/.build-debug",
             "cacheVariables": {
                 "CMAKE_TOOLCHAIN_FILE": "$env{VCPKG_ROOT}/scripts/buildsystems/vcpkg.cmake",
                 "CMAKE_BUILD_TYPE": "Debug"
@@ -13,7 +13,7 @@
         {
             "name": "Release",
             "generator": "Ninja",
-            "binaryDir": "${sourceDir}/Release",
+            "binaryDir": "${sourceDir}/.build-release",
             "cacheVariables": {
                 "CMAKE_TOOLCHAIN_FILE": "$env{VCPKG_ROOT}/scripts/buildsystems/vcpkg.cmake",
                 "CMAKE_BUILD_TYPE": "Release"

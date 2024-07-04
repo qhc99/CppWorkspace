@@ -10,3 +10,4 @@
     1. `ninja-build`
 - Generate cmake build folder: `cmake --preset=vcpkg`
 - Build target `doctest`: `cmake --build build -t doctest` before building all or test targets
+- Build output folder: `.build-debug/release`

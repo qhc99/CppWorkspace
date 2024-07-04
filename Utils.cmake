@@ -68,7 +68,7 @@ function(add_single_test single_file link_lib)
         COMMAND ${CMAKE_COMMAND} -E echo "--- Executable path: $<TARGET_FILE:${name}>"
         COMMAND $<TARGET_FILE:${name}>
         COMMAND llvm-profdata merge -sparse default.profraw -o temp.profdata
-        COMMAND llvm-cov show -format=html -o ${CMAKE_SOURCE_DIR}/html_cov_report $<TARGET_FILE:${name}> -instr-profile="temp.profdata"
-        COMMENT ">>> Test coverage output: ${CMAKE_SOURCE_DIR}/html_cov_report"
+        COMMAND llvm-cov show -format=html -o ${CMAKE_SOURCE_DIR}/_html_cov_report $<TARGET_FILE:${name}> -instr-profile="temp.profdata"
+        COMMENT ">>> Test coverage output: ${CMAKE_SOURCE_DIR}/_html_cov_report"
     )
 endfunction()
