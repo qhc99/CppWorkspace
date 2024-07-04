@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.20)
 
-include(Constants.cmake)
+include(_cmake_files/Constants.cmake)
 
 function(target_compile_link_options target visibility options)
     target_compile_options(${target} ${visibility} ${${options}})

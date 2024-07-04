@@ -3,4 +3,5 @@
     "cmake.automaticReconfigure": false,
     "cmake.configureOnEdit": false,
     "C_Cpp.clang_format_fallbackStyle": "WebKit",
+    "clangd.path": "/usr/bin/clangd",
 }
