@@ -285,9 +285,9 @@ public:
             return false;
         }
         Node* n { get_node_of_key(root, key, 0) };
-        if (n == nullptr || !n->contain)
+        if (n == nullptr || !n->contain) {
             return false;
-        else {
+        } else {
             *ret = n->val;
             return true;
         }

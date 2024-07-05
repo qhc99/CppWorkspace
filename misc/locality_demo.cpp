@@ -14,19 +14,19 @@ using dev::qhc::utils::time_point_duration_to_us;
 using std::chrono::nanoseconds;
 
 struct MatBlock {
-    const int r1;
-    const int c1;
-    const int r2;
-    const int c2;
+     int r1;
+     int c1;
+     int r2;
+     int c2;
 };
 
 class MatPartition {
 
 private:
-    const int p;
+     int p;
 
-    const int m;
-    const int n;
+     int m;
+     int n;
 
 public:
     const int rows;

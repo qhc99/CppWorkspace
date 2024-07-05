@@ -17,7 +17,7 @@ using std::vector;
 
 namespace {
     template <concepts_utils::Comparable T>
-    static int randPartition(vector<T>& a, int start, int end,
+    int randPartition(vector<T>& a, int start, int end,
         RandEngine_t& engine)
     {
         std::uniform_int_distribution<int> dist { start, end - 1 };
@@ -44,7 +44,7 @@ namespace {
 
     // select ith smallest element in array
     template <typename T>
-    static T rankSearch(vector<T>& a, int start, int end, int ith,
+    T rankSearch(vector<T>& a, int start, int end, int ith,
         RandEngine_t& engine)
     {
         if ((start - end) == 1) {
