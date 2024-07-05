@@ -23,5 +23,6 @@ readability-*,
 -readability-else-after-return,
 -misc-no-recursion,
 -cppcoreguidelines-avoid-magic-numbers,
--readability-magic-numbers
+-readability-magic-numbers,
+-misc-non-private-member-variables-in-classes
 '
