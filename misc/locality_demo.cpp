@@ -128,7 +128,7 @@ void space_locality(float** m1, float** m2, float** m3, const int size_a, const 
 
     std::cout << "\n";
     std::cout << "locality" << std::endl;
-    std::cout << "spend: " << time_point_duration_to_us(t4, t3) / 1000000. << " s" << std::endl;
+    std::cout << "spend: " << static_cast<double>(time_point_duration_to_us(t4, t3)) / 1000000. << " s" << std::endl;
     std::cout << "sum: " << ans << std::endl;
 }
 
@@ -168,7 +168,7 @@ void space_locality_openmp(float** m1, float** m2, float** m3, const int size_a,
 
     std::cout << "\n";
     std::cout << "locality openmp" << std::endl;
-    std::cout << "spend: " << time_point_duration_to_us(t6, t5) / 1000000. << " s" << std::endl;
+    std::cout << "spend: " << static_cast<double>(time_point_duration_to_us(t6, t5)) / 1000000. << " s" << std::endl;
     std::cout << "sum: " << ans << std::endl;
 }
 

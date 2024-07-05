@@ -4,9 +4,9 @@
 #include "sphere.h"
 #include "camera.h"
 #include "material.h"
-#include <execution>
 #include "lib_central/utils.h"
 
+using dev::qhc::utils::time_point_duration_to_us;
 
 Color ray_color(const Ray &r, const Hittable &world, int depth) {
     HitRecord rec;
@@ -101,15 +101,15 @@ int main() {
 
     // Camera
 
-    Point3 lookfrom(0, 0, 3);
-    Point3 lookat(0, 0, 0);
+    Point3 lookFrom(0, 0, 3);
+    Point3 lookAt(0, 0, 0);
     Vec3 vup(0, 1, 0);
     auto dist_to_focus = 5;
     auto aperture = 0.1;
 
-    // Camera cam(lookfrom, lookat, vup, 20, aspect_ratio, aperture, dist_to_focus);
+    // Camera cam(lookFrom, lookAt, vup, 20, aspect_ratio, aperture, dist_to_focus);
 
-    VirtualCamera cam(lookfrom, lookat, vup, 20, aspect_ratio);
+    VirtualCamera cam(lookFrom, lookAt, vup, 20, aspect_ratio);
     // Render
 
     std::cout << "P3\n" << image_width << " " << image_height << "\n255\n";
@@ -142,7 +142,7 @@ int main() {
             write_color(std::cout, color_store[j][i], samples_per_pixel);
         }
     }
-    std::cerr << "Spend " << dev::qhc::utils::time_point_duration_to_us(t2,t1)/1000000.0 << "s" << std::endl;
+    std::cerr << "Spend " << static_cast<double>(time_point_duration_to_us(t2,t1))/1000000.0 << "s" << std::endl;
     std::cerr << "\nDone.\n";
 
     for (int i = 0; i < image_height; i++) {
