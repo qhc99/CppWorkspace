@@ -5,6 +5,7 @@ project(ray_trace LANGUAGES CXX)
 SET(TARGET_RT_OMP rt_omp)
 add_executable(${TARGET_RT_OMP}
         openmp/rt_omp.cpp
+        openmp/lib.cpp
         openmp/vec3.h
         openmp/color.h
         openmp/color.h
@@ -19,7 +20,7 @@ add_executable(${TARGET_RT_OMP}
 target_link_libraries(${TARGET_RT_OMP} central_lib)
 target_compile_options(${TARGET_RT_OMP} PRIVATE -fopenmp)
 target_link_options(${TARGET_RT_OMP} PRIVATE -fopenmp)
-set_property(TARGET ${TARGET_RT_OMP} PROPERTY CMAKE_CXX_STANDARD 17)
+set_property(TARGET ${TARGET_RT_OMP} PROPERTY CMAKE_CXX_STANDARD 20)
 set_property(TARGET ${TARGET_RT_OMP} PROPERTY CMAKE_CXX_STANDARD_REQUIRED True)
 
 if (DEFINED ENV{CUDACXX} AND CMAKE_SYSTEM_NAME STREQUAL "Linux")

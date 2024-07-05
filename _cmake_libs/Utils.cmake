@@ -32,7 +32,7 @@ endfunction()
 # Add single test file and library, generate test target and coverage target
 #
 # Return generated test name $LATEST_RETURN
-function(add_single_test single_file link_lib)
+function(add_single_lib_test single_file link_lib)
     remove_dot_suffix(${single_file})
     to_lowercase_underline(${LATEST_RETURN})
     set(name ${LATEST_RETURN})
@@ -51,13 +51,10 @@ function(add_single_test single_file link_lib)
     # Lib coverage and sanitizer options
     if(CMAKE_SYSTEM_NAME STREQUAL "Linux" AND CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
         target_compile_link_options(${name} PRIVATE CLANG_SANITIZERS_OPTIONS)
-        # set options only for test
-        target_compile_link_options(${link_lib} PRIVATE CLANG_SANITIZERS_OPTIONS)
     endif()
 
     if(CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
         target_compile_link_options(${name} PRIVATE CLANG_TEST_OPTIONS)
-        target_compile_link_options(${link_lib} PRIVATE CLANG_TEST_OPTIONS)
     endif()
 
     # CTest intergration

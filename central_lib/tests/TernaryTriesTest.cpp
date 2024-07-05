@@ -11,11 +11,11 @@
 class TernaryTriesTestFixture {
 
 public:
-    TernaryTries<int> case1 {};
-    std::unordered_set<std::string> keys {};
-    TernaryTries<int> case2 {};
-    TernaryTries<int> case3 {};
-    TernaryTries<int> case4 {};
+    TernaryTries<int> case1;
+    std::unordered_set<std::string> keys;
+    TernaryTries<int> case2;
+    TernaryTries<int> case3;
+    TernaryTries<int> case4;
 
     TernaryTriesTestFixture()
     {

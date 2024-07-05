@@ -4,8 +4,8 @@
 
 #ifndef DEV_QHC_CPP_PROJECTS_HITTABLE_H
 #define DEV_QHC_CPP_PROJECTS_HITTABLE_H
-#include "rtweekend.h"
 #include "ray.h"
+#include "rtweekend.h"
 
 class Material;
 
@@ -16,14 +16,21 @@ struct HitRecord {
     bool front_face;
     shared_ptr<Material> mat_ptr;
 
-    inline void set_face_normal(const Ray& r, const Vec3& outward_normal) {
+    inline void set_face_normal(const Ray& r, const Vec3& outward_normal)
+    {
         front_face = dot(r.direction(), outward_normal) < 0;
-        normal = front_face ? outward_normal :-outward_normal;
+        normal = front_face ? outward_normal : -outward_normal;
     }
 };
 
 class Hittable {
 public:
+    Hittable() = default;
+    Hittable(const Hittable& other) = default;
+    Hittable(Hittable&& other) = default;
+    Hittable& operator=(const Hittable& other) = default;
+    Hittable& operator=(Hittable&& other) = default;
+    virtual ~Hittable() = default;
     virtual bool hit(const Ray& r, double t_min, double t_max, HitRecord& rec) const = 0;
 };
-#endif //DEV_QHC_CPP_PROJECTS_HITTABLE_H
+#endif // DEV_QHC_CPP_PROJECTS_HITTABLE_H

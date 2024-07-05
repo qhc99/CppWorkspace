@@ -7,6 +7,8 @@
 #include <cmath>
 #include <limits>
 #include <memory>
+#include <random>
+
 // Usings
 
 using std::make_shared;
@@ -25,10 +27,7 @@ inline double degrees_to_radians(double degrees)
     return degrees * pi / 180.0;
 }
 
-inline double random_double()
-{
-    return rand() / (RAND_MAX + 1.);
-}
+double random_double();
 
 inline double random_double(double min, double max)
 {

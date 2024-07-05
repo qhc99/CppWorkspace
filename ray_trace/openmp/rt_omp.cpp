@@ -1,26 +1,29 @@
-#include "rtweekend.h"
+#include "camera.h"
 #include "color.h"
 #include "hittable_list.h"
-#include "sphere.h"
-#include "camera.h"
-#include "material.h"
 #include "lib_central/utils.h"
+#include "material.h"
+#include "rtweekend.h"
+#include "sphere.h"
 
 using dev::qhc::utils::time_point_duration_to_us;
 
-Color ray_color(const Ray &r, const Hittable &world, int depth) {
+Color ray_color(const Ray& r, const Hittable& world, int depth)
+{
     HitRecord rec;
 
     // If we've exceeded the Ray bounce limit, no more light is gathered.
-    if (depth <= 0)
-        return {0, 0, 0};
+    if (depth <= 0) {
+        return { 0, 0, 0 };
+    }
 
     if (world.hit(r, 0.001, infinity, rec)) {
         Ray scattered;
         Color attenuation;
-        if (rec.mat_ptr->scatter(r, rec, attenuation, scattered))
+        if (rec.mat_ptr->scatter(r, rec, attenuation, scattered)) {
             return attenuation * ray_color(scattered, world, depth - 1);
-        return {0, 0, 0};
+        }
+        return { 0, 0, 0 };
     }
 
     Vec3 unit_direction = unit_vector(r.direction());
@@ -28,7 +31,8 @@ Color ray_color(const Ray &r, const Hittable &world, int depth) {
     return (1.0 - t) * Color(1.0, 1.0, 1.0) + t * Color(0.5, 0.7, 1.0);
 }
 
-HittableList random_scene() {
+HittableList random_scene()
+{
     HittableList world;
 
     auto ground_material = make_shared<Lambertian>(Color(0.5, 0.5, 0.5));
@@ -74,7 +78,8 @@ HittableList random_scene() {
     return world;
 }
 
-int main() {
+int main()
+{
 
     // Image
 
@@ -91,13 +96,13 @@ int main() {
 
     auto material_ground = make_shared<Lambertian>(Color(0.8, 0.8, 0.0));
     auto material_center = make_shared<Lambertian>(Color(0.7, 0.3, 0.3));
-    auto material_left   = make_shared<Metal>(Color(0.8, 0.8, 0.8), 0.3);
-    auto material_right  = make_shared<Metal>(Color(0.8, 0.6, 0.2), 1.0);
+    auto material_left = make_shared<Metal>(Color(0.8, 0.8, 0.8), 0.3);
+    auto material_right = make_shared<Metal>(Color(0.8, 0.6, 0.2), 1.0);
 
-    world.add(make_shared<Sphere>(Point3( 0.0, -100.5, -1.0), 100.0, material_ground));
-    world.add(make_shared<Sphere>(Point3( 0.0,    0.0, -1.0),   0.5, material_center));
-    world.add(make_shared<Sphere>(Point3(-1.0,    0.0, -1.0),   0.5, material_left));
-    world.add(make_shared<Sphere>(Point3( 1.0,    0.0, -1.0),   0.5, material_right));
+    world.add(make_shared<Sphere>(Point3(0.0, -100.5, -1.0), 100.0, material_ground));
+    world.add(make_shared<Sphere>(Point3(0.0, 0.0, -1.0), 0.5, material_center));
+    world.add(make_shared<Sphere>(Point3(-1.0, 0.0, -1.0), 0.5, material_left));
+    world.add(make_shared<Sphere>(Point3(1.0, 0.0, -1.0), 0.5, material_right));
 
     // Camera
 
@@ -112,18 +117,19 @@ int main() {
     VirtualCamera cam(lookFrom, lookAt, vup, 20, aspect_ratio);
     // Render
 
-    std::cout << "P3\n" << image_width << " " << image_height << "\n255\n";
+    std::cout << "P3\n"
+              << image_width << " " << image_height << "\n255\n";
 
     //---------------------------------------------------
-    auto **color_store = new Color *[image_height];
+    auto** color_store = new Color*[image_height];
     for (int i = 0; i < image_height; i++) {
         color_store[i] = new Color[image_width];
     }
-    auto t1{dev::qhc::utils::current_time_point()};
-#pragma omp parallel for default(none) shared(image_height, world, cam, color_store,std::cerr)
+    auto t1 { dev::qhc::utils::current_time_point() };
+#pragma omp parallel for default(none) shared(image_height, world, cam, color_store, std::cerr)
     for (int j = image_height - 1; j >= 0; --j) {
         for (int i = 0; i < image_width; ++i) {
-            auto *pixel_color = new Color(0, 0, 0);
+            auto* pixel_color = new Color(0, 0, 0);
             for (int s = 0; s < samples_per_pixel; ++s) {
                 auto u = (i + random_double()) / (image_width - 1);
                 auto v = (j + random_double()) / (image_height - 1);
@@ -135,14 +141,14 @@ int main() {
         std::cerr << j << std::endl;
     }
 
-    auto t2{dev::qhc::utils::current_time_point()};
+    auto t2 { dev::qhc::utils::current_time_point() };
 
     for (int j = image_height - 1; j >= 0; --j) {
         for (int i = 0; i < image_width; ++i) {
             write_color(std::cout, color_store[j][i], samples_per_pixel);
         }
     }
-    std::cerr << "Spend " << static_cast<double>(time_point_duration_to_us(t2,t1))/1000000.0 << "s" << std::endl;
+    std::cerr << "Spend " << static_cast<double>(time_point_duration_to_us(t2, t1)) / 1000000.0 << "s" << std::endl;
     std::cerr << "\nDone.\n";
 
     for (int i = 0; i < image_height; i++) {
