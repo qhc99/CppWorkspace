@@ -18,14 +18,12 @@ readability-*,
 -readability-identifier-length,
 -bugprone-easily-swappable-parameters,
 -cppcoreguidelines-owning-memory,
--cppcoreguidelines-pro-bounds-pointer-arithmetic,
 -cert-dcl59-cpp,
 -readability-else-after-return,
 -misc-no-recursion,
 -cppcoreguidelines-avoid-magic-numbers,
 -readability-magic-numbers,
--misc-non-private-member-variables-in-classes,
 -cppcoreguidelines-avoid-do-while,
--cppcoreguidelines-non-private-member-variables-in-classes,
--readability-function-cognitive-complexity
+-readability-function-cognitive-complexity,
+-misc-non-private-member-variables-in-classes
 '

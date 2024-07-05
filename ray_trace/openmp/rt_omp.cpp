@@ -78,6 +78,7 @@ HittableList random_scene()
     return world;
 }
 
+// NOLINTBEGIN(cppcoreguidelines-pro-bounds-pointer-arithmetic)
 int main()
 {
 
@@ -156,3 +157,4 @@ int main()
     }
     delete[] color_store;
 }
+// NOLINTEND(cppcoreguidelines-pro-bounds-pointer-arithmetic)

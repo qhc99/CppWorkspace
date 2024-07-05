@@ -6,6 +6,7 @@
 #define DEV_QHC_CPP_PROJECTS_VEC3_H
 
 #include "rtweekend.h"
+#include <array>
 #include <cmath>
 #include <iostream>
 
@@ -31,8 +32,10 @@ public:
 
     Vec3 operator-() const { return {-e[0], -e[1], -e[2]}; }
 
+    // NOLINTNEXTLINE(cppcoreguidelines-pro-bounds-constant-array-index)
     double operator[](int i) const { return e[i]; }
 
+    // NOLINTNEXTLINE(cppcoreguidelines-pro-bounds-constant-array-index)
     double& operator[](int i) { return e[i]; }
 
     Vec3& operator+=(const Vec3& v)
@@ -66,7 +69,7 @@ public:
         return e[0] * e[0] + e[1] * e[1] + e[2] * e[2];
     }
 
-    double e[3];
+    std::array<double, 3> e;
 
     inline static Vec3 random()
     {

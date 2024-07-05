@@ -20,6 +20,7 @@ struct MatBlock {
     int c2;
 };
 
+
 class MatPartition {
 
 private:
@@ -50,6 +51,8 @@ public:
     }
 };
 
+// NOLINTBEGIN(cppcoreguidelines-pro-bounds-pointer-arithmetic)
+
 static void mul_mat_block(float** m1, MatBlock m1r,
     float** m2, MatBlock m2r,
     float** m3, MatBlock m3r)
@@ -57,7 +60,7 @@ static void mul_mat_block(float** m1, MatBlock m1r,
     for (int i = 0; i + m3r.r1 < m3r.r2; i++) {
         for (int j = 0; j + m3r.c1 < m3r.c2; j++) {
             for (int k = 0; k + m2r.r1 < m2r.r2; k++) {
-                m3[i + m3r.r1][j + m3r.c1] += m1[i + m1r.r1][k + m1r.c1] * m2[k + m2r.r1][j + m2r.c1];
+                m3[i + m3r.r1][j + m3r.c1] += m1[i + m1r.r1][k + m1r.c1] * m2[k + m2r.r1][j + m2r.c1]; 
             }
         }
     }
@@ -173,6 +176,8 @@ void space_locality_openmp(float** m1, float** m2, float** m3, const int size_a,
     std::cout << "spend: " << static_cast<double>(time_point_duration_to_us(t6, t5)) / 1000000. << " s" << std::endl;
     std::cout << "sum: " << ans << std::endl;
 }
+
+// NOLINTEND(cppcoreguidelines-pro-bounds-pointer-arithmetic)
 
 void run_demo()
 {
