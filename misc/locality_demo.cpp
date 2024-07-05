@@ -14,30 +14,32 @@ using dev::qhc::utils::time_point_duration_to_us;
 using std::chrono::nanoseconds;
 
 struct MatBlock {
-     int r1;
-     int c1;
-     int r2;
-     int c2;
+    int r1;
+    int c1;
+    int r2;
+    int c2;
 };
 
 class MatPartition {
 
 private:
-     int p;
+    int p;
 
-     int m;
-     int n;
+    int m;
+    int n;
+    int r;
+    int c;
 
 public:
-    const int rows;
-    const int cols;
+    [[nodiscard]] int rows() const { return r; };
+    [[nodiscard]] int cols() const { return c; };
 
     MatPartition(int parti, int m, int n)
         : p { parti }
         , m { m }
         , n { n }
-        , rows { static_cast<int>(std::ceil(static_cast<float>(m) / static_cast<float>(parti))) }
-        , cols { static_cast<int>(std::ceil(static_cast<float>(n) / static_cast<float>(parti))) }
+        , r { static_cast<int>(std::ceil(static_cast<float>(m) / static_cast<float>(parti))) }
+        , c { static_cast<int>(std::ceil(static_cast<float>(n) / static_cast<float>(parti))) }
     {
     }
 
@@ -93,8 +95,8 @@ void space_locality(float** m1, float** m2, float** m3, const int size_a, const 
     const MatPartition a2(w_s, size_b, size_c);
     const MatPartition a3(w_s, size_a, size_c);
 
-    std::vector<int> loop1(a3.rows);
-    for (int i = 0; i < a3.rows; i++) {
+    std::vector<int> loop1(a3.rows());
+    for (int i = 0; i < a3.rows(); i++) {
         loop1.at(i) = i;
     }
 
@@ -103,14 +105,14 @@ void space_locality(float** m1, float** m2, float** m3, const int size_a, const 
         loop1.begin(),
         loop1.end(),
         [&](auto i) {
-            for (int j = 0; j < a3.cols; j++) {
+            for (int j = 0; j < a3.cols(); j++) {
                 MatBlock m3r = a3.at(i, j);
                 for (int p = 0; p + m3r.r1 < m3r.r2; p++) {
                     for (int q = 0; q + m3r.c1 < m3r.c2; q++) {
                         m3[p + m3r.r1][q + m3r.c1] = 0;
                     }
                 }
-                for (int k = 0; k < a1.cols; k++) {
+                for (int k = 0; k < a1.cols(); k++) {
                     MatBlock m1r = a1.at(i, k);
                     MatBlock m2r = a2.at(k, j);
                     mul_mat_block(m1, m1r, m2, m2r, m3, m3r);
@@ -141,15 +143,15 @@ void space_locality_openmp(float** m1, float** m2, float** m3, const int size_a,
     auto&& t5 { current_time_point() };
 
 #pragma omp parallel for default(none) shared(a1, a2, a3, m1, m2, m3)
-    for (int i = 0; i < a3.rows; i++) {
-        for (int j = 0; j < a3.cols; j++) {
+    for (int i = 0; i < a3.rows(); i++) {
+        for (int j = 0; j < a3.cols(); j++) {
             MatBlock m3r = a3.at(i, j);
             for (int p = 0; p + m3r.r1 < m3r.r2; p++) {
                 for (int q = 0; q + m3r.c1 < m3r.c2; q++) {
                     m3[p + m3r.r1][q + m3r.c1] = 0;
                 }
             }
-            for (int k = 0; k < a1.cols; k++) {
+            for (int k = 0; k < a1.cols(); k++) {
                 MatBlock m1r = a1.at(i, k);
                 MatBlock m2r = a2.at(k, j);
                 mul_mat_block(m1, m1r, m2, m2r, m3, m3r);

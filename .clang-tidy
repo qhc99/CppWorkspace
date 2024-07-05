@@ -26,5 +26,6 @@ readability-*,
 -readability-magic-numbers,
 -misc-non-private-member-variables-in-classes,
 -cppcoreguidelines-avoid-do-while,
--cppcoreguidelines-non-private-member-variables-in-classes
+-cppcoreguidelines-non-private-member-variables-in-classes,
+-readability-function-cognitive-complexity
 '
