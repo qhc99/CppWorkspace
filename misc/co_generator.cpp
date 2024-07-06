@@ -1,7 +1,10 @@
+#include <concepts>
 #include <coroutine>
 #include <iostream>
 #include <utility>
 
+template<typename T>
+requires std::copyable<T>
 struct Generator {
     struct promise_type;
     class ExhaustedException : std::exception { };
@@ -88,7 +91,7 @@ struct Generator {
 };
 
 // NOLINTNEXTLINE(readability-static-accessed-through-instance)
-Generator sequence()
+Generator<int> sequence()
 {
     int i = 0;
     // create promise
@@ -100,7 +103,7 @@ Generator sequence()
 }
 
 // NOLINTNEXTLINE(readability-static-accessed-through-instance)
-Generator sequence_yield()
+Generator<int> sequence_yield()
 {
     int i = 0;
     // create promise
