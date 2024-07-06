@@ -11,7 +11,7 @@ struct Generator {
     std::coroutine_handle<Generator::promise_type> handle;
 
     struct promise_type {
-        int value {};
+        T value {};
         bool is_ready { false };
 
         static std::suspend_always initial_suspend() { return {}; };
@@ -25,14 +25,14 @@ struct Generator {
             return std::move(Generator { std::coroutine_handle<promise_type>::from_promise(*this) });
         }
 
-        std::suspend_always await_transform(int value)
+        std::suspend_always await_transform(T value)
         {
             this->value = value;
             is_ready = true;
             return {};
         }
 
-        std::suspend_always yield_value(int value)
+        std::suspend_always yield_value(T value)
         {
             this->value = value;
             is_ready = true;
@@ -55,7 +55,7 @@ struct Generator {
         return !handle.done();
     }
 
-    [[nodiscard]] int next() const
+    [[nodiscard]] T next() const
     {
         if (has_next()) {
             handle.promise().is_ready = false;
