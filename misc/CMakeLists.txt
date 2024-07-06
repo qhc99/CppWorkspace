@@ -10,3 +10,5 @@ target_link_options(locality_demo PRIVATE -fopenmp)
 target_compile_options(locality_demo PRIVATE -fopenmp)
 
 add_executable(param_inherit param_inherit.cpp)
+
+add_executable(co_generator co_generator.cpp)
