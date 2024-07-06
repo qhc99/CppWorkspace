@@ -17,7 +17,7 @@ using std::vector;
 
 namespace {
     template <concepts_utils::Comparable T>
-    int randPartition(vector<T>& a, int start, int end,
+    int rand_partition(vector<T>& a, int start, int end,
         RandEngine_t& engine)
     {
         std::uniform_int_distribution<int> dist { start, end - 1 };
@@ -43,26 +43,26 @@ namespace {
     }
 
     // select ith smallest element in array
-    template <typename T>
-    T rankSearch(vector<T>& a, int start, int end, int ith,
+    template <concepts_utils::Comparable T>
+    T rank_search(vector<T>& a, int start, int end, int ith,
         RandEngine_t& engine)
     {
         if ((start - end) == 1) {
             return a.at(start);
         }
-        int pivot_idx { randPartition(a, start, end, engine) };
+        int pivot_idx { rand_partition(a, start, end, engine) };
         int left_total { pivot_idx - start };
         if (ith == left_total) {
             return a.at(pivot_idx);
         } else if (ith < left_total + 1) {
-            return rankSearch(a, start, pivot_idx, ith, engine);
+            return rank_search(a, start, pivot_idx, ith, engine);
         } else {
-            return rankSearch(a, pivot_idx + 1, end, ith - left_total - 1, engine);
+            return rank_search(a, pivot_idx + 1, end, ith - left_total - 1, engine);
         }
     }
 } // namespace
 
-template <typename T>
+template <concepts_utils::Comparable T>
 static T find(vector<T>& a, int ith)
 {
     if (a.empty()) {
@@ -70,7 +70,7 @@ static T find(vector<T>& a, int ith)
     }
     std::random_device seed {};
     RandEngine_t engine { seed() };
-    return rankSearch(a, 0, a.size(), ith, engine);
+    return rank_search(a, 0, a.size(), ith, engine);
 }
 
 } // namespace dev::qhc::central_lib::rank_search

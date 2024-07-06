@@ -200,21 +200,21 @@ public:
         ~Node() = default;
 
     public:
-        [[nodiscard]] char getNodeChar() const { return chr; }
+        [[nodiscard]] char get_char() const { return chr; }
 
-        [[nodiscard]] bool containValue() const { return contain; }
+        [[nodiscard]] bool contain_value() const { return contain; }
 
         /**
          *
          * @return return copy or return pointer
          */
-        T_Val getValue() const { return val; }
+        T_Val get_value() const { return val; }
 
-        const Node* getLeft() const { return left; }
+        const Node* get_left() const { return left; }
 
-        const Node* getMid() const { return mid; }
+        const Node* get_mid() const { return mid; }
 
-        const Node* getRight() const { return right; }
+        const Node* get_right() const { return right; }
 
         Node(const Node& other) = delete;
 
