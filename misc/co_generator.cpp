@@ -16,17 +16,42 @@ struct Generator {
         T value {};
         bool is_ready { false };
 
+        /**
+         * @brief Not run on constructing awaiter
+         * 
+         * @return std::suspend_always 
+         */
         static std::suspend_always initial_suspend() { return {}; };
 
+        /**
+         * @brief Not clean 
+         * 
+         * @return std::suspend_always 
+         */
         static std::suspend_always final_suspend() noexcept { return {}; }
 
+        /**
+         * @brief No exception handling
+         * 
+         */
         void unhandled_exception() { }
 
+        /**
+         * @brief Return awaiter
+         * 
+         * @return Generator 
+         */
         Generator get_return_object()
         {
             return std::move(Generator { std::coroutine_handle<promise_type>::from_promise(*this) });
         }
 
+        /**
+         * @brief Transform to promise
+         * 
+         * @param value 
+         * @return std::suspend_always 
+         */
         std::suspend_always await_transform(T value)
         {
             this->value = value;
@@ -34,6 +59,12 @@ struct Generator {
             return {};
         }
 
+        /**
+         * @brief yield value to promise
+         * 
+         * @param value 
+         * @return std::suspend_always 
+         */
         std::suspend_always yield_value(T value)
         {
             this->value = value;
@@ -41,6 +72,10 @@ struct Generator {
             return {};
         }
 
+        /**
+         * @brief co_await no return
+         * 
+         */
         void return_void() { }
     };
 
@@ -117,10 +152,7 @@ Generator<int> sequence()
 Generator<int> sequence_yield()
 {
     int i = 0;
-    // create promise
-    // get return object
     while (true) {
-        // transform promise
         co_yield i++;
     }
 }
