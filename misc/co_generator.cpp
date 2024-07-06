@@ -102,7 +102,13 @@ struct Generator {
 
     template <typename F>
         requires std::is_invocable_v<F, T>
-    Generator<std::invoke_result_t<F, T>> map(F f)
+    /**
+     * @brief this generator should not be destroyed before new generator
+     * 
+     * @param f 
+     * @return Generator<std::invoke_result_t<F, T>> 
+     */
+    Generator<std::invoke_result_t<F, T>> map_chain(F f)
     {
         while (has_next()) {
             co_yield f(next());
@@ -167,7 +173,7 @@ int main()
         }
     }
     auto origin{sequence_yield()}; // cannot be rvalue
-    auto yield_half { origin.map([](int i) { return i / 2.; }) };
+    auto yield_half { origin.map_chain([](int i) { return i / 2.; }) };
     for (int i = 0; i < 15; ++i) {
         if (yield_half.has_next()) {
             std::cout << yield_half.next() << std::endl;
