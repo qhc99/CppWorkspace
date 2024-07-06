@@ -1,10 +1,12 @@
 #include <concepts>
 #include <coroutine>
+#include <functional>
 #include <iostream>
+#include <type_traits>
 #include <utility>
 
-template<typename T>
-requires std::copyable<T>
+template <typename T>
+    requires std::copyable<T>
 struct Generator {
     struct promise_type;
     class ExhaustedException : std::exception { };
@@ -62,6 +64,15 @@ struct Generator {
             return handle.promise().value;
         }
         throw ExhaustedException();
+    }
+
+    template <typename F>
+        requires std::is_invocable_v<F, T>
+    Generator<std::invoke_result_t<F, T>> map(F f)
+    {
+        while (has_next()) {
+            co_yield f(next());
+        }
     }
 
     explicit Generator(std::coroutine_handle<Generator::promise_type> h)
@@ -124,11 +135,11 @@ int main()
             break;
         }
     }
-
-    generator = sequence_yield();
+    auto origin{sequence_yield()}; // cannot be rvalue
+    auto yield_half { origin.map([](int i) { return i / 2.; }) };
     for (int i = 0; i < 15; ++i) {
-        if (generator.has_next()) {
-            std::cout << generator.next() << std::endl;
+        if (yield_half.has_next()) {
+            std::cout << yield_half.next() << std::endl;
         } else {
             break;
         }
