@@ -35,11 +35,6 @@ struct Generator {
          */
         void unhandled_exception() { }
 
-        /**
-         * @brief Return awaiter
-         * 
-         * @return Generator 
-         */
         Generator get_return_object()
         {
             return std::move(Generator { std::coroutine_handle<promise_type>::from_promise(*this) });
@@ -147,6 +142,7 @@ Generator<int> sequence()
     int i = 0;
     // create promise
     // get return object
+    // initial suspend
     while (true) {
         // transform promise
         co_await i++;
