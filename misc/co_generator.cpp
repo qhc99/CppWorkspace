@@ -98,7 +98,7 @@ struct Generator {
     template <typename F>
         requires std::is_invocable_v<F, T>
     /**
-     * @brief this generator should not be destroyed before new generator
+     * @brief this generator should not be destroyed before returned new generator
      *
      * @param f
      * @return Generator<std::invoke_result_t<F, T>>
@@ -111,6 +111,7 @@ struct Generator {
     }
 
     template <typename... TArgs>
+        requires(std::is_same_v<TArgs, T> && ...)
     Generator static from(TArgs... args)
     {
         (co_yield args, ...);
@@ -185,7 +186,7 @@ int main()
         }
     }
 
-    generator = Generator<int>::from(11,22,33,44);
+    generator = Generator<int>::from(11, 22, 33, 44);
     for (int i = 0; i < 15; ++i) {
         if (generator.has_next()) {
             std::cout << generator.next() << std::endl;
@@ -193,7 +194,6 @@ int main()
             break;
         }
     }
-
 
     return 0;
 }
