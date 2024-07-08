@@ -17,21 +17,21 @@ struct Generator {
 
         /**
          * @brief Not run on constructing awaiter
-         * 
-         * @return std::suspend_always 
+         *
+         * @return std::suspend_always
          */
         static std::suspend_always initial_suspend() { return {}; };
 
         /**
-         * @brief Not clean 
-         * 
-         * @return std::suspend_always 
+         * @brief Not clean
+         *
+         * @return std::suspend_always
          */
         static std::suspend_always final_suspend() noexcept { return {}; }
 
         /**
          * @brief No exception handling
-         * 
+         *
          */
         void unhandled_exception() { }
 
@@ -42,9 +42,9 @@ struct Generator {
 
         /**
          * @brief Transform to promise
-         * 
-         * @param value 
-         * @return std::suspend_always 
+         *
+         * @param value
+         * @return std::suspend_always
          */
         std::suspend_always await_transform(T value)
         {
@@ -55,9 +55,9 @@ struct Generator {
 
         /**
          * @brief yield value to promise
-         * 
-         * @param value 
-         * @return std::suspend_always 
+         *
+         * @param value
+         * @return std::suspend_always
          */
         std::suspend_always yield_value(T value)
         {
@@ -68,7 +68,7 @@ struct Generator {
 
         /**
          * @brief co_await no return
-         * 
+         *
          */
         void return_void() { }
     };
@@ -99,15 +99,21 @@ struct Generator {
         requires std::is_invocable_v<F, T>
     /**
      * @brief this generator should not be destroyed before new generator
-     * 
-     * @param f 
-     * @return Generator<std::invoke_result_t<F, T>> 
+     *
+     * @param f
+     * @return Generator<std::invoke_result_t<F, T>>
      */
     Generator<std::invoke_result_t<F, T>> map_chain(F f)
     {
         while (has_next()) {
             co_yield f(next());
         }
+    }
+
+    template <typename... TArgs>
+    Generator static from(TArgs... args)
+    {
+        (co_yield args, ...);
     }
 
     explicit Generator(std::coroutine_handle<Generator::promise_type> h)
@@ -168,7 +174,8 @@ int main()
             break;
         }
     }
-    auto origin{sequence_yield()}; // cannot be rvalue
+
+    auto origin { sequence_yield() }; // cannot be rvalue
     auto yield_half { origin.map_chain([](int i) { return i / 2.; }) };
     for (int i = 0; i < 15; ++i) {
         if (yield_half.has_next()) {
@@ -177,5 +184,16 @@ int main()
             break;
         }
     }
+
+    generator = Generator<int>::from(11,22,33,44);
+    for (int i = 0; i < 15; ++i) {
+        if (generator.has_next()) {
+            std::cout << generator.next() << std::endl;
+        } else {
+            break;
+        }
+    }
+
+
     return 0;
 }
