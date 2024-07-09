@@ -13,3 +13,4 @@ add_executable(param_inherit param_inherit.cpp)
 
 add_executable(co_generator co_generator.cpp)
 add_executable(interleve interleve.cpp)
+add_executable(co_task co_task.cpp)
