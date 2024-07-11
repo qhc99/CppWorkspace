@@ -112,14 +112,15 @@ struct Generator {
         throw ExhaustedException();
     }
 
+    /**
+     * @brief This generator should not be destroyed before returned new generator
+     * 
+     * @tparam F function type
+     * @param f function
+     * @return requires 
+     */
     template <typename F>
         requires std::is_invocable_v<F, T>
-    /**
-     * @brief this generator should not be destroyed before returned new generator
-     *
-     * @param f
-     * @return Generator<std::invoke_result_t<F, T>>
-     */
     Generator<std::invoke_result_t<F, T>> map_view(F f)
     {
         while (has_next()) {
