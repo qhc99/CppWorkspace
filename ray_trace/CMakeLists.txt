@@ -18,8 +18,10 @@ add_executable(${TARGET_RT_OMP}
         openmp/material.h)
 
 target_link_libraries(${TARGET_RT_OMP} central_lib)
-target_compile_options(${TARGET_RT_OMP} PRIVATE -fopenmp)
-target_link_options(${TARGET_RT_OMP} PRIVATE -fopenmp)
+if(CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
+    target_compile_options(${TARGET_RT_OMP} PRIVATE -fopenmp)
+    target_link_options(${TARGET_RT_OMP} PRIVATE -fopenmp)
+endif()
 set_property(TARGET ${TARGET_RT_OMP} PROPERTY CMAKE_CXX_STANDARD 20)
 set_property(TARGET ${TARGET_RT_OMP} PROPERTY CMAKE_CXX_STANDARD_REQUIRED True)
 
