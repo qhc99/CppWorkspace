@@ -29,5 +29,7 @@ set(CLANG_TEST_OPTIONS
     -fprofile-instr-generate
     -fcoverage-mapping
     -v
+)
+set(CLANG_TEST_LINK_OPTIONS
     -detect-odr-violations
 )
