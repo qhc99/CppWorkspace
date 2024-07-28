@@ -32,7 +32,7 @@ endfunction()
 # Add single test file and library, generate test target and coverage target
 #
 # Return generated test name $LATEST_RETURN
-function(add_single_lib_test single_file link_lib)
+function(add_single_lib_test single_file link_lib folder_name)
     remove_dot_suffix(${single_file})
     to_lowercase_underline(${LATEST_RETURN})
     set(name ${LATEST_RETURN})
@@ -42,6 +42,7 @@ function(add_single_lib_test single_file link_lib)
     print_info("Link include path: ${DOCTEST_INCLUDE_DIR}")
 
     add_executable(${name} ${single_file})
+    set_target_properties(${name} PROPERTIES FOLDER ${folder_name})
     target_link_libraries(${name}
         PRIVATE
         ${link_lib}
@@ -69,4 +70,5 @@ function(add_single_lib_test single_file link_lib)
         COMMAND llvm-cov show -format=html -o ${CMAKE_SOURCE_DIR}/_html_cov_report $<TARGET_FILE:${name}> -instr-profile="temp.profdata"
         COMMENT ">>> Test coverage output: ${CMAKE_SOURCE_DIR}/_html_cov_report"
     )
+    set_target_properties(run_${name}_coverage PROPERTIES FOLDER ${folder_name})
 endfunction()
