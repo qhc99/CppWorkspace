@@ -16,7 +16,7 @@ set(CLANG_THREAD_SANITIZERS_OPTIONS
     -fno-optimize-sibling-calls 
 )
 
-# Rarely use
+# Rarely used
 set(CLANG_MEMORY_SANITIZERS_OPTIONS
     -fsanitize=undefined
     -fsanitize=memory # not compatible with leak, address and thread
