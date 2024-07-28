@@ -1,6 +1,6 @@
 # CMakeList requirements
 
-- Environment: Clang, Linux.
+- Environment: Clang, Linux(WSL2).
 - Set env var `CUDACXX` to use NVCC.
 - Test coverage is generated to folder `_html_cov_report` by running corresponding custom targets.
 - Libraries: 
