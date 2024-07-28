@@ -172,7 +172,7 @@ struct Generator {
         }
     }
 
-    Generator take_view(uint n)
+    Generator take_view(int n)
     {
         int i = 0;
         while (i++ < n && has_next()) {

@@ -19,19 +19,17 @@ add_executable(${TARGET_RT_OMP}
         openmp/material.h)
 
 target_link_libraries(${TARGET_RT_OMP} central_lib)
-if(CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
-    target_compile_options(${TARGET_RT_OMP} PRIVATE -fopenmp)
-    target_link_options(${TARGET_RT_OMP} PRIVATE -fopenmp)
-endif()
+target_compile_options(${TARGET_RT_OMP} PRIVATE -fopenmp)
+target_link_options(${TARGET_RT_OMP} PRIVATE -fopenmp)
 set_property(TARGET ${TARGET_RT_OMP} PROPERTY CMAKE_CXX_STANDARD 20)
 set_property(TARGET ${TARGET_RT_OMP} PROPERTY CMAKE_CXX_STANDARD_REQUIRED True)
 set_target_properties(${TARGET_RT_OMP} PROPERTIES FOLDER ${folder_name})
 
-if (DEFINED ENV{CUDACXX} AND CMAKE_SYSTEM_NAME STREQUAL "Linux")
+if (DEFINED ENV{CUDACXX})
     print_info("Added ray trace cuda")
     project(ray_trace_cuda LANGUAGES CUDA CXX)
     set(TARGET_RT_CUDA rt_cuda)
-    set(CMAKE_CUDA_STANDARD 17)
+    set(CMAKE_CUDA_STANDARD 20)
     set(CMAKE_CUDA_STANDARD_REQUIRED True)
 
     add_executable(${TARGET_RT_CUDA}

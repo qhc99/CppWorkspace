@@ -3,11 +3,11 @@ cmake_minimum_required(VERSION 3.20)
 project(cpp_projects)
 
 if(NOT CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
-    message(WARNING "NOT using Clang")
+    message(FATAL_ERROR "NOT using Clang")
 endif()
 
 if(NOT CMAKE_SYSTEM_NAME STREQUAL "Linux")
-    message(WARNING "NOT in linux env")
+    message(FATAL_ERROR "NOT in linux env")
 endif()
 
 include(_cmake_libs/Doctest.cmake)
