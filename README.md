@@ -10,4 +10,4 @@
     1. `ninja-build` (optional by `CMakePresets.json`)
     1. `clangd` (optional to use clang language server)
 - Build target `doctest` before building all test targets
-- Build output folder: `_build`, which should match `.clangd` config. Build output should stay in a single folder to use compilation database for `clangd`.
+- Build output folder: `_build`, which should match `.clangd` config. 
