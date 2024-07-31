@@ -2,7 +2,7 @@
     "version": 8,
     "configurePresets": [
         {
-            "name": "Clang Debug",
+            "name": "Debug",
             "generator": "Ninja",
             "binaryDir": "${sourceDir}/_build",
             "cacheVariables": {
@@ -14,7 +14,7 @@
             }
         },
         {
-            "name": "Clang Release",
+            "name": "Release",
             "generator": "Ninja",
             "binaryDir": "${sourceDir}/_build",
             "cacheVariables": {
@@ -23,24 +23,6 @@
                 "CMAKE_EXPORT_COMPILE_COMMANDS": true,
                 "CMAKE_C_COMPILER": "clang",
                 "CMAKE_CXX_COMPILER": "clang++"
-            }
-        },
-        {
-            "name": "Debug default",
-            "binaryDir": "${sourceDir}/_build",
-            "cacheVariables": {
-                "CMAKE_TOOLCHAIN_FILE": "$env{VCPKG_ROOT}/scripts/buildsystems/vcpkg.cmake",
-                "CMAKE_BUILD_TYPE": "Debug",
-                "CMAKE_EXPORT_COMPILE_COMMANDS": true
-            }
-        },
-        {
-            "name": "Release Default",
-            "binaryDir": "${sourceDir}/_build",
-            "cacheVariables": {
-                "CMAKE_TOOLCHAIN_FILE": "$env{VCPKG_ROOT}/scripts/buildsystems/vcpkg.cmake",
-                "CMAKE_BUILD_TYPE": "Release",
-                "CMAKE_EXPORT_COMPILE_COMMANDS": true
             }
         }
     ],
