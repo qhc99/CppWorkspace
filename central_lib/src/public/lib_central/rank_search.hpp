@@ -70,6 +70,10 @@ static T find(vector<T>& a, int ith)
     }
     std::random_device seed {};
     RandEngine_t engine { seed() };
+    // Test ASAN and LSAN
+    // int* t = new int[3];
+    // t[2] = 3;
+    // t = new int[3];
     return rank_search(a, 0, a.size(), ith, engine);
 }
 

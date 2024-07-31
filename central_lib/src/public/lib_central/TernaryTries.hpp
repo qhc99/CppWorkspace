@@ -26,7 +26,7 @@ private:
     Node* root { nullptr };
     int count {};
 
-    Node* get_node_of_key(Node* n, const std::string& key, int depth)
+    Node* get_node_of_key(Node* n, const std::string& key, size_t depth)
     {
         if (n == nullptr) {
             return nullptr;
@@ -58,7 +58,7 @@ private:
     }
 
     Node* insert_node(Node* n, const std::string& key, const T_Val* val,
-        int depth, bool replace)
+        size_t depth, bool replace)
     {
         char c = key.at(depth);
         if (n == nullptr) {
@@ -112,7 +112,7 @@ private:
     }
 
     bool remove_node(Node* n, Node* p, Direction direct, const std::string& key,
-        int d, T_Val* ret)
+        size_t d, T_Val* ret)
     {
         if (n == nullptr) {
             return false;
@@ -360,7 +360,7 @@ public:
         }
         int length = 0;
         auto x { root };
-        int i = 0;
+        size_t i = 0;
         while (x != nullptr && i < query.length()) {
             char c { query.at(i) };
             if (c < x->chr) {

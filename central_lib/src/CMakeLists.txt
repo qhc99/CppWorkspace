@@ -8,6 +8,8 @@ add_library(central_lib
         numeric_utils.cpp)
 target_include_directories(central_lib PUBLIC public)
 set_target_properties(central_lib PROPERTIES FOLDER ${folder_name})
+target_compile_options(central_lib PRIVATE ${COMMON_OPTIONS})
+target_link_options(central_lib PRIVATE ${COMMON_OPTIONS} ${COMMON_LINK_OPTIONS})
 
 find_package(fmt CONFIG REQUIRED)
 add_executable(
@@ -15,3 +17,5 @@ add_executable(
         main.cpp)
 target_link_libraries(lib_main PRIVATE central_lib fmt::fmt)
 set_target_properties(lib_main PROPERTIES FOLDER ${folder_name})
+target_compile_options(central_lib PRIVATE ${COMMON_OPTIONS})
+target_link_options(central_lib PRIVATE ${COMMON_OPTIONS} ${COMMON_LINK_OPTIONS})

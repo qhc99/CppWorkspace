@@ -2,10 +2,6 @@ cmake_minimum_required(VERSION 3.20)
 
 include(_cmake_libs/Constants.cmake)
 
-function(target_compile_link_options target visibility options)
-    target_compile_options(${target} ${visibility} ${${options}})
-    target_link_options(${target} ${visibility} ${${options}})
-endfunction()
 
 function(print_info str)
     message(STATUS ">>> ${str}")
@@ -50,10 +46,8 @@ function(add_single_lib_test single_file link_lib folder_name)
     target_include_directories(${name} PRIVATE ${DOCTEST_INCLUDE_DIR})
 
     # Lib coverage and sanitizer options
-    target_compile_link_options(${name} PRIVATE CLANG_SANITIZERS_OPTIONS)
-
-    target_compile_link_options(${name} PRIVATE CLANG_TEST_OPTIONS)
-    target_link_options(${name} PRIVATE ${CLANG_TEST_LINK_OPTIONS})
+    target_compile_options(${name} PRIVATE ${ASAN_OPTIONS} ${COMMON_OPTIONS} ${TEST_COVERAGE_OPTIONS})
+    target_link_options(${name} PRIVATE ${ASAN_OPTIONS} ${COMMON_OPTIONS} ${TEST_COVERAGE_OPTIONS} ${COMMON_LINK_OPTIONS})
 
     # CTest intergration
     add_test(NAME ${name} COMMAND ${name})
