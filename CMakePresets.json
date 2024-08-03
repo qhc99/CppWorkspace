@@ -72,6 +72,18 @@
     ],
     "testPresets": [
         {
+            "name": "Clang Debug",
+            "description": "",
+            "displayName": "",
+            "configurePreset": "Clang Debug"
+        },
+        {
+            "name": "Clang Release",
+            "description": "",
+            "displayName": "",
+            "configurePreset": "Clang Release"
+        },
+        {
             "name": "Debug Default",
             "description": "",
             "displayName": "",
