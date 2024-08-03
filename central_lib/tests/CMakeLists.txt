@@ -11,4 +11,4 @@ add_single_lib_test(asan_use_after_free_test.cpp "${link_lib}" "central_libs_tes
 
 
 set(link_lib central_lib)
-add_single_lib_test(no_asan_link_test.cpp "${link_lib}" "central_libs_tests" true)
+add_single_lib_test(no_asan_link_test.cpp "${link_lib}" "central_libs_tests" true 0)
