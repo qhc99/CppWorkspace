@@ -1,5 +1,5 @@
 # Requirements
-- Environment: Clang 18, Ubuntu 24 WSL2/Windows 11, Cuda 12, (Visual Studio 2022).
+- Environment: Clang 18, Ubuntu 24 WSL2/Windows 11 (Required Visual Studio Community 2022), Cuda 12.
 - Libraries: 
     1. `libomp-dev` (ray trace openmp, WSL2) 
     1. `llvm` (test coverage)
@@ -16,12 +16,7 @@
 - CUDA: set env var `CUDACXX` to use NVCC.
 - Address sanitizer: need to install through Visual Studio
 - Command exist in path: 
-    1. `clang`
-    1. `clang++`
-    1. `ninja`
-    1. `cmake`
-    1. `nvcc`
-    1. `vcpkg`
-    1. `clangd`
-    1. `mt` (CUDA on windows)
+    1. `clang`, `clang++`, `nvcc`
+    1. `cmake`, `ninja`, `mt` (CUDA on windows)
+    1. `clangd`, `llvm-cov`, `llvm-profdata`, `vcpkg`
 - Build output folder: `_build`, which should match `.clangd` config. 
