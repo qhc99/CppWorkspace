@@ -24,24 +24,6 @@
                 "CMAKE_C_COMPILER": "clang",
                 "CMAKE_CXX_COMPILER": "clang++"
             }
-        },
-        {
-            "name": "Debug Default",
-            "binaryDir": "${sourceDir}/_build",
-            "cacheVariables": {
-                "CMAKE_TOOLCHAIN_FILE": "$env{VCPKG_ROOT}/scripts/buildsystems/vcpkg.cmake",
-                "CMAKE_BUILD_TYPE": "Debug",
-                "CMAKE_EXPORT_COMPILE_COMMANDS": true
-            }
-        },
-        {
-            "name": "Release Default",
-            "binaryDir": "${sourceDir}/_build",
-            "cacheVariables": {
-                "CMAKE_TOOLCHAIN_FILE": "$env{VCPKG_ROOT}/scripts/buildsystems/vcpkg.cmake",
-                "CMAKE_BUILD_TYPE": "Release",
-                "CMAKE_EXPORT_COMPILE_COMMANDS": true
-            }
         }
     ],
     "buildPresets": [
@@ -56,18 +38,6 @@
             "description": "",
             "displayName": "",
             "configurePreset": "Clang Release"
-        },
-        {
-            "name": "Debug Default",
-            "description": "",
-            "displayName": "",
-            "configurePreset": "Debug Default"
-        },
-        {
-            "name": "Release Default",
-            "description": "",
-            "displayName": "",
-            "configurePreset": "Release Default"
         }
     ],
     "testPresets": [
@@ -82,18 +52,6 @@
             "description": "",
             "displayName": "",
             "configurePreset": "Clang Release"
-        },
-        {
-            "name": "Debug Default",
-            "description": "",
-            "displayName": "",
-            "configurePreset": "Debug Default"
-        },
-        {
-            "name": "Release Default",
-            "description": "",
-            "displayName": "",
-            "configurePreset": "Release Default"
         }
     ]
 }

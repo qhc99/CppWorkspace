@@ -2,7 +2,6 @@ cmake_minimum_required(VERSION 3.20)
 
 include(_cmake_libs/Constants.cmake)
 
-
 function(print_info str)
     message(STATUS ">>> ${str}")
 endfunction()

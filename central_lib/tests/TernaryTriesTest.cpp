@@ -1,7 +1,3 @@
-//
-// Created by QC on 2023-01-21.
-//
-
 #define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
 #include "lib_central/TernaryTries.hpp"
 #include "doctest.h"

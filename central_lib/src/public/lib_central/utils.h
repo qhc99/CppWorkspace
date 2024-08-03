@@ -53,6 +53,12 @@ inline long time_point_duration_to_us(steady_clock_time_point current,
  */
 auto shuffledRange(int low, int high) -> vector<int>;
 
+void leak();
+
+void out_of_range_access();
+
+void use_after_free();
+
 inline decltype(std::mt19937 { std::random_device {}() }) default_rand_engine()
 {
     return std::mt19937 { std::random_device {}() };
