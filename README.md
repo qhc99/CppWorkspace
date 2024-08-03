@@ -15,5 +15,5 @@
 # Troubleshooting
 - CUDA:
     1. Set env var `CUDACXX` to use NVCC.
-    1. Ensure `mt` is in the path in windows
+    1. Ensure `mt` is in the path on windows
 - Build output folder: `_build`, which should match `.clangd` config. 
