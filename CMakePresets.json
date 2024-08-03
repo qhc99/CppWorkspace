@@ -26,7 +26,7 @@
             }
         },
         {
-            "name": "Debug default",
+            "name": "Debug Default",
             "binaryDir": "${sourceDir}/_build",
             "cacheVariables": {
                 "CMAKE_TOOLCHAIN_FILE": "$env{VCPKG_ROOT}/scripts/buildsystems/vcpkg.cmake",
@@ -46,30 +46,42 @@
     ],
     "buildPresets": [
         {
-            "name": "Debug",
+            "name": "Clang Debug",
             "description": "",
             "displayName": "",
-            "configurePreset": "Debug"
+            "configurePreset": "Clang Debug"
         },
         {
-            "name": "Release",
+            "name": "Clang Release",
             "description": "",
             "displayName": "",
-            "configurePreset": "Release"
+            "configurePreset": "Clang Release"
+        },
+        {
+            "name": "Debug Default",
+            "description": "",
+            "displayName": "",
+            "configurePreset": "Debug Default"
+        },
+        {
+            "name": "Release Default",
+            "description": "",
+            "displayName": "",
+            "configurePreset": "Release Default"
         }
     ],
     "testPresets": [
         {
-            "name": "Debug",
+            "name": "Debug Default",
             "description": "",
             "displayName": "",
-            "configurePreset": "Debug"
+            "configurePreset": "Debug Default"
         },
         {
-            "name": "Release",
+            "name": "Release Default",
             "description": "",
             "displayName": "",
-            "configurePreset": "Release"
+            "configurePreset": "Release Default"
         }
     ]
 }
