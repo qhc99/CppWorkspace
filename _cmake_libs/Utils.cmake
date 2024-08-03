@@ -28,6 +28,12 @@ endfunction()
 #
 # Return generated test name $LATEST_RETURN
 function(add_single_lib_test single_file link_lib folder_name)
+    if(NOT DEFINED ARGV3)
+        set(disable_test_coverage false)
+    else()
+        set(disable_test_coverage ${ARGV3})
+    endif()
+
     remove_dot_suffix(${single_file})
     to_lowercase_underline(${LATEST_RETURN})
     set(name ${LATEST_RETURN})
@@ -51,13 +57,15 @@ function(add_single_lib_test single_file link_lib folder_name)
     # CTest intergration
     add_test(NAME ${name} COMMAND ${name})
 
-    # Test coverage
-    add_custom_target(run_${name}_coverage
-        COMMAND ${CMAKE_COMMAND} -E echo "--- Executable path: $<TARGET_FILE:${name}>"
-        COMMAND $<TARGET_FILE:${name}>
-        COMMAND llvm-profdata merge -sparse default.profraw -o temp.profdata
-        COMMAND llvm-cov show -format=html -o ${CMAKE_SOURCE_DIR}/_html_cov_report $<TARGET_FILE:${name}> -instr-profile="temp.profdata"
-        COMMENT ">>> Test coverage output: ${CMAKE_SOURCE_DIR}/_html_cov_report"
-    )
-    set_target_properties(run_${name}_coverage PROPERTIES FOLDER ${folder_name})
+    if(NOT ${disable_test_coverage})
+        # Test coverage
+        add_custom_target(run_${name}_coverage
+            COMMAND ${CMAKE_COMMAND} -E echo "--- Executable path: $<TARGET_FILE:${name}>"
+            COMMAND $<TARGET_FILE:${name}>
+            COMMAND llvm-profdata merge -sparse default.profraw -o temp.profdata
+            COMMAND llvm-cov show -format=html -o ${CMAKE_SOURCE_DIR}/_html_cov_report $<TARGET_FILE:${name}> -instr-profile="temp.profdata"
+            COMMENT ">>> Test coverage output: ${CMAKE_SOURCE_DIR}/_html_cov_report"
+        )
+        set_target_properties(run_${name}_coverage PROPERTIES FOLDER ${folder_name})
+    endif()
 endfunction()
