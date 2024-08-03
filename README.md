@@ -14,7 +14,7 @@
 
 # Troubleshooting
 - CUDA: set env var `CUDACXX` to use NVCC.
-- Address sanitizer: need to install through Visual Studio
+- Address sanitizer, Clang (LLVM): need to install through Visual Studio
 - Command exist in path: 
     1. `clang`, `clang++`, `nvcc`
     1. `cmake`, `ninja`, `mt` (CUDA on windows)
