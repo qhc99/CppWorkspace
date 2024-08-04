@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.20)
 
 set(ASAN_OPTIONS
-    $<$<PLATFORM_ID:Linux>:-fsanitize=leak>
+    $<$<NOT:$<PLATFORM_ID:Windows>>:-fsanitize=leak>
     $<$<PLATFORM_ID:Windows>:-shared-libsan>
     -fsanitize=address
     -fsanitize=undefined
