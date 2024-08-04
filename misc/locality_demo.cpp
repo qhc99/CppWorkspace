@@ -1,6 +1,3 @@
-//
-// Created by QC on 2022-12-10.
-//
 #include "lib_central/utils.h"
 #include <chrono>
 #include <cmath>

@@ -1,6 +1,3 @@
-//
-// Created by QC on 2021/3/15.
-//
 #include "lib_central/utils.h"
 
 namespace dev::qhc::utils {

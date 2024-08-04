@@ -1,7 +1,3 @@
-//
-// Created by QC on 2021/3/15.
-//
-
 #ifndef ORG_QC_CPP_ALL_IN_ONE_UTILS_H
 #define ORG_QC_CPP_ALL_IN_ONE_UTILS_H
 

@@ -1,7 +1,3 @@
-//
-// Created by QC on 2022-12-05.
-//
-
 #ifndef DEV_QHC_CPP_PROJECTS_VEC3_H
 #define DEV_QHC_CPP_PROJECTS_VEC3_H
 

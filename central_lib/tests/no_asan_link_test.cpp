@@ -1,18 +1,9 @@
 #define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
-#include "lib_central/DisjointSet.h"
 #include "doctest.h"
+#include "lib_central/utils.h"
 
-using dev::qhc::central_lib::DisjointSet;
-
-TEST_CASE("DisjointSetAPITest.find_set")
+using dev::qhc::utils::out_of_range_access;
+TEST_CASE("ASAN_out_of_range_access_test")
 {
-
-    DisjointSet p {};
-    DisjointSet a {};
-    a.unionSet(p);
-    DisjointSet b {};
-    b.unionSet(p);
-    DisjointSet f {};
-    REQUIRE(&a.groupRep() == &b.groupRep());
-    REQUIRE(&a.groupRep() != &f.groupRep());
+    out_of_range_access();
 }

@@ -1,7 +1,3 @@
-//
-// Created by QC on 2021/4/4.
-//
-
 #ifndef ORG_QC_CPP_CENTRAL_LIB_RANK_SEARCH_CPP
 #define ORG_QC_CPP_CENTRAL_LIB_RANK_SEARCH_CPP
 

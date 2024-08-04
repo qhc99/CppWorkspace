@@ -1,7 +1,3 @@
-//
-// Created by QC on 2022-12-11.
-//
-
 #ifndef DEV_QHC_CPP_PROJECTS_MATERIAL_H
 #define DEV_QHC_CPP_PROJECTS_MATERIAL_H
 

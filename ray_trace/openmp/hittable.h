@@ -1,7 +1,3 @@
-//
-// Created by QC on 2022-12-10.
-//
-
 #ifndef DEV_QHC_CPP_PROJECTS_HITTABLE_H
 #define DEV_QHC_CPP_PROJECTS_HITTABLE_H
 #include "ray.h"

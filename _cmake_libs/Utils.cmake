@@ -23,11 +23,16 @@ endfunction()
 # Add single test file and library, generate test target and coverage target
 #
 # Return generated test name $LATEST_RETURN
-function(add_single_lib_test single_file link_lib folder_name)
+function(add_unit_test single_file link_lib folder_name)
     if(NOT DEFINED ARGV3)
+        set(SAN_OPTIONS ASAN_OPTIONS)
+    else()
+        set(SAN_OPTIONS ${ARGV3})
+    endif()
+    if(NOT DEFINED ARGV4)
         set(disable_test_coverage false)
     else()
-        set(disable_test_coverage ${ARGV3})
+        set(disable_test_coverage ${ARGV4})
     endif()
 
     remove_dot_suffix(${single_file})
@@ -47,8 +52,8 @@ function(add_single_lib_test single_file link_lib folder_name)
     target_include_directories(${name} PRIVATE ${DOCTEST_INCLUDE_DIR})
 
     # Lib coverage and sanitizer options
-    target_compile_options(${name} PRIVATE ${ASAN_OPTIONS} ${COMMON_OPTIONS} ${TEST_COVERAGE_OPTIONS})
-    target_link_options(${name} PRIVATE ${ASAN_OPTIONS} ${COMMON_OPTIONS} ${TEST_COVERAGE_OPTIONS} ${COMMON_LINK_OPTIONS})
+    target_compile_options(${name} PRIVATE ${${SAN_OPTIONS}} ${COMMON_OPTIONS} ${TEST_COVERAGE_OPTIONS})
+    target_link_options(${name} PRIVATE ${${SAN_OPTIONS}} ${COMMON_OPTIONS} ${TEST_COVERAGE_OPTIONS} ${COMMON_LINK_OPTIONS})
 
     # CTest intergration
     add_test(NAME ${name} COMMAND ${name})
