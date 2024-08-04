@@ -1,4 +1,4 @@
-# Document
+# Usage and reference
 
 Usage: $`rt.exe > out.ppm`
 
