@@ -1,5 +1,5 @@
 # Requirements
-- Environment: Clang 17, Ubuntu 24 WSL2/Windows 11 (Required Visual Studio Community 2022), Cuda 12.
+- Environment: Clang 17, Ubuntu 24 WSL2/Windows 11 (Visual Studio Community 2022), Cuda 12.
 - Libraries: 
     1. `libomp-dev` (ray trace openmp, WSL2) 
     1. `llvm` (test coverage)
