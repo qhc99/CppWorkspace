@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.20)
+cmake_minimum_required(VERSION 3.28)
 
 set(link_lib central_lib_asan)
 add_single_lib_test(TernaryTriesTest.cpp "${link_lib}" "central_libs_tests")

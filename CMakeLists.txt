@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.20)
+cmake_minimum_required(VERSION 3.28)
 
 if(NOT ${CMAKE_CXX_COMPILER_ID} MATCHES "Clang")
     message(FATAL_ERROR "Only Clang compiler is supported")
@@ -18,3 +18,6 @@ add_subdirectory(misc)
 message(STATUS ">>> Added misc")
 
 add_subdirectory(ray_trace)
+
+add_subdirectory(chip8)
+message(STATUS ">>> Added chip8")
