@@ -9,7 +9,7 @@ set(ASAN_OPTIONS
     -fno-optimize-sibling-calls # perfect stack trace
 )
 
-# Used in multithread programming, not supported on windows
+# Used in multithread programming, currently not supported on windows
 set(TSAN_OPTIONS
     -fsanitize=undefined
     -fsanitize=thread # not compatible with leak, address and memory
@@ -17,7 +17,7 @@ set(TSAN_OPTIONS
     -fno-optimize-sibling-calls
 )
 
-# Rarely used, not supported on windows
+# Rarely used, currently not supported on windows
 set(MSAN_OPTIONS
     -fsanitize=undefined
     -fsanitize=memory # not compatible with leak, address and thread
