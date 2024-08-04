@@ -11,18 +11,22 @@ set(ASAN_OPTIONS
 
 # Used in multithread programming, currently not supported on windows
 set(TSAN_OPTIONS
+    $<$<NOT:$<PLATFORM_ID:Windows>>:
     -fsanitize=undefined
     -fsanitize=thread # not compatible with leak, address and memory
     -fno-omit-frame-pointer
     -fno-optimize-sibling-calls
+    >
 )
 
-# Rarely used, currently not supported on windows
+# Detector of uninitialized memory use. Rarely used, currently not supported on windows
 set(MSAN_OPTIONS
+    $<$<NOT:$<PLATFORM_ID:Windows>>:
     -fsanitize=undefined
     -fsanitize=memory # not compatible with leak, address and thread
     -fno-omit-frame-pointer
     -fno-optimize-sibling-calls
+    >
 )
 
 set(WARN_ALL_OPTIONS
