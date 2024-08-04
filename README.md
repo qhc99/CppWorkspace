@@ -13,7 +13,7 @@
 
 
 # Troubleshooting
-- CUDA: set env var `CUDACXX` path to `nvcc`. 
+- CUDA on windows:. 
     1. Cuda toolkit installation should add `CUDA_PATH` and `CUDA_PATH_${version}` to env. 
     1. Folders path `${cuda install folder}/${version}/bin` and `${cuda install folder}/${version}/libnvpp` should also be added to path on installation.
 - Address sanitizer and Clang (LLVM) should be installed through Visual Studio on windows. 
