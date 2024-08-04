@@ -20,11 +20,11 @@ set_target_properties(central_lib_asan PROPERTIES FOLDER ${folder_name})
 target_compile_options(central_lib_asan PRIVATE ${ASAN_OPTIONS} ${COMMON_OPTIONS})
 target_link_options(central_lib_asan PRIVATE ${ASAN_OPTIONS} ${COMMON_OPTIONS} ${COMMON_LINK_OPTIONS})
 
-find_package(fmt CONFIG REQUIRED)
+find_package(fmt 10 CONFIG REQUIRED)
 add_executable(
     lib_main
     main.cpp)
-target_link_libraries(lib_main PRIVATE central_lib fmt::fmt)
+target_link_libraries(lib_main PRIVATE central_lib fmt::fmt-header-only)
 set_target_properties(lib_main PROPERTIES FOLDER ${folder_name})
 target_compile_options(central_lib PRIVATE ${COMMON_OPTIONS})
 target_link_options(central_lib PRIVATE ${COMMON_OPTIONS} ${COMMON_LINK_OPTIONS})
