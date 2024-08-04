@@ -20,8 +20,8 @@
     1. ASan shared lib folder should be in the path (Example: `C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.40.33807\bin\Hostx64\x64`).
     1. Check if `clang_rt.asan_dynamic-x86_64.dll` is in the above folder
 - Commands should exist in path: 
-    1. `clang`, `clang++`, `nvcc`, `cl` (CUDA on windows)
-    1. `cmake`, `ninja`, `mt` (CUDA on windows)
-    1. `clangd`, `llvm-cov`, `llvm-profdata`, `vcpkg`
-- Check if is using the correct architecture of `clang++` (`x86` vs `x64`) to avoid vcpkg error. 
+    1. Compiler: `clang`, `clang++`, `nvcc`, `cl` (used by CUDA on windows)
+    1. Build: `vcpkg`, `cmake`, `ninja`, `mt` (windows SDK used by CUDA on windows, example path: `C:\Program Files (x86)\Windows Kits\10\bin\10.0.22621.0\x64`)
+    1. Tools: `clangd`, `llvm-cov`, `llvm-profdata`
+- Correct architecture (`x86` vs `x64`)  of `clang++` should be used to avoid vcpkg error. 
 - Build output folder: `_build`, which should match `.clangd` config. 
