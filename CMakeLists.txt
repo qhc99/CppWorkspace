@@ -12,9 +12,9 @@ include(_cmake_libs/Utils.cmake)
 enable_testing() # Enable at top level to use test UI
 
 add_subdirectory(central_lib)
-print_info("Added lib central")
+message(STATUS ">>> Added lib central")
 
 add_subdirectory(misc)
-print_info("Added misc")
+message(STATUS ">>> Added misc")
 
 add_subdirectory(ray_trace)

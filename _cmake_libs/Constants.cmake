@@ -43,3 +43,6 @@ set(COMMON_LINK_OPTIONS
     -detect-odr-violations
     -v
 )
+
+find_program(LLVM_PROFDATA_EXIST llvm-profdata)
+find_program(LLVM_COV_EXIST llvm-cov)

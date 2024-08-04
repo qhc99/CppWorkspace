@@ -2,10 +2,6 @@ cmake_minimum_required(VERSION 3.20)
 
 include(_cmake_libs/Constants.cmake)
 
-function(print_info str)
-    message(STATUS ">>> ${str}")
-endfunction()
-
 #
 # Remove everything after the first dot
 function(remove_dot_suffix str)
@@ -39,8 +35,8 @@ function(add_single_lib_test single_file link_lib folder_name)
     set(name ${LATEST_RETURN})
     set(LATEST_RETURN ${LATEST_RETURN} PARENT_SCOPE)
 
-    print_info("Add test name: ${name}, link_lib: ${link_lib}")
-    print_info("Link include path: ${DOCTEST_INCLUDE_DIR}")
+    message(STATUS ">>> Add test name: ${name}, link_lib: ${link_lib}")
+    message(STATUS ">>> Link include path: ${DOCTEST_INCLUDE_DIR}")
 
     add_executable(${name} ${single_file})
     set_target_properties(${name} PROPERTIES FOLDER ${folder_name})
@@ -57,7 +53,7 @@ function(add_single_lib_test single_file link_lib folder_name)
     # CTest intergration
     add_test(NAME ${name} COMMAND ${name})
 
-    if(NOT ${disable_test_coverage})
+    if(NOT ${disable_test_coverage} AND LLVM_PROFDATA_EXIST AND LLVM_COV_EXIST)
         # Test coverage
         add_custom_target(run_${name}_coverage
             COMMAND ${CMAKE_COMMAND} -E echo "--- Executable path: $<TARGET_FILE:${name}>"
