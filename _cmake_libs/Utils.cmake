@@ -23,7 +23,7 @@ endfunction()
 # Add single test file and library, generate test target and coverage target
 #
 # Return generated test name $LATEST_RETURN
-function(add_unit_test single_file link_lib folder_name)
+function(add_unit_doctest single_file link_lib folder_name)
     if(NOT DEFINED ARGV3)
         set(SAN_OPTIONS ASAN_OPTIONS)
     else()
@@ -48,8 +48,8 @@ function(add_unit_test single_file link_lib folder_name)
     target_link_libraries(${name}
         PRIVATE
         ${link_lib}
+        doctest::doctest
     )
-    target_include_directories(${name} PRIVATE ${DOCTEST_INCLUDE_DIR})
 
     # Lib coverage and sanitizer options
     target_compile_options(${name} PRIVATE ${${SAN_OPTIONS}} ${COMMON_OPTIONS} ${TEST_COVERAGE_OPTIONS})

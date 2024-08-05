@@ -6,7 +6,6 @@ endif()
 
 project(cpp_projects)
 
-include(_cmake_libs/Doctest.cmake)
 include(_cmake_libs/Utils.cmake)
 
 enable_testing() # Enable at top level to use test UI
