@@ -1,7 +1,6 @@
 #include <cmath>
 
 #include <iostream>
-#include <typeinfo>
 using namespace std;
 
 class DefaultPolicy1 { };
@@ -58,9 +57,9 @@ int main()
     MyClassDef::Policies::P2 p2 = 0;
     MyClassDef::Policies::P3 p3;
     MyClassDef::Policies::P4 p4 = NAN;
-    cout << typeid(p1).name() << endl;
-    cout << typeid(p2).name() << endl;
-    cout << typeid(p3).name() << endl;
-    cout << typeid(p4).name() << endl;
+    cout << typeid(p1).name() << '\n';
+    cout << typeid(p2).name() << '\n';
+    cout << typeid(p3).name() << '\n';
+    cout << typeid(p4).name() << '\n';
     return 0;
 }

@@ -1,4 +1,3 @@
-#include <concepts>
 #include <coroutine>
 #include <iostream>
 #include <type_traits>
@@ -253,6 +252,7 @@ void print_test();
 
 int main()
 {
+    print_test();
     return 0;
 }
 
@@ -261,7 +261,7 @@ void print_test()
     auto generator = sequence();
     for (int i = 0; i < 15; ++i) {
         if (generator.has_next()) {
-            std::cout << generator.next() << std::endl;
+            std::cout << generator.next() << '\n';
         } else {
             break;
         }
@@ -271,7 +271,7 @@ void print_test()
     auto yield_half { origin.map_view([](int i) { return i / 2.; }) };
     for (int i = 0; i < 15; ++i) {
         if (yield_half.has_next()) {
-            std::cout << yield_half.next() << std::endl;
+            std::cout << yield_half.next() << '\n';
         } else {
             break;
         }
@@ -280,7 +280,7 @@ void print_test()
     generator = Generator<int>::from(11, 22, 33, 44);
     for (int i = 0; i < 15; ++i) {
         if (generator.has_next()) {
-            std::cout << generator.next() << std::endl;
+            std::cout << generator.next() << '\n';
         } else {
             break;
         }
@@ -294,17 +294,17 @@ void print_test()
         })
         .for_each_view([](auto i) {
             if (i == 0) {
-                std::cout << std::endl;
+                std::cout << '\n';
             }
             std::cout << "* ";
         });
-    std::cout << std::endl;
+    std::cout << '\n';
     //
     std::cout << (Generator<int>::from(1, 2, 3, 4, 5, 6)
                       .fold_view(1, [](auto acc, auto i) {
                           return acc * i; // factorial
                       }))
-              << std::endl;
+              << '\n';
     //
     Generator<int>::from(1, 2, 3, 4, 5).take_while_view([](auto i) {
                                            return i < 3;
@@ -312,7 +312,7 @@ void print_test()
         .for_each_view([](auto i) {
             std::cout << i << " ";
         });
-    std::cout << std::endl;
+    std::cout << '\n';
     //
     Generator<int>::from(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
         .filter_view([](auto i) {
