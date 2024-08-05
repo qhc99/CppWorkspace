@@ -13,6 +13,7 @@
 Debug
 Release
 /_build
+/_build_debug
 
 CMakeLists.txt.user
 CMakeCache.txt
