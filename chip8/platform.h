@@ -129,7 +129,8 @@ public:
         case SDLK_v: {
           keys[0xF] = 1;
         } break;
-
+        default: {
+        }
         }
       } break;
 
@@ -198,10 +199,12 @@ public:
         case SDLK_v: {
           keys[0xF] = 0;
         } break;
-
+        default: {
+        }
         }
       } break;
-
+      default: {
+      }
       }
     }
     return quit;
