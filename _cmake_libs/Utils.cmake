@@ -67,6 +67,6 @@ function(add_unit_doctest single_file link_lib folder_name)
             COMMAND llvm-cov show -format=html -o ${CMAKE_SOURCE_DIR}/_html_cov_report $<TARGET_FILE:${name}> -instr-profile="temp.profdata"
             COMMENT ">>> Test coverage output: ${CMAKE_SOURCE_DIR}/_html_cov_report"
         )
-        set_target_properties(run_${name}_coverage PROPERTIES FOLDER ${folder_name})
+        set_target_properties(run_${name}_coverage PROPERTIES FOLDER ${folder_name}/test_coverage)
     endif()
 endfunction()
