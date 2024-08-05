@@ -27,7 +27,7 @@ message(STATUS ">>> Added ray trace omp")
 
 find_program(NVCC_COMPILER_EXIST nvcc)
 
-if(NVCC_COMPILER_EXIST AND (NOT CMAKE_BUILD_TYPE MATCHES Debug))
+if(NVCC_COMPILER_EXIST)
     project(ray_trace_cuda LANGUAGES CUDA CXX)
     set(TARGET_RT_CUDA rt_cuda)
     set(CMAKE_CUDA_STANDARD 20)
@@ -45,7 +45,7 @@ if(NVCC_COMPILER_EXIST AND (NOT CMAKE_BUILD_TYPE MATCHES Debug))
         cuda/vec3.h)
     set_target_properties(${TARGET_RT_CUDA} PROPERTIES
         CUDA_SEPARABLE_COMPILATION ON)
-    target_compile_options(${TARGET_RT_CUDA} PRIVATE $<$<CONFIG:Debug>:-g -gembed-source>)
+    target_compile_options(${TARGET_RT_CUDA} PRIVATE $<$<CONFIG:Debug>:-g>)
     set_property(TARGET ${TARGET_RT_CUDA} PROPERTY CUDA_ARCHITECTURES OFF)
     set_target_properties(${TARGET_RT_CUDA} PROPERTIES FOLDER ${folder_name})
     set_target_properties(${TARGET_RT_CUDA} PROPERTIES
