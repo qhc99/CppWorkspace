@@ -20,3 +20,8 @@
     1. Check if `clang_rt.asan_dynamic-x86_64.dll` is in the above folder
 - Correct architecture (`x86` vs `x64`)  of `clang++` should be used to avoid vcpkg error. 
 - Build output folder: `_build`, which should match `.clangd` config. 
+
+# Known issues
+
+1. `chip8` cannot run in the headless environment.
+1. There is no standalone debugger for `rt_cuda` on windows so its generation is disabled for build type `Debug AND Windows`. 
