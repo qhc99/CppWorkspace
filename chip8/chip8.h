@@ -7,6 +7,7 @@
 #include <cstdint>
 #include <fstream>
 #include <random>
+#include <cstring>
 
 class Chip8 {
   static constexpr unsigned int START_ADDRESS = 0x200;
@@ -137,7 +138,7 @@ public:
 
   void OP_NULL() {}
 
-  void OP_00E0() { memset(video.data(), 0, sizeof(video)); }
+  void OP_00E0() { std::memset(video.data(), 0, sizeof(video)); }
 
   void OP_00EE() {
     --sp;
