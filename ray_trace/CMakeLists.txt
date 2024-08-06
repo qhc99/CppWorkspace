@@ -28,7 +28,7 @@ message(STATUS ">>> Added ray trace omp")
 find_program(NVCC_COMPILER_EXIST nvcc)
 
 if(NVCC_COMPILER_EXIST)
-    if(NOT CMAKE_BUILD_TYPE MATCHES Debug AND CMAKE_SYSTEM_NAME MATCHES Windows)
+    if(NOT CMAKE_BUILD_TYPE MATCHES Debug OR NOT CMAKE_SYSTEM_NAME MATCHES Windows)
         project(ray_trace_cuda LANGUAGES CUDA CXX)
         set(TARGET_RT_CUDA rt_cuda)
         set(CMAKE_CUDA_STANDARD 20)

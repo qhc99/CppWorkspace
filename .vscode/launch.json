@@ -5,6 +5,13 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "name": "CUDA-gdb rt cuda",
+            "type": "cuda-gdb",
+            "request": "launch",
+            "program": "${workspaceFolder}/_build_debug/ray_trace/rt_cuda"
+        },
+
+        {
             "name": "vsdbg chip8 opcode",
             "type": "cppvsdbg",
             "request": "launch",
