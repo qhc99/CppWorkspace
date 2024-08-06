@@ -5,7 +5,18 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "rt cuda",
+            "name": "vsdbg rt cuda",
+            "type": "cppvsdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/_build_debug/ray_trace/rt_cuda.exe",
+            "args": [],
+            "stopAtEntry": false,
+            "cwd": "${fileDirname}",
+            "environment": [],
+            "console": "externalTerminal"
+        },
+        {
+            "name": "gdb rt cuda",
             "type": "cppdbg",
             "request": "launch",
             "program": "${workspaceFolder}/_build_debug/ray_trace/rt_cuda",
@@ -29,7 +40,7 @@
             ]
         },
         {
-            "name": "chip8 debug opcode",
+            "name": "vsdbg chip8 opcode",
             "type": "cppvsdbg",
             "request": "launch",
             "program": "${workspaceFolder}/_build_debug/chip8/chip8.exe",
@@ -40,7 +51,7 @@
             "console": "externalTerminal"
         },
         {
-            "name": "chip8 debug tetris",
+            "name": "vsdbg chip8 tetris",
             "type": "cppvsdbg",
             "request": "launch",
             "program": "${workspaceFolder}/_build_debug/chip8/chip8.exe",
