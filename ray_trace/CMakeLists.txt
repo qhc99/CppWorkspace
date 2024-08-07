@@ -44,11 +44,9 @@ if(NVCC_COMPILER_EXIST)
             cuda/ray.h
             cuda/sphere.h
             cuda/vec3.h)
-        set_target_properties(${TARGET_RT_CUDA} PROPERTIES
-            CUDA_SEPARABLE_COMPILATION ON)
         target_compile_options(${TARGET_RT_CUDA} PRIVATE $<$<CONFIG:Debug>:-G> -v) # Enable device code debug
-        set_property(TARGET ${TARGET_RT_CUDA} PROPERTY CUDA_ARCHITECTURES OFF)
         set_target_properties(${TARGET_RT_CUDA} PROPERTIES FOLDER ${folder_name})
+        message(STATUS ">>> Added ray trace cuda")
     else()
         message(WARNING "Cuda debugging not supported in cmake on windows")
     endif()
