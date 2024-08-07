@@ -24,4 +24,4 @@
 # Known issues
 
 1. `chip8` cannot run in the headless environment.
-1. `rt_cuda` device code cannot be debugged in vscode, so `Debug` build is disabled on windows.. 
+1. `rt_cuda` device code cannot be debugged in vscode, so `Debug` build is disabled on windows.
