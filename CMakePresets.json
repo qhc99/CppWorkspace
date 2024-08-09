@@ -46,6 +46,12 @@
             "description": "",
             "displayName": "",
             "configurePreset": "Clang Release"
+        },
+        {
+            "name": "VS 2022",
+            "description": "",
+            "displayName": "",
+            "configurePreset": "VS 2022"
         }
     ],
     "testPresets": [

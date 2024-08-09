@@ -21,7 +21,7 @@
 - Correct architecture (`x86` vs `x64`)  of `clang++` should be used to avoid vcpkg error. 
 - Build output folder: `_build`, which should match `.clangd` config. 
 
-# Known issues
+# Known limitations
 
 1. `chip8` cannot run in the headless environment.
-1. `rt_cuda` device code cannot be debugged in vscode, so `Debug` build is disabled on windows.
+1. `rt_cuda` device code can only be debugged in Visual Studio on Windows (open `.sln` project file in `_msbuild`). 
