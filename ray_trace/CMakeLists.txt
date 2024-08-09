@@ -28,26 +28,22 @@ message(STATUS ">>> Added ray trace omp")
 find_program(NVCC_COMPILER_EXIST nvcc)
 
 if(NVCC_COMPILER_EXIST)
-    if(NOT CMAKE_BUILD_TYPE MATCHES Debug OR NOT CMAKE_SYSTEM_NAME MATCHES Windows)
-        project(ray_trace_cuda LANGUAGES CUDA CXX)
-        set(TARGET_RT_CUDA rt_cuda)
-        set(CMAKE_CUDA_STANDARD 20)
-        set(CMAKE_CUDA_STANDARD_REQUIRED True)
+    project(ray_trace_cuda LANGUAGES CUDA CXX)
+    set(TARGET_RT_CUDA rt_cuda)
+    set(CMAKE_CUDA_STANDARD 20)
+    set(CMAKE_CUDA_STANDARD_REQUIRED True)
 
-        add_executable(${TARGET_RT_CUDA}
-            cuda/camera.h
-            cuda/hitable.h
-            cuda/hitable_list.h
-            cuda/main.cu
-            cuda/material.h
-            cuda/main.cu
-            cuda/ray.h
-            cuda/sphere.h
-            cuda/vec3.h)
-        target_compile_options(${TARGET_RT_CUDA} PRIVATE $<$<CONFIG:Debug>:-G> -v) # Enable device code debug
-        set_target_properties(${TARGET_RT_CUDA} PROPERTIES FOLDER ${folder_name})
-        message(STATUS ">>> Added ray trace cuda")
-    else()
-        message(WARNING "Cuda debugging not supported in vscode on windows")
-    endif()
+    add_executable(${TARGET_RT_CUDA}
+        cuda/camera.h
+        cuda/hitable.h
+        cuda/hitable_list.h
+        cuda/main.cu
+        cuda/material.h
+        cuda/main.cu
+        cuda/ray.h
+        cuda/sphere.h
+        cuda/vec3.h)
+    target_compile_options(${TARGET_RT_CUDA} PRIVATE $<$<CONFIG:Debug>:-G> -v) # Enable device code debug
+    set_target_properties(${TARGET_RT_CUDA} PROPERTIES FOLDER ${folder_name})
+    message(STATUS ">>> Added ray trace cuda")
 endif()

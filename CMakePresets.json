@@ -24,6 +24,14 @@
                 "CMAKE_C_COMPILER": "clang",
                 "CMAKE_CXX_COMPILER": "clang++"
             }
+        },
+        {
+            "name": "VS 2022",
+            "generator": "Visual Studio 17 2022",
+            "binaryDir": "${sourceDir}/_msbuild",
+            "cacheVariables": {
+                "CMAKE_TOOLCHAIN_FILE": "$env{VCPKG_ROOT}/scripts/buildsystems/vcpkg.cmake"
+            }
         }
     ],
     "buildPresets": [
