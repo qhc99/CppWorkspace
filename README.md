@@ -24,4 +24,4 @@
 # Known limitations
 
 1. `chip8` cannot run in the headless environment.
-1. `rt_cuda` device code can only be debugged in Visual Studio on Windows (open `.sln` project file in `_msbuild`). 
+1. `rt_cuda` device code can only be debugged in Visual Studio on Windows (open `.sln` project file in `_msbuild` using preset `VS 2022`). 
