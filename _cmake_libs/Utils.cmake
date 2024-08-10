@@ -21,14 +21,34 @@ endfunction()
 
 #
 # Add single test file and library, generate test target and coverage target
-#
+# Arg: single_file, link_lib, folder_name, san_option, disable_coverage
 # Return generated test name $LATEST_RETURN
 function(add_unit_doctest single_file link_lib folder_name)
     if(NOT DEFINED ARGV3)
-        set(SAN_OPTIONS ASAN_OPTIONS)
+        set(SAN_COMPILE_OPTIONS ASAN_COMPILE_OPTIONS)
+        set(SAN_LINK_OPTIONS ASAN_LINK_OPTIONS)
+    elseif(ARGV3 STREQUAL "asan")
+        set(SAN_COMPILE_OPTIONS ASAN_COMPILE_OPTIONS)
+        set(SAN_LINK_OPTIONS ASAN_LINK_OPTIONS)
+    elseif(ARGV3 STREQUAL "tsan")
+        if(MSVC)
+            return()
+        endif()
+        set(SAN_COMPILE_OPTIONS TSAN_COMPILE_LINK_OPTIONS)
+        set(SAN_LINK_OPTIONS TSAN_COMPILE_LINK_OPTIONS)
+    elseif(ARGV3 STREQUAL "msan")
+        if(MSVC)
+            return()
+        endif()
+        set(SAN_COMPILE_OPTIONS MSAN_COMPILE_LINK_OPTIONS)
+        set(SAN_LINK_OPTIONS MSAN_COMPILE_LINK_OPTIONS)
+    elseif(ARGV3 STREQUAL "none")
+        set(SAN_COMPILE_OPTIONS "")
+        set(SAN_LINK_OPTIONS "")
     else()
-        set(SAN_OPTIONS ${ARGV3})
+        message(FATAL_ERROR "Arg4 argument error: ${}")
     endif()
+
     if(NOT DEFINED ARGV4)
         set(disable_test_coverage false)
     else()
@@ -52,13 +72,13 @@ function(add_unit_doctest single_file link_lib folder_name)
     )
 
     # Lib coverage and sanitizer options
-    target_compile_options(${name} PRIVATE ${${SAN_OPTIONS}} ${COMMON_OPTIONS} ${TEST_COVERAGE_OPTIONS})
-    target_link_options(${name} PRIVATE ${${SAN_OPTIONS}} ${COMMON_OPTIONS} ${TEST_COVERAGE_OPTIONS} ${COMMON_LINK_OPTIONS})
+    target_compile_options(${name} PRIVATE ${${SAN_COMPILE_OPTIONS}} ${COMMON_COMPILE_OPTIONS} ${TEST_COVERAGE_OPTIONS})
+    target_link_options(${name} PRIVATE ${${SAN_LINK_OPTIONS}} ${TEST_COVERAGE_OPTIONS} ${COMMON_LINK_OPTIONS})
 
     # CTest intergration
     add_test(NAME ${name} COMMAND ${name})
 
-    if(NOT ${disable_test_coverage} AND LLVM_PROFDATA_EXIST AND LLVM_COV_EXIST)
+    if(NOT ${disable_test_coverage} AND LLVM_PROFDATA_EXIST AND LLVM_COV_EXIST AND CMAKE_CXX_COMPILER_ID MATCHES "Clang")
         # Test coverage
         add_custom_target(run_${name}_coverage
             COMMAND ${CMAKE_COMMAND} -E echo "--- Executable path: $<TARGET_FILE:${name}>"

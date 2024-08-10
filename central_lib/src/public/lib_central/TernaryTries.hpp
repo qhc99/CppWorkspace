@@ -251,7 +251,7 @@ public:
         cloned.count = count;
         recursive_clone(&cloned.root, root);
 
-        return std::move(cloned);
+        return cloned;
     }
 
     ~TernaryTries()
@@ -354,7 +354,7 @@ public:
         if (query.length() == 0) {
             return "";
         }
-        int length = 0;
+        size_t length = 0;
         auto x { root };
         size_t i = 0;
         while (x != nullptr && i < query.length()) {

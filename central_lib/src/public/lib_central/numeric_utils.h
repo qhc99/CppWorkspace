@@ -10,7 +10,7 @@ using std::vector;
  * @param limit
  * @return
  */
-vector<int> sieveOfEratosthenes(int limit);
+vector<size_t> sieveOfEratosthenes(size_t limit);
 } // namespace dev::qhc::Euler
 
 #endif // LEARNCPP_TOOLS_H

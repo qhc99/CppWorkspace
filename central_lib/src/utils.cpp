@@ -22,7 +22,11 @@ void leak()
 void out_of_range_access()
 {
     int* t = new int[2];
+#pragma warning(push)
+#pragma warning(disable : 6200 6386)
     t[2] = 2; // NOLINT cppcoreguidelines-pro-bounds-pointer-arithmetic
+#pragma warning(pop)
+
     delete[] t;
 }
 
@@ -30,6 +34,9 @@ void use_after_free()
 {
     int* t = new int[2];
     delete[] t;
+#pragma warning(push)
+#pragma warning(disable : 6001)
     t[1] = 1; // NOLINT cppcoreguidelines-pro-bounds-pointer-arithmetic
+#pragma warning(pop)
 }
 }

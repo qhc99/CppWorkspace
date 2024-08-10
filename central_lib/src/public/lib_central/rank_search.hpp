@@ -13,11 +13,11 @@ using std::vector;
 
 namespace {
     template <concepts_utils::Comparable T>
-    int rand_partition(vector<T>& a, int start, int end,
+    size_t rand_partition(vector<T>& a, size_t start, size_t end,
         RandEngine_t& engine)
     {
-        std::uniform_int_distribution<int> dist { start, end - 1 };
-        int pivot_idx { dist(engine) };
+        std::uniform_int_distribution<size_t> dist { start, end - 1 };
+        size_t pivot_idx { dist(engine) };
 
         auto pivot { a.at(pivot_idx) };
 
@@ -25,8 +25,8 @@ namespace {
         a.at(end - 1) = pivot;
         a.at(pivot_idx) = temp;
 
-        int i { start - 1 };
-        for (int j { start }; j < end - 1; j++) {
+        size_t i { start - 1 };
+        for (size_t j { start }; j < end - 1; j++) {
             if (a.at(j) <= pivot) {
                 auto t { a.at(j) };
                 a.at(j) = a.at(++i);
@@ -40,14 +40,14 @@ namespace {
 
     // select ith smallest element in array
     template <concepts_utils::Comparable T>
-    T rank_search(vector<T>& a, int start, int end, int ith,
+    T rank_search(vector<T>& a, size_t start, size_t end, size_t ith,
         RandEngine_t& engine)
     {
         if ((start - end) == 1) {
             return a.at(start);
         }
-        int pivot_idx { rand_partition(a, start, end, engine) };
-        int left_total { pivot_idx - start };
+        size_t pivot_idx { rand_partition(a, start, end, engine) };
+        size_t left_total { pivot_idx - start };
         if (ith == left_total) {
             return a.at(pivot_idx);
         } else if (ith < left_total + 1) {
@@ -59,7 +59,7 @@ namespace {
 } // namespace
 
 template <concepts_utils::Comparable T>
-static T find(vector<T>& a, int ith)
+static T find(vector<T>& a, size_t ith)
 {
     if (a.empty()) {
         throw std::logic_error { "size is zero." };

@@ -31,7 +31,7 @@ inline steady_clock_time_point current_time_point() noexcept
  * @param before before steady_clock::now()
  * @return milliseconds in double
  */
-inline long time_point_duration_to_us(steady_clock_time_point current,
+inline long long time_point_duration_to_us(steady_clock_time_point current,
     steady_clock_time_point before)
 {
     if (current < before) {

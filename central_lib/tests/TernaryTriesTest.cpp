@@ -169,26 +169,26 @@ TEST_CASE_FIXTURE(TernaryTriesTestFixture, "TryGetTest")
 
 TEST_CASE_FIXTURE(TernaryTriesTestFixture, "CloneTest")
 {
-    auto case3 { case2.clone() };
-    REQUIRE(7 == case3.getCount());
+    auto caseClone { case2.clone() };
+    REQUIRE(7 == caseClone.getCount());
 
     int val {};
-    REQUIRE(case3.remove("by", nullptr) == true);
-    REQUIRE(case3.remove("she", nullptr) == true);
-    REQUIRE(case3.remove("shells", nullptr) == true);
-    REQUIRE(case3.remove("aaaa", nullptr) == false);
-    REQUIRE(case3.remove("sea", nullptr) == true);
+    REQUIRE(caseClone.remove("by", nullptr) == true);
+    REQUIRE(caseClone.remove("she", nullptr) == true);
+    REQUIRE(caseClone.remove("shells", nullptr) == true);
+    REQUIRE(caseClone.remove("aaaa", nullptr) == false);
+    REQUIRE(caseClone.remove("sea", nullptr) == true);
 
-    REQUIRE(case3.try_get("by", &val) == false);
-    REQUIRE(case3.try_get("she", &val) == false);
-    REQUIRE(case3.try_get("shells", &val) == false);
-    REQUIRE(case3.try_get("sea", &val) == false);
+    REQUIRE(caseClone.try_get("by", &val) == false);
+    REQUIRE(caseClone.try_get("she", &val) == false);
+    REQUIRE(caseClone.try_get("shells", &val) == false);
+    REQUIRE(caseClone.try_get("sea", &val) == false);
 
-    REQUIRE(case3.try_get("sells", &val) == true);
+    REQUIRE(caseClone.try_get("sells", &val) == true);
     REQUIRE(3 == val);
-    REQUIRE(case3.try_get("shore", &val) == true);
+    REQUIRE(caseClone.try_get("shore", &val) == true);
     REQUIRE(4 == val);
-    REQUIRE(case3.try_get("the", &val) == true);
+    REQUIRE(caseClone.try_get("the", &val) == true);
     REQUIRE(2 == val);
 }
 

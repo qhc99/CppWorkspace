@@ -1,5 +1,5 @@
 # Requirements
-- Environment: Clang 17, Ubuntu 24 WSL2/Windows 11 (Visual Studio Community 2022), Cuda 12.
+- Supported environment: Clang/MSVC, Ubuntu 24 WSL2/Windows 11 (Visual Studio Community 2022), Cuda 12.
 - Libraries: 
     1. `libomp-dev` (openmp, WSL2) 
     1. `llvm` (test coverage, WSL2)
@@ -25,4 +25,4 @@
 
 1. `chip8` can only run in GUI environment.
 1. `rt_cuda` device code can only be debugged in Visual Studio on Windows (open `.sln` project file in `_msbuild` using preset `VS 2022`).
-1. Preset `VS 2022` only support target `rt_cuda`.
+1. Test coverage targets are only generated if using Clang compiler.
