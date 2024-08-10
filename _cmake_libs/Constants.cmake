@@ -46,7 +46,7 @@ set(MSAN_COMPILE_LINK_OPTIONS
 # Enable all warnings and disable some warnings
 set(WARN_ALL_COMPILE_OPTIONS
     $<$<CXX_COMPILER_ID:Clang>:-Wall -Wextra -Wpedantic -Wc++17-extensions>
-    $<$<CXX_COMPILER_ID:MSVC>:/W4 /WX /analyze /std:c++20>
+    $<$<CXX_COMPILER_ID:MSVC>:/W4 /WX /analyze>
 )
 
 set(TEST_COVERAGE_OPTIONS
@@ -58,7 +58,8 @@ set(TEST_COVERAGE_OPTIONS
 
 set(COMMON_COMPILE_OPTIONS
     ${WARN_ALL_COMPILE_OPTIONS}
-    $<$<CXX_COMPILER_ID:Clang>:-v>
+    $<$<CXX_COMPILER_ID:Clang>:-v -std=c++20>
+    $<$<CXX_COMPILER_ID:MSVC>:/std:c++20>
 )
 
 set(COMMON_LINK_OPTIONS
