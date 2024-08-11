@@ -26,3 +26,4 @@
 1. On Windows, Cuda device code can only be debugged in Visual Studio (open `.sln` project file in `_msbuild` using preset `VS 2022`).
 1. Test coverage targets are only generated if using Clang compiler.
 1. On windows using `cl` compiler , address sanitizer can only be run in `Debug` mode according to  strict warnings.
+1. Clangd does not have complete support for cuda.
