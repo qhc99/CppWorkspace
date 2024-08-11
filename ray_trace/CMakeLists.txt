@@ -26,7 +26,7 @@ set_target_properties(${TARGET_RT_OMP} PROPERTIES FOLDER ${folder_name})
 message(STATUS ">>> Added ray trace omp")
 
 if(NVCC_COMPILER_EXIST)
-    project(ray_trace_cuda LANGUAGES CUDA CXX)
+    project(ray_trace_cuda LANGUAGES CUDA)
     set(TARGET_RT_CUDA rt_cuda)
     set(CMAKE_CUDA_STANDARD 20)
     set(CMAKE_CUDA_STANDARD_REQUIRED True)
@@ -42,6 +42,7 @@ if(NVCC_COMPILER_EXIST)
         cuda/sphere.h
         cuda/vec3.h)
     target_compile_options(${TARGET_RT_CUDA} PRIVATE $<$<CONFIG:Debug>:-G> -v) # Enable device code debug
+    target_link_options(${TARGET_RT_CUDA} PRIVATE $<$<AND:$<PLATFORM_ID:Windows>,$<CXX_COMPILER_ID:MSVC>>:/NODEFAULTLIB:LIBCMT>) # Fix link warning
     set_target_properties(${TARGET_RT_CUDA} PROPERTIES FOLDER ${folder_name})
     message(STATUS ">>> Added ray trace cuda")
 endif()
