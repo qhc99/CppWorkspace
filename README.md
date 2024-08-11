@@ -25,4 +25,4 @@
 1. `chip8` can only run in GUI environment.
 1. `rt_cuda` device code can only be debugged in Visual Studio on Windows (open `.sln` project file in `_msbuild` using preset `VS 2022`).
 1. Test coverage targets are only generated if using Clang compiler.
-1. Address sanitizer can only be run in `Debug` mode on windows under strict warnings.
+1. Address sanitizer can only be run in `Debug` mode using `cl` compiler on windows under strict warnings.
