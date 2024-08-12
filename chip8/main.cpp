@@ -5,7 +5,7 @@
 #include <string>
 
 // NOLINTBEGIN(cppcoreguidelines-pro-bounds-pointer-arithmetic,concurrency-mt-unsafe)
-int main(int argc, char **argv) {
+int main(int argc, char *argv[]) {
   if (argc != 4) {
     std::cerr << "Usage: " << argv[0] << " <Scale> <Delay> <ROM>\n";
     std::exit(EXIT_FAILURE);
