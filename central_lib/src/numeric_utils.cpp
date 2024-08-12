@@ -3,8 +3,8 @@
 std::vector<size_t> dev::qhc::Euler::sieveOfEratosthenes(size_t limit)
 {
     std::vector<bool> prime {};
-    prime.reserve(static_cast<size_t>(limit + 1));
-    prime.assign(static_cast<size_t>(limit + 1), true);
+    prime.reserve(limit + 1);
+    prime.assign(limit + 1, true);
     for (size_t p = 2; p * p <= limit; p++) {
         if (prime.at(p)) {
             for (size_t i = p * 2; i <= limit; i += p) {
