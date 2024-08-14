@@ -12,7 +12,7 @@ if(CMAKE_SYSTEM_NAME MATCHES Windows)
     list(GET MSVC_DIR 0 MSVC_VERSION_DIR)
     set(MSVC_BIN_DIR "${MSVC_VERSION_DIR}/bin/Hostx64/x64")
     
-    if((NOT EXISTS "${MSVC_BIN_DIR}") AND (NOT CL_COMPILER_EXIS))
+    if((NOT EXISTS "${MSVC_BIN_DIR}") AND (NOT CL_COMPILER_EXIST))
         message(FATAL_ERROR "MSVC bin directory not found: ${MSVC_BIN_DIR}")
     endif()
 endif()

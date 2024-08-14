@@ -44,7 +44,7 @@ if(NVCC_COMPILER_EXIST)
     target_compile_options(${TARGET_RT_CUDA} PRIVATE
         $<$<CONFIG:Debug>:-G>
         $<$<NOT:$<PLATFORM_ID:Windows>>:-ccbin=clang++>
-        $<$<PLATFORM_ID:Windows>:-ccbin=${MSVC_BIN_DIR}>
+        $<$<AND:$<PLATFORM_ID:Windows>,$<NOT:$<BOOL:${CL_COMPILER_EXIST}>>>:-ccbin=${MSVC_BIN_DIR}>
         -v
         --std=c++20) # Enable device code debug
     target_link_options(${TARGET_RT_CUDA} PRIVATE $<$<AND:$<PLATFORM_ID:Windows>,$<CXX_COMPILER_ID:MSVC>>:/NODEFAULTLIB:LIBCMT>) # Fix link warning
