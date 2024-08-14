@@ -42,11 +42,12 @@ if(NVCC_COMPILER_EXIST)
         cuda/sphere.h
         cuda/vec3.h)
     target_compile_options(${TARGET_RT_CUDA} PRIVATE
-        $<$<CONFIG:Debug>:-G>
+        $<$<CONFIG:Debug>:-G> # Enable device code debug
         $<$<NOT:$<PLATFORM_ID:Windows>>:-ccbin=clang++>
         $<$<AND:$<PLATFORM_ID:Windows>,$<NOT:$<BOOL:${CL_COMPILER_EXIST}>>>:-ccbin=${MSVC_BIN_DIR}>
+        --std=c++20
         -v
-        --std=c++20) # Enable device code debug
+    )
     target_link_options(${TARGET_RT_CUDA} PRIVATE $<$<AND:$<PLATFORM_ID:Windows>,$<CXX_COMPILER_ID:MSVC>>:/NODEFAULTLIB:LIBCMT>) # Fix link warning
     set_target_properties(${TARGET_RT_CUDA} PROPERTIES FOLDER ${folder_name})
     message(STATUS ">>> Added ray trace cuda")
