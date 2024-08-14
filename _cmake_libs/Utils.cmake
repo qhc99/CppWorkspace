@@ -61,7 +61,6 @@ function(add_unit_doctest single_file link_lib folder_name)
     set(LATEST_RETURN ${LATEST_RETURN} PARENT_SCOPE)
 
     message(STATUS ">>> Add test name: ${name}, link_lib: ${link_lib}")
-    message(STATUS ">>> Link include path: ${DOCTEST_INCLUDE_DIR}")
 
     add_executable(${name} ${single_file})
     set_target_properties(${name} PROPERTIES FOLDER ${folder_name})

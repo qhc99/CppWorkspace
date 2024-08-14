@@ -1,5 +1,7 @@
 cmake_minimum_required(VERSION 3.28)
 
+include(_cmake_libs/SystemChecks.cmake)
+
 set(ASAN_CLANG_OPTIONS
     $<$<CXX_COMPILER_ID:Clang>:
     $<$<NOT:$<PLATFORM_ID:Windows>>:-fsanitize=leak>
@@ -67,6 +69,3 @@ set(COMMON_LINK_OPTIONS
     $<$<CXX_COMPILER_ID:MSVC>:/VERBOSE>
 )
 
-find_program(LLVM_PROFDATA_EXIST llvm-profdata)
-find_program(LLVM_COV_EXIST llvm-cov)
-find_program(NVCC_COMPILER_EXIST nvcc)
