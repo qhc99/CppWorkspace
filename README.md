@@ -13,6 +13,7 @@
 
 # Usage
 - Test coverage is generated to folder `_html_cov_report` by running corresponding custom targets.
+- Run `build-all.cmd` or `build-all.sh` to check if buildings pass
 
 # Troubleshooting
 - On windows, Address sanitizer and Clang must be installed through Visual Studio to use ASan (official download dll crashes for some reason). 
