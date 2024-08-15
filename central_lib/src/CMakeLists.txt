@@ -14,18 +14,18 @@ set(LIB_SOURCES
     )
 
 add_library(central_lib STATIC ${LIB_SOURCES})
-add_library(central_lib_asan STATIC ${LIB_SOURCES})
-
 target_include_directories(central_lib PUBLIC public)
-target_include_directories(central_lib_asan PUBLIC public)
-
 set_target_properties(central_lib PROPERTIES FOLDER ${folder_name})
 target_compile_options(central_lib PRIVATE ${COMMON_COMPILE_OPTIONS})
 target_link_options(central_lib PRIVATE ${COMMON_LINK_OPTIONS})
 
-set_target_properties(central_lib_asan PROPERTIES FOLDER ${folder_name})
-target_compile_options(central_lib_asan PRIVATE ${ASAN_COMPILE_OPTIONS} ${COMMON_COMPILE_OPTIONS})
-target_link_options(central_lib_asan PRIVATE ${ASAN_LINK_OPTIONS} ${COMMON_LINK_OPTIONS})
+if(CMAKE_BUILD_TYPE MATCHES Debug)
+    add_library(central_lib_asan STATIC ${LIB_SOURCES})
+    target_include_directories(central_lib_asan PUBLIC public)
+    set_target_properties(central_lib_asan PROPERTIES FOLDER ${folder_name})
+    target_compile_options(central_lib_asan PRIVATE ${ASAN_COMPILE_OPTIONS} ${COMMON_COMPILE_OPTIONS})
+    target_link_options(central_lib_asan PRIVATE ${ASAN_LINK_OPTIONS} ${COMMON_LINK_OPTIONS})
+endif()
 
 find_package(fmt 10 CONFIG REQUIRED)
 add_executable(

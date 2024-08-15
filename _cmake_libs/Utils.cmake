@@ -77,8 +77,8 @@ function(add_unit_doctest single_file link_lib folder_name)
     )
 
     # Lib coverage and sanitizer options
-    target_compile_options(${name} PRIVATE ${${SAN_COMPILE_OPTIONS}} ${COMMON_COMPILE_OPTIONS} ${TEST_COVERAGE_OPTIONS})
-    target_link_options(${name} PRIVATE ${${SAN_LINK_OPTIONS}} ${TEST_COVERAGE_OPTIONS} ${COMMON_LINK_OPTIONS} $<$<BOOL:${no_libcmt}>:$<$<CXX_COMPILER_ID:MSVC>:/NODEFAULTLIB:LIBCMT>>)
+    target_compile_options(${name} PRIVATE $<$<STREQUAL:${CMAKE_BUILD_TYPE},Debug>:${${SAN_COMPILE_OPTIONS}}> ${COMMON_COMPILE_OPTIONS} ${TEST_COVERAGE_OPTIONS})
+    target_link_options(${name} PRIVATE $<$<STREQUAL:${CMAKE_BUILD_TYPE},Debug>:${${SAN_LINK_OPTIONS}}> ${TEST_COVERAGE_OPTIONS} ${COMMON_LINK_OPTIONS} $<$<BOOL:${no_libcmt}>:$<$<CXX_COMPILER_ID:MSVC>:/NODEFAULTLIB:LIBCMT>>)
 
     # CTest intergration
     add_test(NAME ${name} COMMAND ${name})

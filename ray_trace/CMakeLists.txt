@@ -44,7 +44,6 @@ if(NVCC_COMPILER_EXIST AND NOT SKIP_CUDA_ON_WINDOWS)
     target_compile_options(${TARGET_RT_CUDA} PRIVATE
         $<$<CONFIG:Debug>:-G> # Enable device code debug
         $<$<NOT:$<PLATFORM_ID:Windows>>:-ccbin=clang++>
-        $<$<AND:$<PLATFORM_ID:Windows>,$<NOT:$<BOOL:${CL_COMPILER_EXIST}>>>:-ccbin=${MSVC_BIN_DIR}>
         --std=c++20
         -v
     )
