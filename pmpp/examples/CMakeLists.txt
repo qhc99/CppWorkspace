@@ -1,8 +1,5 @@
 cmake_minimum_required(VERSION 3.28)
 
-# TODO:
-# nvcc: --compiler-options, --linker-options, --compiler-bindir
-# test dylib
 find_package(doctest 2.4 CONFIG REQUIRED)
 add_library(vec_add_cu STATIC vec_add.cu vec_add.h utils.h)
 target_compile_options(vec_add_cu  PRIVATE ${NVCC_COMMON_COMPILE_OPTIONS})
