@@ -20,16 +20,16 @@ int main(int argc, char *argv[]) {
                     static_cast<int>(Chip8::VIDEO_HEIGHT * videoScale),
                     Chip8::VIDEO_WIDTH, Chip8::VIDEO_HEIGHT);
 
-  Chip8 chip8;
-  chip8.load_rom(romFilename);
+  auto chip8 { std::make_unique<Chip8>() };
+  chip8->load_rom(romFilename);
 
-  int videoPitch = sizeof(chip8.video_ref()[0]) * Chip8::VIDEO_WIDTH;
+  int videoPitch = sizeof(chip8->video_ref()[0]) * Chip8::VIDEO_WIDTH;
 
   auto lastCycleTime = std::chrono::high_resolution_clock::now();
   bool quit = false;
 
   while (!quit) {
-    quit = Platform::ProcessInput(chip8.keypad_ref().data());
+    quit = Platform::ProcessInput(chip8->keypad_ref().data());
 
     auto currentTime = std::chrono::high_resolution_clock::now();
     float dt = std::chrono::duration<float, std::chrono::milliseconds::period>(
@@ -39,9 +39,9 @@ int main(int argc, char *argv[]) {
     if (dt > static_cast<float>(cycleDelay)) {
       lastCycleTime = currentTime;
 
-      chip8.cycle();
+      chip8->cycle();
 
-      platform.Update(chip8.video_ref().data(), videoPitch);
+      platform.Update(chip8->video_ref().data(), videoPitch);
     }
   }
 

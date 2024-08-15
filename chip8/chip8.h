@@ -65,9 +65,9 @@ public:
   std::array<uint8_t, 16> &keypad_ref() { return keypad; }
 
   Chip8()
-      : pc(START_ADDRESS),
-        randGen(std::chrono::system_clock::now().time_since_epoch().count()),
-        randByte(std::uniform_int_distribution<uint16_t>(0, 255U)) {
+      : pc(START_ADDRESS), 
+      randGen(static_cast<unsigned int>(std::chrono::system_clock::now().time_since_epoch().count())),
+      randByte(std::uniform_int_distribution<uint16_t>(0, 255U)) {
     // Load fonts into memory
     for (unsigned int i = 0; i < FONTSET_SIZE; ++i) {
       memory.at(FONTSET_START_ADDRESS + i) = fontset.at(i);
