@@ -70,7 +70,7 @@ set(COMMON_LINK_OPTIONS
 )
 
 set(NVCC_COMMON_COMPILE_OPTIONS
-    $<$<CXX_COMPILER_ID:MSVC>:-Xcompiler "/W4 /WX" > # disable cl std and analyse
+    $<$<CXX_COMPILER_ID:MSVC>:-Xcompiler "/W4 /WX" > # disable cl std and analysis
     $<$<CONFIG:Debug>:-G> # Enable device code debug
     $<$<NOT:$<PLATFORM_ID:Windows>>:-ccbin=clang++;-Wno-gnu-line-marker>
     --std c++20
