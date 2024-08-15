@@ -7,4 +7,4 @@ if(CMAKE_BUILD_TYPE MATCHES Debug)
 endif()
 
 set(link_lib central_lib)
-add_unit_doctest(no_asan_link_test.cpp "${link_lib}" "central_libs_tests/asan" "none" true)
+add_unit_doctest(asan_no_link_test.cpp "${link_lib}" "central_libs_tests/asan" "none" true)
