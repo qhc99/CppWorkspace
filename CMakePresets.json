@@ -30,7 +30,9 @@
             "generator": "Visual Studio 17 2022",
             "binaryDir": "${sourceDir}/_msbuild",
             "cacheVariables": {
-                "CMAKE_TOOLCHAIN_FILE": "$env{VCPKG_ROOT}/scripts/buildsystems/vcpkg.cmake"
+                "CMAKE_TOOLCHAIN_FILE": "$env{VCPKG_ROOT}/scripts/buildsystems/vcpkg.cmake",
+                "CMAKE_CONFIGURATION_TYPES": "Debug;Release"
+
             }
         }
     ],
@@ -66,6 +68,12 @@
             "description": "",
             "displayName": "",
             "configurePreset": "Clang Release"
+        },
+        {
+            "name": "VS 2022",
+            "description": "",
+            "displayName": "",
+            "configurePreset": "VS 2022"
         }
     ]
 }
