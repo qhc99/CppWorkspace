@@ -16,3 +16,6 @@ add_subdirectory(chip8)
 message(STATUS ">>> Added chip8")
 
 add_subdirectory(ray_trace)
+
+add_subdirectory(pmpp)
+message(STATUS ">>> Added pmpp")

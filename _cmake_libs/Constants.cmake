@@ -69,3 +69,14 @@ set(COMMON_LINK_OPTIONS
     $<$<CXX_COMPILER_ID:MSVC>:/VERBOSE>
 )
 
+set(NVCC_COMMON_COMPILE_OPTIONS
+    $<$<CONFIG:Debug>:-G> # Enable device code debug
+    $<$<NOT:$<PLATFORM_ID:Windows>>:-ccbin=clang++>
+    -v
+    --compiler-options ${COMMON_COMPILE_OPTIONS}
+)
+
+set(NVCC_COMMON_LINK_OPTIONS
+    $<$<AND:$<PLATFORM_ID:Windows>,$<CXX_COMPILER_ID:MSVC>>:/NODEFAULTLIB:LIBCMT>
+    --linker-options ${COMMON_LINK_OPTIONS}
+) # Fix link warning
