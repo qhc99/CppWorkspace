@@ -47,8 +47,8 @@ set(MSAN_COMPILE_LINK_OPTIONS
 
 # Enable all warnings and disable some warnings
 set(WARN_ALL_COMPILE_OPTIONS
-    $<$<CXX_COMPILER_ID:Clang>:-Wall -Wextra -Wpedantic -Wc++17-extensions>
-    $<$<CXX_COMPILER_ID:MSVC>:/W4 /WX /analyze>
+    $<$<CXX_COMPILER_ID:Clang>:-Wall;-Wextra;-Wpedantic>
+    $<$<CXX_COMPILER_ID:MSVC>:/W4;/WX;/analyze>
 )
 
 set(TEST_COVERAGE_OPTIONS
@@ -60,7 +60,7 @@ set(TEST_COVERAGE_OPTIONS
 
 set(COMMON_COMPILE_OPTIONS
     ${WARN_ALL_COMPILE_OPTIONS}
-    $<$<CXX_COMPILER_ID:Clang>:-v -std=c++20>
+    $<$<CXX_COMPILER_ID:Clang>:-v;-std=c++20>
     $<$<CXX_COMPILER_ID:MSVC>:/std:c++20>
 )
 
@@ -70,13 +70,14 @@ set(COMMON_LINK_OPTIONS
 )
 
 set(NVCC_COMMON_COMPILE_OPTIONS
-    --compiler-options ${COMMON_COMPILE_OPTIONS}
+    $<$<CXX_COMPILER_ID:MSVC>:-Xcompiler "/W4 /WX" > # disable cl std and analyse
     $<$<CONFIG:Debug>:-G> # Enable device code debug
-    $<$<NOT:$<PLATFORM_ID:Windows>>: -ccbin=clang++ -Wno-gnu-line-marker>
+    $<$<NOT:$<PLATFORM_ID:Windows>>:-ccbin=clang++;-Wno-gnu-line-marker>
+    --std c++20
     -v
 )
 
 set(NVCC_COMMON_LINK_OPTIONS
-    --linker-options ${COMMON_LINK_OPTIONS}
-    $<$<AND:$<PLATFORM_ID:Windows>,$<CXX_COMPILER_ID:MSVC>>:/NODEFAULTLIB:LIBCMT>
-) # Fix link warning
+    -Xlinker=${COMMON_LINK_OPTIONS}
+    $<$<CXX_COMPILER_ID:MSVC>:/NODEFAULTLIB:LIBCMT> # Fix link warning
+)

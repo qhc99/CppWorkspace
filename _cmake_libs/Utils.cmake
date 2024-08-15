@@ -21,7 +21,7 @@ endfunction()
 
 #
 # Add single test file and library, generate test target and coverage target
-# Arg: single_file, link_lib, folder_name, san_option, disable_coverage
+# Arg: single_file, link_lib, folder_name, san_option, disable_coverage, no_libcmt
 # Return generated test name $LATEST_RETURN
 function(add_unit_doctest single_file link_lib folder_name)
     if(NOT DEFINED ARGV3)
@@ -52,7 +52,13 @@ function(add_unit_doctest single_file link_lib folder_name)
     if(NOT DEFINED ARGV4)
         set(disable_test_coverage FALSE)        
     else()
-        set(disable_test_coverage TRUE)
+        set(disable_test_coverage ${ARGV4})
+    endif()
+
+    if(NOT DEFINED ARGV5)
+        set(no_libcmt FALSE)        
+    else()
+        set(no_libcmt ${ARGV5})
     endif()
 
     remove_dot_suffix(${single_file})
@@ -72,7 +78,7 @@ function(add_unit_doctest single_file link_lib folder_name)
 
     # Lib coverage and sanitizer options
     target_compile_options(${name} PRIVATE ${${SAN_COMPILE_OPTIONS}} ${COMMON_COMPILE_OPTIONS} ${TEST_COVERAGE_OPTIONS})
-    target_link_options(${name} PRIVATE ${${SAN_LINK_OPTIONS}} ${TEST_COVERAGE_OPTIONS} ${COMMON_LINK_OPTIONS})
+    target_link_options(${name} PRIVATE ${${SAN_LINK_OPTIONS}} ${TEST_COVERAGE_OPTIONS} ${COMMON_LINK_OPTIONS} $<$<BOOL:${no_libcmt}>:$<$<CXX_COMPILER_ID:MSVC>:/NODEFAULTLIB:LIBCMT>>)
 
     # CTest intergration
     add_test(NAME ${name} COMMAND ${name})
