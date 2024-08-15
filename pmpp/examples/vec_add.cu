@@ -23,7 +23,7 @@ void vecAdd(float* A, float* B, float* C, int n)
     checkCudaErrors(cudaMemcpy(A_d, A, size, cudaMemcpyHostToDevice));
     checkCudaErrors(cudaMemcpy(B_d, B, size, cudaMemcpyHostToDevice));
 
-    vecAddKernel<<<ceil(n / 256.), 256>>>(A_d, B_d, C_d, n);
+    vecAddKernel<<<static_cast<unsigned int>(ceil(n / 256.)), 256>>>(A_d, B_d, C_d, n);
 
     checkCudaErrors(cudaMemcpy(C, C_d, size, cudaMemcpyDeviceToHost));
 
