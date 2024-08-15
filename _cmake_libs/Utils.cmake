@@ -21,7 +21,7 @@ endfunction()
 
 #
 # Add single test file and library, generate test target and coverage target
-# Arg: single_file, link_lib, folder_name, san_option, disable_coverage, no_libcmt
+# Arg: single_file, link_lib, folder_name, san_option, disable_coverage(bool), no_libcmt(bool)
 # Return generated test name $LATEST_RETURN
 function(add_unit_doctest single_file link_lib folder_name)
     if(NOT DEFINED ARGV3)
