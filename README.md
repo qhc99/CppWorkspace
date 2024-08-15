@@ -26,3 +26,4 @@
 1. Test coverage targets are only generated if using Clang compiler.
 1. On windows using `cl` compiler , address sanitizer can only be run in `Debug` mode according to  strict warnings.
 1. Clangd does not have complete support for cuda.
+1. Clang has limited supported for cuda on windows, so cuda programs will not be generated in this case.

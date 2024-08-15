@@ -25,7 +25,7 @@ set_property(TARGET ${TARGET_RT_OMP} PROPERTY CMAKE_CXX_STANDARD_REQUIRED True)
 set_target_properties(${TARGET_RT_OMP} PROPERTIES FOLDER ${folder_name})
 message(STATUS ">>> Added ray trace omp")
 
-if(NVCC_COMPILER_EXIST)
+if(NVCC_COMPILER_EXIST AND NOT SKIP_CUDA_ON_WINDOWS)
     project(ray_trace_cuda LANGUAGES CUDA)
     set(TARGET_RT_CUDA rt_cuda)
     set(CMAKE_CUDA_STANDARD 20)
