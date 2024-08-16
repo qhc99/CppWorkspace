@@ -1,3 +1,5 @@
+git pull
+
 cmake --preset "Clang Release"
 cd _build
 cmake --build . --target all 
