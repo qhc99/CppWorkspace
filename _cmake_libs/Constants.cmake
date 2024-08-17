@@ -14,9 +14,7 @@ set(ASAN_CLANG_OPTIONS
 )
 set(ASAN_COMPILE_OPTIONS
     ${ASAN_CLANG_OPTIONS}
-    $<$<CXX_COMPILER_ID:MSVC>:
-    /fsanitize=address
-    >
+    $<$<CXX_COMPILER_ID:MSVC>:/fsanitize=address>
 )
 
 set(ASAN_LINK_OPTIONS ${ASAN_CLANG_OPTIONS})
@@ -52,10 +50,7 @@ set(WARN_ALL_COMPILE_OPTIONS
 )
 
 set(TEST_COVERAGE_OPTIONS
-    $<$<CXX_COMPILER_ID:Clang>:
-    -fprofile-instr-generate
-    -fcoverage-mapping
-    >
+    $<$<CXX_COMPILER_ID:Clang>:-fprofile-instr-generate;-fcoverage-mapping>
 )
 
 set(COMMON_COMPILE_OPTIONS
