@@ -4,10 +4,10 @@
 #include <iostream>
 int main()
 {
-    int devCount;
+    int devCount{};
     checkCudaErrors(cudaGetDeviceCount(&devCount));
 
-    cudaDeviceProp devProp;
+    cudaDeviceProp devProp{};
     for (int i = 0; i < devCount; i++) {
         checkCudaErrors(cudaGetDeviceProperties(&devProp, i));
         std::cout << devProp.name << "\n";

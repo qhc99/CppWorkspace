@@ -26,4 +26,4 @@
 1. On Windows, Cuda device code can only be debugged in Visual Studio (open `.sln` project file in `_msbuild` using preset `VS 2022`).
 1. Test coverage targets are only generated if using Clang compiler.
 1. Clangd does not have complete support for cuda.
-1. Clang has limited supported for cuda on windows, so cuda programs will not be generated in this case.
+1. Clang has limited supported for cuda on windows, so cuda programs will not be generated in this case. `.clangd-win` can bypass the problem but Visual Studio is a better option.

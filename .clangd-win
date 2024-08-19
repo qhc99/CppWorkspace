@@ -1,0 +1,11 @@
+CompileFlags:
+  CompilationDatabase: _build
+  Add:
+    - --cuda-path=C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v12.6
+    - -LC:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v12.6/lib
+    - -IC:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v12.6/include
+    - --no-cuda-version-check
+  Remove:
+    - -Xcompiler*
+    - -forward-unknown-to-host-compiler
+    - --generate-code*
