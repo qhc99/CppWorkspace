@@ -2,7 +2,7 @@
 #include "doctest/doctest.h"
 #include "vec_add.h"
 
-TEST_CASE("DisjointSetAPITest.find_set")
+TEST_CASE("vec_add_test")
 {
     int size = 3;
     float* A = new float[size];
