@@ -23,7 +23,7 @@ void matMulTiling(float* A, float* B, float* C, int i, int j, int k)
 
     dim3 block_dim { MAT_MUL_KERNEL_TILE_WIDTH, MAT_MUL_KERNEL_TILE_WIDTH ,1};
 
-    matMulTilingKernel<<<256, block_dim>>>(A_d, B_d, C_d, i, j, k);
+    matMulTilingKernel<<<128, block_dim>>>(A_d, B_d, C_d, i, j, k);
 
     checkCudaErrors(cudaMemcpy(C, C_d, i * k * sizeof(float), cudaMemcpyDeviceToHost));
 
