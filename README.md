@@ -13,7 +13,7 @@
 
 # Usage
 - Test coverage is generated to folder `_html_cov_report` by running corresponding custom targets.
-- Run `build-all.cmd` or `build-all.sh` to check if buildings pass
+- Run `build-test-all.cmd` or `build-test-all.sh` to check if build and tests pass
 - Enable clangd cuda: update the content of `config.yaml` and copy it to clangd user folder. 
 
 # Troubleshooting
