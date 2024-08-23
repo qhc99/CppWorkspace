@@ -14,7 +14,7 @@
 # Usage
 - Test coverage is generated to folder `_html_cov_report` by running corresponding custom targets.
 - Run `build-test-all.cmd` or `build-test-all.sh` to check if build and tests pass
-- Enable clangd cuda: update the content of `config.yaml` and copy it to clangd user folder. 
+- Enable clangd cuda: update the path in `config.yaml` on your system and copy it to clangd user folder. 
 
 # Troubleshooting
 - On windows, Address sanitizer and Clang must be installed through Visual Studio to use ASan (official download dll crashes for some reason). 
