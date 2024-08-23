@@ -14,6 +14,7 @@
 # Usage
 - Test coverage is generated to folder `_html_cov_report` by running corresponding custom targets.
 - Run `build-all.cmd` or `build-all.sh` to check if buildings pass
+- Enable clangd cuda: update the content of `config.yaml` and copy it to clangd user folder. 
 
 # Troubleshooting
 - On windows, Address sanitizer and Clang must be installed through Visual Studio to use ASan (official download dll crashes for some reason). 
@@ -26,4 +27,3 @@
 1. On Windows, Cuda device code can only be debugged in Visual Studio (open `.sln` project file in `_msbuild` using preset `VS 2022`).
 1. Test coverage targets are only generated if using Clang compiler.
 1. CMake has limited supported for clang cuda on windows, so cuda programs will not be generated in this case. 
-1. `.clangd-win` is an example to enable clangd support for cuda but Visual Studio is a better option.

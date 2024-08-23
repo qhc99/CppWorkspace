@@ -5,18 +5,20 @@
 
 #define MAT_MUL_KERNEL_TILE_WIDTH 16
 
-__global__ void matMulTilingKernel(float* A, float* B, float* C, int i, int j, int k)
+__global__ void matMulTilingKernel(float* A, float* B, float* C, size_t i, size_t j, size_t k)
 {
 
 }
 
-void matMulTiling(float* A, float* B, float* C, int i, int j, int k)
+void matMulTiling(float* A, float* B, float* C, size_t i, size_t j, size_t k)
 {
-    float *A_d, *B_d, *C_d;
+    float *A_d = nullptr;
+    float *B_d = nullptr;
+    float *C_d = nullptr;
 
-    checkCudaErrors(cudaMalloc((void**)&A_d, i * j * sizeof(float)));
-    checkCudaErrors(cudaMalloc((void**)&B_d, j * k * sizeof(float)));
-    checkCudaErrors(cudaMalloc((void**)&C_d, i * k * sizeof(float)));
+    checkCudaErrors(cudaMalloc(&A_d, i * j * sizeof(float)));
+    checkCudaErrors(cudaMalloc(&B_d, j * k * sizeof(float)));
+    checkCudaErrors(cudaMalloc(&C_d, i * k * sizeof(float)));
 
     checkCudaErrors(cudaMemcpy(A_d, A, i * j * sizeof(float), cudaMemcpyHostToDevice));
     checkCudaErrors(cudaMemcpy(B_d, B, j * k * sizeof(float), cudaMemcpyHostToDevice));

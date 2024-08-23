@@ -1,4 +1,2 @@
-If:                              
-  PathMatch: .*\.(h|cpp|hpp|cxx|hxx|c|cc|C|CPP|tcc|inl|hh|h\+\+|c\+\+)$
 CompileFlags:
   CompilationDatabase: _build
