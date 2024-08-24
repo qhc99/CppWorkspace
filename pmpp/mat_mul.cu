@@ -10,7 +10,7 @@ __global__ void matMulTilingKernel(float* A, float* B, float* C, size_t i, size_
 
 }
 
-void matMulTiling(float* A, float* B, float* C, size_t i, size_t j, size_t k)
+void matMul(float* A, float* B, float* C, size_t i, size_t j, size_t k)
 {
     float *A_d = nullptr;
     float *B_d = nullptr;
