@@ -5,7 +5,7 @@
 
 #define MAT_MUL_KERNEL_TILE_WIDTH 16
 
-__global__ void matMulTilingKernel(float* A, float* B, float* C, size_t i, size_t j, size_t k)
+__global__ void matMulKernel(float* A, float* B, float* C, size_t i, size_t j, size_t k)
 {
 
 }
@@ -25,7 +25,7 @@ void matMul(float* A, float* B, float* C, size_t i, size_t j, size_t k)
 
     dim3 block_dim { MAT_MUL_KERNEL_TILE_WIDTH, MAT_MUL_KERNEL_TILE_WIDTH ,1};
 
-    matMulTilingKernel<<<128, block_dim>>>(A_d, B_d, C_d, i, j, k);
+    matMulKernel<<<128, block_dim>>>(A_d, B_d, C_d, i, j, k);
 
     checkCudaErrors(cudaMemcpy(C, C_d, i * k * sizeof(float), cudaMemcpyDeviceToHost));
 
