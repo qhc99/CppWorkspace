@@ -17,6 +17,7 @@ Release
 /_build_cl
 /_build_cl_debug
 /_msbuild
+/log.txt
 
 CMakeLists.txt.user
 CMakeCache.txt

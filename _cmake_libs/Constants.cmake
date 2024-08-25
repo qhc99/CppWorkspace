@@ -1,6 +1,7 @@
 cmake_minimum_required(VERSION 3.28)
 
 include(_cmake_libs/SystemChecks.cmake)
+include(_cmake_libs/Config.cmake)
 
 set(ASAN_CLANG_OPTIONS
     $<$<CXX_COMPILER_ID:Clang>:
@@ -60,8 +61,8 @@ set(COMMON_COMPILE_OPTIONS
 )
 
 set(COMMON_LINK_OPTIONS
-    $<$<CXX_COMPILER_ID:Clang>:--verbose>
-    $<$<CXX_COMPILER_ID:MSVC>:/VERBOSE;/WX>
+    $<$<CXX_COMPILER_ID:Clang>:$<$<BOOL:${COMPILE_LINK_VERBOSE}>:--verbose>>
+    $<$<CXX_COMPILER_ID:MSVC>:$<$<BOOL:${COMPILE_LINK_VERBOSE}>:/VERBOSE>;/WX>
 )
 
 set(NVCC_COMMON_COMPILE_OPTIONS
