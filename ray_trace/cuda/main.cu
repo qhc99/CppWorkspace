@@ -1,3 +1,4 @@
+#include "workspace_pch.h"
 #include "camera.h"
 #include "hitable_list.h"
 #include "material.h"
