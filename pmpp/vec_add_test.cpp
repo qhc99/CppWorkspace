@@ -5,9 +5,9 @@
 TEST_CASE("vec_add_test")
 {
     int size = 3;
-    float* A = new float[size];
-    float* B = new float[size];
-    float* C = new float[size];
+    auto* A = new float[size];
+    auto* B = new float[size];
+    auto* C = new float[size];
     A[0] = 1;
     B[0] = 1;
     A[1] = 2;
