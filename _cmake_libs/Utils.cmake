@@ -22,7 +22,7 @@ endfunction()
 #
 # Add single test file and library, generate test target and coverage target
 # Arg: single_file, link_lib, folder_name
-# Optional arg: san_option, disable_coverage(bool)
+# Optional arg: san_option, disable_coverage(bool), link_cuda(bool)
 # Return generated test name $LATEST_RETURN
 function(add_unit_doctest single_file link_lib folder_name)
     if(NOT DEFINED ARGV3)
@@ -58,6 +58,12 @@ function(add_unit_doctest single_file link_lib folder_name)
         set(disable_test_coverage ${ARGV4})
     endif()
 
+    if(NOT DEFINED ARGV5)
+        set(link_cuda FALSE)
+    else()
+        set(link_cuda ${ARGV5})
+    endif()
+
     remove_dot_suffix(${single_file})
     to_lowercase_underline(${LATEST_RETURN})
     set(name ${LATEST_RETURN})
@@ -74,9 +80,17 @@ function(add_unit_doctest single_file link_lib folder_name)
     )
 
     # Lib coverage and sanitizer options
-    target_compile_options(${name} PRIVATE $<$<STREQUAL:${CMAKE_BUILD_TYPE},Debug>:${${SAN_COMPILE_OPTIONS}}> ${COMMON_COMPILE_OPTIONS} $<$<NOT:$<BOOL:disable_test_coverage>>:${TEST_COVERAGE_OPTIONS}>)
-    target_link_options(${name} PRIVATE $<$<STREQUAL:${CMAKE_BUILD_TYPE},Debug>:${${SAN_LINK_OPTIONS}}> ${COMMON_LINK_OPTIONS} $<$<NOT:$<BOOL:disable_test_coverage>>:${TEST_COVERAGE_OPTIONS}>)
+    target_compile_options(${name} PRIVATE
+        $<$<STREQUAL:${CMAKE_BUILD_TYPE},Debug>:${${SAN_COMPILE_OPTIONS}}>
+        ${COMMON_COMPILE_OPTIONS}
+        $<$<NOT:$<BOOL:disable_test_coverage>>:${TEST_COVERAGE_OPTIONS}>)
+    target_link_options(${name} PRIVATE
+        $<$<STREQUAL:${CMAKE_BUILD_TYPE},Debug>:${${SAN_LINK_OPTIONS}}>
+        ${COMMON_LINK_OPTIONS} 
+        $<$<NOT:$<BOOL:disable_test_coverage>>:${TEST_COVERAGE_OPTIONS}>
+        $<$<BOOL:link_cuda>:${MSVC_LINK_CUDA_OPTIONS}>)
     target_include_directories(${name} PRIVATE ${DOCTEST_INCLUDE_DIR})
+
     # CTest intergration
     add_test(NAME ${name} COMMAND ${name})
 
