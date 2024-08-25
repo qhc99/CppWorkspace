@@ -1,5 +1,5 @@
-#ifndef DEV_QHC_CPP_PROJECTS_COLOR_H
-#define DEV_QHC_CPP_PROJECTS_COLOR_H
+#ifndef DEV_QC_CPP_PROJECTS_COLOR_H
+#define DEV_QC_CPP_PROJECTS_COLOR_H
 
 #include "vec3.h"
 #include <iostream>
@@ -21,4 +21,4 @@ inline void write_color(std::ostream &out, Color pixel_color, int samples_per_pi
         << static_cast<int>(256 * clamp(b, 0.0, 0.999)) << '\n';
 }
 
-#endif //DEV_QHC_CPP_PROJECTS_WRITE_COLOR_H
+#endif //DEV_QC_CPP_PROJECTS_WRITE_COLOR_H

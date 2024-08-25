@@ -1,5 +1,5 @@
-#ifndef DEV_QHC_CPP_PROJECTS_MATERIAL_H
-#define DEV_QHC_CPP_PROJECTS_MATERIAL_H
+#ifndef DEV_QC_CPP_PROJECTS_MATERIAL_H
+#define DEV_QC_CPP_PROJECTS_MATERIAL_H
 
 #include "hittable.h"
 #include "rtweekend.h"
@@ -107,4 +107,4 @@ private:
     }
 };
 
-#endif // DEV_QHC_CPP_PROJECTS_MATERIAL_H
+#endif // DEV_QC_CPP_PROJECTS_MATERIAL_H

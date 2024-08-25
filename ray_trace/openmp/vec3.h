@@ -1,5 +1,5 @@
-#ifndef DEV_QHC_CPP_PROJECTS_VEC3_H
-#define DEV_QHC_CPP_PROJECTS_VEC3_H
+#ifndef DEV_QC_CPP_PROJECTS_VEC3_H
+#define DEV_QC_CPP_PROJECTS_VEC3_H
 
 #include "rtweekend.h"
 #include <array>
@@ -193,4 +193,4 @@ inline Vec3 random_in_unit_disk()
     }
 }
 
-#endif // DEV_QHC_CPP_PROJECTS_VEC3_H
+#endif // DEV_QC_CPP_PROJECTS_VEC3_H

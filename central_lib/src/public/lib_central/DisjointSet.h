@@ -1,5 +1,5 @@
-#ifndef ORG_QC_CPP_CENTRAL_LIB_DISJOINT_SET
-#define ORG_QC_CPP_CENTRAL_LIB_DISJOINT_SET
+#ifndef DEV_QC_CENTRAL_LIB_DISJOINT_SET
+#define DEV_QC_CENTRAL_LIB_DISJOINT_SET
 
 namespace dev::qhc::central_lib {
 class DisjointSet {

@@ -1,5 +1,5 @@
-#ifndef DEV_QHC_CPP_PROJECTS_RTWEEKEND_H
-#define DEV_QHC_CPP_PROJECTS_RTWEEKEND_H
+#ifndef DEV_QC_CPP_PROJECTS_RTWEEKEND_H
+#define DEV_QC_CPP_PROJECTS_RTWEEKEND_H
 #include <cmath>
 #include <limits>
 #include <memory>
@@ -40,4 +40,4 @@ inline double clamp(double x, double min, double max)
     return x;
 }
 
-#endif // DEV_QHC_CPP_PROJECTS_RTWEEKEND_H
+#endif // DEV_QC_CPP_PROJECTS_RTWEEKEND_H

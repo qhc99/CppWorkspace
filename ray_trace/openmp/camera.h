@@ -1,5 +1,5 @@
-#ifndef DEV_QHC_CPP_PROJECTS_CAMERA_H
-#define DEV_QHC_CPP_PROJECTS_CAMERA_H
+#ifndef DEV_QC_CPP_PROJECTS_CAMERA_H
+#define DEV_QC_CPP_PROJECTS_CAMERA_H
 #include "ray.h"
 #include "rtweekend.h"
 #include "vec3.h"
@@ -87,4 +87,4 @@ private:
     Vec3 vertical;
 };
 
-#endif // DEV_QHC_CPP_PROJECTS_CAMERA_H
+#endif // DEV_QC_CPP_PROJECTS_CAMERA_H

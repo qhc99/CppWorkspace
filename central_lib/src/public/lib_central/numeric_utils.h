@@ -1,5 +1,5 @@
-#ifndef LEARNCPP_TOOLS_H
-#define LEARNCPP_TOOLS_H
+#ifndef DEV_QC_CENTRAL_LIB_NUMERIC_TOOLS_H
+#define DEV_QC_CENTRAL_LIB_NUMERIC_TOOLS_H
 
 #include <vector>
 namespace dev::qhc::Euler {

@@ -1,5 +1,5 @@
-#ifndef ORG_QC_CPP_CENTRAL_LIB_RANK_SEARCH_CPP
-#define ORG_QC_CPP_CENTRAL_LIB_RANK_SEARCH_CPP
+#ifndef DEV_QC_CENTRAL_LIB_RANK_SEARCH_CPP
+#define DEV_QC_CENTRAL_LIB_RANK_SEARCH_CPP
 
 #include <random>
 #include <stdexcept>
@@ -71,4 +71,4 @@ static T find(vector<T>& a, size_t ith)
 
 } // namespace dev::qhc::central_lib::rank_search
 
-#endif // ORG_QC_CPP_CENTRAL_LIB_RANK_SEARCH_CPP
+#endif // DEV_QC_CPP_CENTRAL_LIB_RANK_SEARCH_CPP

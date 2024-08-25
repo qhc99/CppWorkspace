@@ -1,5 +1,5 @@
-#ifndef ORG_QC_CPP_ALL_IN_ONE_UTILS_H
-#define ORG_QC_CPP_ALL_IN_ONE_UTILS_H
+#ifndef DEV_QC_CENTRAL_LIB_UTILS_H
+#define DEV_QC_CENTRAL_LIB_UTILS_H
 
 #include <chrono>
 #include <random>
@@ -62,4 +62,4 @@ inline decltype(std::mt19937 { std::random_device {}() }) default_rand_engine()
 
 } // namespace dev::qhc::utils
 
-#endif // ORG_QC_CPP_ALL_IN_ONE_UTILS_H
+#endif // DEV_QC_CPP_ALL_IN_ONE_UTILS_H

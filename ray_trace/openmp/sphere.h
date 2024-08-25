@@ -1,5 +1,5 @@
-#ifndef DEV_QHC_CPP_PROJECTS_SPHERE_H
-#define DEV_QHC_CPP_PROJECTS_SPHERE_H
+#ifndef DEV_QC_CPP_PROJECTS_SPHERE_H
+#define DEV_QC_CPP_PROJECTS_SPHERE_H
 
 #include "hittable.h"
 #include "vec3.h"
@@ -53,4 +53,4 @@ inline bool Sphere::hit(const Ray& r, double t_min, double t_max, HitRecord& rec
     return true;
 }
 
-#endif // DEV_QHC_CPP_PROJECTS_SPHERE_H
+#endif // DEV_QC_CPP_PROJECTS_SPHERE_H

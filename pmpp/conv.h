@@ -1,5 +1,5 @@
-#ifndef CONV_KERNEL_H
-#define CONV_KERNEL_H
+#ifndef PPMP_CONV_KERNEL_H
+#define PPMP_CONV_KERNEL_H
 
 
 #endif

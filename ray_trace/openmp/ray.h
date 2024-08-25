@@ -1,5 +1,5 @@
-#ifndef DEV_QHC_CPP_PROJECTS_RAY_H
-#define DEV_QHC_CPP_PROJECTS_RAY_H
+#ifndef DEV_QC_CPP_PROJECTS_RAY_H
+#define DEV_QC_CPP_PROJECTS_RAY_H
 #include "vec3.h"
 
 class Ray {
@@ -22,4 +22,4 @@ public:
     Point3 orig;
     Vec3 dir;
 };
-#endif // DEV_QHC_CPP_PROJECTS_RAY_H
+#endif // DEV_QC_CPP_PROJECTS_RAY_H

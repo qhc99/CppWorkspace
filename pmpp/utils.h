@@ -1,5 +1,5 @@
-#ifndef PMPP_EXAMPLE_UTILS
-#define PMPP_EXAMPLE_UTILS
+#ifndef PMPP_UTILS_H
+#define PMPP_UTILS_H
 
 #include <iostream>
 #include <cstdlib>

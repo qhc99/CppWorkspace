@@ -1,5 +1,5 @@
-#ifndef DEV_QHC_CPP_PROJECTS_HITTABLE_LIST_H
-#define DEV_QHC_CPP_PROJECTS_HITTABLE_LIST_H
+#ifndef DEV_QC_CPP_PROJECTS_HITTABLE_LIST_H
+#define DEV_QC_CPP_PROJECTS_HITTABLE_LIST_H
 
 #include "hittable.h"
 
@@ -42,4 +42,4 @@ inline bool HittableList::hit(const Ray& r, double t_min, double t_max, HitRecor
     return hit_anything;
 }
 
-#endif // DEV_QHC_CPP_PROJECTS_HITTABLELIST_H
+#endif // DEV_QC_CPP_PROJECTS_HITTABLELIST_H

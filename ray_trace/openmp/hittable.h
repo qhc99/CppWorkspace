@@ -1,5 +1,5 @@
-#ifndef DEV_QHC_CPP_PROJECTS_HITTABLE_H
-#define DEV_QHC_CPP_PROJECTS_HITTABLE_H
+#ifndef DEV_QC_CPP_PROJECTS_HITTABLE_H
+#define DEV_QC_CPP_PROJECTS_HITTABLE_H
 #include "ray.h"
 #include "rtweekend.h"
 
@@ -29,4 +29,4 @@ public:
     virtual ~Hittable() = default;
     virtual bool hit(const Ray& r, double t_min, double t_max, HitRecord& rec) const = 0;
 };
-#endif // DEV_QHC_CPP_PROJECTS_HITTABLE_H
+#endif // DEV_QC_CPP_PROJECTS_HITTABLE_H
