@@ -8,3 +8,4 @@ CompileFlags:
     - -Xcompiler*
     - -forward-unknown-to-host-compiler
     - --generate-code*
+    - -ccbin*
