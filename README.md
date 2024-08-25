@@ -9,7 +9,7 @@
 - Commands should be in path: 
     1. Compiler: `clang++`, `nvcc`
     1. Build: `vcpkg`, `cmake`, `ninja`
-    1. Tools: `clangd`, `llvm-cov`, `llvm-profdata`
+    1. Tools: `clangd`, `llvm-cov`, `llvm-profdata`, `rg`(ripgrep for windows)
 
 # Usage
 - Test coverage is generated to folder `_html_cov_report` by running corresponding custom targets.
