@@ -1,5 +1,4 @@
 #define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
-#include "workspace_pch.h"
 #include "lib_central/TernaryTries.hpp"
 #include "doctest/doctest.h"
 

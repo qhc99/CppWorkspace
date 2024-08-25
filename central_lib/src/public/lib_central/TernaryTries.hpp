@@ -1,8 +1,6 @@
 #ifndef DEV_QC_CENTRAL_LIB_TERNARYTRIES_HPP
 #define DEV_QC_CENTRAL_LIB_TERNARYTRIES_HPP
 
-#include "workspace_pch.h"
-
 
 template <typename T_Val = std::nullptr_t>
     requires std::copyable<T_Val>

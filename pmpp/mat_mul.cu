@@ -1,5 +1,3 @@
-#include "workspace_pch.h"
-
 #include "utils.h"
 
 #define MAT_MUL_KERNEL_TILE_WIDTH 16

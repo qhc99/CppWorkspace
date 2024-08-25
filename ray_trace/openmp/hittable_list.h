@@ -1,7 +1,6 @@
 #ifndef DEV_QC_CPP_PROJECTS_HITTABLE_LIST_H
 #define DEV_QC_CPP_PROJECTS_HITTABLE_LIST_H
 
-#include "workspace_pch.h"
 #include "hittable.h"
 
 

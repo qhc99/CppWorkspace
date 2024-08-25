@@ -1,8 +1,6 @@
 #ifndef DEV_QC_CENTRAL_LIB_CONCEPTS_UTILS
 #define DEV_QC_CENTRAL_LIB_CONCEPTS_UTILS
 
-#include "workspace_pch.h"
-
 namespace concepts_utils {
 
 template <typename T>

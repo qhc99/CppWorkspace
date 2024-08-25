@@ -1,6 +1,5 @@
 #ifndef CPP_WORKSPACE_CHIP8_PLATFORM
 #define CPP_WORKSPACE_CHIP8_PLATFORM
-#include "workspace_pch.h"
 #include <SDL.h>
 #include <SDL_render.h>
 

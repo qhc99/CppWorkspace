@@ -1,6 +1,6 @@
 #ifndef DEV_QC_CENTRAL_LIB_NUMERIC_TOOLS_H
 #define DEV_QC_CENTRAL_LIB_NUMERIC_TOOLS_H
-#include "workspace_pch.h"
+
 namespace dev::qhc::Euler {
 using std::vector;
 

@@ -1,6 +1,5 @@
 #define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
 
-#include "workspace_pch.h"
 #include <doctest/doctest.h>
 #include "mat_mul.h"
 

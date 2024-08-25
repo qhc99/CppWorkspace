@@ -1,6 +1,5 @@
 #ifndef DEV_QC_CPP_PROJECTS_RTWEEKEND_H
 #define DEV_QC_CPP_PROJECTS_RTWEEKEND_H
-#include "workspace_pch.h"
 
 // Usings
 

@@ -1,6 +1,5 @@
 #ifndef DEV_QC_CENTRAL_LIB_UTILS_H
 #define DEV_QC_CENTRAL_LIB_UTILS_H
-#include "workspace_pch.h"
 
 namespace dev::qhc::utils {
 

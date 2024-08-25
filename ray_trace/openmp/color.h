@@ -1,7 +1,6 @@
 #ifndef DEV_QC_CPP_PROJECTS_COLOR_H
 #define DEV_QC_CPP_PROJECTS_COLOR_H
 
-#include "workspace_pch.h"
 #include "vec3.h"
 
 

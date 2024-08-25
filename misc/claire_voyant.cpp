@@ -1,4 +1,3 @@
-#include "workspace_pch.h"
 
 class Main {
 public:

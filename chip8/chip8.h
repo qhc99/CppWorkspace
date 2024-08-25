@@ -1,8 +1,6 @@
 #ifndef CPP_WORKSPACE_CHIP8
 #define CPP_WORKSPACE_CHIP8
 
-#include "workspace_pch.h"
-
 class Chip8 {
   static constexpr unsigned int START_ADDRESS = 0x200;
   static constexpr unsigned int FONTSET_SIZE = 80;
