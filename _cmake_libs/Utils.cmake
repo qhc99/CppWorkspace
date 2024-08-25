@@ -21,7 +21,8 @@ endfunction()
 
 #
 # Add single test file and library, generate test target and coverage target
-# Arg: single_file, link_lib, folder_name, san_option, disable_coverage(bool), no_libcmt(bool)
+# Arg: single_file, link_lib, folder_name
+# Optional arg: san_option, disable_coverage(bool)
 # Return generated test name $LATEST_RETURN
 function(add_unit_doctest single_file link_lib folder_name)
     if(NOT DEFINED ARGV3)
@@ -34,31 +35,27 @@ function(add_unit_doctest single_file link_lib folder_name)
         if(MSVC)
             return()
         endif()
+
         set(SAN_COMPILE_OPTIONS TSAN_COMPILE_LINK_OPTIONS)
         set(SAN_LINK_OPTIONS TSAN_COMPILE_LINK_OPTIONS)
     elseif(ARGV3 STREQUAL "msan")
         if(MSVC)
             return()
         endif()
+
         set(SAN_COMPILE_OPTIONS MSAN_COMPILE_LINK_OPTIONS)
         set(SAN_LINK_OPTIONS MSAN_COMPILE_LINK_OPTIONS)
     elseif(ARGV3 STREQUAL "none")
         set(SAN_COMPILE_OPTIONS "")
         set(SAN_LINK_OPTIONS "")
     else()
-        message(FATAL_ERROR "Arg 4 argument error: ${ARGV3}")
+        message(FATAL_ERROR "Arg 3 argument error: ${ARGV3}")
     endif()
 
     if(NOT DEFINED ARGV4)
-        set(disable_test_coverage FALSE)        
+        set(disable_test_coverage FALSE)
     else()
         set(disable_test_coverage ${ARGV4})
-    endif()
-
-    if(NOT DEFINED ARGV5)
-        set(no_libcmt FALSE)        
-    else()
-        set(no_libcmt ${ARGV5})
     endif()
 
     remove_dot_suffix(${single_file})
@@ -77,9 +74,9 @@ function(add_unit_doctest single_file link_lib folder_name)
     )
 
     # Lib coverage and sanitizer options
-    target_compile_options(${name} PRIVATE $<$<STREQUAL:${CMAKE_BUILD_TYPE},Debug>:${${SAN_COMPILE_OPTIONS}}> ${COMMON_COMPILE_OPTIONS} ${TEST_COVERAGE_OPTIONS})
-    target_link_options(${name} PRIVATE $<$<STREQUAL:${CMAKE_BUILD_TYPE},Debug>:${${SAN_LINK_OPTIONS}}> ${TEST_COVERAGE_OPTIONS} ${COMMON_LINK_OPTIONS} $<$<BOOL:${no_libcmt}>:$<$<CXX_COMPILER_ID:MSVC>:/NODEFAULTLIB:LIBCMT>>)
-
+    target_compile_options(${name} PRIVATE $<$<STREQUAL:${CMAKE_BUILD_TYPE},Debug>:${${SAN_COMPILE_OPTIONS}}> ${COMMON_COMPILE_OPTIONS} $<$<NOT:$<BOOL:disable_test_coverage>>:${TEST_COVERAGE_OPTIONS}>)
+    target_link_options(${name} PRIVATE $<$<STREQUAL:${CMAKE_BUILD_TYPE},Debug>:${${SAN_LINK_OPTIONS}}> ${COMMON_LINK_OPTIONS} $<$<NOT:$<BOOL:disable_test_coverage>>:${TEST_COVERAGE_OPTIONS}>)
+    target_include_directories(${name} PRIVATE ${DOCTEST_INCLUDE_DIR})
     # CTest intergration
     add_test(NAME ${name} COMMAND ${name})
 
