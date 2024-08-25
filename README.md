@@ -9,11 +9,11 @@
 - Commands should be in path: 
     1. Compiler: `clang++`, `nvcc`
     1. Build: `vcpkg`, `cmake`, `ninja`
-    1. Tools: `clangd`, `llvm-cov`, `llvm-profdata`, `rg`(ripgrep for windows)
+    1. Tools: `clangd`, `llvm-cov`, `llvm-profdata`, `rg`(ripgrep)
 
 # Usage
 - Test coverage is generated to folder `_html_cov_report` by running corresponding custom targets.
-- Run `build-test-all.cmd` or `build-test-all.sh` to check if build and tests pass
+- Run `check-build.cmd` or `check-build.sh` to check if build and tests pass
 - Enable clangd cuda support on Linux: update the cuda path in `config.yaml` on your system and copy it to clangd user folder: ` cp config.yaml  ~/.config/clangd/config.yaml`. 
 
 # Troubleshooting
