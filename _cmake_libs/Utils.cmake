@@ -83,7 +83,7 @@ function(add_unit_doctest single_file link_lib folder_name)
     # CTest intergration
     add_test(NAME ${name} COMMAND ${name})
 
-    if(NOT ${disable_test_coverage} AND LLVM_PROFDATA_EXIST AND LLVM_COV_EXIST AND CMAKE_CXX_COMPILER_ID MATCHES "Clang")
+    if(NOT ${disable_test_coverage} AND LLVM_PROFDATA_PROGRAM AND LLVM_COV_PROGRAM AND CMAKE_CXX_COMPILER_ID MATCHES "Clang")
         # Test coverage
         add_custom_target(run_${name}_coverage
             COMMAND ${CMAKE_COMMAND} -E echo "--- Executable path: $<TARGET_FILE:${name}>"
