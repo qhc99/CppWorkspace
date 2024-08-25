@@ -17,7 +17,7 @@ add_executable(${TARGET_RT_OMP}
     openmp/camera.h
     openmp/material.h)
 
-target_link_libraries(${TARGET_RT_OMP} central_lib)
+target_link_libraries(${TARGET_RT_OMP} PRIVATE central_lib workspace_pch)
 target_compile_options(${TARGET_RT_OMP} PRIVATE $<$<CXX_COMPILER_ID:Clang>:-fopenmp -std=c++20> $<$<CXX_COMPILER_ID:MSVC>:/openmp /std:c++20>)
 target_link_options(${TARGET_RT_OMP} PRIVATE $<$<CXX_COMPILER_ID:Clang>:-fopenmp>)
 set_property(TARGET ${TARGET_RT_OMP} PROPERTY CMAKE_CXX_STANDARD 20)
@@ -47,6 +47,7 @@ if(NVCC_COMPILER_PROGRAM AND NOT SKIP_CUDA_ON_WINDOWS)
         --std=c++20
         -v
     )
+    target_link_libraries(${TARGET_RT_CUDA} PRIVATE workspace_pch cuda_pch)
     target_link_options(${TARGET_RT_CUDA} PRIVATE $<$<AND:$<PLATFORM_ID:Windows>,$<CXX_COMPILER_ID:MSVC>>:/NODEFAULTLIB:LIBCMT>) # Fix link warning
     set_target_properties(${TARGET_RT_CUDA} PROPERTIES FOLDER ${folder_name})
     message(STATUS ">>> Added ray trace cuda")

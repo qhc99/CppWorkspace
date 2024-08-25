@@ -2,9 +2,7 @@
 #define DEV_QC_CPP_PROJECTS_VEC3_H
 
 #include "rtweekend.h"
-#include <array>
-#include <cmath>
-#include <iostream>
+
 
 using std::sqrt;
 

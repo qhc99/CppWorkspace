@@ -77,6 +77,7 @@ function(add_unit_doctest single_file link_lib folder_name)
         PRIVATE
         ${link_lib}
         doctest::doctest
+        workspace_pch
     )
 
     # Lib coverage and sanitizer options

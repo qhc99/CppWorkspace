@@ -1,8 +1,7 @@
 #ifndef DEV_QC_CPP_PROJECTS_RTWEEKEND_H
 #define DEV_QC_CPP_PROJECTS_RTWEEKEND_H
-#include <cmath>
-#include <limits>
-#include <memory>
+#include "workspace_pch.h"
+
 // Usings
 
 using std::make_shared;

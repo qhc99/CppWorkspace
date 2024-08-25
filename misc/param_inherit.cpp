@@ -1,6 +1,4 @@
-#include <cmath>
-
-#include <iostream>
+#include "workspace_pch.h"
 using namespace std;
 
 class DefaultPolicy1 { };

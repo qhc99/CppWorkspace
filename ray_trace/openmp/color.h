@@ -1,8 +1,9 @@
 #ifndef DEV_QC_CPP_PROJECTS_COLOR_H
 #define DEV_QC_CPP_PROJECTS_COLOR_H
 
+#include "workspace_pch.h"
 #include "vec3.h"
-#include <iostream>
+
 
 inline void write_color(std::ostream &out, Color pixel_color, int samples_per_pixel) {
     auto r = pixel_color.x();

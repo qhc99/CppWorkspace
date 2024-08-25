@@ -1,6 +1,7 @@
-#include <cstddef>
 #define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
-#include "doctest/doctest.h"
+
+#include "workspace_pch.h"
+#include <doctest/doctest.h>
 #include "mat_mul.h"
 
 TEST_CASE("mat_mul_tiling_small_mat_test"){

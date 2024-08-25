@@ -1,13 +1,7 @@
 #ifndef CPP_WORKSPACE_CHIP8
 #define CPP_WORKSPACE_CHIP8
 
-#include <array>
-#include <chrono>
-#include <cstddef>
-#include <cstdint>
-#include <fstream>
-#include <random>
-#include <cstring>
+#include "workspace_pch.h"
 
 class Chip8 {
   static constexpr unsigned int START_ADDRESS = 0x200;

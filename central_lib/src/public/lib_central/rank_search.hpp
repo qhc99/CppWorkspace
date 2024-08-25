@@ -1,10 +1,6 @@
 #ifndef DEV_QC_CENTRAL_LIB_RANK_SEARCH_CPP
 #define DEV_QC_CENTRAL_LIB_RANK_SEARCH_CPP
-
-#include <random>
-#include <stdexcept>
-#include <vector>
-
+#include "workspace_pch.h"
 #include "lib_central/concepts_utils.h"
 
 namespace dev::qhc::central_lib::rank_search {

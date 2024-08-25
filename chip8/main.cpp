@@ -1,8 +1,7 @@
+#include "workspace_pch.h"
 #include "chip8.h"
 #include "platform.h"
-#include <chrono>
-#include <iostream>
-#include <string>
+
 
 // NOLINTBEGIN(cppcoreguidelines-pro-bounds-pointer-arithmetic,concurrency-mt-unsafe)
 int main(int argc, char *argv[]) {

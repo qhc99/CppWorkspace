@@ -1,5 +1,6 @@
+#include "workspace_pch.h"
 #include "rtweekend.h"
-#include <random>
+
 
 double random_double()
 {

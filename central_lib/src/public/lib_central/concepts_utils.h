@@ -1,7 +1,7 @@
 #ifndef DEV_QC_CENTRAL_LIB_CONCEPTS_UTILS
 #define DEV_QC_CENTRAL_LIB_CONCEPTS_UTILS
 
-#include <concepts>
+#include "workspace_pch.h"
 
 namespace concepts_utils {
 

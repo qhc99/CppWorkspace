@@ -1,9 +1,4 @@
-#include <algorithm>
-#include <chrono>
-#include <iomanip>
-#include <iostream>
-#include <numeric>
-#include <vector>
+#include "workspace_pch.h"
 
 class Main {
 public:

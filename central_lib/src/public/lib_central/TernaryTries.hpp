@@ -1,11 +1,8 @@
 #ifndef DEV_QC_CENTRAL_LIB_TERNARYTRIES_HPP
 #define DEV_QC_CENTRAL_LIB_TERNARYTRIES_HPP
 
-#include <concepts>
-#include <cstddef>
-#include <deque>
-#include <stdexcept>
-#include <string>
+#include "workspace_pch.h"
+
 
 template <typename T_Val = std::nullptr_t>
     requires std::copyable<T_Val>
