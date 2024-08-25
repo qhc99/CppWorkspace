@@ -7,8 +7,8 @@
     1. `ninja-build` (WSL2, optional by updating `CMakePresets.json`)
     1. `clangd` (optional to use clangd language server. It depends on `compile_commands.json`, which is currently only produced by `make` or `ninja`)
 - Commands should be in path: 
-    1. Compiler: `clang`, `clang++`, `nvcc`, `cl`
-    1. Build: `vcpkg`, `cmake`, `ninja`, `mt` (windows SDK used by CUDA, example path: `C:\Program Files (x86)\Windows Kits\10\bin\10.0.22621.0\x64`)
+    1. Compiler: `clang++`, `nvcc`
+    1. Build: `vcpkg`, `cmake`, `ninja`
     1. Tools: `clangd`, `llvm-cov`, `llvm-profdata`
 
 # Usage
