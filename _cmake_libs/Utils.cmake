@@ -88,8 +88,7 @@ function(add_unit_doctest single_file link_lib folder_name)
         $<$<STREQUAL:${CMAKE_BUILD_TYPE},Debug>:${${SAN_LINK_OPTIONS}}>
         ${COMMON_LINK_OPTIONS} 
         $<$<NOT:$<BOOL:disable_test_coverage>>:${TEST_COVERAGE_OPTIONS}>
-        $<$<BOOL:link_cuda>:${MSVC_LINK_CUDA_OPTIONS}>)
-    target_include_directories(${name} PRIVATE ${DOCTEST_INCLUDE_DIR})
+        $<$<BOOL:link_cuda>:${MSVC_NO_LIBCMT_LINK_OPTIONS}>)
 
     # CTest intergration
     add_test(NAME ${name} COMMAND ${name})
