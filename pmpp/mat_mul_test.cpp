@@ -4,7 +4,7 @@
 #include "mat_mul.h"
 #include <doctest/doctest.h>
 
-TEST_CASE("mat_mul_tiling_small_mat_test")
+TEST_CASE("mat_mul_small_mat_test")
 {
     constexpr size_t i = 3;
     constexpr size_t j = 3;
@@ -36,7 +36,7 @@ TEST_CASE("mat_mul_tiling_small_mat_test")
     delete[] C;
 }
 
-TEST_CASE("mat_mul_tiling_large_mat_test")
+TEST_CASE("mat_mul_large_mat_test")
 {
     constexpr size_t i = 1024;
     constexpr size_t j = 1024;
