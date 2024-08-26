@@ -56,7 +56,7 @@ set(TEST_COVERAGE_OPTIONS
 
 set(COMMON_COMPILE_OPTIONS
     ${WARN_ALL_COMPILE_OPTIONS}
-    $<$<CXX_COMPILER_ID:Clang>:-v;-std=c++20>
+    $<$<CXX_COMPILER_ID:Clang>:$<$<BOOL:${COMPILE_LINK_VERBOSE}>:-v>;-std=c++20>
     $<$<CXX_COMPILER_ID:MSVC>:/std:c++20>
 )
 
@@ -72,7 +72,7 @@ set(NVCC_COMMON_COMPILE_OPTIONS
     $<$<CONFIG:Debug>:-G> # Enable device code debug
     $<$<NOT:$<PLATFORM_ID:Windows>>:-ccbin=clang++;-Wno-gnu-line-marker>
     --std c++20
-    -v
+    $<$<BOOL:${COMPILE_LINK_VERBOSE}>:-v>
 )
 
 set(MSVC_NO_LIBCMT_LINK_OPTIONS

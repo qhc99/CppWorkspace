@@ -45,7 +45,7 @@ if(NVCC_COMPILER_PROGRAM AND NOT SKIP_CUDA_ON_WINDOWS)
         $<$<CONFIG:Debug>:-G> # Enable device code debug
         $<$<NOT:$<PLATFORM_ID:Windows>>:-ccbin=clang++>
         --std=c++20
-        -v
+        $<$<BOOL:${COMPILE_LINK_VERBOSE}>:-v>
     )
     target_link_libraries(${TARGET_RT_CUDA} PRIVATE workspace_pch)
     target_link_options(${TARGET_RT_CUDA} PRIVATE $<$<AND:$<PLATFORM_ID:Windows>,$<CXX_COMPILER_ID:MSVC>>:/NODEFAULTLIB:LIBCMT>) # Fix link warning

@@ -5,10 +5,10 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "CUDA-gdb rt cuda",
+            "name": "CUDA-gdb mat mul",
             "type": "cuda-gdb",
             "request": "launch",
-            "program": "${workspaceFolder}/_build_debug/ray_trace/rt_cuda"
+            "program": "${workspaceFolder}/_build_debug/pmpp/mat_mul_test"
         },
 
         {
