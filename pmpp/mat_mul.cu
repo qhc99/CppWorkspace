@@ -1,6 +1,4 @@
 #include "utils.h"
-#include <algorithm>
-#include <cstddef>
 
 constexpr size_t TILE_WIDTH { 16 };
 constexpr size_t COARSE_FACTOR { 2 };
