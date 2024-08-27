@@ -2,8 +2,8 @@
 #include <algorithm>
 #include <cstddef>
 
-constexpr size_t TILE_WIDTH { 32 };
-constexpr size_t COARSE_FACTOR { 4 };
+constexpr size_t TILE_WIDTH { 16 };
+constexpr size_t COARSE_FACTOR { 2 };
 
 /**
  * @brief Mat Mul Tiling and Coarsening
