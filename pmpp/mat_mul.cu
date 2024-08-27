@@ -1,12 +1,24 @@
 #include "utils.h"
 
 constexpr size_t TILE_WIDTH { 16 };
+constexpr size_t COARSE_FACTOR { 4 };
 
-// Tiling
+/**
+ * @brief Mat Mul Tiling and Coarsening
+ *
+ * @param A row major matrix, size i * j
+ * @param B row major matrix, size j * k
+ * @param C row major matrix, size i * k
+ * @param i
+ * @param j
+ * @param k
+ * @return void
+ */
 __global__ void matMulKernel(float* A, float* B, float* C, size_t i, size_t j, size_t k)
 {
-    __shared__ float Mds[TILE_WIDTH][TILE_WIDTH];
-    __shared__ float Nds[TILE_WIDTH][TILE_WIDTH];
+    extern __shared__ float shared_mem[];
+    float* Mds { shared_mem };
+    float* Nds { shared_mem + TILE_WIDTH * TILE_WIDTH };
 
     size_t bx { blockIdx.x };
     size_t by { blockIdx.y };
@@ -19,12 +31,12 @@ __global__ void matMulKernel(float* A, float* B, float* C, size_t i, size_t j, s
     float p {};
 
     for (size_t ph {}; static_cast<float>(ph) < ceil(static_cast<float>(j) / static_cast<float>(TILE_WIDTH)); ph++) {
-        Mds[tx][ty] = (row < i && (ph * TILE_WIDTH + ty) < j) ? A[row * j + ph * TILE_WIDTH + ty] : 0;
-        Nds[tx][ty] = ((ph * TILE_WIDTH + tx) < j && col < k) ? B[(ph * TILE_WIDTH + tx) * k + col] : 0;
+        Mds[tx * TILE_WIDTH + ty] = (row < i && (ph * TILE_WIDTH + ty) < j) ? A[row * j + ph * TILE_WIDTH + ty] : 0;
+        Nds[tx * TILE_WIDTH + ty] = ((ph * TILE_WIDTH + tx) < j && col < k) ? B[(ph * TILE_WIDTH + tx) * k + col] : 0;
         __syncthreads();
 
         for (size_t k {}; k < TILE_WIDTH; k++) {
-            p += Mds[tx][k] * Nds[k][ty];
+            p += Mds[tx * TILE_WIDTH + k] * Nds[k * TILE_WIDTH + ty];
         }
         __syncthreads();
     }
@@ -50,7 +62,7 @@ void matMul(float* A, float* B, float* C, size_t i, size_t j, size_t k)
     auto grid_dim_x { static_cast<unsigned int>(std::ceil(static_cast<float>(i) / static_cast<float>(TILE_WIDTH))) };
     auto grid_dim_y { static_cast<unsigned int>(std::ceil(static_cast<float>(k) / static_cast<float>(TILE_WIDTH))) };
     dim3 grid_dim { grid_dim_x, grid_dim_y, 1 };
-    matMulKernel<<<grid_dim, block_dim>>>(A_d, B_d, C_d, i, j, k);
+    matMulKernel<<<grid_dim, block_dim, 2 * TILE_WIDTH * TILE_WIDTH * sizeof(float)>>>(A_d, B_d, C_d, i, j, k);
 
     checkCudaErrors(cudaMemcpy(C, C_d, i * k * sizeof(float), cudaMemcpyDeviceToHost));
 
