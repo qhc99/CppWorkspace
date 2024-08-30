@@ -8,7 +8,7 @@ constexpr size_t COARSE_FACTOR { 2 };
  *
  * @param A row major matrix, size i * j
  * @param B row major matrix, size j * k
- * @param C row major matrix, size i * k
+ * @param C row major matrix, size i * k, return C = A * B
  * @param i
  * @param j
  * @param k
