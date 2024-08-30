@@ -3,17 +3,7 @@
 constexpr size_t TILE_WIDTH { 16 };
 constexpr size_t COARSE_FACTOR { 2 };
 
-/**
- * @brief Mat Mul Tiling and Coarsening
- *
- * @param A row major matrix, size i * j
- * @param B row major matrix, size j * k
- * @param C row major matrix, size i * k, return C = A * B
- * @param i
- * @param j
- * @param k
- * @return void
- */
+
 __global__ void matMulKernel(float* A, float* B, float* C, size_t i, size_t j, size_t k)
 {
     extern __shared__ float shared_mem[];
@@ -55,6 +45,17 @@ __global__ void matMulKernel(float* A, float* B, float* C, size_t i, size_t j, s
     }
 }
 
+/**
+ * @brief Mat Mul Tiling and Coarsening
+ *
+ * @param A row major matrix, size i * j
+ * @param B row major matrix, size j * k
+ * @param C row major matrix, size i * k, return C = A * B
+ * @param i
+ * @param j
+ * @param k
+ * @return void
+ */
 void matMul(float* A, float* B, float* C, size_t i, size_t j, size_t k)
 {
     float* A_d = nullptr;
