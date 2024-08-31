@@ -12,8 +12,8 @@ TEST_CASE("mat_mul_small_mat_test")
     auto* A = new float[i * j];
     auto* B = new float[j * k];
     auto* C = new float[i * k];
-    std::fill(A, A + i * j, 0);
-    std::iota(B, B + j * k, 0);
+    std::fill(A, A + i * j, 0.f);
+    std::iota(B, B + j * k, 0.f);
     // Use permutation matrix
     A[2] = 1;
     A[i + 1] = 1;
@@ -22,12 +22,9 @@ TEST_CASE("mat_mul_small_mat_test")
     matMul(A, B, C, i, j, k);
 
     float counter {};
-    for (size_t ti { i-1 }; ti >= 0; ti--) {
+    for (int ti { i-1 }; ti >= 0; ti--) {
         for (size_t tk { 0 }; tk < k; tk++) {
             REQUIRE_EQ(counter++, C[ti * k + tk]);
-        }
-        if (ti == 0) {
-            break;
         }
     }
 
@@ -44,8 +41,8 @@ TEST_CASE("mat_mul_large_mat_test")
     auto* A = new float[i * j];
     auto* B = new float[j * k];
     auto* C = new float[i * k];
-    std::fill(A, A + i * j, 0);
-    std::iota(B, B + j * k, 0);
+    std::fill(A, A + i * j, 0.f);
+    std::iota(B, B + j * k, 0.f);
     // Use permutation matrix
     size_t tj_counter = j-1;
     for (size_t ti {}; ti < i; ti++) {
@@ -54,12 +51,9 @@ TEST_CASE("mat_mul_large_mat_test")
     matMul(A, B, C, i, j, k);
 
     float counter {};
-    for (size_t ti { i-1 }; ti >= 0; ti--) {
+    for (int ti { i-1 }; ti >= 0; ti--) {
         for (size_t tk { 0 }; tk < k; tk++) {
             REQUIRE_EQ(counter++, C[ti * k + tk]);
-        }
-        if (ti == 0) {
-            break;
         }
     }
     delete[] A;
