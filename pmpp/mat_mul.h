@@ -2,7 +2,7 @@
 #define PMPP_MAT_MUL_KERNEL_H
 
 /**
- * @brief Mat Mul Tiling and Coarsening. Available tune parameters: 
+ * @brief Mat Mul Tiling and Coarsening. Available tune compile definitions: 
  * PMPP_MAT_MUL_KERNEL_TILE_WIDTH, PMPP_MAT_MUL_KERNEL_COARSE_FACTOR
  *
  * @param A row major matrix, size i * j
