@@ -4,9 +4,9 @@
 /**
  * @brief convolution 2D, P = N * F, zero padding for N
  * 
- * @param N 
- * @param F 
- * @param P 
+ * @param N input
+ * @param F filter
+ * @param P output
  * @param radius radius of filter F, default max 6, can be override in compile-time 
  * by -DPPMP_CONV2D_MAX_RADIUS 
  * @param width width of N and P
