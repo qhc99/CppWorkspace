@@ -7,8 +7,8 @@ set(folder_name misc)
 
 add_executable(locality_demo locality_demo.cpp)
 target_link_libraries(locality_demo central_lib workspace_pch)
-target_compile_options(locality_demo PRIVATE $<$<CXX_COMPILER_ID:Clang>:-fopenmp;-Wno-pass-failed> $<$<CXX_COMPILER_ID:MSVC>:/openmp>)
-target_link_options(locality_demo PRIVATE $<$<CXX_COMPILER_ID:Clang>:-fopenmp>)
+target_compile_options(locality_demo PRIVATE $<$<CXX_COMPILER_ID:Clang>:-Wno-pass-failed> ${COMPILE_OPENMP_OPTION})
+target_link_options(locality_demo PRIVATE ${LINK_OPENMP_OPTION})
 set_target_properties(locality_demo PROPERTIES FOLDER ${folder_name})
 
 add_executable(param_inherit param_inherit.cpp)

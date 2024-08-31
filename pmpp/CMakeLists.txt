@@ -22,6 +22,8 @@ if(NVCC_COMPILER_PROGRAM AND NOT SKIP_CUDA_ON_WINDOWS)
     set_target_properties(mat_mul_cu PROPERTIES FOLDER "pmpp")
     target_link_libraries(mat_mul_cu PRIVATE workspace_pch)
     add_unit_doctest(mat_mul_test.cpp mat_mul_cu "pmpp" "none" TRUE TRUE)
+    target_compile_options(mat_mul_test PRIVATE ${COMPILE_OPENMP_OPTION})
+    target_link_options(mat_mul_test PRIVATE ${LINK_OPENMP_OPTION})
 
     add_library(conv2d_cu STATIC conv2d.cu conv2d.h utils.h)
     target_compile_options(conv2d_cu PRIVATE ${NVCC_COMMON_COMPILE_OPTIONS})

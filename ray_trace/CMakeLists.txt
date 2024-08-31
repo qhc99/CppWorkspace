@@ -18,8 +18,8 @@ add_executable(${TARGET_RT_OMP}
     openmp/material.h)
 
 target_link_libraries(${TARGET_RT_OMP} PRIVATE central_lib workspace_pch)
-target_compile_options(${TARGET_RT_OMP} PRIVATE $<$<CXX_COMPILER_ID:Clang>:-fopenmp -std=c++20> $<$<CXX_COMPILER_ID:MSVC>:/openmp /std:c++20>)
-target_link_options(${TARGET_RT_OMP} PRIVATE $<$<CXX_COMPILER_ID:Clang>:-fopenmp>)
+target_compile_options(${TARGET_RT_OMP} PRIVATE $<$<CXX_COMPILER_ID:Clang>:-std=c++20> $<$<CXX_COMPILER_ID:MSVC>:/std:c++20> ${COMPILE_OPENMP_OPTION})
+target_link_options(${TARGET_RT_OMP} PRIVATE ${LINK_OPENMP_OPTION})
 set_property(TARGET ${TARGET_RT_OMP} PROPERTY CMAKE_CXX_STANDARD 20)
 set_property(TARGET ${TARGET_RT_OMP} PROPERTY CMAKE_CXX_STANDARD_REQUIRED True)
 set_target_properties(${TARGET_RT_OMP} PROPERTIES FOLDER ${folder_name})

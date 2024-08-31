@@ -1,6 +1,5 @@
 #include <cstddef>
 #define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
-
 #include "mat_mul.h"
 #include <doctest/doctest.h>
 
@@ -20,11 +19,11 @@ TEST_CASE("mat_mul_small_mat_test")
     A[2 * i] = 1;
 
     matMul(A, B, C, i, j, k);
-
-    float counter {};
-    for (int ti { i-1 }; ti >= 0; ti--) {
-        for (size_t tk { 0 }; tk < k; tk++) {
-            REQUIRE_EQ(counter++, C[ti * k + tk]);
+#pragma omp parallel for 
+    for (int ti = i - 1; ti >= 0; ti--) {
+        for (size_t tk = 0; tk < k; tk++) {
+            int ri = -ti + static_cast<int>(i) - 1;
+            REQUIRE_EQ(ri*k + tk, C[ti * k + tk]);
         }
     }
 
@@ -44,16 +43,16 @@ TEST_CASE("mat_mul_large_mat_test")
     std::fill(A, A + i * j, 0.f);
     std::iota(B, B + j * k, 0.f);
     // Use permutation matrix
-    size_t tj_counter = j-1;
+    size_t tj_counter = j - 1;
     for (size_t ti {}; ti < i; ti++) {
-        A[ti*j+tj_counter--] = 1;
+        A[ti * j + tj_counter--] = 1;
     }
     matMul(A, B, C, i, j, k);
-
-    float counter {};
-    for (int ti { i-1 }; ti >= 0; ti--) {
-        for (size_t tk { 0 }; tk < k; tk++) {
-            REQUIRE_EQ(counter++, C[ti * k + tk]);
+#pragma omp parallel for 
+    for (int ti = i - 1; ti >= 0; ti--) {
+        for (size_t tk = 0; tk < k; tk++) {
+            int ri = -ti + static_cast<int>(i) - 1;
+            REQUIRE_EQ(ri*k + tk, C[ti * k + tk]);
         }
     }
     delete[] A;
