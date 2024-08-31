@@ -11,8 +11,8 @@ TEST_CASE("mat_mul_small_mat_test")
     auto* A = new float[i * j];
     auto* B = new float[j * k];
     auto* C = new float[i * k];
-    std::fill(A, A + i * j, 0.f);
-    std::iota(B, B + j * k, 0.f);
+    std::fill(A, A + i * j, 0.F);
+    std::iota(B, B + j * k, 0.F);
     // Use permutation matrix
     A[2] = 1;
     A[i + 1] = 1;
@@ -40,8 +40,8 @@ TEST_CASE("mat_mul_large_mat_test")
     auto* A = new float[i * j];
     auto* B = new float[j * k];
     auto* C = new float[i * k];
-    std::fill(A, A + i * j, 0.f);
-    std::iota(B, B + j * k, 0.f);
+    std::fill(A, A + i * j, 0.F);
+    std::iota(B, B + j * k, 0.F);
     // Use permutation matrix
     size_t tj_counter = j - 1;
     for (size_t ti {}; ti < i; ti++) {
