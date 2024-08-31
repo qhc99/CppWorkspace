@@ -1,6 +1,6 @@
 #include "utils.h"
 
-constexpr size_t TILE_WIDTH { 32 };
+constexpr size_t TILE_WIDTH { 16 };
 constexpr size_t COARSE_FACTOR { 2 };
 
 __global__ void matMulKernel(float* A, float* B, float* C, size_t i, size_t j, size_t k)
