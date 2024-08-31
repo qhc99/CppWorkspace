@@ -1,8 +1,7 @@
 #include "utils.h"
 
-constexpr size_t TILE_WIDTH { 16 };
+constexpr size_t TILE_WIDTH { 32 };
 constexpr size_t COARSE_FACTOR { 2 };
-
 
 __global__ void matMulKernel(float* A, float* B, float* C, size_t i, size_t j, size_t k)
 {
@@ -45,29 +44,27 @@ __global__ void matMulKernel(float* A, float* B, float* C, size_t i, size_t j, s
     }
 }
 
-
 void matMul(float* A, float* B, float* C, size_t i, size_t j, size_t k)
 {
     float* A_d = nullptr;
     float* B_d = nullptr;
     float* C_d = nullptr;
 
-    checkCudaErrors(cudaMalloc(&A_d, i * j * sizeof(float)));
-    checkCudaErrors(cudaMalloc(&B_d, j * k * sizeof(float)));
-    checkCudaErrors(cudaMalloc(&C_d, i * k * sizeof(float)));
+    checkCudaError(cudaMalloc(&A_d, i * j * sizeof(float)));
+    checkCudaError(cudaMalloc(&B_d, j * k * sizeof(float)));
+    checkCudaError(cudaMalloc(&C_d, i * k * sizeof(float)));
 
-    checkCudaErrors(cudaMemcpy(A_d, A, i * j * sizeof(float), cudaMemcpyHostToDevice));
-    checkCudaErrors(cudaMemcpy(B_d, B, j * k * sizeof(float), cudaMemcpyHostToDevice));
+    checkCudaError(cudaMemcpy(A_d, A, i * j * sizeof(float), cudaMemcpyHostToDevice));
+    checkCudaError(cudaMemcpy(B_d, B, j * k * sizeof(float), cudaMemcpyHostToDevice));
 
     dim3 block_dim { TILE_WIDTH, TILE_WIDTH, 1 };
     auto grid_dim_x { static_cast<unsigned int>(std::ceil(static_cast<float>(i) / static_cast<float>(TILE_WIDTH))) };
     auto grid_dim_y { static_cast<unsigned int>(std::ceil(static_cast<float>(k) / static_cast<float>(TILE_WIDTH))) };
     dim3 grid_dim { grid_dim_x, grid_dim_y, 1 };
     matMulKernel<<<grid_dim, block_dim, 2 * TILE_WIDTH * TILE_WIDTH * sizeof(float)>>>(A_d, B_d, C_d, i, j, k);
-
-    checkCudaErrors(cudaMemcpy(C, C_d, i * k * sizeof(float), cudaMemcpyDeviceToHost));
-
-    checkCudaErrors(cudaFree(A_d));
-    checkCudaErrors(cudaFree(B_d));
-    checkCudaErrors(cudaFree(C_d));
+    checkCudaLastError();
+    checkCudaError(cudaMemcpy(C, C_d, i * k * sizeof(float), cudaMemcpyDeviceToHost));
+    checkCudaError(cudaFree(A_d));
+    checkCudaError(cudaFree(B_d));
+    checkCudaError(cudaFree(C_d));
 }

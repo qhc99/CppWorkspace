@@ -1,5 +1,6 @@
 #ifndef PMPP_MAT_MUL_KERNEL_H
 #define PMPP_MAT_MUL_KERNEL_H
+
 /**
  * @brief Mat Mul Tiling and Coarsening
  *

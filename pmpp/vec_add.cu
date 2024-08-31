@@ -15,18 +15,18 @@ void vecAdd(float* A, float* B, float* C, size_t n)
     float *C_d = nullptr;
     size_t size = n * sizeof(float);
 
-    checkCudaErrors(cudaMalloc(&A_d, size));
-    checkCudaErrors(cudaMalloc(&B_d, size));
-    checkCudaErrors(cudaMalloc(&C_d, size));
+    checkCudaError(cudaMalloc(&A_d, size));
+    checkCudaError(cudaMalloc(&B_d, size));
+    checkCudaError(cudaMalloc(&C_d, size));
 
-    checkCudaErrors(cudaMemcpy(A_d, A, size, cudaMemcpyHostToDevice));
-    checkCudaErrors(cudaMemcpy(B_d, B, size, cudaMemcpyHostToDevice));
+    checkCudaError(cudaMemcpy(A_d, A, size, cudaMemcpyHostToDevice));
+    checkCudaError(cudaMemcpy(B_d, B, size, cudaMemcpyHostToDevice));
 
     vecAddKernel<<<static_cast<unsigned int>(ceil(static_cast<double>(n) / 256.)), 256>>>(A_d, B_d, C_d, n);
+    checkCudaLastError();
+    checkCudaError(cudaMemcpy(C, C_d, size, cudaMemcpyDeviceToHost));
 
-    checkCudaErrors(cudaMemcpy(C, C_d, size, cudaMemcpyDeviceToHost));
-
-    checkCudaErrors(cudaFree(A_d));
-    checkCudaErrors(cudaFree(B_d));
-    checkCudaErrors(cudaFree(C_d));
+    checkCudaError(cudaFree(A_d));
+    checkCudaError(cudaFree(B_d));
+    checkCudaError(cudaFree(C_d));
 }

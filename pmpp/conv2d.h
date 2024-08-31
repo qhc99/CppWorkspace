@@ -7,7 +7,8 @@
  * @param N 
  * @param F 
  * @param P 
- * @param radius radius of filter F
+ * @param radius radius of filter F, default max 6, can be override in compile-time 
+ * by -DPPMP_CONV2D_MAX_RADIUS 
  * @param width width of N and P
  * @param height height of N and P
  */

@@ -3,11 +3,11 @@
 int main()
 {
     int devCount{};
-    checkCudaErrors(cudaGetDeviceCount(&devCount));
+    checkCudaError(cudaGetDeviceCount(&devCount));
 
     cudaDeviceProp devProp{};
     for (int i = 0; i < devCount; i++) {
-        checkCudaErrors(cudaGetDeviceProperties(&devProp, i));
+        checkCudaError(cudaGetDeviceProperties(&devProp, i));
         std::cout << devProp.name << "\n";
         std::cout << "maxThreadsPerBlock: " << devProp.maxThreadsPerBlock << "\n";
         std::cout << "multiProcessorCount(SM): " << devProp.multiProcessorCount << "\n";
@@ -19,8 +19,8 @@ int main()
         std::cout << "maxGridSize[2]: " << devProp.maxGridSize[2] << "\n";
         std::cout << "regsPerBlock: " << devProp.regsPerBlock << "\n";
         std::cout << "warpSize: " << devProp.warpSize << "\n";
+        std::cout << "sharedMemPerBlock: " << devProp.sharedMemPerBlock << "\n";
         std::cout << "\n";
     }
-
     return 0;
 }
