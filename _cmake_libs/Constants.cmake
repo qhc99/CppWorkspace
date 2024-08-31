@@ -47,7 +47,7 @@ set(MSAN_COMPILE_LINK_OPTIONS
 # Enable all warnings and disable some warnings
 set(WARN_ALL_COMPILE_OPTIONS
     $<$<CXX_COMPILER_ID:Clang>:-Wall;-Wextra;-Wpedantic>
-    $<$<CXX_COMPILER_ID:MSVC>:/W4;/WX;/analyze>
+    $<$<CXX_COMPILER_ID:MSVC>:/W4;/WX>
 )
 
 set(TEST_COVERAGE_OPTIONS
