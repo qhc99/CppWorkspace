@@ -45,17 +45,7 @@ __global__ void matMulKernel(float* A, float* B, float* C, size_t i, size_t j, s
     }
 }
 
-/**
- * @brief Mat Mul Tiling and Coarsening
- *
- * @param A row major matrix, size i * j
- * @param B row major matrix, size j * k
- * @param C row major matrix, size i * k, return C = A * B
- * @param i
- * @param j
- * @param k
- * @return void
- */
+
 void matMul(float* A, float* B, float* C, size_t i, size_t j, size_t k)
 {
     float* A_d = nullptr;
