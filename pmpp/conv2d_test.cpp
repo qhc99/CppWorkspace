@@ -12,8 +12,8 @@ TEST_CASE("conv2d_small_test")
     float P[9];
     float P_cmp[9];
 
-    std::fill(N, N + 9, 1);
-    std::fill(F, F + 9, 1);
+    std::fill(N, N + 9, 1.F);
+    std::fill(F, F + 9, 1.F);
 
     conv2d(N, F, P, 1, 3, 3);
     conv2dOpenmp(N, F, P_cmp, 1, 3, 3);
@@ -48,11 +48,11 @@ TEST_CASE("conv2d_large_test")
     float* P = new float[height * width];
     float* P_cmp = new float[height * width];
 
-    std::iota(F, F + 25, 1);
+    std::iota(F, F + 25, 1.F);
 #pragma omp parallel for
     for (int i {}; i < height; i++) {
         for (int j {}; j < width; j++) {
-            N[i * width + j] = j % (i + 2);
+            N[i * width + j] = static_cast<float>(j % (i + 2));
         }
     }
 
