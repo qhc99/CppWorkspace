@@ -5,14 +5,14 @@
 
 __constant__ float filter[(PPMP_CONV2D_FILTER_MAX_RADIUS * 2 + 1) * (PPMP_CONV2D_FILTER_MAX_RADIUS * 2 + 1)];
 
-__global__ void conv2dKernel(float* N, float* P, int radius, int width, int height)
+__global__ void conv2dKernel(float* N, float* P, size_t radius, size_t width, size_t height)
 {
-    int row = blockIdx.x * PPMP_CONV2D_TILE_WIDTH + threadIdx.x;
-    int col = blockIdx.y * PPMP_CONV2D_TILE_WIDTH + threadIdx.y;
-    constexpr int tile_width = PPMP_CONV2D_TILE_WIDTH;
+    size_t row = blockIdx.x * PPMP_CONV2D_TILE_WIDTH + threadIdx.x;
+    size_t col = blockIdx.y * PPMP_CONV2D_TILE_WIDTH + threadIdx.y;
+    constexpr size_t tile_width = PPMP_CONV2D_TILE_WIDTH;
     __shared__ float N_s[tile_width][tile_width];
-    int threadX { static_cast<int>(threadIdx.x) };
-    int threadY { static_cast<int>(threadIdx.y) };
+    size_t threadX { static_cast<size_t>(threadIdx.x) };
+    size_t threadY { static_cast<size_t>(threadIdx.y) };
     if (row < height && col < width) {
         N_s[threadX][threadY] = N[row * width + col];
     } else {
@@ -26,11 +26,11 @@ __global__ void conv2dKernel(float* N, float* P, int radius, int width, int heig
     }
 
     float val {};
-    for (int fr {}; fr < 2 * radius + 1; fr++) {
-        for (int fc {}; fc < 2 * radius + 1; fc++) {
-            if ((threadX - radius + fr) >= 0 && (threadX - radius + fr) < tile_width && (threadY - radius + fc) >= 0 && (threadY - radius + fc) < tile_width) {
+    for (size_t fr {}; fr < 2 * radius + 1; fr++) {
+        for (size_t fc {}; fc < 2 * radius + 1; fc++) {
+            if ((threadX  + fr) >= radius && (threadX - radius + fr) < tile_width && (threadY + fc) >= radius && (threadY - radius + fc) < tile_width) {
                 val += filter[fr * radius + fc] * N_s[threadX - radius + fr][threadY - radius + fc];
-            } else if ((row - radius + fr) >= 0 && (row - radius + fr) < height && (col - radius + fc) >= 0 && (col - radius + fc) < width) {
+            } else if ((row + fr) >= radius && (row - radius + fr) < height && (col + fc) >= radius && (col - radius + fc) < width) {
                 val += filter[fr * radius + fc] * N[(row - radius + fr) * width + col - radius + fc];
             }
         }
