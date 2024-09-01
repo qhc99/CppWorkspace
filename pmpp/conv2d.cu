@@ -11,8 +11,8 @@ __global__ void conv2dKernel(float* N, float* P, size_t radius, size_t width, si
     size_t col = blockIdx.y * PPMP_CONV2D_TILE_WIDTH + threadIdx.y;
     constexpr size_t tile_width = PPMP_CONV2D_TILE_WIDTH;
     __shared__ float N_s[tile_width][tile_width];
-    size_t threadX { static_cast<size_t>(threadIdx.x) };
-    size_t threadY { static_cast<size_t>(threadIdx.y) };
+    size_t threadX { threadIdx.x };
+    size_t threadY { threadIdx.y };
     if (row < height && col < width) {
         N_s[threadX][threadY] = N[row * width + col];
     } else {
