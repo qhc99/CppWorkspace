@@ -1,6 +1,7 @@
 #ifndef PMPP_UTILS_H
 #define PMPP_UTILS_H
 
+#include <cuda_runtime.h>
 #include "workspace_pch.h"
 
 #define checkCudaError(val) check_cuda_error( (val), #val, __FILE__, __LINE__ )

@@ -2,12 +2,12 @@
 #define PPMP_CONV2d_KERNEL_H
 
 /**
- * @brief convolution 2D, P = N * F, zero padding for N
+ * @brief convolution 2D, P = N * F, zero padding for N,
  * 
  * @param N input
  * @param F filter
  * @param P output
- * @param radius radius of filter F, default max 6, can be override in compile-time 
+ * @param radius radius of filter F, limited by compile definition PPMP_CONV2D_FILTER_MAX_RADIUS
  * by -DPPMP_CONV2D_MAX_RADIUS 
  * @param width width of N and P
  * @param height height of N and P
