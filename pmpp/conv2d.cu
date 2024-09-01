@@ -47,7 +47,7 @@ void conv2d(float* N, float* F, float* P, size_t radius, size_t width, size_t he
     float* N_d = nullptr;
     float* P_d = nullptr;
 
-    size_t filter_width = (2 * width + 1);
+    size_t filter_width = (2 * radius + 1);
 
     checkCudaError(cudaMalloc(&N_d, width * height * sizeof(float)));
     checkCudaError(cudaMalloc(&P_d, width * height * sizeof(float)));

@@ -5,14 +5,19 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "CUDA-gdb mat mul",
+            "name": "CUDA conv2d",
+            "type": "cuda-gdb",
+            "request": "launch",
+            "program": "${workspaceFolder}/_build_debug/pmpp/conv2d_test"
+        },
+        {
+            "name": "CUDA mat_mul",
             "type": "cuda-gdb",
             "request": "launch",
             "program": "${workspaceFolder}/_build_debug/pmpp/mat_mul_test"
         },
-
         {
-            "name": "vsdbg chip8 opcode",
+            "name": "vs chip8 opcode",
             "type": "cppvsdbg",
             "request": "launch",
             "program": "${workspaceFolder}/_build_debug/chip8/chip8.exe",
@@ -23,7 +28,7 @@
             "console": "externalTerminal"
         },
         {
-            "name": "vsdbg chip8 tetris",
+            "name": "vs chip8 tetris",
             "type": "cppvsdbg",
             "request": "launch",
             "program": "${workspaceFolder}/_build_debug/chip8/chip8.exe",
