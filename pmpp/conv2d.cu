@@ -56,7 +56,7 @@ void conv2d(float* N, float* F, float* P, size_t radius, size_t width, size_t he
     checkCudaError(cudaMemcpyToSymbol(filter, F, filter_width * filter_width * sizeof(float)));
 
     dim3 blockD = { PPMP_CONV2D_TILE_WIDTH, PPMP_CONV2D_TILE_WIDTH, 1 };
-    dim3 gridD = { static_cast<unsigned int>(ceil(static_cast<float>(height) / PPMP_CONV2D_TILE_WIDTH)), static_cast<unsigned int>(ceil(static_cast<float>(width) / PPMP_CONV2D_TILE_WIDTH)), 1 };
+    dim3 gridD = { static_cast<unsigned int>(ceil(static_cast<double>(height) / PPMP_CONV2D_TILE_WIDTH)), static_cast<unsigned int>(ceil(static_cast<double>(width) / PPMP_CONV2D_TILE_WIDTH)), 1 };
     conv2dKernel<<<gridD, blockD>>>(N_d, P_d, radius, width, height);
     
     checkCudaLastError();
