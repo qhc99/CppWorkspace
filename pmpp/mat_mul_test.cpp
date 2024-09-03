@@ -19,7 +19,7 @@ TEST_CASE("mat_mul_small_mat_test")
     A[2 * i] = 1;
 
     matMul(A, B, C, i, j, k);
-#pragma omp parallel for 
+#pragma omp parallel for default(none) shared(i,C)
     for (int ti = i - 1; ti >= 0; ti--) {
         for (size_t tk = 0; tk < k; tk++) {
             int ri = -ti + static_cast<int>(i) - 1;
@@ -48,7 +48,7 @@ TEST_CASE("mat_mul_large_mat_test")
         A[ti * j + tj_counter--] = 1;
     }
     matMul(A, B, C, i, j, k);
-#pragma omp parallel for 
+#pragma omp parallel for default(none) shared(i,C)
     for (int ti = i - 1; ti >= 0; ti--) {
         for (size_t tk = 0; tk < k; tk++) {
             int ri = -ti + static_cast<int>(i) - 1;
