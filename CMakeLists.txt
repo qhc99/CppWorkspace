@@ -26,8 +26,3 @@ add_subdirectory(ray_trace)
 
 add_subdirectory(pmpp)
 message(STATUS ">>> Added pmpp")
-
-if(CMAKE_SYSTEM_NAME MATCHES Linux)
-    add_subdirectory(x64_asm_linux)
-    message(STATUS ">>> Added x64_asm_linux")
-endif()
