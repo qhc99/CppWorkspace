@@ -8,7 +8,8 @@
     1. `clangd` (optional to use clangd language server. It depends on `compile_commands.json`, which is currently only produced by `make` or `ninja`)
 - Commands should be in path: 
     1. Compiler: `clang++`, `nvcc`
-    1. Build: `vcpkg`, `cmake`, `ninja`
+    1. Build: `vcpkg`, `cmake`, `ninja`, `msbuild` (multi-core build)
+        - `msbuild` example path: `C:\Program Files\Microsoft Visual Studio\2022\Community\MSBuild\Current\Bin`
     1. Tools: `clangd`, `llvm-cov`, `llvm-profdata`, `rg`(ripgrep)
 
 # Usage

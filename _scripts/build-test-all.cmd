@@ -1,40 +1,53 @@
-@echo off
-echo The current time is: %time:~0,8%
-echo on
-
 cmake --preset "Clang Release"
 cd _build
-cmake --build . --target all
-ctest -E ^asan_.*
-cd ..
 
 @echo off
-echo The current time is: %time:~0,8%
+echo Build start, the current time is: %time:~0,8%
 echo on
+cmake --build . --target all
+@echo off
+echo Build end, the current time is: %time:~0,8%
+echo on
+
+ctest -E ^asan_.*
+cd ..
 
 cmake --preset "Clang Debug"
 cd _build_debug
+
+@echo off
+echo Build start, the current time is: %time:~0,8%
+echo on
 cmake --build . --target all
+@echo off
+echo Build end, the current time is: %time:~0,8%
+echo on
+
 ctest -E ^asan_.*
 cd ..
 
-@echo off
-echo The current time is: %time:~0,8%
-echo on 
-
 cmake --preset "VS 2022"
 cd _msbuild
-cmake --build . --target ALL_BUILD --config Debug
-ctest -C Debug -E ^asan_.*
 
 @echo off
-echo The current time is: %time:~0,8%
+echo Build start, the current time is: %time:~0,8%
 echo on 
+msbuild /m /verbosity:minimal ALL_BUILD.vcxproj /target:"Build" /property:Configuration=Debug
+@echo off
+echo Build end, the current time is: %time:~0,8%
+echo on
 
-cmake --build . --target ALL_BUILD --config Release
-ctest -C Debug -E ^asan_.*  
-cd ..
+ctest -C Debug -E ^asan_.*
+msbuild /m /verbosity:minimal ALL_BUILD.vcxproj /target:"Clean" /property:Configuration=Debug
 
 @echo off
-echo The current time is: %time:~0,8%
+echo Build start, the current time is: %time:~0,8%
+echo on 
+msbuild /m /verbosity:minimal ALL_BUILD.vcxproj /target:"Build" /property:Configuration=Release
+@echo off
+echo Build end, the current time is: %time:~0,8%
 echo on
+
+ctest -C Release -E ^asan_.*  
+msbuild /m /verbosity:minimal ALL_BUILD.vcxproj /target:"Clean" /property:Configuration=Release
+cd ..
