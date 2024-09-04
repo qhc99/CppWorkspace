@@ -13,7 +13,9 @@ mov rax, 9
 add [a], rax
 mov rax, [b]
 add rax, 10
-add rax, [a]
+; desitination: register, memory. source: register, memory, instant number. 
+; desitination and source cannot be both memory
+add rax, [a] 
 mov [sum], rax
 mov rax, 0
 leave
