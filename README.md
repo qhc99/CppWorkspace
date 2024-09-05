@@ -14,7 +14,7 @@
 
 # Usage
 - Test coverage is generated to folder `_html_cov_report` by running corresponding custom targets.
-- Run `check-build.cmd` or `check-build.sh` to check if build and tests pass
+- Run `run-checks.cmd` or `run-checks.sh` to check if build and tests pass
 - Enable clangd cuda support on Linux: update the cuda path in `config.yaml` on your system and copy it to clangd user folder: ` cp config.yaml  ~/.config/clangd/config.yaml`. 
 
 # Troubleshooting
