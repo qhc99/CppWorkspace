@@ -14,9 +14,10 @@
 
 # Usage
 - Test coverage is generated to folder `_html_cov_report` by running corresponding custom targets.
-- Run `run-checks.cmd` or `run-checks.sh` to check if build and tests pass
+- Run `run-checks.cmd` or `run-checks.sh` in project root dir to check if build and tests pass
+    - `run-checks.cmd` cannot run multple times in one terminal because the env is polluted for clang
 - Enable clangd cuda support on Linux: update the cuda path in `config.yaml` on your system and copy it to clangd user folder: ` cp config.yaml  ~/.config/clangd/config.yaml`. 
-- Setup x64 env for ninja in vscode on windows:
+- Setup x64 env for ninja build in vscode on windows:
     - Add a new terminal profile and set it as default for `"terminal.integrated.profiles.windows"`:
     ```json
     "x64 Native Tools Command Prompt": {
@@ -27,6 +28,7 @@
         ]
     },
     ```
+    - Note that this approach will break env variables for clang presets
 
 # Troubleshooting
 - On windows, Address sanitizer and Clang must be installed through Visual Studio to use ASan (official download dll crashes for some reason). 

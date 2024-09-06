@@ -18,7 +18,10 @@ set(ASAN_COMPILE_OPTIONS
     $<$<CXX_COMPILER_ID:MSVC>:/fsanitize=address>
 )
 
-set(ASAN_LINK_OPTIONS ${ASAN_CLANG_OPTIONS})
+set(ASAN_LINK_OPTIONS
+    ${ASAN_CLANG_OPTIONS}
+    $<$<BOOL:${DISABLE_MSVC_INCREMENTAL_LINK}>:/INCREMENTAL:NO>
+)
 
 # Used in multithread programming, currently not supported on windows
 set(TSAN_COMPILE_LINK_OPTIONS
