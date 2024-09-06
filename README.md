@@ -40,4 +40,4 @@
 1. `chip8` can only run in GUI environment.
 1. On Windows, Cuda device code can only be debugged in Visual Studio (open `.sln` project file in `_msbuild` using preset `VS 2022`).
 1. Test coverage targets are only generated if using Clang compiler.
-1. CMake Clang support for cuda on windows is limited, so cuda programs will not be generated in this case. (Clangd is also not working since compilation commands are not exported)
+1. Clang support for cuda on windows is limited, so cuda programs will not be generated in this case. (Clangd is also not working since compilation commands are not exported)
