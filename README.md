@@ -1,5 +1,5 @@
 # Requirements
-- Supported environment: Clang/MSVC, Ubuntu 24 WSL2/Windows 11 (Visual Studio Community 2022), Cuda 12.
+- Supported environment: Clang/MSVC, Ubuntu 24 WSL2/Windows 11 (VS 2022), Ninja-build/MSBuild, Cuda 12.
 - Libraries: 
     1. `libomp-dev` (openmp, WSL2) 
     1. `llvm` (test coverage, WSL2)
