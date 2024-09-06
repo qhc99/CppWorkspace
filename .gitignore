@@ -17,6 +17,8 @@ Release
 /_build_cl
 /_build_cl_debug
 /_msbuild
+/_vcbuild
+/_vcbuild_debug
 /log.txt
 
 
