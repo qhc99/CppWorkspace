@@ -1,8 +1,8 @@
 # Requirements
 - Supported environment: 
-    - Clang/MSVC, 
     - Ubuntu 24 WSL2/Windows 11 (VS 2022)
-    - Ninja-build/MSBuild
+    - Clang-Ninja-Win/Linux, 
+    - MSVC-MSBuild
     - Cuda 12
     - All cmake presets work on windows, only clang presets work on linux.
 - Libraries: 
@@ -21,19 +21,7 @@
 - Test coverage is generated to folder `_html_cov_report` by running corresponding custom targets.
 - Run `run-checks.cmd` or `run-checks.sh` in project root dir to check if build and tests pass
     - `run-checks.cmd` cannot run multple times in one env because the msvc env will polluted clang asan env
-- Enable clangd cuda support on Linux: update the cuda path in `config.yaml` on your system and copy it to clangd user folder: ` cp config.yaml  ~/.config/clangd/config.yaml`. 
-- (Optional) Setup MSVC x64 env for ninja build in vscode on windows:
-    - Add a new terminal profile and set it as default for `"terminal.integrated.profiles.windows"`:
-    ```json
-    "x64 Native Tools Command Prompt": {
-        "path": "C:\\Windows\\System32\\cmd.exe",
-        "args": [
-            "/k",
-            "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Auxiliary\\Build\\vcvars64.bat"
-        ]
-    },
-    ```
-    - Note that this approach will break env variables of asan for clang presets
+- Enable clangd cuda support on Linux: update the cuda path in `config.yaml` on your system and copy it to clangd user folder: `cp config.yaml  ~/.config/clangd/config.yaml`. 
 
 # Troubleshooting
 - On windows, Address sanitizer and Clang must be installed through Visual Studio to use ASan (official download dll crashes for some reason). 

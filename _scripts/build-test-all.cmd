@@ -26,20 +26,3 @@ echo on
 ctest -C Debug -E ^asan_.*
 msbuild /m /verbosity:minimal ALL_BUILD.vcxproj /target:"Clean" /property:Configuration=Debug
 cd ..
-
-
-call "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Auxiliary\Build\vcvars64.bat"
-cmake --preset "Cl Debug"
-cd _vcbuild_debug
-
-@echo off
-echo Build start, the current time is: %time:~0,8%
-echo on
-cmake --build . --target all --parallel
-@echo off
-echo Build end, the current time is: %time:~0,8%
-echo on
-
-ctest -E ^asan_.*
-cmake --build . --target clean
-cd ..

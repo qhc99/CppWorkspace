@@ -26,30 +26,6 @@
             }
         },
         {
-            "name": "Cl Release",
-            "generator": "Ninja",
-            "binaryDir": "${sourceDir}/_vcbuild",
-            "cacheVariables": {
-                "CMAKE_TOOLCHAIN_FILE": "$env{VCPKG_ROOT}/scripts/buildsystems/vcpkg.cmake",
-                "CMAKE_BUILD_TYPE": "Release",
-                "CMAKE_EXPORT_COMPILE_COMMANDS": true,
-                "CMAKE_C_COMPILER": "cl",
-                "CMAKE_CXX_COMPILER": "cl"
-            }
-        },
-        {
-            "name": "Cl Debug",
-            "generator": "Ninja",
-            "binaryDir": "${sourceDir}/_vcbuild_debug",
-            "cacheVariables": {
-                "CMAKE_TOOLCHAIN_FILE": "$env{VCPKG_ROOT}/scripts/buildsystems/vcpkg.cmake",
-                "CMAKE_BUILD_TYPE": "Debug",
-                "CMAKE_EXPORT_COMPILE_COMMANDS": true,
-                "CMAKE_C_COMPILER": "cl",
-                "CMAKE_CXX_COMPILER": "cl"
-            }
-        },
-        {
             "name": "VS 2022",
             "generator": "Visual Studio 17 2022",
             "binaryDir": "${sourceDir}/_msbuild",
@@ -74,18 +50,6 @@
             "configurePreset": "Clang Release"
         },
         {
-            "name": "Cl Debug",
-            "description": "",
-            "displayName": "",
-            "configurePreset": "Cl Debug"
-        },
-        {
-            "name": "Cl Release",
-            "description": "",
-            "displayName": "",
-            "configurePreset": "Cl Release"
-        },
-        {
             "name": "VS 2022",
             "description": "",
             "displayName": "",
@@ -104,18 +68,6 @@
             "description": "",
             "displayName": "",
             "configurePreset": "Clang Release"
-        },
-        {
-            "name": "Cl Debug",
-            "description": "",
-            "displayName": "",
-            "configurePreset": "Cl Debug"
-        },
-        {
-            "name": "Cl Release",
-            "description": "",
-            "displayName": "",
-            "configurePreset": "Cl Release"
         },
         {
             "name": "VS 2022",
