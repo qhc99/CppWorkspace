@@ -1,8 +1,8 @@
     section .data
-msg: db "Hello World!", 0x0a, 0
+msg: db "Hello YASM!", 0x0a, 0
 
     section .text
-    global _start
+    global main
     extern printf
 
 main:
