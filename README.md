@@ -22,7 +22,7 @@
 - Run `run-checks.cmd` or `run-checks.sh` in project root dir to check if build and tests pass
     - `run-checks.cmd` cannot run multple times in one env because the msvc env will polluted clang asan env
 - Enable clangd cuda support on Linux: update the cuda path in `config.yaml` on your system and copy it to clangd user folder: ` cp config.yaml  ~/.config/clangd/config.yaml`. 
-- Setup MSVC x64 env for ninja build in vscode on windows:
+- (Optional) Setup MSVC x64 env for ninja build in vscode on windows:
     - Add a new terminal profile and set it as default for `"terminal.integrated.profiles.windows"`:
     ```json
     "x64 Native Tools Command Prompt": {
