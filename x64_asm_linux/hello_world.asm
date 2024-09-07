@@ -1,3 +1,4 @@
+section .note.GNU-stack noalloc noexec nowrite progbits
     section .data
 msg: db "Hello YASM!", 0x0a, 0
 
