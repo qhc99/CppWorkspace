@@ -4,7 +4,6 @@ project(cpp_projects)
 
 find_package(fmt 10 CONFIG REQUIRED)
 find_package(doctest 2.4 CONFIG REQUIRED)
-find_package(SDL2 2.30 CONFIG REQUIRED)
 
 include(_cmake_libs/Utils.cmake)
 
@@ -20,7 +19,6 @@ add_subdirectory(misc)
 message(STATUS ">>> Added misc")
     
 add_subdirectory(chip8)
-message(STATUS ">>> Added chip8")
 
 add_subdirectory(ray_trace)
 

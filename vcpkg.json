@@ -2,9 +2,21 @@
   "dependencies": [
     "doctest",
     "fmt",
-    "glad",
-    "opengl",
-    "sdl2",
-    "glfw3"
+    {
+      "name": "glad",
+      "platform": "windows"
+    },
+    {
+      "name": "opengl",
+      "platform": "windows"
+    },
+    {
+      "name": "sdl2",
+      "platform": "windows"
+    },
+    {
+      "name": "glfw3",
+      "platform": "windows"
+    }
   ]
 }
