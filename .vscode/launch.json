@@ -5,6 +5,12 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "name": "CUDA hist",
+            "type": "cuda-gdb",
+            "request": "launch",
+            "program": "${workspaceFolder}/_build_debug/pmpp/hist_test"
+        },
+        {
             "name": "CUDA conv2d",
             "type": "cuda-gdb",
             "request": "launch",
