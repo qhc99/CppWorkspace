@@ -9,10 +9,4 @@ if(CMAKE_SYSTEM_NAME MATCHES Windows)
     add_executable(windows_ogl window.cpp)
     set_target_properties(windows_ogl PROPERTIES FOLDER "opengl")
     target_link_libraries(windows_ogl PRIVATE OpenGL::GL glad::glad glfw)
-    
-    # this is heuristically generated, and may not be correct
-    # target_link_libraries(main PRIVATE glad::glad)
-    
-    # this is heuristically generated, and may not be correct
-    # target_link_libraries(main PRIVATE glfw)
 endif()
