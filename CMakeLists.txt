@@ -26,3 +26,6 @@ add_subdirectory(ray_trace)
 
 add_subdirectory(pmpp)
 message(STATUS ">>> Added pmpp")
+
+add_subdirectory(opengl_learn)
+message(STATUS ">>> Added opengl projects")

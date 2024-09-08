@@ -1,7 +1,8 @@
 {
   "dependencies": [
+    "doctest",
     "fmt",
     "sdl2",
-    "doctest"
+    "opengl"
   ]
 }
