@@ -2,7 +2,9 @@
   "dependencies": [
     "doctest",
     "fmt",
+    "glad",
+    "opengl",
     "sdl2",
-    "opengl"
+    "glfw3"
   ]
 }
