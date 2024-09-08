@@ -10,6 +10,7 @@ echo Build end, the current time is: %time:~0,8%
 echo on
 
 ctest -E ^asan_.*
+cmake --build . --target clean
 cd ..
 
 cmake --preset "VS 2022"
