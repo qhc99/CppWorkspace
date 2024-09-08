@@ -20,7 +20,6 @@ set(ASAN_COMPILE_OPTIONS
 
 set(ASAN_LINK_OPTIONS
     ${ASAN_CLANG_OPTIONS}
-    $<$<BOOL:${NINJA_MSVC}>:/INCREMENTAL:NO>
 )
 
 # Used in multithread programming, currently not supported on windows
