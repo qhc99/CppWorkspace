@@ -34,3 +34,5 @@
 1. On Windows, Cuda device code can only be debugged in Visual Studio (open `.sln` project file in `_msbuild` using preset `VS 2022`).
 1. Test coverage targets are only generated if using Clang compiler.
 1. Clang support for cuda on windows is limited, so cuda programs will not be generated in this case. (Clangd is also not working since compilation commands are not exported)
+1. Ninja does not bring noticeable performance improvement than msbuild on windows and it requires to manually
+call `vcvars64.bat` to setup essential env variables (version update will break manually path update), so ninja+msvc is not supported in this project.
