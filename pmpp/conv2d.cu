@@ -2,10 +2,10 @@
 #define PPMP_CONV2D_TILE_WIDTH 32
 
 #include "utils.h"
-
+// NOLINTBEGIN(cppcoreguidelines-avoid-non-const-global-variables,cppcoreguidelines-pro-bounds-array-to-pointer-decay,hicpp-avoid-c-arrays,cppcoreguidelines-avoid-c-arrays,modernize-avoid-c-arrays,cppcoreguidelines-pro-bounds-pointer-arithmetic,hicpp-no-array-decay,cppcoreguidelines-pro-bounds-constant-array-index)
 __constant__ float filter[(PPMP_CONV2D_FILTER_MAX_RADIUS * 2 + 1) * (PPMP_CONV2D_FILTER_MAX_RADIUS * 2 + 1)];
 
-__global__ void conv2dKernel(float* N, float* P, size_t radius, size_t width, size_t height)
+__global__ void conv2dKernel(const float* N, float* P, size_t radius, size_t width, size_t height)
 {
     size_t row = blockIdx.x * PPMP_CONV2D_TILE_WIDTH + threadIdx.x;
     size_t col = blockIdx.y * PPMP_CONV2D_TILE_WIDTH + threadIdx.y;
@@ -65,3 +65,4 @@ void conv2d(float* N, float* F, float* P, size_t radius, size_t width, size_t he
     checkCudaError(cudaFree(N_d));
     checkCudaError(cudaFree(P_d));
 }
+// NOLINTEND(cppcoreguidelines-avoid-non-const-global-variables,cppcoreguidelines-pro-bounds-array-to-pointer-decay,hicpp-avoid-c-arrays,cppcoreguidelines-avoid-c-arrays,modernize-avoid-c-arrays,cppcoreguidelines-pro-bounds-pointer-arithmetic,hicpp-no-array-decay,cppcoreguidelines-pro-bounds-constant-array-index)
