@@ -27,7 +27,7 @@
 - On windows, Address sanitizer and Clang must be installed through Visual Studio to use ASan (official download dll crashes for some reason). 
     - ASan shared lib folder should be in the path (Example: `C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\Llvm\x64\lib\clang\17\lib\windows`, file `clang_rt.asan_dynamic-x86_64.dll` should be in the above folder)
 - Correct architecture (`x86` vs `x64`)  of `clang++` should be used to avoid vcpkg error. 
-- Build output folder: `_build`, which should match `.clangd` config. 
+- Build output folder: `_build_debug`, which should match `.clangd` config. 
 
 # Known limitations
 1. `chip8` can only run in GUI environment.
