@@ -1,9 +1,18 @@
+; linux abi: 
+; stack alignment: 2 bytes (1 word)
+; float function args: xmm0-xmm7 (xmm0-xmm3 on windows)
+; int function args: rdi, rsi , rdx, rcx, r8, r9, stack in reverse order
+; (windows int func args: rcx, rdx, r8, r9)
+; variable number of args (e.g., printf): rax
+; int return: rax
+; float return: xmm0
+
 section .note.GNU-stack noalloc noexec nowrite progbits
     segment .data
-x dq 0
-scanf_format db "%ld", 0
-printf_format db "fact(%ld) = %ld", 0x0a, 0
-scanf_hint db "Input a number:", 0x0a, 0
+    x dq 0
+    scanf_format db "%ld", 0
+    printf_format db "fact(%ld) = %ld", 0x0a, 0
+    scanf_hint db "Input a number:", 0x0a, 0
 
     segment .text
     global main
