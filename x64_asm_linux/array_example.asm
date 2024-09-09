@@ -15,6 +15,7 @@
     extern malloc
     extern random
     extern atoi
+    extern free
 
 main:
     .array equ 0
@@ -58,6 +59,8 @@ main:
     lea rdi, [.format]
     mov rsi, rax
     call printf
+    mov rdi, [rsp+.array]
+    call free
     leave
     ret
     
