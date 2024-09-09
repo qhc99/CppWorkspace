@@ -3,7 +3,7 @@
 ; minimum value in the array. If the array size is less than or equal to 20,
 ; it prints the values in the array.
 
-section .note.GNU-stack noalloc noexec nowrite progbits
+    section .note.GNU-stack noalloc noexec nowrite progbits
 
     segment .text
     global create

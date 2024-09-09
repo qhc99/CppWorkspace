@@ -7,7 +7,7 @@
 ; int return: rax
 ; float return: xmm0
 
-section .note.GNU-stack noalloc noexec nowrite progbits
+    section .note.GNU-stack noalloc noexec nowrite progbits
     segment .data
     x dq 0
     scanf_format db "%ld", 0
