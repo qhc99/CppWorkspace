@@ -6,7 +6,7 @@ if(CMAKE_SYSTEM_NAME MATCHES Windows)
     find_package(OpenGL REQUIRED COMPONENTS OpenGL) # v3.10
     find_package(glad CONFIG REQUIRED)
     find_package(glfw3 CONFIG REQUIRED)
-    add_executable(windows_ogl window.cpp)
+    add_executable(windows_ogl window.cpp preclude.h)
     set_target_properties(windows_ogl PROPERTIES FOLDER "opengl")
     target_link_libraries(windows_ogl PRIVATE OpenGL::GL glad::glad glfw)
 endif()
