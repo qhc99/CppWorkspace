@@ -31,7 +31,7 @@ main:
     mov rdi, [rsi+8]
     call atoi
     mov [rsp+.size], rax
-.nosize :
+.nosize:
 ; create the array
     mov rdi, [rsp+.size]
     call create
