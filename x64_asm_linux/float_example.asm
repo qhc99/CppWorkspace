@@ -1,15 +1,94 @@
     section .note.GNU-stack noalloc noexec nowrite progbits
 
     segment .data
-    point_format db "%f,%f,f%", 0x0a, 0
-    point_prompt db "Input 6 floats (two 3d points)", 0x0a, 0
+    scanf_out dd 0
+    p1 dd 0.0, 0.0, 0.0
+    p2 dd 0.0, 0.0, 0.0
+    point_format db "(%f,%f,%f)", 0x0a, 0
+    point_prompt db "Input 6 floats separated by newline:", 0x0a, 0
+    scanf_format db "%f", 0
     dist_format db "distance = %f", 0x0a, 0
     dotp_format db "dot product result: %f", 0x0a, 0
-    
+
     segment .text
     global main
+    global distance3d
+    global dot_product
+    global polynomial
+    extern printf
+    extern scanf
 
-distance3d: ; (double* rdi, double* rsi)
+main:
+    .idx equ 0
+    push rbp
+    mov rbp, rsp
+    sub rsp, 16
+
+    lea rdi, [point_prompt]
+    xor eax, eax
+    call printf
+    
+    xor eax, eax
+    mov [rsp+.idx], eax ; idx
+.fill_p1:
+    lea rdi, [scanf_format] 
+    lea rsi, [scanf_out] ;
+    xor eax, eax
+    call scanf
+    movss xmm0, [scanf_out]
+    mov r8d, [rsp+.idx]
+    movss [p1+4*r8d], xmm0
+    inc r8d
+    mov [rsp+.idx], r8d
+    cmp r8d, 3
+    jl .fill_p1
+
+    xor eax, eax
+    mov [rsp+.idx], eax ; idx
+.fill_p2:
+    lea rdi, [scanf_format] 
+    lea rsi, [scanf_out] ;
+    xor eax, eax
+    call scanf
+    movss xmm0, [scanf_out]
+    mov r8d, [rsp+.idx]
+    movss [p2+4*r8d], xmm0
+    inc r8d
+    mov [rsp+.idx], r8d
+    cmp r8d, 3
+    jl .fill_p2
+
+    lea rdi, [point_format]
+    movss xmm0, [p1]
+    cvtss2sd xmm0, xmm0
+    movq rsi, xmm0
+    movss xmm1, [p1+4]
+    cvtss2sd xmm1, xmm1
+    movq rdx, xmm1
+    movss xmm2, [p1+8]
+    cvtss2sd xmm2, xmm2
+    movq rcx, xmm2
+    mov eax, 3  ; Number of vector registers used
+    call printf
+
+    lea rdi, [point_format]
+    movss xmm0, [p2]
+    cvtss2sd xmm0, xmm0
+    movq rsi, xmm0
+    movss xmm1, [p2+4]
+    cvtss2sd xmm1, xmm1
+    movq rdx, xmm1
+    movss xmm2, [p2+8]
+    cvtss2sd xmm2, xmm2
+    movq rcx, xmm2
+    mov eax, 3
+    call printf
+
+    xor eax, eax
+    leave
+    ret
+
+distance3d: ; (float* rdi, float* rsi)
     movss xmm0, [rdi] ; x from first point
     subss xmm0, [rsi] ; subtract x from second point
     mulss xmm0, xmm0 ; (x1-x2)^2
@@ -24,7 +103,7 @@ distance3d: ; (double* rdi, double* rsi)
     sqrtss xmm0, xmm0 ; sqrt sum
     ret
 
-dot_product: ; (double* rdi, double* rsi)
+dot_product: ; (float* rdi, float* rsi)
     movss xmm0, [rdi]
     mulss xmm0, [rsi]
     movss xmm1, [rdi+4]
@@ -35,9 +114,9 @@ dot_product: ; (double* rdi, double* rsi)
     addss xmm0, xmm2
     ret
 
-horner: ; (double coef *rdi, double value xmm0, int degree rsi)
-    movs xmm1, xmm0 ; xmm1 = value
-    movsv xmm0, [rdi+rsi*8] ; accumulator
+polynomial: ; (float coef *rdi, float value xmm0, int degree rsi)
+    movsd xmm1, xmm0 ; xmm1 = value
+    movsd xmm0, [rdi+rsi*8] ; accumulator
     cmp rsi, 0 ; degree = 0 ?
     jz done
 more:
