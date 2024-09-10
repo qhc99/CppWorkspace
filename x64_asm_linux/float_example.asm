@@ -23,11 +23,11 @@ main:
     push rbp
     mov rbp, rsp
     sub rsp, 16
-
+    ; print prompt
     lea rdi, [point_prompt]
     xor eax, eax
     call printf
-    
+    ; fill p1
     xor eax, eax
     mov [rsp+.idx], eax ; idx
 .fill_p1:
@@ -42,7 +42,7 @@ main:
     mov [rsp+.idx], r8d
     cmp r8d, 3
     jl .fill_p1
-
+    ;fill p2
     xor eax, eax
     mov [rsp+.idx], eax ; idx
 .fill_p2:
@@ -57,31 +57,41 @@ main:
     mov [rsp+.idx], r8d
     cmp r8d, 3
     jl .fill_p2
-
+    ; print p1
     lea rdi, [point_format]
     movss xmm0, [p1]
     cvtss2sd xmm0, xmm0
-    movq rsi, xmm0
     movss xmm1, [p1+4]
     cvtss2sd xmm1, xmm1
-    movq rdx, xmm1
     movss xmm2, [p1+8]
     cvtss2sd xmm2, xmm2
-    movq rcx, xmm2
     mov eax, 3  ; Number of vector registers used
     call printf
-
+    ; print p2
     lea rdi, [point_format]
     movss xmm0, [p2]
     cvtss2sd xmm0, xmm0
-    movq rsi, xmm0
     movss xmm1, [p2+4]
     cvtss2sd xmm1, xmm1
-    movq rdx, xmm1
     movss xmm2, [p2+8]
     cvtss2sd xmm2, xmm2
-    movq rcx, xmm2
     mov eax, 3
+    call printf
+    ; print distance
+    lea rdi, [p1]
+    lea rsi, [p2]
+    call distance3d
+    cvtss2sd xmm0, xmm0
+    lea rdi, [dist_format]
+    mov eax, 1
+    call printf
+    ; print dot prodcut
+    lea rdi, [p1]
+    lea rsi, [p2]
+    call dot_product
+    cvtss2sd xmm0, xmm0
+    lea rdi, [dotp_format]
+    mov eax, 1
     call printf
 
     xor eax, eax
