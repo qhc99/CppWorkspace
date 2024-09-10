@@ -1,4 +1,4 @@
-; linux abi:
+; linux ABI:
 ; stack alignment: 2 bytes (1 word)
 ; float function args: xmm0-xmm7 (xmm0-xmm3 on windows)
 ; int function args: rdi, rsi , rdx, rcx, r8, r9, stack in reverse order
