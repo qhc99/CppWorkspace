@@ -92,7 +92,7 @@ main:
     leave
     ret
 
-polynomial: ; (float coef *rdi, float value xmm0, int degree rsi)
+polynomial: ; (float coef *rdi, float value xmm0, int degree esi)
     movss xmm1, xmm0 ; xmm1 = value
     movss xmm0, [rdi+rsi*4] ; accumulator
     cmp rsi, 0 ; degree = 0 ?

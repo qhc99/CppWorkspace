@@ -14,7 +14,6 @@
     global main
     global distance3d
     global dot_product
-    global polynomial
     extern printf
     extern scanf
 
@@ -122,17 +121,4 @@ dot_product: ; (float* rdi, float* rsi)
     movss xmm2, [rdi+8]
     mulss xmm2, [rsi+8]
     addss xmm0, xmm2
-    ret
-
-polynomial: ; (float coef *rdi, float value xmm0, int degree rsi)
-    movsd xmm1, xmm0 ; xmm1 = value
-    movsd xmm0, [rdi+rsi*8] ; accumulator
-    cmp rsi, 0 ; degree = 0 ?
-    jz done
-more:
-    sub esi, 1
-    mulsd xmm0, xmm1 ; b_k*x
-    addsd xmm0, [rdi+rsi*8] ; acc + coef_k
-    jnz more
-done:
     ret
