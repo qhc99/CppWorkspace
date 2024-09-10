@@ -65,7 +65,7 @@ main:
     cvtss2sd xmm1, xmm1
     movss xmm2, [p1+8]
     cvtss2sd xmm2, xmm2
-    mov eax, 3  ; Number of vector registers used
+    mov rax, 3  ; Number of vector registers used
     call printf
     ; print p2
     lea rdi, [point_format]
@@ -75,7 +75,7 @@ main:
     cvtss2sd xmm1, xmm1
     movss xmm2, [p2+8]
     cvtss2sd xmm2, xmm2
-    mov eax, 3
+    mov rax, 3
     call printf
     ; print distance
     lea rdi, [p1]
