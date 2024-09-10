@@ -23,20 +23,20 @@ main:
     push rbp
     mov rbp, rsp
     lea rdi, [scanf_hint]
-    xor eax, eax
+    xor rax, rax
     call printf
     lea rdi, [scanf_format] ; scanf arg1
     lea rsi, [x] ; scanf arg2
-    xor eax, eax
+    xor rax, rax
     call scanf
     mov rdi, [x]
     call fact
     lea rdi, [printf_format] ; printf args
     mov rsi, [x]
     mov rdx, rax
-    xor eax, eax
+    xor rax, rax
     call printf
-    xor eax, eax ; set return value
+    xor rax, rax ; set return value
     leave
     ret
 

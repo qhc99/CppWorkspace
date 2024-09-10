@@ -25,15 +25,15 @@ main:
     sub rsp, 16
     ; print prompt
     lea rdi, [point_prompt]
-    xor rax, rax
+    xor eax, eax
     call printf
     ; fill p1
-    xor rax, rax
+    xor eax, eax
     mov [rsp+.idx], eax ; idx
 .fill_p1:
     lea rdi, [scanf_format] 
     lea rsi, [scanf_out] ;
-    xor rax, rax
+    xor eax, eax
     call scanf
     movss xmm0, [scanf_out]
     mov r8d, [rsp+.idx]
@@ -43,12 +43,12 @@ main:
     cmp r8d, 3
     jl .fill_p1
     ;fill p2
-    xor rax, rax
+    xor eax, eax
     mov [rsp+.idx], eax ; idx
 .fill_p2:
     lea rdi, [scanf_format] 
     lea rsi, [scanf_out] ;
-    xor rax, rax
+    xor eax, eax
     call scanf
     movss xmm0, [scanf_out]
     mov r8d, [rsp+.idx]
@@ -94,34 +94,8 @@ main:
     mov eax, 1
     call printf
 
-    xor rax, rax
+    xor eax, eax
     leave
-    ret
-
-distance3d: ; (float* rdi, float* rsi)
-    movss xmm0, [rdi] ; x from first point
-    subss xmm0, [rsi] ; subtract x from second point
-    mulss xmm0, xmm0 ; (x1-x2)^2
-    movss xmm1, [rdi+4] ; y from first point
-    subss xmm1, [rsi+4] ; subtract y from second point
-    mulss xmm1, xmm1 ; (y1-y2)^2
-    movss xmm2, [rdi+8] ; z from first po int
-    subss xmm2, [rsi+8] ; subtract z from second point
-    mulss xmm2, xmm2 ; (z1-z2)^2
-    addss xmm0, xmm1 ; (x1-x2)^2 + (y1-y2)^2
-    addss xmm0, xmm2 ; (x1-x2)^2 + (y1-y2)^2 +  (y1-y2)^2
-    sqrtss xmm0, xmm0 ; sqrt sum
-    ret
-
-dot_product: ; (float* rdi, float* rsi)
-    movss xmm0, [rdi]
-    mulss xmm0, [rsi]
-    movss xmm1, [rdi+4]
-    mulss xmm1, [rsi+4]
-    addss xmm0, xmm1
-    movss xmm2, [rdi+8]
-    mulss xmm2, [rsi+8]
-    addss xmm0, xmm2
     ret
 
 polynomial: ; (float coef *rdi, float value xmm0, int degree rsi)
