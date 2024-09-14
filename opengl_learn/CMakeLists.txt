@@ -36,15 +36,18 @@ if(CMAKE_SYSTEM_NAME MATCHES Windows)
     set_target_properties(texture_ogl PROPERTIES FOLDER "opengl")
     target_link_libraries(texture_ogl PRIVATE OpenGL::GL glad::glad glfw)
     target_include_directories(texture_ogl PRIVATE ${Stb_INCLUDE_DIR} includes)
-    target_compile_options(texture_ogl PRIVATE ${COMMON_COMPILE_OPTIONS} /WX-)
+    target_compile_options(texture_ogl PRIVATE ${COMMON_COMPILE_OPTIONS} $<$<CXX_COMPILER_ID:MSVC>:/WX->)
     target_link_options(texture_ogl PRIVATE ${COMMON_LINK_OPTIONS})
     configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/wall.jpg
         ${CMAKE_CURRENT_BINARY_DIR}/demos/wall.jpg
         COPYONLY)
-    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/4.1.texture.vs
-        ${CMAKE_CURRENT_BINARY_DIR}/4.1.texture.vs
+    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/4.2.texture.vs
+        ${CMAKE_CURRENT_BINARY_DIR}/4.2.texture.vs
         COPYONLY)
-    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/4.1.texture.fs
-        ${CMAKE_CURRENT_BINARY_DIR}/4.1.texture.fs
+    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/4.2.texture.fs
+        ${CMAKE_CURRENT_BINARY_DIR}/4.2.texture.fs
+        COPYONLY)
+    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/awesomeface.png
+        ${CMAKE_CURRENT_BINARY_DIR}/demos/awesomeface.png
         COPYONLY)
 endif()
