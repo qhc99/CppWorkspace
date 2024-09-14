@@ -103,8 +103,6 @@ int main()
     int width, height, nrChannels;
 
     // The FileSystem::getPath(...) is part of the GitHub repository so we can find files on any IDE/platform; replace it with your own image path.
-    auto t{std::filesystem::current_path() / "demos" / "wall.jpg"};
-    std::cout << t << std::endl;
     unsigned char *data = stbi_load((std::filesystem::current_path() / "demos"  / "wall.jpg").string().c_str(), &width, &height, &nrChannels, 0);
     if (data)
     {
