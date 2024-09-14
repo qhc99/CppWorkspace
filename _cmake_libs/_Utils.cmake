@@ -1,7 +1,5 @@
 cmake_minimum_required(VERSION 3.28)
 
-include(_cmake_libs/Constants.cmake)
-
 #
 # Remove everything after the first dot
 function(remove_dot_suffix str)

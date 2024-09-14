@@ -5,7 +5,7 @@ project(cpp_projects)
 find_package(fmt 10 CONFIG REQUIRED)
 find_package(doctest 2.4 CONFIG REQUIRED)
 
-include(_cmake_libs/Utils.cmake)
+include(_cmake_libs/UtilsInclude.cmake)
 
 enable_testing() # Enable at top level to use test UI
 

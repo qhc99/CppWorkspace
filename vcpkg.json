@@ -7,6 +7,10 @@
       "platform": "windows"
     },
     {
+      "name": "glfw3",
+      "platform": "windows"
+    },
+    {
       "name": "opengl",
       "platform": "windows"
     },
@@ -15,7 +19,7 @@
       "platform": "windows"
     },
     {
-      "name": "glfw3",
+      "name": "stb",
       "platform": "windows"
     }
   ]

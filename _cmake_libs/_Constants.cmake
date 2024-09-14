@@ -1,8 +1,5 @@
 cmake_minimum_required(VERSION 3.28)
 
-include(_cmake_libs/SystemChecks.cmake)
-include(_cmake_libs/Config.cmake)
-
 set(ASAN_CLANG_OPTIONS
     $<$<CXX_COMPILER_ID:Clang>:
     $<$<NOT:$<PLATFORM_ID:Windows>>:-fsanitize=leak>
@@ -68,7 +65,7 @@ set(COMMON_LINK_OPTIONS
 )
 
 set(NVCC_COMMON_COMPILE_OPTIONS
-    $<$<CXX_COMPILER_ID:MSVC>:-Xcompiler " /W4 /WX /std:c++20 " > # disable cl /analyze
+    $<$<CXX_COMPILER_ID:MSVC>:-Xcompiler "/W4 /WX /std:c++20" >
     $<$<CXX_COMPILER_ID:Clang>:-Xcompiler "${COMMON_COMPILE_OPTIONS}" >
     $<$<CXX_COMPILER_ID:Clang>:-Xlinker "${COMMON_LINK_OPTIONS}" >
     $<$<CONFIG:Debug>:-G> # Enable device code debug
