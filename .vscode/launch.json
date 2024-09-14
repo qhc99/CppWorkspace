@@ -11,29 +11,6 @@
             "program": "${workspaceFolder}/_build_debug/pmpp/hist_test"
         },
         {
-            "name": "CUDA conv2d",
-            "type": "cuda-gdb",
-            "request": "launch",
-            "program": "${workspaceFolder}/_build_debug/pmpp/conv2d_test"
-        },
-        {
-            "name": "CUDA mat_mul",
-            "type": "cuda-gdb",
-            "request": "launch",
-            "program": "${workspaceFolder}/_build_debug/pmpp/mat_mul_test"
-        },
-        {
-            "name": "vs chip8 opcode",
-            "type": "cppvsdbg",
-            "request": "launch",
-            "program": "${workspaceFolder}/_build_debug/chip8/chip8.exe",
-            "args": ["10", "1", "test_opcode.ch8"],
-            "stopAtEntry": false,
-            "cwd": "${fileDirname}",
-            "environment": [],
-            "console": "externalTerminal"
-        },
-        {
             "name": "vs chip8 tetris",
             "type": "cppvsdbg",
             "request": "launch",
@@ -44,7 +21,5 @@
             "environment": [],
             "console": "externalTerminal"
         }
-        
-
     ]
 }

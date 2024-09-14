@@ -18,4 +18,8 @@ if(CMAKE_SYSTEM_NAME MATCHES Windows)
     add_executable(wireframe_ogl wireframe.cpp)
     set_target_properties(wireframe_ogl PROPERTIES FOLDER "opengl")
     target_link_libraries(wireframe_ogl PRIVATE OpenGL::GL glad::glad glfw)
+
+    add_executable(system_check_ogl system_check.cpp)
+    set_target_properties(system_check_ogl PROPERTIES FOLDER "opengl")
+    target_link_libraries(system_check_ogl PRIVATE OpenGL::GL glad::glad glfw)
 endif()
