@@ -8,14 +8,6 @@ if(CMAKE_SYSTEM_NAME MATCHES Windows)
     find_package(glfw3 CONFIG REQUIRED)
     find_package(Stb REQUIRED)
 
-    add_executable(triangle_ogl demos/triangle.cpp)
-    set_target_properties(triangle_ogl PROPERTIES FOLDER "opengl")
-    target_link_libraries(triangle_ogl PRIVATE OpenGL::GL glad::glad glfw)
-
-    add_executable(rectangle_ogl demos/rectangle.cpp)
-    set_target_properties(rectangle_ogl PROPERTIES FOLDER "opengl")
-    target_link_libraries(rectangle_ogl PRIVATE OpenGL::GL glad::glad glfw)
-
     add_executable(wireframe_ogl demos/wireframe.cpp)
     set_target_properties(wireframe_ogl PROPERTIES FOLDER "opengl")
     target_link_libraries(wireframe_ogl PRIVATE OpenGL::GL glad::glad glfw)
@@ -27,10 +19,6 @@ if(CMAKE_SYSTEM_NAME MATCHES Windows)
     add_executable(uniform_ogl demos/uniform.cpp)
     set_target_properties(uniform_ogl PROPERTIES FOLDER "opengl")
     target_link_libraries(uniform_ogl PRIVATE OpenGL::GL glad::glad glfw)
-
-    add_executable(vert_attr_ogl demos/vert_attr.cpp)
-    set_target_properties(vert_attr_ogl PROPERTIES FOLDER "opengl")
-    target_link_libraries(vert_attr_ogl PRIVATE OpenGL::GL glad::glad glfw)
 
     add_executable(texture_ogl demos/texture.cpp includes/shader_s.h)
     set_target_properties(texture_ogl PROPERTIES FOLDER "opengl")
