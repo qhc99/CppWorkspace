@@ -58,7 +58,7 @@ set(TEST_COVERAGE_OPTIONS
 
 set(COMMON_COMPILE_OPTIONS
     ${WARN_ALL_COMPILE_OPTIONS}
-    $<$<CXX_COMPILER_ID:Clang>:$<$<BOOL:${COMPILE_LINK_VERBOSE}>:-v>;-std=c++20>
+    $<$<CXX_COMPILER_ID:Clang>:$<$<BOOL:${COMPILE_LINK_VERBOSE}>:-v>;-std=c++20;$<$<BOOL:${CLANG_ARCH_NATIVE}>:-march=native>>
     $<$<CXX_COMPILER_ID:MSVC>:/std:c++20>
 )
 
