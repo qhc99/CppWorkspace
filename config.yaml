@@ -9,3 +9,4 @@ CompileFlags:
     - -forward-unknown-to-host-compiler
     - --generate-code*
     - -ccbin*
+    - --expt-relaxed-constexpr

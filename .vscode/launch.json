@@ -16,10 +16,10 @@
             "console": "externalTerminal"
         },
         {
-            "name": "CUDA hist",
+            "name": "CUDA reduce",
             "type": "cuda-gdb",
             "request": "launch",
-            "program": "${workspaceFolder}/_build_debug/pmpp/hist_test"
+            "program": "${workspaceFolder}/_build_debug/pmpp/reduce_test"
         },
         {
             "name": "vs chip8 tetris",
