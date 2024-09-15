@@ -7,6 +7,7 @@ if(CMAKE_SYSTEM_NAME MATCHES Windows)
     find_package(glad CONFIG REQUIRED)
     find_package(glfw3 CONFIG REQUIRED)
     find_package(Stb REQUIRED)
+    find_package(glm CONFIG REQUIRED)
 
     add_executable(wireframe_ogl demos/wireframe.cpp)
     set_target_properties(wireframe_ogl PROPERTIES FOLDER "opengl")
@@ -38,4 +39,6 @@ if(CMAKE_SYSTEM_NAME MATCHES Windows)
     configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/awesomeface.png
         ${CMAKE_CURRENT_BINARY_DIR}/demos/awesomeface.png
         COPYONLY)
+
+        # target_link_libraries(main PRIVATE glm::glm-header-only)
 endif()
