@@ -1,5 +1,6 @@
 cmake_minimum_required(VERSION 3.28)
 
+find_package(doctest 2.4 CONFIG REQUIRED)
 
 if(CMAKE_BUILD_TYPE MATCHES Debug)
     set(link_lib central_lib_asan)

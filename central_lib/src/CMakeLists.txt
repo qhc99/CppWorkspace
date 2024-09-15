@@ -1,5 +1,7 @@
 cmake_minimum_required(VERSION 3.28)
 
+find_package(fmt 10 CONFIG REQUIRED)
+
 set(folder_name central_lib)
 set(LIB_SOURCES
     DisjointSet.cpp
