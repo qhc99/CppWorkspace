@@ -5,9 +5,9 @@
  * @brief Mat Mul Tiling and Coarsening. Available tune compile definitions: 
  * PMPP_MAT_MUL_KERNEL_TILE_WIDTH, PMPP_MAT_MUL_KERNEL_COARSE_FACTOR
  *
- * @param A row major matrix, size i * j
- * @param B row major matrix, size j * k
- * @param C row major matrix, size i * k, return C = A * B
+ * @param A col major matrix, size i * j
+ * @param B col major matrix, size j * k
+ * @param C col major matrix, size i * k, return C = A * B
  * @param i
  * @param j
  * @param k
