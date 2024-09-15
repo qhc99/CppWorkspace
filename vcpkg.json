@@ -21,6 +21,10 @@
     {
       "name": "stb",
       "platform": "windows"
+    },
+    {
+      "name": "glm",
+      "platform": "windows"
     }
   ]
 }
