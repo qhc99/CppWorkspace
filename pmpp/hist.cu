@@ -56,7 +56,7 @@ void hist(char* data, unsigned int length, unsigned int* hist_out, unsigned int 
 {
     char* data_d = nullptr;
     unsigned int* hist_d = nullptr;
-    const unsigned int bin_count = static_cast<unsigned int>(ceil(26. / bin_width));
+    const auto bin_count = static_cast<unsigned int>(ceil(26. / bin_width));
     checkCudaError(cudaMalloc(&data_d, length * sizeof(char)));
     checkCudaError(cudaMalloc(&hist_d, bin_count * sizeof(unsigned int)));
     checkCudaError(cudaMemcpy(data_d, data, length * sizeof(char), cudaMemcpyHostToDevice));
