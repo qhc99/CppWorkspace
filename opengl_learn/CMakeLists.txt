@@ -17,28 +17,23 @@ if(CMAKE_SYSTEM_NAME MATCHES Windows)
     set_target_properties(system_check_ogl PROPERTIES FOLDER "opengl")
     target_link_libraries(system_check_ogl PRIVATE OpenGL::GL glad::glad glfw)
 
-    add_executable(uniform_ogl demos/uniform.cpp)
-    set_target_properties(uniform_ogl PROPERTIES FOLDER "opengl")
-    target_link_libraries(uniform_ogl PRIVATE OpenGL::GL glad::glad glfw)
-
-    add_executable(texture_ogl demos/texture.cpp includes/shader_s.h)
-    set_target_properties(texture_ogl PROPERTIES FOLDER "opengl")
-    target_link_libraries(texture_ogl PRIVATE OpenGL::GL glad::glad glfw)
-    target_include_directories(texture_ogl PRIVATE ${Stb_INCLUDE_DIR} includes)
-    target_compile_options(texture_ogl PRIVATE ${COMMON_COMPILE_OPTIONS} $<$<CXX_COMPILER_ID:MSVC>:/WX->)
-    target_link_options(texture_ogl PRIVATE ${COMMON_LINK_OPTIONS})
+    add_executable(texture_box_anime_ogl demos/texture_box_anime.cpp includes/shader_s.h)
+    set_target_properties(texture_box_anime_ogl PROPERTIES FOLDER "opengl")
+    target_link_libraries(texture_box_anime_ogl PRIVATE OpenGL::GL glad::glad glfw glm::glm-header-only)
+    target_include_directories(texture_box_anime_ogl PRIVATE ${Stb_INCLUDE_DIR} includes)
+    target_compile_options(texture_box_anime_ogl PRIVATE ${COMMON_COMPILE_OPTIONS} $<$<CXX_COMPILER_ID:MSVC>:/WX->)
+    target_link_options(texture_box_anime_ogl PRIVATE ${COMMON_LINK_OPTIONS})
+    target_compile_definitions(texture_box_anime_ogl PRIVATE STB_IMAGE_IMPLEMENTATION)
     configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/wall.jpg
         ${CMAKE_CURRENT_BINARY_DIR}/demos/wall.jpg
         COPYONLY)
-    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/4.2.texture.vs
-        ${CMAKE_CURRENT_BINARY_DIR}/4.2.texture.vs
+    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/5.1.transform.vs
+        ${CMAKE_CURRENT_BINARY_DIR}/5.1.transform.vs
         COPYONLY)
-    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/4.2.texture.fs
-        ${CMAKE_CURRENT_BINARY_DIR}/4.2.texture.fs
+    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/5.1.transform.fs
+        ${CMAKE_CURRENT_BINARY_DIR}/5.1.transform.fs
         COPYONLY)
     configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/awesomeface.png
         ${CMAKE_CURRENT_BINARY_DIR}/demos/awesomeface.png
         COPYONLY)
-
-        # target_link_libraries(main PRIVATE glm::glm-header-only)
 endif()
