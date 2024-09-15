@@ -123,7 +123,7 @@ void reduce(const T* input, size_t length, T* output, Op reduce_func, AtomicOp a
 
     checkCudaError(cudaMemcpy(input_d, input, length * sizeof(T), cudaMemcpyHostToDevice));
     checkCudaError(cudaMemcpy(output_d, output, sizeof(T), cudaMemcpyHostToDevice));
-    reduceKernel<T, Op, AtomicOp><<<ceil(length/2./PMPP_REDUCE_KERNEL_BLOCK_DIM), PMPP_REDUCE_KERNEL_BLOCK_DIM>>>(input_d, length, output_d, reduce_func, atomic_reduce_func);
+    reduceKernel<T, Op, AtomicOp><<<static_cast<unsigned int>(ceil(length / 2. / PMPP_REDUCE_KERNEL_BLOCK_DIM)), PMPP_REDUCE_KERNEL_BLOCK_DIM>>>(input_d, length, output_d, reduce_func, atomic_reduce_func);
     checkCudaLastError();
 
     checkCudaError(cudaMemcpy(output, output_d, sizeof(T), cudaMemcpyDeviceToHost));
