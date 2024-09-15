@@ -3,6 +3,7 @@ cmake_minimum_required(VERSION 3.28)
 
 if(NVCC_COMPILER_PROGRAM AND NOT SKIP_CLANG_WINDOWS_CUDA)
     project(pmpp LANGUAGES CUDA)
+    find_package(doctest 2.4 CONFIG REQUIRED)
     add_library(vec_add_cu STATIC vec_add.cu vec_add.h utils.h)
     target_compile_options(vec_add_cu PRIVATE ${NVCC_COMMON_COMPILE_OPTIONS})
     target_link_options(vec_add_cu PRIVATE ${NVCC_COMMON_LINK_OPTIONS})
