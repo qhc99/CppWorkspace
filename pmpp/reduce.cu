@@ -14,7 +14,7 @@ struct MaxOp {
         return a > b ? a : b;
     }
 
-    __device__  T identity() const
+    __device__ T identity() const
     {
         return std::numeric_limits<T>::lowest();
     }
@@ -35,7 +35,7 @@ struct MinOp {
         return a < b ? a : b;
     }
 
-    __device__  T identity() const
+    __device__ T identity() const
     {
         return std::numeric_limits<T>::max();
     }
@@ -80,7 +80,7 @@ __global__ void reduceKernel(const T* input, size_t length, T* output, Op reduce
 
     input_s[t] = reduce_func.identity();
     __syncthreads();
-    
+
     if (i < length) {
         T val = input[i];
         for (unsigned int tile { 1 };
@@ -122,7 +122,7 @@ void reduce(const T* input, size_t length, T* output, Op reduce_func, AtomicOp a
     checkCudaError(cudaMalloc(&output_d, sizeof(T)));
 
     checkCudaError(cudaMemcpy(input_d, input, length * sizeof(T), cudaMemcpyHostToDevice));
-
+    checkCudaError(cudaMemcpy(output_d, output, sizeof(T), cudaMemcpyHostToDevice));
     reduceKernel<T, Op, AtomicOp><<<8, PMPP_REDUCE_KERNEL_BLOCK_DIM>>>(input_d, length, output_d, reduce_func, atomic_reduce_func);
     checkCudaLastError();
 
