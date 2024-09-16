@@ -5,7 +5,7 @@ call "%~dp0\print_clock.cmd" "Build start"
 cmake --build . --target all --parallel
 call "%~dp0\print_clock.cmd" "Build end"
 
-ctest -E ^asan_.*
+ctest
 cmake --build . --target clean
 cd ..
 
@@ -16,6 +16,6 @@ call "%~dp0\print_clock.cmd" "Build start"
 msbuild /m /verbosity:minimal ALL_BUILD.vcxproj /target:"Build" /property:Configuration=Debug
 call "%~dp0\print_clock.cmd" "Build end"
 
-ctest -C Debug -E ^asan_.*
+ctest
 msbuild /m /verbosity:minimal ALL_BUILD.vcxproj /target:"Clean" /property:Configuration=Debug
 cd ..
