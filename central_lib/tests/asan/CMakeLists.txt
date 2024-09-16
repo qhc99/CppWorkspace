@@ -2,8 +2,11 @@ cmake_minimum_required(VERSION 3.28)
 
 if(CMAKE_BUILD_TYPE MATCHES Debug)
     add_unit_doctest(asan_leak_test.cpp ${link_lib} "central_libs_tests/asan" "asan" true)
+    # set_property (TEST asan_leak_test PROPERTY WILL_FAIL)
     add_unit_doctest(asan_out_of_range_access_test.cpp ${link_lib}  "central_libs_tests/asan" "asan" true)
+    set_property (TEST asan_out_of_range_access_test PROPERTY WILL_FAIL TRUE)
     add_unit_doctest(asan_use_after_free_test.cpp ${link_lib} "central_libs_tests/asan" "asan" true)
+    set_property (TEST asan_use_after_free_test PROPERTY WILL_FAIL TRUE)
 endif()
 
 set(link_lib central_lib)
