@@ -17,7 +17,7 @@ if(CMAKE_SYSTEM_NAME MATCHES Windows)
     set_target_properties(system_check_ogl PROPERTIES FOLDER "opengl")
     target_link_libraries(system_check_ogl PRIVATE OpenGL::GL glad::glad glfw)
 
-    add_executable(texture_box_anime_ogl demos/texture_box_anime.cpp includes/shader_s.h)
+    add_executable(texture_box_anime_ogl demos/texture_box_anime.cpp includes/shader_m.h)
     set_target_properties(texture_box_anime_ogl PROPERTIES FOLDER "opengl")
     target_link_libraries(texture_box_anime_ogl PRIVATE OpenGL::GL glad::glad glfw glm::glm-header-only)
     target_include_directories(texture_box_anime_ogl PRIVATE ${Stb_INCLUDE_DIR} includes)

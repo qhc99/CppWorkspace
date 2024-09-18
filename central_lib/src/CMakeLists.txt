@@ -22,6 +22,15 @@ target_compile_options(central_lib PRIVATE ${COMMON_COMPILE_OPTIONS})
 target_link_options(central_lib PRIVATE ${COMMON_LINK_OPTIONS})
 target_link_libraries(central_lib PRIVATE workspace_pch)
 
+
+add_library(central_lib_shared SHARED ${LIB_SOURCES})
+target_include_directories(central_lib_shared PUBLIC public)
+set_target_properties(central_lib_shared PROPERTIES FOLDER ${folder_name})
+target_compile_options(central_lib_shared PRIVATE ${COMMON_COMPILE_OPTIONS})
+target_link_options(central_lib_shared PRIVATE ${COMMON_LINK_OPTIONS})
+target_link_libraries(central_lib_shared PRIVATE workspace_pch)
+target_compile_definitions(central_lib_shared PRIVATE BUILDING_CENTRAL_LIB)
+
 if(CMAKE_BUILD_TYPE MATCHES Debug)
     add_library(central_lib_asan STATIC ${LIB_SOURCES})
     target_include_directories(central_lib_asan PUBLIC public)
@@ -36,5 +45,10 @@ add_executable(
     main.cpp)
 target_link_libraries(lib_main PRIVATE central_lib fmt::fmt-header-only workspace_pch)
 set_target_properties(lib_main PROPERTIES FOLDER ${folder_name})
-target_compile_options(central_lib PRIVATE ${COMMON_COMPILE_OPTIONS})
-target_link_options(central_lib PRIVATE ${COMMON_LINK_OPTIONS})
+
+
+add_executable(
+    shared_link_demo
+    shared_link.cpp)
+target_link_libraries(shared_link_demo PRIVATE central_lib_shared fmt::fmt-header-only workspace_pch)
+set_target_properties(shared_link_demo PROPERTIES FOLDER ${folder_name})
