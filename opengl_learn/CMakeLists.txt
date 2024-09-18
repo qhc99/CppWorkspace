@@ -25,15 +25,15 @@ if(CMAKE_SYSTEM_NAME MATCHES Windows)
     target_link_options(texture_box_anime_ogl PRIVATE ${COMMON_LINK_OPTIONS})
     target_compile_definitions(texture_box_anime_ogl PRIVATE STB_IMAGE_IMPLEMENTATION)
     configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/wall.jpg
-        ${CMAKE_CURRENT_BINARY_DIR}/demos/wall.jpg
+        ${CMAKE_CURRENT_BINARY_DIR}/wall.jpg
         COPYONLY)
-    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/5.1.transform.vs
-        ${CMAKE_CURRENT_BINARY_DIR}/5.1.transform.vs
+    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/6.3.coordinate_systems.vs
+        ${CMAKE_CURRENT_BINARY_DIR}/6.3.coordinate_systems.vs
         COPYONLY)
-    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/5.1.transform.fs
-        ${CMAKE_CURRENT_BINARY_DIR}/5.1.transform.fs
+    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/6.3.coordinate_systems.fs
+        ${CMAKE_CURRENT_BINARY_DIR}/6.3.coordinate_systems.fs
         COPYONLY)
     configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/awesomeface.png
-        ${CMAKE_CURRENT_BINARY_DIR}/demos/awesomeface.png
+        ${CMAKE_CURRENT_BINARY_DIR}/awesomeface.png
         COPYONLY)
 endif()
