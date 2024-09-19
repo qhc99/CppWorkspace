@@ -21,6 +21,14 @@ call "%~dp0\print_clock.cmd" "Build start"
 msbuild /m /verbosity:minimal ALL_BUILD.vcxproj /target:"Build" /property:Configuration=Debug
 call "%~dp0\print_clock.cmd" "Build end"
 
-ctest
+ctest -C Debug
 msbuild /m /verbosity:minimal ALL_BUILD.vcxproj /target:"Clean" /property:Configuration=Debug
 cd ..
+
+cd standalone_import
+cmake --preset "Clang Debug"
+cd _build_debug
+cmake --build . --target all --parallel
+ctest
+cmake --build . --target clean
+cd ../..
