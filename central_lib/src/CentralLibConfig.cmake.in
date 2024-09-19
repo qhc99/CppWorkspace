@@ -1,0 +1,5 @@
+@PACKAGE_INIT@
+
+include("${CMAKE_CURRENT_LIST_DIR}/CentralLibTargets.cmake")
+
+check_required_components(central_lib_shared)

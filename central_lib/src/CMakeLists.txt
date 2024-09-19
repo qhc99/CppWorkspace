@@ -24,12 +24,60 @@ target_link_libraries(central_lib PRIVATE workspace_pch)
 
 
 add_library(central_lib_shared SHARED ${LIB_SOURCES})
-target_include_directories(central_lib_shared PUBLIC public)
+target_include_directories(central_lib_shared PRIVATE 
+                            "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/public>"
+                           "$<INSTALL_INTERFACE:include>")
 set_target_properties(central_lib_shared PROPERTIES FOLDER ${folder_name})
 target_compile_options(central_lib_shared PRIVATE ${COMMON_COMPILE_OPTIONS})
 target_link_options(central_lib_shared PRIVATE ${COMMON_LINK_OPTIONS})
 target_link_libraries(central_lib_shared PRIVATE workspace_pch)
-target_compile_definitions(central_lib_shared PRIVATE BUILDING_CENTRAL_LIB)
+target_compile_definitions(central_lib_shared PRIVATE BUILDING_CENTRAL_LIB USE_SHARED)
+
+# Install
+install(TARGETS central_lib_shared
+        EXPORT CentralLibTargets
+        LIBRARY DESTINATION lib
+        ARCHIVE DESTINATION lib
+        RUNTIME DESTINATION bin
+        INCLUDES DESTINATION include
+)
+install(DIRECTORY public/lib_central DESTINATION include)
+install(EXPORT CentralLibTargets
+        FILE CentralLibTargets.cmake # consumed in config.cmake.in
+        NAMESPACE CentralLib::
+        DESTINATION lib/cmake/central_lib
+)
+
+# Create package from install
+
+include(CMakePackageConfigHelpers)
+
+set(CENTRAL_LIB_VERSION 1.0.0)
+set_property(TARGET central_lib_shared PROPERTY VERSION ${CENTRAL_LIB_VERSION})
+set_property(TARGET central_lib_shared PROPERTY SOVERSION 1)
+set_property(TARGET central_lib_shared PROPERTY
+  INTERFACE_central_lib_shared_MAJOR_VERSION 1)
+set_property(TARGET central_lib_shared APPEND PROPERTY
+  COMPATIBLE_INTERFACE_STRING central_lib_shared_MAJOR_VERSION
+)
+
+write_basic_package_version_file(
+  "${CMAKE_CURRENT_BINARY_DIR}/CentralLibConfigVersion.cmake"
+  VERSION "${CENTRAL_LIB_VERSION}"
+  COMPATIBILITY AnyNewerVersion
+)
+
+configure_package_config_file(${CMAKE_CURRENT_SOURCE_DIR}/CentralLibConfig.cmake.in
+  "${CMAKE_CURRENT_BINARY_DIR}/CentralLibConfig.cmake"
+  INSTALL_DESTINATION lib/cmake/central_lib
+)
+
+install(FILES
+          "${CMAKE_CURRENT_BINARY_DIR}/CentralLibConfig.cmake"
+          "${CMAKE_CURRENT_BINARY_DIR}/CentralLibConfigVersion.cmake"
+        DESTINATION lib/cmake/central_lib
+)
+
 
 if(CMAKE_BUILD_TYPE MATCHES Debug)
     add_library(central_lib_asan STATIC ${LIB_SOURCES})
@@ -45,10 +93,3 @@ add_executable(
     main.cpp)
 target_link_libraries(lib_main PRIVATE central_lib fmt::fmt-header-only workspace_pch)
 set_target_properties(lib_main PROPERTIES FOLDER ${folder_name})
-
-
-add_executable(
-    shared_link_demo
-    shared_link.cpp)
-target_link_libraries(shared_link_demo PRIVATE central_lib_shared fmt::fmt-header-only workspace_pch)
-set_target_properties(shared_link_demo PROPERTIES FOLDER ${folder_name})

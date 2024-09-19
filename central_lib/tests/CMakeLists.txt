@@ -12,4 +12,7 @@ add_unit_doctest(rank_search_test.cpp ${link_lib} "central_libs_tests")
 add_unit_doctest(DisjointSetTest.cpp ${link_lib} "central_libs_tests")
 add_unit_doctest(numeric_utils_test.cpp ${link_lib} "central_libs_tests")
 
+set(CMAKE_PREFIX_PATH "${CMAKE_SOURCE_DIR}/_installed" ${CMAKE_PREFIX_PATH})
+
+
 add_subdirectory(asan)

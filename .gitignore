@@ -14,13 +14,13 @@ Debug
 Release
 /_build
 /_build_debug
-/_build_cl
-/_build_cl_debug
 /_msbuild
-/_vcbuild
-/_vcbuild_debug
 /log.txt
-
+/_installed
+/standalone_import/_installed
+/standalone_import/_build
+/standalone_import/_build_debug
+/standalone_import/_msbuild
 
 CMakeLists.txt.user
 CMakeCache.txt

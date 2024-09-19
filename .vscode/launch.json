@@ -5,32 +5,10 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "vs texture ogl",
-            "type": "cppvsdbg",
-            "request": "launch",
-            "program": "${workspaceFolder}/_build_debug/opengl_learn/texture_ogl",
-            "args": [],
-            "stopAtEntry": false,
-            "cwd": "${fileDirname}",
-            "environment": [],
-            "console": "externalTerminal"
-        },
-        {
             "name": "CUDA reduce",
             "type": "cuda-gdb",
             "request": "launch",
             "program": "${workspaceFolder}/_build_debug/pmpp/reduce_test"
-        },
-        {
-            "name": "vs chip8 tetris",
-            "type": "cppvsdbg",
-            "request": "launch",
-            "program": "${workspaceFolder}/_build_debug/chip8/chip8.exe",
-            "args": ["10", "3", "Tetris.ch8"],
-            "stopAtEntry": false,
-            "cwd": "${fileDirname}",
-            "environment": [],
-            "console": "externalTerminal"
         }
     ]
 }
