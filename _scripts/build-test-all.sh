@@ -1,5 +1,4 @@
 cmake --preset "Clang Debug"
-rm -rf _installed
 cd _build_debug
 cmake --install . --prefix ../standalone_import/_installed
 cmake --build . --target clean

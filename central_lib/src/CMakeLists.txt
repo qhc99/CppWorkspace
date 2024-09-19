@@ -26,7 +26,7 @@ target_link_libraries(central_lib PRIVATE workspace_pch)
 add_library(central_lib_shared SHARED ${LIB_SOURCES})
 target_include_directories(central_lib_shared PRIVATE 
                             "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/public>"
-                           "$<INSTALL_INTERFACE:include>")
+                           "$<INSTALL_INTERFACE:include>") # Required for install
 set_target_properties(central_lib_shared PROPERTIES FOLDER ${folder_name})
 target_compile_options(central_lib_shared PRIVATE ${COMMON_COMPILE_OPTIONS})
 target_link_options(central_lib_shared PRIVATE ${COMMON_LINK_OPTIONS})
