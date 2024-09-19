@@ -10,13 +10,10 @@
 *.profdata
 .cache
 .codechecker
-Debug
-Release
 /_build
 /_build_debug
 /_msbuild
-/log.txt
-/_installed
+log.txt
 /standalone_import/_installed
 /standalone_import/_build
 /standalone_import/_build_debug

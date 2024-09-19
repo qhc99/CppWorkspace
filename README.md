@@ -21,7 +21,7 @@
 - Test coverage is generated to folder `_html_cov_report` by running corresponding custom targets.
 - Run `run-checks.cmd` or `run-checks.sh` in project root dir to check if build and tests pass
     - `run-checks.cmd` cannot run multple times in one env because the msvc env will polluted clang asan env
-- Enable clangd cuda support on Linux: update the cuda path in `config.yaml` on your system and copy it to clangd user folder: `cp config.yaml  ~/.config/clangd/config.yaml`. 
+- Enable clangd cuda support on Linux: update the cuda path in `config.yaml` on your system and copy it to clangd user folder: `cp ./scripts/config.yaml  ~/.config/clangd/config.yaml`. 
 
 # Troubleshooting
 - On windows, Address sanitizer and Clang must be installed through Visual Studio to use ASan (official download dll crashes for some reason). 

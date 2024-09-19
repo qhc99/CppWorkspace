@@ -13,6 +13,8 @@ set(LIB_SOURCES
     public/lib_central/rank_search.hpp
     public/lib_central/TernaryTries.hpp
     public/lib_central/utils.h
+    public/lib_central/dll.h
+
     )
 
 add_library(central_lib STATIC ${LIB_SOURCES})
@@ -45,7 +47,7 @@ install(DIRECTORY public/lib_central DESTINATION include)
 install(EXPORT CentralLibTargets
         FILE CentralLibTargets.cmake # consumed in config.cmake.in
         NAMESPACE CentralLib::
-        DESTINATION lib/cmake/central_lib
+        DESTINATION lib/cmake/CentralLib
 )
 
 # Create package from install
@@ -69,13 +71,13 @@ write_basic_package_version_file(
 
 configure_package_config_file(${CMAKE_CURRENT_SOURCE_DIR}/CentralLibConfig.cmake.in
   "${CMAKE_CURRENT_BINARY_DIR}/CentralLibConfig.cmake"
-  INSTALL_DESTINATION lib/cmake/central_lib
+  INSTALL_DESTINATION lib/cmake/CentralLib
 )
 
 install(FILES
           "${CMAKE_CURRENT_BINARY_DIR}/CentralLibConfig.cmake"
           "${CMAKE_CURRENT_BINARY_DIR}/CentralLibConfigVersion.cmake"
-        DESTINATION lib/cmake/central_lib
+        DESTINATION lib/cmake/CentralLib
 )
 
 
