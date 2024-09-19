@@ -8,6 +8,7 @@ call "%~dp0\print_clock.cmd" "Build end"
 
 
 ctest
+rm -rf ../standalone_import/_installed
 cmake --install . --prefix ../standalone_import/_installed
 cmake --build . --target clean
 cd ..
