@@ -17,13 +17,13 @@ if(CMAKE_SYSTEM_NAME MATCHES Windows)
     set_target_properties(system_check_ogl PROPERTIES FOLDER "opengl")
     target_link_libraries(system_check_ogl PRIVATE OpenGL::GL glad::glad glfw)
 
-    add_executable(camera_ogl demos/camera.cpp includes/shader_m.h includes/camera.h)
-    set_target_properties(camera_ogl PROPERTIES FOLDER "opengl")
-    target_link_libraries(camera_ogl PRIVATE OpenGL::GL glad::glad glfw glm::glm-header-only)
-    target_include_directories(camera_ogl PRIVATE ${Stb_INCLUDE_DIR} includes)
-    target_compile_options(camera_ogl PRIVATE ${COMMON_COMPILE_OPTIONS} $<$<CXX_COMPILER_ID:MSVC>:/WX->)
-    target_link_options(camera_ogl PRIVATE ${COMMON_LINK_OPTIONS})
-    target_compile_definitions(camera_ogl PRIVATE STB_IMAGE_IMPLEMENTATION)
+    add_executable(camera_texture_box_ogl demos/camera_texture_box.cpp includes/shader_m.h includes/camera.h)
+    set_target_properties(camera_texture_box_ogl PROPERTIES FOLDER "opengl")
+    target_link_libraries(camera_texture_box_ogl PRIVATE OpenGL::GL glad::glad glfw glm::glm-header-only)
+    target_include_directories(camera_texture_box_ogl PRIVATE ${Stb_INCLUDE_DIR} includes)
+    target_compile_options(camera_texture_box_ogl PRIVATE ${COMMON_COMPILE_OPTIONS} $<$<CXX_COMPILER_ID:MSVC>:/WX->)
+    target_link_options(camera_texture_box_ogl PRIVATE ${COMMON_LINK_OPTIONS})
+    target_compile_definitions(camera_texture_box_ogl PRIVATE STB_IMAGE_IMPLEMENTATION)
     configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/wall.jpg
         ${CMAKE_CURRENT_BINARY_DIR}/wall.jpg
         COPYONLY)
@@ -35,5 +35,26 @@ if(CMAKE_SYSTEM_NAME MATCHES Windows)
         COPYONLY)
     configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/awesomeface.png
         ${CMAKE_CURRENT_BINARY_DIR}/awesomeface.png
+        COPYONLY)
+
+
+        add_executable(phong_ogl demos/phong.cpp includes/shader_m.h includes/camera.h)
+    set_target_properties(phong_ogl PROPERTIES FOLDER "opengl")
+    target_link_libraries(phong_ogl PRIVATE OpenGL::GL glad::glad glfw glm::glm-header-only)
+    target_include_directories(phong_ogl PRIVATE ${Stb_INCLUDE_DIR} includes)
+    target_compile_options(phong_ogl PRIVATE ${COMMON_COMPILE_OPTIONS} $<$<CXX_COMPILER_ID:MSVC>:/WX->)
+    target_link_options(phong_ogl PRIVATE ${COMMON_LINK_OPTIONS})
+    target_compile_definitions(phong_ogl PRIVATE STB_IMAGE_IMPLEMENTATION)
+    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/2.2.light_cube.vs
+        ${CMAKE_CURRENT_BINARY_DIR}/2.2.light_cube.vs
+        COPYONLY)
+    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/2.2.light_cube.fs
+        ${CMAKE_CURRENT_BINARY_DIR}/2.2.light_cube.fs
+        COPYONLY)
+        configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/2.2.basic_lighting.vs
+        ${CMAKE_CURRENT_BINARY_DIR}/2.2.basic_lighting.vs
+        COPYONLY)
+    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/2.2.basic_lighting.fs
+        ${CMAKE_CURRENT_BINARY_DIR}/2.2.basic_lighting.fs
         COPYONLY)
 endif()
