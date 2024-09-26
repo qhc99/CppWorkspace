@@ -37,24 +37,29 @@ if(CMAKE_SYSTEM_NAME MATCHES Windows)
         ${CMAKE_CURRENT_BINARY_DIR}/awesomeface.png
         COPYONLY)
 
-
-        add_executable(phong_ogl demos/phong.cpp includes/shader_m.h includes/camera.h)
+    add_executable(phong_ogl demos/phong.cpp includes/shader_m.h includes/camera.h)
     set_target_properties(phong_ogl PROPERTIES FOLDER "opengl")
     target_link_libraries(phong_ogl PRIVATE OpenGL::GL glad::glad glfw glm::glm-header-only)
     target_include_directories(phong_ogl PRIVATE ${Stb_INCLUDE_DIR} includes)
     target_compile_options(phong_ogl PRIVATE ${COMMON_COMPILE_OPTIONS} $<$<CXX_COMPILER_ID:MSVC>:/WX->)
     target_link_options(phong_ogl PRIVATE ${COMMON_LINK_OPTIONS})
     target_compile_definitions(phong_ogl PRIVATE STB_IMAGE_IMPLEMENTATION)
-    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/2.2.light_cube.vs
-        ${CMAKE_CURRENT_BINARY_DIR}/2.2.light_cube.vs
+    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/4.2.light_cube.vs
+        ${CMAKE_CURRENT_BINARY_DIR}/4.2.light_cube.vs
         COPYONLY)
-    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/2.2.light_cube.fs
-        ${CMAKE_CURRENT_BINARY_DIR}/2.2.light_cube.fs
+    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/4.2.light_cube.fs
+        ${CMAKE_CURRENT_BINARY_DIR}/4.2.light_cube.fs
         COPYONLY)
-        configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/2.2.basic_lighting.vs
-        ${CMAKE_CURRENT_BINARY_DIR}/2.2.basic_lighting.vs
+    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/4.2.lighting_maps.vs
+        ${CMAKE_CURRENT_BINARY_DIR}/4.2.lighting_maps.vs
         COPYONLY)
-    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/2.2.basic_lighting.fs
-        ${CMAKE_CURRENT_BINARY_DIR}/2.2.basic_lighting.fs
+    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/4.2.lighting_maps.fs
+        ${CMAKE_CURRENT_BINARY_DIR}/4.2.lighting_maps.fs
+        COPYONLY)
+    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/container2_specular.png
+        ${CMAKE_CURRENT_BINARY_DIR}/container2_specular.png
+        COPYONLY)
+    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/container2.png
+        ${CMAKE_CURRENT_BINARY_DIR}/container2.png
         COPYONLY)
 endif()
