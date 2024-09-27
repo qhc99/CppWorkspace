@@ -3,5 +3,4 @@
 
 void mergeTiles(int* A, int m, int* B, int n, int* C);
 
-
 #endif

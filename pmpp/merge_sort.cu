@@ -167,7 +167,7 @@ void mergeTiles(int* A, int m, int* B, int n, int* C)
     checkCudaError(cudaMemcpy(A_d, A, m * sizeof(int), cudaMemcpyHostToDevice));
     checkCudaError(cudaMemcpy(B_d, B, n * sizeof(int), cudaMemcpyHostToDevice));
 
-    mergeTileKernel<<<max(1,static_cast<unsigned int>(floor((m+n)/(4.*TILE_SIZE)))), 64>>>(A_d, m, B_d, n, C_d);
+    mergeTileKernel<<<max(1, static_cast<unsigned int>(floor((m + n) / (4. * TILE_SIZE)))), 64>>>(A_d, m, B_d, n, C_d);
 
     checkCudaLastError();
 
