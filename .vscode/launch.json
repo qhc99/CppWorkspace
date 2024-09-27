@@ -5,10 +5,10 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "CUDA reduce",
+            "name": "CUDA merge sort",
             "type": "cuda-gdb",
             "request": "launch",
-            "program": "${workspaceFolder}/_build_debug/pmpp/reduce_test"
+            "program": "${workspaceFolder}/_build_debug/pmpp/merge_sort_test"
         }
     ]
 }
