@@ -35,8 +35,6 @@ TEST_CASE("merge_sort_large_test")
     mergeTiles(a.data(), a.size(), b.data(), b.size(), c.data());
 
     for (size_t i { 1 }; i < c.size(); i++) {
-        if (i % 1024 != 0) {
             REQUIRE(c.at(i) > c.at(i - 1));
-        }
     }
 }
