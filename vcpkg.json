@@ -25,6 +25,10 @@
     {
       "name": "glm",
       "platform": "windows"
+    },
+    {
+      "name": "assimp",
+      "platform": "windows"
     }
   ]
 }
