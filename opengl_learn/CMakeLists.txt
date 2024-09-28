@@ -8,6 +8,7 @@ if(CMAKE_SYSTEM_NAME MATCHES Windows)
     find_package(glfw3 CONFIG REQUIRED)
     find_package(Stb REQUIRED)
     find_package(glm CONFIG REQUIRED)
+    find_package(assimp CONFIG REQUIRED)
 
     add_executable(wireframe_ogl demos/wireframe.cpp)
     set_target_properties(wireframe_ogl PROPERTIES FOLDER "opengl")
@@ -62,4 +63,32 @@ if(CMAKE_SYSTEM_NAME MATCHES Windows)
     configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/container2.png
         ${CMAKE_CURRENT_BINARY_DIR}/container2.png
         COPYONLY)
+
+    add_executable(light_casters_ogl demos/light_casters.cpp includes/shader_m.h includes/camera.h)
+    set_target_properties(light_casters_ogl PROPERTIES FOLDER "opengl")
+    target_link_libraries(light_casters_ogl PRIVATE OpenGL::GL glad::glad glfw glm::glm-header-only)
+    target_include_directories(light_casters_ogl PRIVATE ${Stb_INCLUDE_DIR} includes)
+    target_compile_options(light_casters_ogl PRIVATE ${COMMON_COMPILE_OPTIONS} $<$<CXX_COMPILER_ID:MSVC>:/WX->)
+    target_link_options(light_casters_ogl PRIVATE ${COMMON_LINK_OPTIONS})
+    target_compile_definitions(light_casters_ogl PRIVATE STB_IMAGE_IMPLEMENTATION)
+    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/4.2.light_cube.vs
+        ${CMAKE_CURRENT_BINARY_DIR}/4.2.light_cube.vs
+        COPYONLY)
+    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/4.2.light_cube.fs
+        ${CMAKE_CURRENT_BINARY_DIR}/4.2.light_cube.fs
+        COPYONLY)
+    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/6.multiple_lights.vs
+        ${CMAKE_CURRENT_BINARY_DIR}/6.multiple_lights.vs
+        COPYONLY)
+    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/6.multiple_lights.fs
+        ${CMAKE_CURRENT_BINARY_DIR}/6.multiple_lights.fs
+        COPYONLY)
+    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/container2_specular.png
+        ${CMAKE_CURRENT_BINARY_DIR}/container2_specular.png
+        COPYONLY)
+    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/container2.png
+        ${CMAKE_CURRENT_BINARY_DIR}/container2.png
+        COPYONLY)
+
+    # target_link_libraries(main PRIVATE assimp::assimp)
 endif()
