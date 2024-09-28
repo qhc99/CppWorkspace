@@ -5,7 +5,7 @@ if(NVCC_COMPILER_PROGRAM AND NOT SKIP_CLANG_WINDOWS_CUDA)
     project(pmpp LANGUAGES CUDA)
     find_package(doctest 2.4 CONFIG REQUIRED)
 
-    add_executable(device_prop device_prop.cu vec_add.h utils.h)
+    add_executable(device_prop device_prop.cu utils.h)
     target_compile_options(device_prop PRIVATE ${NVCC_COMMON_COMPILE_OPTIONS})
     target_link_options(device_prop PRIVATE ${NVCC_COMMON_LINK_OPTIONS})
     set_target_properties(device_prop PROPERTIES FOLDER "pmpp")
