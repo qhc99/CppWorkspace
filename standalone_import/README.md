@@ -1,1 +1,1 @@
-Test cmake dll package export.
+Test cmake dll package export and import.
