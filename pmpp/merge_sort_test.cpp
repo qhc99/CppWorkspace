@@ -14,7 +14,7 @@ TEST_CASE("merge_sort_small_test")
     std::transform(b.begin(), b.end(), b.begin(), [](int x) { return x * 2 + 1; });
 
     std::vector<int> c(a.size() + b.size());
-    mergeTiles(a.data(), a.size(), b.data(), b.size(), c.data());
+    mergeTiles(a.data(), static_cast<int>(a.size()), b.data(), static_cast<int>(b.size()), c.data());
 
     for (size_t i {}; i < c.size(); i++) {
         REQUIRE_EQ(i, c.at(i));
@@ -32,7 +32,7 @@ TEST_CASE("merge_sort_large_test")
     std::transform(b.begin(), b.end(), b.begin(), [](int x) { return x * 2 + 1; });
 
     std::vector<int> c(a.size() + b.size());
-    mergeTiles(a.data(), a.size(), b.data(), b.size(), c.data());
+    mergeTiles(a.data(), static_cast<int>(a.size()), b.data(), static_cast<int>(b.size()), c.data());
 
     for (size_t i { 1 }; i < c.size(); i++) {
             REQUIRE(c.at(i) > c.at(i - 1));
