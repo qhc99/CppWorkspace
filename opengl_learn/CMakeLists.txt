@@ -107,7 +107,7 @@ if(CMAKE_SYSTEM_NAME MATCHES Windows)
         ${CMAKE_CURRENT_BINARY_DIR}/6.multiple_lights.vs
         COPYONLY)
     file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/demos/nanosuit
-        DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/nanosuit)
+        DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/)
 
     # target_link_libraries(main PRIVATE assimp::assimp)
 endif()
