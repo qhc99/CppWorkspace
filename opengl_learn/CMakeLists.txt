@@ -90,5 +90,24 @@ if(CMAKE_SYSTEM_NAME MATCHES Windows)
         ${CMAKE_CURRENT_BINARY_DIR}/container2.png
         COPYONLY)
 
+    add_executable(model_import_ogl demos/model_import.cpp includes/shader_m.h includes/camera.h includes/model.h)
+    set_target_properties(model_import_ogl PROPERTIES FOLDER "opengl")
+    target_link_libraries(model_import_ogl PRIVATE OpenGL::GL glad::glad glfw glm::glm-header-only assimp::assimp)
+    target_include_directories(model_import_ogl PRIVATE ${Stb_INCLUDE_DIR} includes)
+    target_compile_options(model_import_ogl PRIVATE ${COMMON_COMPILE_OPTIONS} ${SUPPRESS_COMPILE_WARNINGS_OPTION} $<$<CXX_COMPILER_ID:MSVC>:/WX->)
+    target_link_options(model_import_ogl PRIVATE ${COMMON_LINK_OPTIONS})
+    target_compile_definitions(model_import_ogl PRIVATE STB_IMAGE_IMPLEMENTATION)
+    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/1.model_loading.vs
+        ${CMAKE_CURRENT_BINARY_DIR}/1.model_loading.vs
+        COPYONLY)
+    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/1.model_loading.fs
+        ${CMAKE_CURRENT_BINARY_DIR}/1.model_loading.fs
+        COPYONLY)
+    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/6.multiple_lights.vs
+        ${CMAKE_CURRENT_BINARY_DIR}/6.multiple_lights.vs
+        COPYONLY)
+    file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/demos/nanosuit
+        DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/nanosuit)
+
     # target_link_libraries(main PRIVATE assimp::assimp)
 endif()
