@@ -122,10 +122,33 @@ if(CMAKE_SYSTEM_NAME MATCHES Windows)
     configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/2.stencil_single_color.fs
         ${CMAKE_CURRENT_BINARY_DIR}/2.stencil_single_color.fs
         COPYONLY)
-        configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/marble.jpg
+    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/marble.jpg
         ${CMAKE_CURRENT_BINARY_DIR}/marble.jpg
         COPYONLY)
     configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/metal.png
         ${CMAKE_CURRENT_BINARY_DIR}/metal.png
+        COPYONLY)
+
+    add_executable(blend_transparent_ogl demos/blend_transparent.cpp includes/shader_m.h includes/camera.h includes/model.h includes/shader.h)
+    set_target_properties(blend_transparent_ogl PROPERTIES FOLDER "opengl")
+    target_link_libraries(blend_transparent_ogl PRIVATE OpenGL::GL glad::glad glfw glm::glm-header-only assimp::assimp)
+    target_include_directories(blend_transparent_ogl PRIVATE ${Stb_INCLUDE_DIR} includes)
+    target_compile_options(blend_transparent_ogl PRIVATE ${COMMON_COMPILE_OPTIONS} ${SUPPRESS_COMPILE_WARNINGS_OPTION} $<$<CXX_COMPILER_ID:MSVC>:/WX->)
+    target_link_options(blend_transparent_ogl PRIVATE ${COMMON_LINK_OPTIONS})
+    target_compile_definitions(blend_transparent_ogl PRIVATE STB_IMAGE_IMPLEMENTATION)
+    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/3.2.blending.vs
+        ${CMAKE_CURRENT_BINARY_DIR}/3.2.blending.vs
+        COPYONLY)
+    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/3.2.blending.fs
+        ${CMAKE_CURRENT_BINARY_DIR}/3.2.blending.fs
+        COPYONLY)
+    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/marble.jpg
+        ${CMAKE_CURRENT_BINARY_DIR}/marble.jpg
+        COPYONLY)
+    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/metal.png
+        ${CMAKE_CURRENT_BINARY_DIR}/metal.png
+        COPYONLY)
+    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/window.png
+        ${CMAKE_CURRENT_BINARY_DIR}/window.png
         COPYONLY)
 endif()
