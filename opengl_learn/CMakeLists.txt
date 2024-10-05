@@ -151,4 +151,30 @@ if(CMAKE_SYSTEM_NAME MATCHES Windows)
     configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/window.png
         ${CMAKE_CURRENT_BINARY_DIR}/window.png
         COPYONLY)
+
+    add_executable(framebuffer_ogl demos/framebuffer.cpp includes/shader_m.h includes/camera.h includes/model.h includes/shader.h)
+    set_target_properties(framebuffer_ogl PROPERTIES FOLDER "opengl")
+    target_link_libraries(framebuffer_ogl PRIVATE OpenGL::GL glad::glad glfw glm::glm-header-only assimp::assimp)
+    target_include_directories(framebuffer_ogl PRIVATE ${Stb_INCLUDE_DIR} includes)
+    target_compile_options(framebuffer_ogl PRIVATE ${COMMON_COMPILE_OPTIONS} ${SUPPRESS_COMPILE_WARNINGS_OPTION} $<$<CXX_COMPILER_ID:MSVC>:/WX->)
+    target_link_options(framebuffer_ogl PRIVATE ${COMMON_LINK_OPTIONS})
+    target_compile_definitions(framebuffer_ogl PRIVATE STB_IMAGE_IMPLEMENTATION)
+    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/5.2.framebuffers.vs
+        ${CMAKE_CURRENT_BINARY_DIR}/5.2.framebuffers.vs
+        COPYONLY)
+    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/5.2.framebuffers.fs
+        ${CMAKE_CURRENT_BINARY_DIR}/5.2.framebuffers.fs
+        COPYONLY)
+    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/5.2.framebuffers_screen.vs
+        ${CMAKE_CURRENT_BINARY_DIR}/5.2.framebuffers_screen.vs
+        COPYONLY)
+    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/5.2.framebuffers_screen.fs
+        ${CMAKE_CURRENT_BINARY_DIR}/5.2.framebuffers_screen.fs
+        COPYONLY)
+    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/container.jpg
+        ${CMAKE_CURRENT_BINARY_DIR}/container.jpg
+        COPYONLY)
+    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/metal.png
+        ${CMAKE_CURRENT_BINARY_DIR}/metal.png
+        COPYONLY)
 endif()
