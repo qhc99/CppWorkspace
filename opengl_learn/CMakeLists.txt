@@ -177,4 +177,26 @@ if(CMAKE_SYSTEM_NAME MATCHES Windows)
     configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/metal.png
         ${CMAKE_CURRENT_BINARY_DIR}/metal.png
         COPYONLY)
+
+    add_executable(skybox_ogl demos/skybox.cpp includes/shader_m.h includes/camera.h includes/model.h includes/shader.h)
+    set_target_properties(skybox_ogl PROPERTIES FOLDER "opengl")
+    target_link_libraries(skybox_ogl PRIVATE OpenGL::GL glad::glad glfw glm::glm-header-only assimp::assimp)
+    target_include_directories(skybox_ogl PRIVATE ${Stb_INCLUDE_DIR} includes)
+    target_compile_options(skybox_ogl PRIVATE ${COMMON_COMPILE_OPTIONS} ${SUPPRESS_COMPILE_WARNINGS_OPTION} $<$<CXX_COMPILER_ID:MSVC>:/WX->)
+    target_link_options(skybox_ogl PRIVATE ${COMMON_LINK_OPTIONS})
+    target_compile_definitions(skybox_ogl PRIVATE STB_IMAGE_IMPLEMENTATION)
+    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/6.2.cubemaps.vs
+        ${CMAKE_CURRENT_BINARY_DIR}/6.2.cubemaps.vs
+        COPYONLY)
+    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/6.2.cubemaps.fs
+        ${CMAKE_CURRENT_BINARY_DIR}/6.2.cubemaps.fs
+        COPYONLY)
+    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/6.2.skybox.vs
+        ${CMAKE_CURRENT_BINARY_DIR}/6.2.skybox.vs
+        COPYONLY)
+    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/6.2.skybox.fs
+        ${CMAKE_CURRENT_BINARY_DIR}/6.2.skybox.fs
+        COPYONLY)
+        file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/demos/skybox
+        DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/)
 endif()
