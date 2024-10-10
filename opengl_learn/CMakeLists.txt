@@ -197,6 +197,31 @@ if(CMAKE_SYSTEM_NAME MATCHES Windows)
     configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/6.2.skybox.fs
         ${CMAKE_CURRENT_BINARY_DIR}/6.2.skybox.fs
         COPYONLY)
-        file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/demos/skybox
+    file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/demos/skybox
+        DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/)
+
+    add_executable(geometry_shader_normal_ogl demos/geometry_shader_normal.cpp includes/shader_m.h includes/camera.h includes/model.h includes/shader.h)
+    set_target_properties(geometry_shader_normal_ogl PROPERTIES FOLDER "opengl")
+    target_link_libraries(geometry_shader_normal_ogl PRIVATE OpenGL::GL glad::glad glfw glm::glm-header-only assimp::assimp)
+    target_include_directories(geometry_shader_normal_ogl PRIVATE ${Stb_INCLUDE_DIR} includes)
+    target_compile_options(geometry_shader_normal_ogl PRIVATE ${COMMON_COMPILE_OPTIONS} ${SUPPRESS_COMPILE_WARNINGS_OPTION} $<$<CXX_COMPILER_ID:MSVC>:/WX->)
+    target_link_options(geometry_shader_normal_ogl PRIVATE ${COMMON_LINK_OPTIONS})
+    target_compile_definitions(geometry_shader_normal_ogl PRIVATE STB_IMAGE_IMPLEMENTATION)
+    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/9.3.default.vs
+        ${CMAKE_CURRENT_BINARY_DIR}/9.3.default.vs
+        COPYONLY)
+    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/9.3.default.fs
+        ${CMAKE_CURRENT_BINARY_DIR}/9.3.default.fs
+        COPYONLY)
+    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/9.3.normal_visualization.vs
+        ${CMAKE_CURRENT_BINARY_DIR}/9.3.normal_visualization.vs
+        COPYONLY)
+    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/9.3.normal_visualization.fs
+        ${CMAKE_CURRENT_BINARY_DIR}/9.3.normal_visualization.fs
+        COPYONLY)
+    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/9.3.normal_visualization.gs
+        ${CMAKE_CURRENT_BINARY_DIR}/9.3.normal_visualization.gs
+        COPYONLY)
+    file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/demos/nanosuit
         DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/)
 endif()
