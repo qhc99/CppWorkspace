@@ -38,10 +38,10 @@ if(CMAKE_SYSTEM_NAME MATCHES Windows)
     configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/shaders/6.multiple_lights.fs
         ${CMAKE_CURRENT_BINARY_DIR}/6.multiple_lights.fs
         COPYONLY)
-    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/container2_specular.png
+    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/textures/container2_specular.png
         ${CMAKE_CURRENT_BINARY_DIR}/container2_specular.png
         COPYONLY)
-    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/container2.png
+    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/textures/container2.png
         ${CMAKE_CURRENT_BINARY_DIR}/container2.png
         COPYONLY)
 
@@ -61,10 +61,10 @@ if(CMAKE_SYSTEM_NAME MATCHES Windows)
     configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/shaders/2.stencil_single_color.fs
         ${CMAKE_CURRENT_BINARY_DIR}/2.stencil_single_color.fs
         COPYONLY)
-    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/marble.jpg
+    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/textures/marble.jpg
         ${CMAKE_CURRENT_BINARY_DIR}/marble.jpg
         COPYONLY)
-    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/metal.png
+    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/textures/metal.png
         ${CMAKE_CURRENT_BINARY_DIR}/metal.png
         COPYONLY)
 
@@ -81,13 +81,13 @@ if(CMAKE_SYSTEM_NAME MATCHES Windows)
     configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/shaders/3.2.blending.fs
         ${CMAKE_CURRENT_BINARY_DIR}/3.2.blending.fs
         COPYONLY)
-    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/marble.jpg
+    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/textures/marble.jpg
         ${CMAKE_CURRENT_BINARY_DIR}/marble.jpg
         COPYONLY)
-    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/metal.png
+    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/textures/metal.png
         ${CMAKE_CURRENT_BINARY_DIR}/metal.png
         COPYONLY)
-    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/window.png
+    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/textures/window.png
         ${CMAKE_CURRENT_BINARY_DIR}/window.png
         COPYONLY)
 
@@ -110,10 +110,10 @@ if(CMAKE_SYSTEM_NAME MATCHES Windows)
     configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/shaders/5.2.framebuffers_screen.fs
         ${CMAKE_CURRENT_BINARY_DIR}/5.2.framebuffers_screen.fs
         COPYONLY)
-    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/container.jpg
+    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/textures/container.jpg
         ${CMAKE_CURRENT_BINARY_DIR}/container.jpg
         COPYONLY)
-    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/metal.png
+    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/textures/metal.png
         ${CMAKE_CURRENT_BINARY_DIR}/metal.png
         COPYONLY)
 
