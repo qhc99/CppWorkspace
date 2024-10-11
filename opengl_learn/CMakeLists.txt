@@ -26,16 +26,16 @@ if(CMAKE_SYSTEM_NAME MATCHES Windows)
     target_compile_options(phong_light_casters_ogl PRIVATE ${COMMON_COMPILE_OPTIONS} ${SUPPRESS_COMPILE_WARNINGS_OPTION} $<$<CXX_COMPILER_ID:MSVC>:/WX->)
     target_link_options(phong_light_casters_ogl PRIVATE ${COMMON_LINK_OPTIONS})
     target_compile_definitions(phong_light_casters_ogl PRIVATE STB_IMAGE_IMPLEMENTATION)
-    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/4.2.light_cube.vs
+    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/shaders/4.2.light_cube.vs
         ${CMAKE_CURRENT_BINARY_DIR}/4.2.light_cube.vs
         COPYONLY)
-    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/4.2.light_cube.fs
+    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/shaders/4.2.light_cube.fs
         ${CMAKE_CURRENT_BINARY_DIR}/4.2.light_cube.fs
         COPYONLY)
-    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/6.multiple_lights.vs
+    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/shaders/6.multiple_lights.vs
         ${CMAKE_CURRENT_BINARY_DIR}/6.multiple_lights.vs
         COPYONLY)
-    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/6.multiple_lights.fs
+    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/shaders/6.multiple_lights.fs
         ${CMAKE_CURRENT_BINARY_DIR}/6.multiple_lights.fs
         COPYONLY)
     configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/container2_specular.png
@@ -52,13 +52,13 @@ if(CMAKE_SYSTEM_NAME MATCHES Windows)
     target_compile_options(stencil_outline_ogl PRIVATE ${COMMON_COMPILE_OPTIONS} ${SUPPRESS_COMPILE_WARNINGS_OPTION} $<$<CXX_COMPILER_ID:MSVC>:/WX->)
     target_link_options(stencil_outline_ogl PRIVATE ${COMMON_LINK_OPTIONS})
     target_compile_definitions(stencil_outline_ogl PRIVATE STB_IMAGE_IMPLEMENTATION)
-    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/2.stencil_testing.vs
+    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/shaders/2.stencil_testing.vs
         ${CMAKE_CURRENT_BINARY_DIR}/2.stencil_testing.vs
         COPYONLY)
-    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/2.stencil_testing.fs
+    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/shaders/2.stencil_testing.fs
         ${CMAKE_CURRENT_BINARY_DIR}/2.stencil_testing.fs
         COPYONLY)
-    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/2.stencil_single_color.fs
+    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/shaders/2.stencil_single_color.fs
         ${CMAKE_CURRENT_BINARY_DIR}/2.stencil_single_color.fs
         COPYONLY)
     configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/marble.jpg
@@ -75,10 +75,10 @@ if(CMAKE_SYSTEM_NAME MATCHES Windows)
     target_compile_options(blend_transparent_ogl PRIVATE ${COMMON_COMPILE_OPTIONS} ${SUPPRESS_COMPILE_WARNINGS_OPTION} $<$<CXX_COMPILER_ID:MSVC>:/WX->)
     target_link_options(blend_transparent_ogl PRIVATE ${COMMON_LINK_OPTIONS})
     target_compile_definitions(blend_transparent_ogl PRIVATE STB_IMAGE_IMPLEMENTATION)
-    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/3.2.blending.vs
+    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/shaders/3.2.blending.vs
         ${CMAKE_CURRENT_BINARY_DIR}/3.2.blending.vs
         COPYONLY)
-    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/3.2.blending.fs
+    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/shaders/3.2.blending.fs
         ${CMAKE_CURRENT_BINARY_DIR}/3.2.blending.fs
         COPYONLY)
     configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/marble.jpg
@@ -98,16 +98,16 @@ if(CMAKE_SYSTEM_NAME MATCHES Windows)
     target_compile_options(framebuffer_rearview_ogl PRIVATE ${COMMON_COMPILE_OPTIONS} ${SUPPRESS_COMPILE_WARNINGS_OPTION} $<$<CXX_COMPILER_ID:MSVC>:/WX->)
     target_link_options(framebuffer_rearview_ogl PRIVATE ${COMMON_LINK_OPTIONS})
     target_compile_definitions(framebuffer_rearview_ogl PRIVATE STB_IMAGE_IMPLEMENTATION)
-    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/5.2.framebuffers.vs
+    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/shaders/5.2.framebuffers.vs
         ${CMAKE_CURRENT_BINARY_DIR}/5.2.framebuffers.vs
         COPYONLY)
-    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/5.2.framebuffers.fs
+    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/shaders/5.2.framebuffers.fs
         ${CMAKE_CURRENT_BINARY_DIR}/5.2.framebuffers.fs
         COPYONLY)
-    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/5.2.framebuffers_screen.vs
+    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/shaders/5.2.framebuffers_screen.vs
         ${CMAKE_CURRENT_BINARY_DIR}/5.2.framebuffers_screen.vs
         COPYONLY)
-    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/5.2.framebuffers_screen.fs
+    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/shaders/5.2.framebuffers_screen.fs
         ${CMAKE_CURRENT_BINARY_DIR}/5.2.framebuffers_screen.fs
         COPYONLY)
     configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/container.jpg
@@ -124,16 +124,16 @@ if(CMAKE_SYSTEM_NAME MATCHES Windows)
     target_compile_options(skybox_ogl PRIVATE ${COMMON_COMPILE_OPTIONS} ${SUPPRESS_COMPILE_WARNINGS_OPTION} $<$<CXX_COMPILER_ID:MSVC>:/WX->)
     target_link_options(skybox_ogl PRIVATE ${COMMON_LINK_OPTIONS})
     target_compile_definitions(skybox_ogl PRIVATE STB_IMAGE_IMPLEMENTATION)
-    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/6.2.cubemaps.vs
+    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/shaders/6.2.cubemaps.vs
         ${CMAKE_CURRENT_BINARY_DIR}/6.2.cubemaps.vs
         COPYONLY)
-    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/6.2.cubemaps.fs
+    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/shaders/6.2.cubemaps.fs
         ${CMAKE_CURRENT_BINARY_DIR}/6.2.cubemaps.fs
         COPYONLY)
-    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/6.2.skybox.vs
+    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/shaders/6.2.skybox.vs
         ${CMAKE_CURRENT_BINARY_DIR}/6.2.skybox.vs
         COPYONLY)
-    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/6.2.skybox.fs
+    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/shaders/6.2.skybox.fs
         ${CMAKE_CURRENT_BINARY_DIR}/6.2.skybox.fs
         COPYONLY)
     file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/demos/skybox
@@ -146,19 +146,19 @@ if(CMAKE_SYSTEM_NAME MATCHES Windows)
     target_compile_options(geometry_shader_normal_ogl PRIVATE ${COMMON_COMPILE_OPTIONS} ${SUPPRESS_COMPILE_WARNINGS_OPTION} $<$<CXX_COMPILER_ID:MSVC>:/WX->)
     target_link_options(geometry_shader_normal_ogl PRIVATE ${COMMON_LINK_OPTIONS})
     target_compile_definitions(geometry_shader_normal_ogl PRIVATE STB_IMAGE_IMPLEMENTATION)
-    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/9.3.default.vs
+    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/shaders/9.3.default.vs
         ${CMAKE_CURRENT_BINARY_DIR}/9.3.default.vs
         COPYONLY)
-    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/9.3.default.fs
+    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/shaders/9.3.default.fs
         ${CMAKE_CURRENT_BINARY_DIR}/9.3.default.fs
         COPYONLY)
-    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/9.3.normal_visualization.vs
+    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/shaders/9.3.normal_visualization.vs
         ${CMAKE_CURRENT_BINARY_DIR}/9.3.normal_visualization.vs
         COPYONLY)
-    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/9.3.normal_visualization.fs
+    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/shaders/9.3.normal_visualization.fs
         ${CMAKE_CURRENT_BINARY_DIR}/9.3.normal_visualization.fs
         COPYONLY)
-    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/9.3.normal_visualization.gs
+    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/shaders/9.3.normal_visualization.gs
         ${CMAKE_CURRENT_BINARY_DIR}/9.3.normal_visualization.gs
         COPYONLY)
     file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/demos/nanosuit
@@ -171,16 +171,16 @@ if(CMAKE_SYSTEM_NAME MATCHES Windows)
     target_compile_options(instanced_asteroids_ogl PRIVATE ${COMMON_COMPILE_OPTIONS} ${SUPPRESS_COMPILE_WARNINGS_OPTION} $<$<CXX_COMPILER_ID:MSVC>:/WX->)
     target_link_options(instanced_asteroids_ogl PRIVATE ${COMMON_LINK_OPTIONS})
     target_compile_definitions(instanced_asteroids_ogl PRIVATE STB_IMAGE_IMPLEMENTATION)
-    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/10.3.asteroids.vs
+    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/shaders/10.3.asteroids.vs
         ${CMAKE_CURRENT_BINARY_DIR}/10.3.asteroids.vs
         COPYONLY)
-    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/10.3.asteroids.fs
+    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/shaders/10.3.asteroids.fs
         ${CMAKE_CURRENT_BINARY_DIR}/10.3.asteroids.fs
         COPYONLY)
-    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/10.3.planet.vs
+    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/shaders/10.3.planet.vs
         ${CMAKE_CURRENT_BINARY_DIR}/10.3.planet.vs
         COPYONLY)
-    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/10.3.planet.fs
+    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/shaders/10.3.planet.fs
         ${CMAKE_CURRENT_BINARY_DIR}/10.3.planet.fs
         COPYONLY)
     file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/demos/rock
