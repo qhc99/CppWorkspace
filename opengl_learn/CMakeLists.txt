@@ -18,59 +18,14 @@ if(CMAKE_SYSTEM_NAME MATCHES Windows)
     set_target_properties(system_check_ogl PROPERTIES FOLDER "opengl")
     target_link_libraries(system_check_ogl PRIVATE OpenGL::GL glad::glad glfw)
 
-    add_executable(camera_texture_box_ogl demos/camera_texture_box.cpp includes/shader_m.h includes/camera.h)
-    set_target_properties(camera_texture_box_ogl PROPERTIES FOLDER "opengl")
-    target_link_libraries(camera_texture_box_ogl PRIVATE OpenGL::GL glad::glad glfw glm::glm-header-only)
-    target_include_directories(camera_texture_box_ogl PRIVATE ${Stb_INCLUDE_DIR} includes)
-    target_compile_options(camera_texture_box_ogl PRIVATE ${COMMON_COMPILE_OPTIONS} ${SUPPRESS_COMPILE_WARNINGS_OPTION} $<$<CXX_COMPILER_ID:MSVC>:/WX->)
-    target_link_options(camera_texture_box_ogl PRIVATE ${COMMON_LINK_OPTIONS})
-    target_compile_definitions(camera_texture_box_ogl PRIVATE STB_IMAGE_IMPLEMENTATION)
-    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/wall.jpg
-        ${CMAKE_CURRENT_BINARY_DIR}/wall.jpg
-        COPYONLY)
-    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/7.4.camera.vs
-        ${CMAKE_CURRENT_BINARY_DIR}/7.4.camera.vs
-        COPYONLY)
-    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/7.4.camera.fs
-        ${CMAKE_CURRENT_BINARY_DIR}/7.4.camera.fs
-        COPYONLY)
-    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/awesomeface.png
-        ${CMAKE_CURRENT_BINARY_DIR}/awesomeface.png
-        COPYONLY)
 
-    add_executable(phong_ogl demos/phong.cpp includes/shader_m.h includes/camera.h)
-    set_target_properties(phong_ogl PROPERTIES FOLDER "opengl")
-    target_link_libraries(phong_ogl PRIVATE OpenGL::GL glad::glad glfw glm::glm-header-only)
-    target_include_directories(phong_ogl PRIVATE ${Stb_INCLUDE_DIR} includes)
-    target_compile_options(phong_ogl PRIVATE ${COMMON_COMPILE_OPTIONS} ${SUPPRESS_COMPILE_WARNINGS_OPTION} $<$<CXX_COMPILER_ID:MSVC>:/WX->)
-    target_link_options(phong_ogl PRIVATE ${COMMON_LINK_OPTIONS})
-    target_compile_definitions(phong_ogl PRIVATE STB_IMAGE_IMPLEMENTATION)
-    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/4.2.light_cube.vs
-        ${CMAKE_CURRENT_BINARY_DIR}/4.2.light_cube.vs
-        COPYONLY)
-    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/4.2.light_cube.fs
-        ${CMAKE_CURRENT_BINARY_DIR}/4.2.light_cube.fs
-        COPYONLY)
-    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/4.2.lighting_maps.vs
-        ${CMAKE_CURRENT_BINARY_DIR}/4.2.lighting_maps.vs
-        COPYONLY)
-    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/4.2.lighting_maps.fs
-        ${CMAKE_CURRENT_BINARY_DIR}/4.2.lighting_maps.fs
-        COPYONLY)
-    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/container2_specular.png
-        ${CMAKE_CURRENT_BINARY_DIR}/container2_specular.png
-        COPYONLY)
-    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/container2.png
-        ${CMAKE_CURRENT_BINARY_DIR}/container2.png
-        COPYONLY)
-
-    add_executable(light_casters_ogl demos/light_casters.cpp includes/shader_m.h includes/camera.h)
-    set_target_properties(light_casters_ogl PROPERTIES FOLDER "opengl")
-    target_link_libraries(light_casters_ogl PRIVATE OpenGL::GL glad::glad glfw glm::glm-header-only)
-    target_include_directories(light_casters_ogl PRIVATE ${Stb_INCLUDE_DIR} includes)
-    target_compile_options(light_casters_ogl PRIVATE ${COMMON_COMPILE_OPTIONS} ${SUPPRESS_COMPILE_WARNINGS_OPTION} $<$<CXX_COMPILER_ID:MSVC>:/WX->)
-    target_link_options(light_casters_ogl PRIVATE ${COMMON_LINK_OPTIONS})
-    target_compile_definitions(light_casters_ogl PRIVATE STB_IMAGE_IMPLEMENTATION)
+    add_executable(phong_light_casters_ogl demos/phong_light_casters.cpp includes/shader_m.h includes/camera.h)
+    set_target_properties(phong_light_casters_ogl PROPERTIES FOLDER "opengl")
+    target_link_libraries(phong_light_casters_ogl PRIVATE OpenGL::GL glad::glad glfw glm::glm-header-only)
+    target_include_directories(phong_light_casters_ogl PRIVATE ${Stb_INCLUDE_DIR} includes)
+    target_compile_options(phong_light_casters_ogl PRIVATE ${COMMON_COMPILE_OPTIONS} ${SUPPRESS_COMPILE_WARNINGS_OPTION} $<$<CXX_COMPILER_ID:MSVC>:/WX->)
+    target_link_options(phong_light_casters_ogl PRIVATE ${COMMON_LINK_OPTIONS})
+    target_compile_definitions(phong_light_casters_ogl PRIVATE STB_IMAGE_IMPLEMENTATION)
     configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/4.2.light_cube.vs
         ${CMAKE_CURRENT_BINARY_DIR}/4.2.light_cube.vs
         COPYONLY)
@@ -90,29 +45,13 @@ if(CMAKE_SYSTEM_NAME MATCHES Windows)
         ${CMAKE_CURRENT_BINARY_DIR}/container2.png
         COPYONLY)
 
-    add_executable(model_import_ogl demos/model_import.cpp includes/shader_m.h includes/camera.h includes/model.h includes/shader.h)
-    set_target_properties(model_import_ogl PROPERTIES FOLDER "opengl")
-    target_link_libraries(model_import_ogl PRIVATE OpenGL::GL glad::glad glfw glm::glm-header-only assimp::assimp)
-    target_include_directories(model_import_ogl PRIVATE ${Stb_INCLUDE_DIR} includes)
-    target_compile_options(model_import_ogl PRIVATE ${COMMON_COMPILE_OPTIONS} ${SUPPRESS_COMPILE_WARNINGS_OPTION} $<$<CXX_COMPILER_ID:MSVC>:/WX->)
-    target_link_options(model_import_ogl PRIVATE ${COMMON_LINK_OPTIONS})
-    target_compile_definitions(model_import_ogl PRIVATE STB_IMAGE_IMPLEMENTATION)
-    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/1.model_loading.vs
-        ${CMAKE_CURRENT_BINARY_DIR}/1.model_loading.vs
-        COPYONLY)
-    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/1.model_loading.fs
-        ${CMAKE_CURRENT_BINARY_DIR}/1.model_loading.fs
-        COPYONLY)
-    file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/demos/nanosuit
-        DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/)
-
-    add_executable(stencil_ogl demos/stencil.cpp includes/shader_m.h includes/camera.h includes/model.h includes/shader.h)
-    set_target_properties(stencil_ogl PROPERTIES FOLDER "opengl")
-    target_link_libraries(stencil_ogl PRIVATE OpenGL::GL glad::glad glfw glm::glm-header-only assimp::assimp)
-    target_include_directories(stencil_ogl PRIVATE ${Stb_INCLUDE_DIR} includes)
-    target_compile_options(stencil_ogl PRIVATE ${COMMON_COMPILE_OPTIONS} ${SUPPRESS_COMPILE_WARNINGS_OPTION} $<$<CXX_COMPILER_ID:MSVC>:/WX->)
-    target_link_options(stencil_ogl PRIVATE ${COMMON_LINK_OPTIONS})
-    target_compile_definitions(stencil_ogl PRIVATE STB_IMAGE_IMPLEMENTATION)
+    add_executable(stencil_outline_ogl demos/stencil_outline.cpp includes/shader_m.h includes/camera.h includes/model.h includes/shader.h)
+    set_target_properties(stencil_outline_ogl PROPERTIES FOLDER "opengl")
+    target_link_libraries(stencil_outline_ogl PRIVATE OpenGL::GL glad::glad glfw glm::glm-header-only assimp::assimp)
+    target_include_directories(stencil_outline_ogl PRIVATE ${Stb_INCLUDE_DIR} includes)
+    target_compile_options(stencil_outline_ogl PRIVATE ${COMMON_COMPILE_OPTIONS} ${SUPPRESS_COMPILE_WARNINGS_OPTION} $<$<CXX_COMPILER_ID:MSVC>:/WX->)
+    target_link_options(stencil_outline_ogl PRIVATE ${COMMON_LINK_OPTIONS})
+    target_compile_definitions(stencil_outline_ogl PRIVATE STB_IMAGE_IMPLEMENTATION)
     configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/2.stencil_testing.vs
         ${CMAKE_CURRENT_BINARY_DIR}/2.stencil_testing.vs
         COPYONLY)
@@ -152,13 +91,13 @@ if(CMAKE_SYSTEM_NAME MATCHES Windows)
         ${CMAKE_CURRENT_BINARY_DIR}/window.png
         COPYONLY)
 
-    add_executable(framebuffer_ogl demos/framebuffer.cpp includes/shader_m.h includes/camera.h includes/model.h includes/shader.h)
-    set_target_properties(framebuffer_ogl PROPERTIES FOLDER "opengl")
-    target_link_libraries(framebuffer_ogl PRIVATE OpenGL::GL glad::glad glfw glm::glm-header-only assimp::assimp)
-    target_include_directories(framebuffer_ogl PRIVATE ${Stb_INCLUDE_DIR} includes)
-    target_compile_options(framebuffer_ogl PRIVATE ${COMMON_COMPILE_OPTIONS} ${SUPPRESS_COMPILE_WARNINGS_OPTION} $<$<CXX_COMPILER_ID:MSVC>:/WX->)
-    target_link_options(framebuffer_ogl PRIVATE ${COMMON_LINK_OPTIONS})
-    target_compile_definitions(framebuffer_ogl PRIVATE STB_IMAGE_IMPLEMENTATION)
+    add_executable(framebuffer_rearview_ogl demos/framebuffer_rearview.cpp includes/shader_m.h includes/camera.h includes/model.h includes/shader.h)
+    set_target_properties(framebuffer_rearview_ogl PROPERTIES FOLDER "opengl")
+    target_link_libraries(framebuffer_rearview_ogl PRIVATE OpenGL::GL glad::glad glfw glm::glm-header-only assimp::assimp)
+    target_include_directories(framebuffer_rearview_ogl PRIVATE ${Stb_INCLUDE_DIR} includes)
+    target_compile_options(framebuffer_rearview_ogl PRIVATE ${COMMON_COMPILE_OPTIONS} ${SUPPRESS_COMPILE_WARNINGS_OPTION} $<$<CXX_COMPILER_ID:MSVC>:/WX->)
+    target_link_options(framebuffer_rearview_ogl PRIVATE ${COMMON_LINK_OPTIONS})
+    target_compile_definitions(framebuffer_rearview_ogl PRIVATE STB_IMAGE_IMPLEMENTATION)
     configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/5.2.framebuffers.vs
         ${CMAKE_CURRENT_BINARY_DIR}/5.2.framebuffers.vs
         COPYONLY)
@@ -223,5 +162,29 @@ if(CMAKE_SYSTEM_NAME MATCHES Windows)
         ${CMAKE_CURRENT_BINARY_DIR}/9.3.normal_visualization.gs
         COPYONLY)
     file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/demos/nanosuit
+        DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/)
+
+    add_executable(instanced_asteroids_ogl demos/instanced_asteroids.cpp includes/shader_m.h includes/camera.h includes/model.h includes/shader.h)
+    set_target_properties(instanced_asteroids_ogl PROPERTIES FOLDER "opengl")
+    target_link_libraries(instanced_asteroids_ogl PRIVATE OpenGL::GL glad::glad glfw glm::glm-header-only assimp::assimp)
+    target_include_directories(instanced_asteroids_ogl PRIVATE ${Stb_INCLUDE_DIR} includes)
+    target_compile_options(instanced_asteroids_ogl PRIVATE ${COMMON_COMPILE_OPTIONS} ${SUPPRESS_COMPILE_WARNINGS_OPTION} $<$<CXX_COMPILER_ID:MSVC>:/WX->)
+    target_link_options(instanced_asteroids_ogl PRIVATE ${COMMON_LINK_OPTIONS})
+    target_compile_definitions(instanced_asteroids_ogl PRIVATE STB_IMAGE_IMPLEMENTATION)
+    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/10.3.asteroids.vs
+        ${CMAKE_CURRENT_BINARY_DIR}/10.3.asteroids.vs
+        COPYONLY)
+    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/10.3.asteroids.fs
+        ${CMAKE_CURRENT_BINARY_DIR}/10.3.asteroids.fs
+        COPYONLY)
+    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/10.3.planet.vs
+        ${CMAKE_CURRENT_BINARY_DIR}/10.3.planet.vs
+        COPYONLY)
+    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/10.3.planet.fs
+        ${CMAKE_CURRENT_BINARY_DIR}/10.3.planet.fs
+        COPYONLY)
+    file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/demos/rock
+        DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/)
+    file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/demos/planet
         DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/)
 endif()
