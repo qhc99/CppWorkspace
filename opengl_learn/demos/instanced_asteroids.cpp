@@ -81,7 +81,7 @@ int main()
     // load models
     // -----------
     Model rock((std::filesystem::current_path() / "rock/rock.obj").string());
-    Model planet((std::filesystem::current_path() / "planet.obj").string());
+    Model planet((std::filesystem::current_path() / "planet/planet.obj").string());
 
     // generate a large list of semi-random model transformation matrices
     // ------------------------------------------------------------------
@@ -89,7 +89,7 @@ int main()
     glm::mat4* modelMatrices;
     modelMatrices = new glm::mat4[amount];
     srand(static_cast<unsigned int>(glfwGetTime())); // initialize random seed
-    float radius = 120.0;
+    float radius = 100.0;
     float offset = 20.0f;
     for (unsigned int i = 0; i < amount; i++)
     {
