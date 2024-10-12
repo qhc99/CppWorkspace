@@ -54,4 +54,6 @@ if(NVCC_COMPILER_PROGRAM AND NOT SKIP_CLANG_WINDOWS_CUDA)
     set_target_properties(merge_sort_cu PROPERTIES FOLDER "pmpp")
     target_link_libraries(merge_sort_cu PRIVATE workspace_pch)
     add_unit_doctest(merge_sort_test.cpp merge_sort_cu "pmpp" "none" TRUE TRUE)
+
+    message(STATUS ">>> Added pmpp")
 endif()

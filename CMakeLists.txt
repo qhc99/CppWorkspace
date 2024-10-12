@@ -18,12 +18,11 @@ message(STATUS ">>> Added lib central")
 add_subdirectory(misc)
 message(STATUS ">>> Added misc")
     
-add_subdirectory(chip8)
+add_subdirectory(archieve/chip8)
 
-add_subdirectory(ray_trace)
+add_subdirectory(archieve/ray_trace)
 
-add_subdirectory(pmpp)
-message(STATUS ">>> Added pmpp")
+add_subdirectory(archieve/pmpp)
 
 add_subdirectory(opengl_learn)
 message(STATUS ">>> Added opengl projects")
