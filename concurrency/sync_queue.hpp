@@ -16,14 +16,17 @@ private:
 
 public:
     ~threadsafe_queue() = default;
+    // can move but cannot copy due to pointer member
+    threadsafe_queue(const threadsafe_queue&) = delete;
+    threadsafe_queue(threadsafe_queue&&) = default;
+    threadsafe_queue& operator=(const threadsafe_queue&) = delete;
+    threadsafe_queue& operator=(threadsafe_queue&&) = default;
 
     threadsafe_queue()
         : head(new node)
         , tail(head.get())
     {
     }
-    threadsafe_queue(const threadsafe_queue& other) = delete;
-    threadsafe_queue& operator=(const threadsafe_queue& other) = delete;
 
     std::unique_ptr<node> try_pop_head()
     {
