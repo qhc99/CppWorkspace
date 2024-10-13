@@ -1,3 +1,5 @@
+#ifndef CONCURRENCY_SYNC_QUEUE_HPP
+#define CONCURRENCY_SYNC_QUEUE_HPP
 template <typename T>
 class threadsafe_queue final {
 private:
@@ -121,3 +123,5 @@ public:
         data_cond.notify_one();
     }
 };
+
+#endif

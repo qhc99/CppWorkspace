@@ -1,3 +1,6 @@
+#ifndef CONCURRENCY_LOCK_FREE_QUEUE_HPP
+#define CONCURRENCY_LOCK_FREE_QUEUE_HPP
+
 template <typename T>
 class lock_free_queue {
 private:
@@ -158,3 +161,5 @@ public:
         }
     }
 };
+
+#endif

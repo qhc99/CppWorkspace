@@ -1,3 +1,5 @@
+#ifndef CONCURRENCY_LOCK_FREE_STACK_HPP
+#define CONCURRENCY_LOCK_FREE_STACK_HPP
 template <typename T>
 class lock_free_stack {
 private:
@@ -90,3 +92,5 @@ public:
         }
     }
 };
+
+#endif
