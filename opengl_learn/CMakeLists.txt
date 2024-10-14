@@ -18,7 +18,6 @@ if(CMAKE_SYSTEM_NAME MATCHES Windows)
     set_target_properties(system_check_ogl PROPERTIES FOLDER "opengl")
     target_link_libraries(system_check_ogl PRIVATE OpenGL::GL glad::glad glfw)
 
-
     add_executable(phong_light_casters_ogl demos/phong_light_casters.cpp includes/shader_m.h includes/camera.h)
     set_target_properties(phong_light_casters_ogl PROPERTIES FOLDER "opengl")
     target_link_libraries(phong_light_casters_ogl PRIVATE OpenGL::GL glad::glad glfw glm::glm-header-only)
@@ -188,7 +187,7 @@ if(CMAKE_SYSTEM_NAME MATCHES Windows)
     file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/demos/planet
         DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/)
 
-        add_executable(msaa_framebuffer_ogl demos/msaa_framebuffer.cpp includes/shader_m.h includes/camera.h includes/model.h includes/shader.h)
+    add_executable(msaa_framebuffer_ogl demos/msaa_framebuffer.cpp includes/shader_m.h includes/camera.h includes/model.h includes/shader.h)
     set_target_properties(msaa_framebuffer_ogl PROPERTIES FOLDER "opengl")
     target_link_libraries(msaa_framebuffer_ogl PRIVATE OpenGL::GL glad::glad glfw glm::glm-header-only assimp::assimp)
     target_include_directories(msaa_framebuffer_ogl PRIVATE ${Stb_INCLUDE_DIR} includes)
@@ -206,5 +205,34 @@ if(CMAKE_SYSTEM_NAME MATCHES Windows)
         COPYONLY)
     configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/shaders/11.2.aa_post.fs
         ${CMAKE_CURRENT_BINARY_DIR}/11.2.aa_post.fs
+        COPYONLY)
+
+    add_executable(shadow_map_ogl demos/shadow_map.cpp includes/shader_m.h includes/camera.h includes/model.h includes/shader.h)
+    set_target_properties(shadow_map_ogl PROPERTIES FOLDER "opengl")
+    target_link_libraries(shadow_map_ogl PRIVATE OpenGL::GL glad::glad glfw glm::glm-header-only assimp::assimp)
+    target_include_directories(shadow_map_ogl PRIVATE ${Stb_INCLUDE_DIR} includes)
+    target_compile_options(shadow_map_ogl PRIVATE ${COMMON_COMPILE_OPTIONS} ${SUPPRESS_COMPILE_WARNINGS_OPTION} $<$<CXX_COMPILER_ID:MSVC>:/WX->)
+    target_link_options(shadow_map_ogl PRIVATE ${COMMON_LINK_OPTIONS})
+    target_compile_definitions(shadow_map_ogl PRIVATE STB_IMAGE_IMPLEMENTATION)
+    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/shaders/3.1.3.shadow_mapping.vs
+        ${CMAKE_CURRENT_BINARY_DIR}/3.1.3.shadow_mapping.vs
+        COPYONLY)
+    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/shaders/3.1.3.shadow_mapping.fs
+        ${CMAKE_CURRENT_BINARY_DIR}/3.1.3.shadow_mapping.fs
+        COPYONLY)
+    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/shaders/3.1.3.shadow_mapping_depth.vs
+        ${CMAKE_CURRENT_BINARY_DIR}/3.1.3.shadow_mapping_depth.vs
+        COPYONLY)
+    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/shaders/3.1.3.shadow_mapping_depth.fs
+        ${CMAKE_CURRENT_BINARY_DIR}/3.1.3.shadow_mapping_depth.fs
+        COPYONLY)
+    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/shaders/3.1.3.debug_quad.vs
+        ${CMAKE_CURRENT_BINARY_DIR}/3.1.3.debug_quad.vs
+        COPYONLY)
+    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/shaders/3.1.3.debug_quad.fs
+        ${CMAKE_CURRENT_BINARY_DIR}/3.1.3.debug_quad.fs
+        COPYONLY)
+    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/textures/wood.png
+        ${CMAKE_CURRENT_BINARY_DIR}/wood.png
         COPYONLY)
 endif()
