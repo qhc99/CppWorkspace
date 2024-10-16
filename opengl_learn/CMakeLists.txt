@@ -207,30 +207,27 @@ if(CMAKE_SYSTEM_NAME MATCHES Windows)
         ${CMAKE_CURRENT_BINARY_DIR}/11.2.aa_post.fs
         COPYONLY)
 
-    add_executable(shadow_map_ogl demos/shadow_map.cpp includes/shader_m.h includes/camera.h includes/model.h includes/shader.h)
-    set_target_properties(shadow_map_ogl PROPERTIES FOLDER "opengl")
-    target_link_libraries(shadow_map_ogl PRIVATE OpenGL::GL glad::glad glfw glm::glm-header-only assimp::assimp)
-    target_include_directories(shadow_map_ogl PRIVATE ${Stb_INCLUDE_DIR} includes)
-    target_compile_options(shadow_map_ogl PRIVATE ${COMMON_COMPILE_OPTIONS} ${SUPPRESS_COMPILE_WARNINGS_OPTION} $<$<CXX_COMPILER_ID:MSVC>:/WX->)
-    target_link_options(shadow_map_ogl PRIVATE ${COMMON_LINK_OPTIONS})
-    target_compile_definitions(shadow_map_ogl PRIVATE STB_IMAGE_IMPLEMENTATION)
-    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/shaders/3.1.3.shadow_mapping.vs
-        ${CMAKE_CURRENT_BINARY_DIR}/3.1.3.shadow_mapping.vs
+    add_executable(shadow_cubmap_ogl demos/shadow_cubmap.cpp includes/shader_m.h includes/camera.h includes/model.h includes/shader.h)
+    set_target_properties(shadow_cubmap_ogl PROPERTIES FOLDER "opengl")
+    target_link_libraries(shadow_cubmap_ogl PRIVATE OpenGL::GL glad::glad glfw glm::glm-header-only assimp::assimp)
+    target_include_directories(shadow_cubmap_ogl PRIVATE ${Stb_INCLUDE_DIR} includes)
+    target_compile_options(shadow_cubmap_ogl PRIVATE ${COMMON_COMPILE_OPTIONS} ${SUPPRESS_COMPILE_WARNINGS_OPTION} $<$<CXX_COMPILER_ID:MSVC>:/WX->)
+    target_link_options(shadow_cubmap_ogl PRIVATE ${COMMON_LINK_OPTIONS})
+    target_compile_definitions(shadow_cubmap_ogl PRIVATE STB_IMAGE_IMPLEMENTATION)
+    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/shaders/3.2.2.point_shadows.vs
+        ${CMAKE_CURRENT_BINARY_DIR}/3.2.2.point_shadows.vs
         COPYONLY)
-    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/shaders/3.1.3.shadow_mapping.fs
-        ${CMAKE_CURRENT_BINARY_DIR}/3.1.3.shadow_mapping.fs
+    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/shaders/3.2.2.point_shadows.fs
+        ${CMAKE_CURRENT_BINARY_DIR}/3.2.2.point_shadows.fs
         COPYONLY)
-    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/shaders/3.1.3.shadow_mapping_depth.vs
-        ${CMAKE_CURRENT_BINARY_DIR}/3.1.3.shadow_mapping_depth.vs
+    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/shaders/3.2.2.point_shadows_depth.vs
+        ${CMAKE_CURRENT_BINARY_DIR}/3.2.2.point_shadows_depth.vs
         COPYONLY)
-    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/shaders/3.1.3.shadow_mapping_depth.fs
-        ${CMAKE_CURRENT_BINARY_DIR}/3.1.3.shadow_mapping_depth.fs
+    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/shaders/3.2.2.point_shadows_depth.fs
+        ${CMAKE_CURRENT_BINARY_DIR}/3.2.2.point_shadows_depth.fs
         COPYONLY)
-    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/shaders/3.1.3.debug_quad.vs
-        ${CMAKE_CURRENT_BINARY_DIR}/3.1.3.debug_quad.vs
-        COPYONLY)
-    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/shaders/3.1.3.debug_quad.fs
-        ${CMAKE_CURRENT_BINARY_DIR}/3.1.3.debug_quad.fs
+    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/shaders/3.2.2.point_shadows_depth.gs
+        ${CMAKE_CURRENT_BINARY_DIR}/3.2.2.point_shadows_depth.gs
         COPYONLY)
     configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/textures/wood.png
         ${CMAKE_CURRENT_BINARY_DIR}/wood.png
