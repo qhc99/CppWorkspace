@@ -232,4 +232,24 @@ if(CMAKE_SYSTEM_NAME MATCHES Windows)
     configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/textures/wood.png
         ${CMAKE_CURRENT_BINARY_DIR}/wood.png
         COPYONLY)
+
+    add_executable(custom_normal_map_ogl demos/custom_normal_map.cpp includes/shader_m.h includes/camera.h includes/model.h includes/shader.h)
+    set_target_properties(custom_normal_map_ogl PROPERTIES FOLDER "opengl")
+    target_link_libraries(custom_normal_map_ogl PRIVATE OpenGL::GL glad::glad glfw glm::glm-header-only assimp::assimp)
+    target_include_directories(custom_normal_map_ogl PRIVATE ${Stb_INCLUDE_DIR} includes)
+    target_compile_options(custom_normal_map_ogl PRIVATE ${COMMON_COMPILE_OPTIONS} ${SUPPRESS_COMPILE_WARNINGS_OPTION} $<$<CXX_COMPILER_ID:MSVC>:/WX->)
+    target_link_options(custom_normal_map_ogl PRIVATE ${COMMON_LINK_OPTIONS})
+    target_compile_definitions(custom_normal_map_ogl PRIVATE STB_IMAGE_IMPLEMENTATION)
+    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/shaders/4.normal_mapping.vs
+        ${CMAKE_CURRENT_BINARY_DIR}/4.normal_mapping.vs
+        COPYONLY)
+    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/shaders/4.normal_mapping.fs
+        ${CMAKE_CURRENT_BINARY_DIR}/4.normal_mapping.fs
+        COPYONLY)
+    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/textures/brickwall_normal.jpg
+        ${CMAKE_CURRENT_BINARY_DIR}/brickwall_normal.jpg
+        COPYONLY)
+    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/textures/brickwall.jpg
+        ${CMAKE_CURRENT_BINARY_DIR}/brickwall.jpg
+        COPYONLY)
 endif()
