@@ -10,14 +10,11 @@
 *.profdata
 .cache
 .codechecker
-/_build
-/_build_debug
-/_msbuild
+_build
+**/_build_debug/*
+_msbuild
 log.txt
-/standalone_import/_installed
-/standalone_import/_build
-/standalone_import/_build_debug
-/standalone_import/_msbuild
+**/_installed/*
 
 CMakeLists.txt.user
 CMakeCache.txt

@@ -17,4 +17,4 @@ cd _build_debug
 cmake --build . --target all --parallel
 ctest
 cmake --build . --target clean
-cd ../..
+cd ../../..
