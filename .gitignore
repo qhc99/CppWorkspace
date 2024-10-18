@@ -10,9 +10,9 @@
 *.profdata
 .cache
 .codechecker
-_build
+**/_build/*
 **/_build_debug/*
-_msbuild
+**/_msbuild/*
 log.txt
 **/_installed/*
 
