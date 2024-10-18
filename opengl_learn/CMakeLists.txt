@@ -233,13 +233,13 @@ if(CMAKE_SYSTEM_NAME MATCHES Windows)
         ${CMAKE_CURRENT_BINARY_DIR}/wood.png
         COPYONLY)
 
-    add_executable(custom_normal_map_ogl demos/custom_normal_map.cpp includes/shader_m.h includes/camera.h includes/model.h includes/shader.h)
-    set_target_properties(custom_normal_map_ogl PROPERTIES FOLDER "opengl")
-    target_link_libraries(custom_normal_map_ogl PRIVATE OpenGL::GL glad::glad glfw glm::glm-header-only assimp::assimp)
-    target_include_directories(custom_normal_map_ogl PRIVATE ${Stb_INCLUDE_DIR} includes)
-    target_compile_options(custom_normal_map_ogl PRIVATE ${COMMON_COMPILE_OPTIONS} ${SUPPRESS_COMPILE_WARNINGS_OPTION} $<$<CXX_COMPILER_ID:MSVC>:/WX->)
-    target_link_options(custom_normal_map_ogl PRIVATE ${COMMON_LINK_OPTIONS})
-    target_compile_definitions(custom_normal_map_ogl PRIVATE STB_IMAGE_IMPLEMENTATION)
+    add_executable(normal_mapping_ogl demos/normal_mapping.cpp includes/shader_m.h includes/camera.h includes/model.h includes/shader.h)
+    set_target_properties(normal_mapping_ogl PROPERTIES FOLDER "opengl")
+    target_link_libraries(normal_mapping_ogl PRIVATE OpenGL::GL glad::glad glfw glm::glm-header-only assimp::assimp)
+    target_include_directories(normal_mapping_ogl PRIVATE ${Stb_INCLUDE_DIR} includes)
+    target_compile_options(normal_mapping_ogl PRIVATE ${COMMON_COMPILE_OPTIONS} ${SUPPRESS_COMPILE_WARNINGS_OPTION} $<$<CXX_COMPILER_ID:MSVC>:/WX->)
+    target_link_options(normal_mapping_ogl PRIVATE ${COMMON_LINK_OPTIONS})
+    target_compile_definitions(normal_mapping_ogl PRIVATE STB_IMAGE_IMPLEMENTATION)
     configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/shaders/4.normal_mapping.vs
         ${CMAKE_CURRENT_BINARY_DIR}/4.normal_mapping.vs
         COPYONLY)
@@ -251,5 +251,28 @@ if(CMAKE_SYSTEM_NAME MATCHES Windows)
         COPYONLY)
     configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/textures/brickwall.jpg
         ${CMAKE_CURRENT_BINARY_DIR}/brickwall.jpg
+        COPYONLY)
+
+    add_executable(parallax_occlusion_mapping_ogl demos/parallax_occlusion_mapping.cpp includes/shader_m.h includes/camera.h includes/model.h includes/shader.h)
+    set_target_properties(parallax_occlusion_mapping_ogl PROPERTIES FOLDER "opengl")
+    target_link_libraries(parallax_occlusion_mapping_ogl PRIVATE OpenGL::GL glad::glad glfw glm::glm-header-only assimp::assimp)
+    target_include_directories(parallax_occlusion_mapping_ogl PRIVATE ${Stb_INCLUDE_DIR} includes)
+    target_compile_options(parallax_occlusion_mapping_ogl PRIVATE ${COMMON_COMPILE_OPTIONS} ${SUPPRESS_COMPILE_WARNINGS_OPTION} $<$<CXX_COMPILER_ID:MSVC>:/WX->)
+    target_link_options(parallax_occlusion_mapping_ogl PRIVATE ${COMMON_LINK_OPTIONS})
+    target_compile_definitions(parallax_occlusion_mapping_ogl PRIVATE STB_IMAGE_IMPLEMENTATION)
+    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/shaders/5.3.parallax_mapping.vs
+        ${CMAKE_CURRENT_BINARY_DIR}/5.3.parallax_mapping.vs
+        COPYONLY)
+    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/shaders/5.3.parallax_mapping.fs
+        ${CMAKE_CURRENT_BINARY_DIR}/5.3.parallax_mapping.fs
+        COPYONLY)
+    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/textures/bricks2.jpg
+        ${CMAKE_CURRENT_BINARY_DIR}/bricks2.jpg
+        COPYONLY)
+    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/textures/bricks2_normal.jpg
+        ${CMAKE_CURRENT_BINARY_DIR}/bricks2_normal.jpg
+        COPYONLY)
+    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/textures/bricks2_disp.jpg
+        ${CMAKE_CURRENT_BINARY_DIR}/bricks2_disp.jpg
         COPYONLY)
 endif()
