@@ -1,0 +1,4 @@
+#ifndef DEV_QC_CENTRAL_LIB_MYERS_DIFF
+#define DEV_QC_CENTRAL_LIB_MYERS_DIFF
+
+#endif
