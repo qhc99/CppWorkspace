@@ -80,6 +80,7 @@ install(FILES
         DESTINATION lib/cmake/CentralLib
 )
 
+# See _scripts for how to install to a specific location
 
 if(CMAKE_BUILD_TYPE MATCHES Debug)
     add_library(central_lib_asan STATIC ${LIB_SOURCES})
