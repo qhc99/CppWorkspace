@@ -275,4 +275,27 @@ if(CMAKE_SYSTEM_NAME MATCHES Windows)
     configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/textures/bricks2_disp.jpg
         ${CMAKE_CURRENT_BINARY_DIR}/bricks2_disp.jpg
         COPYONLY)
+
+    add_executable(hdr_tone_mapping_ogl demos/hdr_tone_mapping.cpp includes/shader_m.h includes/camera.h includes/model.h includes/shader.h)
+    set_target_properties(hdr_tone_mapping_ogl PROPERTIES FOLDER "opengl")
+    target_link_libraries(hdr_tone_mapping_ogl PRIVATE OpenGL::GL glad::glad glfw glm::glm-header-only assimp::assimp)
+    target_include_directories(hdr_tone_mapping_ogl PRIVATE ${Stb_INCLUDE_DIR} includes)
+    target_compile_options(hdr_tone_mapping_ogl PRIVATE ${COMMON_COMPILE_OPTIONS} ${SUPPRESS_COMPILE_WARNINGS_OPTION} $<$<CXX_COMPILER_ID:MSVC>:/WX->)
+    target_link_options(hdr_tone_mapping_ogl PRIVATE ${COMMON_LINK_OPTIONS})
+    target_compile_definitions(hdr_tone_mapping_ogl PRIVATE STB_IMAGE_IMPLEMENTATION)
+    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/shaders/6.lighting.vs
+        ${CMAKE_CURRENT_BINARY_DIR}/6.lighting.vs
+        COPYONLY)
+    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/shaders/6.lighting.fs
+        ${CMAKE_CURRENT_BINARY_DIR}/6.lighting.fs
+        COPYONLY)
+    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/shaders/6.hdr.vs
+        ${CMAKE_CURRENT_BINARY_DIR}/6.hdr.vs
+        COPYONLY)
+    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/shaders/6.hdr.fs
+        ${CMAKE_CURRENT_BINARY_DIR}/6.hdr.fs
+        COPYONLY)
+    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/textures/wood.png
+        ${CMAKE_CURRENT_BINARY_DIR}/wood.png
+        COPYONLY)
 endif()
