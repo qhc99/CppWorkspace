@@ -14,10 +14,6 @@ if(CMAKE_SYSTEM_NAME MATCHES Windows)
     set_target_properties(wireframe_ogl PROPERTIES FOLDER "opengl")
     target_link_libraries(wireframe_ogl PRIVATE OpenGL::GL glad::glad glfw)
 
-    add_executable(system_check_ogl demos/system_check.cpp)
-    set_target_properties(system_check_ogl PROPERTIES FOLDER "opengl")
-    target_link_libraries(system_check_ogl PRIVATE OpenGL::GL glad::glad glfw)
-
     add_executable(phong_light_casters_ogl demos/phong_light_casters.cpp includes/shader_m.h includes/camera.h)
     set_target_properties(phong_light_casters_ogl PROPERTIES FOLDER "opengl")
     target_link_libraries(phong_light_casters_ogl PRIVATE OpenGL::GL glad::glad glfw glm::glm-header-only)
