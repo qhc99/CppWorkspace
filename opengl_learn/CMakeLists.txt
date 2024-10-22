@@ -276,26 +276,38 @@ if(CMAKE_SYSTEM_NAME MATCHES Windows)
         ${CMAKE_CURRENT_BINARY_DIR}/bricks2_disp.jpg
         COPYONLY)
 
-    add_executable(hdr_tone_mapping_ogl demos/hdr_tone_mapping.cpp includes/shader_m.h includes/camera.h includes/model.h includes/shader.h)
-    set_target_properties(hdr_tone_mapping_ogl PROPERTIES FOLDER "opengl")
-    target_link_libraries(hdr_tone_mapping_ogl PRIVATE OpenGL::GL glad::glad glfw glm::glm-header-only assimp::assimp)
-    target_include_directories(hdr_tone_mapping_ogl PRIVATE ${Stb_INCLUDE_DIR} includes)
-    target_compile_options(hdr_tone_mapping_ogl PRIVATE ${COMMON_COMPILE_OPTIONS} ${SUPPRESS_COMPILE_WARNINGS_OPTION} $<$<CXX_COMPILER_ID:MSVC>:/WX->)
-    target_link_options(hdr_tone_mapping_ogl PRIVATE ${COMMON_LINK_OPTIONS})
-    target_compile_definitions(hdr_tone_mapping_ogl PRIVATE STB_IMAGE_IMPLEMENTATION)
-    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/shaders/6.lighting.vs
-        ${CMAKE_CURRENT_BINARY_DIR}/6.lighting.vs
+    add_executable(hdr_bloom_ogl demos/hdr_bloom.cpp includes/shader_m.h includes/camera.h includes/model.h includes/shader.h)
+    set_target_properties(hdr_bloom_ogl PROPERTIES FOLDER "opengl")
+    target_link_libraries(hdr_bloom_ogl PRIVATE OpenGL::GL glad::glad glfw glm::glm-header-only assimp::assimp)
+    target_include_directories(hdr_bloom_ogl PRIVATE ${Stb_INCLUDE_DIR} includes)
+    target_compile_options(hdr_bloom_ogl PRIVATE ${COMMON_COMPILE_OPTIONS} ${SUPPRESS_COMPILE_WARNINGS_OPTION} $<$<CXX_COMPILER_ID:MSVC>:/WX->)
+    target_link_options(hdr_bloom_ogl PRIVATE ${COMMON_LINK_OPTIONS})
+    target_compile_definitions(hdr_bloom_ogl PRIVATE STB_IMAGE_IMPLEMENTATION)
+    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/shaders/7.bloom.vs
+        ${CMAKE_CURRENT_BINARY_DIR}/7.bloom.vs
         COPYONLY)
-    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/shaders/6.lighting.fs
-        ${CMAKE_CURRENT_BINARY_DIR}/6.lighting.fs
+    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/shaders/7.bloom.fs
+        ${CMAKE_CURRENT_BINARY_DIR}/7.bloom.fs
         COPYONLY)
-    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/shaders/6.hdr.vs
-        ${CMAKE_CURRENT_BINARY_DIR}/6.hdr.vs
+    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/shaders/7.light_box.fs
+        ${CMAKE_CURRENT_BINARY_DIR}/7.light_box.fs
         COPYONLY)
-    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/shaders/6.hdr.fs
-        ${CMAKE_CURRENT_BINARY_DIR}/6.hdr.fs
+    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/shaders/7.blur.vs
+        ${CMAKE_CURRENT_BINARY_DIR}/7.blur.vs
+        COPYONLY)
+    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/shaders/7.blur.fs
+        ${CMAKE_CURRENT_BINARY_DIR}/7.blur.fs
+        COPYONLY)
+    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/shaders/7.bloom_final.vs
+        ${CMAKE_CURRENT_BINARY_DIR}/7.bloom_final.vs
+        COPYONLY)
+    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/shaders/7.bloom_final.fs
+        ${CMAKE_CURRENT_BINARY_DIR}/7.bloom_final.fs
         COPYONLY)
     configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/textures/wood.png
         ${CMAKE_CURRENT_BINARY_DIR}/wood.png
+        COPYONLY)
+    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/textures/container2.png
+        ${CMAKE_CURRENT_BINARY_DIR}/container2.png
         COPYONLY)
 endif()
