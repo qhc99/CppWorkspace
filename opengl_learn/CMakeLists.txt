@@ -131,7 +131,7 @@ if(CMAKE_SYSTEM_NAME MATCHES Windows)
     configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/shaders/6.2.skybox.fs
         ${CMAKE_CURRENT_BINARY_DIR}/6.2.skybox.fs
         COPYONLY)
-    file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/demos/skybox
+    file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/demos/models/skybox
         DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/)
 
     add_executable(geometry_shader_normal_ogl demos/geometry_shader_normal.cpp includes/shader_m.h includes/camera.h includes/model.h includes/shader.h)
@@ -156,7 +156,7 @@ if(CMAKE_SYSTEM_NAME MATCHES Windows)
     configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/shaders/9.3.normal_visualization.gs
         ${CMAKE_CURRENT_BINARY_DIR}/9.3.normal_visualization.gs
         COPYONLY)
-    file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/demos/nanosuit
+    file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/demos/models/nanosuit
         DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/)
 
     add_executable(instanced_asteroids_ogl demos/instanced_asteroids.cpp includes/shader_m.h includes/camera.h includes/model.h includes/shader.h)
@@ -178,9 +178,9 @@ if(CMAKE_SYSTEM_NAME MATCHES Windows)
     configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/shaders/10.3.planet.fs
         ${CMAKE_CURRENT_BINARY_DIR}/10.3.planet.fs
         COPYONLY)
-    file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/demos/rock
+    file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/demos/models/rock
         DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/)
-    file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/demos/planet
+    file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/demos/models/planet
         DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/)
 
     add_executable(msaa_framebuffer_ogl demos/msaa_framebuffer.cpp includes/shader_m.h includes/camera.h includes/model.h includes/shader.h)
@@ -332,6 +332,34 @@ if(CMAKE_SYSTEM_NAME MATCHES Windows)
     configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/shaders/8.2.deferred_light_box.fs
         ${CMAKE_CURRENT_BINARY_DIR}/8.2.deferred_light_box.fs
         COPYONLY)
-    file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/demos/nanosuit
+    file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/demos/models/nanosuit
+        DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/)
+
+    add_executable(ssao_ogl demos/screen_space_ambient_occlusion.cpp includes/shader_m.h includes/camera.h includes/model.h includes/shader.h)
+    set_target_properties(ssao_ogl PROPERTIES FOLDER "opengl")
+    target_link_libraries(ssao_ogl PRIVATE OpenGL::GL glad::glad glfw glm::glm-header-only assimp::assimp)
+    target_include_directories(ssao_ogl PRIVATE ${Stb_INCLUDE_DIR} includes)
+    target_compile_options(ssao_ogl PRIVATE ${COMMON_COMPILE_OPTIONS} ${SUPPRESS_COMPILE_WARNINGS_OPTION} $<$<CXX_COMPILER_ID:MSVC>:/WX->)
+    target_link_options(ssao_ogl PRIVATE ${COMMON_LINK_OPTIONS})
+    target_compile_definitions(ssao_ogl PRIVATE STB_IMAGE_IMPLEMENTATION)
+    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/shaders/9.ssao_geometry.vs
+        ${CMAKE_CURRENT_BINARY_DIR}/9.ssao_geometry.vs
+        COPYONLY)
+    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/shaders/9.ssao_geometry.fs
+        ${CMAKE_CURRENT_BINARY_DIR}/9.ssao_geometry.fs
+        COPYONLY)
+    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/shaders/9.ssao.vs
+        ${CMAKE_CURRENT_BINARY_DIR}/9.ssao.vs
+        COPYONLY)
+    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/shaders/9.ssao.fs
+        ${CMAKE_CURRENT_BINARY_DIR}/9.ssao.fs
+        COPYONLY)
+    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/shaders/9.ssao_lighting.fs
+        ${CMAKE_CURRENT_BINARY_DIR}/9.ssao_lighting.fs
+        COPYONLY)
+    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/shaders/9.ssao_blur.fs
+        ${CMAKE_CURRENT_BINARY_DIR}/9.ssao_blur.fs
+        COPYONLY)
+    file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/demos/models/backpack
         DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/)
 endif()
