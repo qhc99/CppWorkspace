@@ -362,4 +362,18 @@ if(CMAKE_SYSTEM_NAME MATCHES Windows)
         COPYONLY)
     file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/demos/models/backpack
         DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/)
+
+    add_executable(pbr_disney_ogl demos/PBR_disney.cpp includes/shader_m.h includes/camera.h includes/model.h includes/shader.h)
+    set_target_properties(pbr_disney_ogl PROPERTIES FOLDER "opengl")
+    target_link_libraries(pbr_disney_ogl PRIVATE OpenGL::GL glad::glad glfw glm::glm-header-only assimp::assimp)
+    target_include_directories(pbr_disney_ogl PRIVATE ${Stb_INCLUDE_DIR} includes)
+    target_compile_options(pbr_disney_ogl PRIVATE ${COMMON_COMPILE_OPTIONS} ${SUPPRESS_COMPILE_WARNINGS_OPTION} $<$<CXX_COMPILER_ID:MSVC>:/WX->)
+    target_link_options(pbr_disney_ogl PRIVATE ${COMMON_LINK_OPTIONS})
+    target_compile_definitions(pbr_disney_ogl PRIVATE STB_IMAGE_IMPLEMENTATION)
+    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/shaders/1.1.pbr.vs
+        ${CMAKE_CURRENT_BINARY_DIR}/1.1.pbr.vs
+        COPYONLY)
+    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/shaders/1.1.pbr.fs
+        ${CMAKE_CURRENT_BINARY_DIR}/1.1.pbr.fs
+        COPYONLY)
 endif()
