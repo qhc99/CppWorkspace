@@ -376,4 +376,36 @@ if(CMAKE_SYSTEM_NAME MATCHES Windows)
     configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/shaders/1.1.pbr.fs
         ${CMAKE_CURRENT_BINARY_DIR}/1.1.pbr.fs
         COPYONLY)
+
+    add_executable(pbr_disney_irradiance_map_ogl demos/PBR_disney_irradiance_map.cpp includes/shader_m.h includes/camera.h includes/model.h includes/shader.h)
+    set_target_properties(pbr_disney_irradiance_map_ogl PROPERTIES FOLDER "opengl")
+    target_link_libraries(pbr_disney_irradiance_map_ogl PRIVATE OpenGL::GL glad::glad glfw glm::glm-header-only assimp::assimp)
+    target_include_directories(pbr_disney_irradiance_map_ogl PRIVATE ${Stb_INCLUDE_DIR} includes)
+    target_compile_options(pbr_disney_irradiance_map_ogl PRIVATE ${COMMON_COMPILE_OPTIONS} ${SUPPRESS_COMPILE_WARNINGS_OPTION} $<$<CXX_COMPILER_ID:MSVC>:/WX->)
+    target_link_options(pbr_disney_irradiance_map_ogl PRIVATE ${COMMON_LINK_OPTIONS})
+    target_compile_definitions(pbr_disney_irradiance_map_ogl PRIVATE STB_IMAGE_IMPLEMENTATION)
+    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/shaders/2.1.2.pbr.vs
+        ${CMAKE_CURRENT_BINARY_DIR}/2.1.2.pbr.vs
+        COPYONLY)
+    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/shaders/2.1.2.pbr.fs
+        ${CMAKE_CURRENT_BINARY_DIR}/2.1.2.pbr.fs
+        COPYONLY)
+    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/shaders/2.1.2.cubemap.vs
+        ${CMAKE_CURRENT_BINARY_DIR}/2.1.2.cubemap.vs
+        COPYONLY)
+    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/shaders/2.1.2.equirectangular_to_cubemap.fs
+        ${CMAKE_CURRENT_BINARY_DIR}/2.1.2.equirectangular_to_cubemap.fs
+        COPYONLY)
+    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/shaders/2.1.2.irradiance_convolution.fs
+        ${CMAKE_CURRENT_BINARY_DIR}/2.1.2.irradiance_convolution.fs
+        COPYONLY)
+    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/shaders/2.1.2.background.fs
+        ${CMAKE_CURRENT_BINARY_DIR}/2.1.2.background.fs
+        COPYONLY)
+    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/shaders/2.1.2.background.vs
+        ${CMAKE_CURRENT_BINARY_DIR}/2.1.2.background.vs
+        COPYONLY)
+    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/textures/newport_loft.hdr
+        ${CMAKE_CURRENT_BINARY_DIR}/newport_loft.hdr
+        COPYONLY)
 endif()
