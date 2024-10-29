@@ -377,13 +377,13 @@ if(CMAKE_SYSTEM_NAME MATCHES Windows)
         ${CMAKE_CURRENT_BINARY_DIR}/1.1.pbr.fs
         COPYONLY)
 
-    add_executable(pbr_disney_irradiance_map_ogl demos/PBR_disney_irradiance_map.cpp includes/shader_m.h includes/camera.h includes/model.h includes/shader.h)
-    set_target_properties(pbr_disney_irradiance_map_ogl PROPERTIES FOLDER "opengl")
-    target_link_libraries(pbr_disney_irradiance_map_ogl PRIVATE OpenGL::GL glad::glad glfw glm::glm-header-only assimp::assimp)
-    target_include_directories(pbr_disney_irradiance_map_ogl PRIVATE ${Stb_INCLUDE_DIR} includes)
-    target_compile_options(pbr_disney_irradiance_map_ogl PRIVATE ${COMMON_COMPILE_OPTIONS} ${SUPPRESS_COMPILE_WARNINGS_OPTION} $<$<CXX_COMPILER_ID:MSVC>:/WX->)
-    target_link_options(pbr_disney_irradiance_map_ogl PRIVATE ${COMMON_LINK_OPTIONS})
-    target_compile_definitions(pbr_disney_irradiance_map_ogl PRIVATE STB_IMAGE_IMPLEMENTATION)
+    add_executable(pbr_diffuse_irradiance_map_ogl demos/PBR_diffuse_irradiance_map.cpp includes/shader_m.h includes/camera.h includes/model.h includes/shader.h)
+    set_target_properties(pbr_diffuse_irradiance_map_ogl PROPERTIES FOLDER "opengl")
+    target_link_libraries(pbr_diffuse_irradiance_map_ogl PRIVATE OpenGL::GL glad::glad glfw glm::glm-header-only assimp::assimp)
+    target_include_directories(pbr_diffuse_irradiance_map_ogl PRIVATE ${Stb_INCLUDE_DIR} includes)
+    target_compile_options(pbr_diffuse_irradiance_map_ogl PRIVATE ${COMMON_COMPILE_OPTIONS} ${SUPPRESS_COMPILE_WARNINGS_OPTION} $<$<CXX_COMPILER_ID:MSVC>:/WX->)
+    target_link_options(pbr_diffuse_irradiance_map_ogl PRIVATE ${COMMON_LINK_OPTIONS})
+    target_compile_definitions(pbr_diffuse_irradiance_map_ogl PRIVATE STB_IMAGE_IMPLEMENTATION)
     configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/shaders/2.1.2.pbr.vs
         ${CMAKE_CURRENT_BINARY_DIR}/2.1.2.pbr.vs
         COPYONLY)
