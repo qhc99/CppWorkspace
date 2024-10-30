@@ -10,36 +10,6 @@ if(CMAKE_SYSTEM_NAME MATCHES Windows)
     find_package(glm CONFIG REQUIRED)
     find_package(assimp CONFIG REQUIRED)
 
-    add_executable(wireframe_ogl demos/wireframe.cpp)
-    set_target_properties(wireframe_ogl PROPERTIES FOLDER "opengl")
-    target_link_libraries(wireframe_ogl PRIVATE OpenGL::GL glad::glad glfw)
-
-    add_executable(phong_light_casters_ogl demos/phong_light_casters.cpp includes/shader_m.h includes/camera.h)
-    set_target_properties(phong_light_casters_ogl PROPERTIES FOLDER "opengl")
-    target_link_libraries(phong_light_casters_ogl PRIVATE OpenGL::GL glad::glad glfw glm::glm-header-only)
-    target_include_directories(phong_light_casters_ogl PRIVATE ${Stb_INCLUDE_DIR} includes)
-    target_compile_options(phong_light_casters_ogl PRIVATE ${COMMON_COMPILE_OPTIONS} ${SUPPRESS_COMPILE_WARNINGS_OPTION} $<$<CXX_COMPILER_ID:MSVC>:/WX->)
-    target_link_options(phong_light_casters_ogl PRIVATE ${COMMON_LINK_OPTIONS})
-    target_compile_definitions(phong_light_casters_ogl PRIVATE STB_IMAGE_IMPLEMENTATION)
-    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/shaders/4.2.light_cube.vs
-        ${CMAKE_CURRENT_BINARY_DIR}/4.2.light_cube.vs
-        COPYONLY)
-    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/shaders/4.2.light_cube.fs
-        ${CMAKE_CURRENT_BINARY_DIR}/4.2.light_cube.fs
-        COPYONLY)
-    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/shaders/6.multiple_lights.vs
-        ${CMAKE_CURRENT_BINARY_DIR}/6.multiple_lights.vs
-        COPYONLY)
-    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/shaders/6.multiple_lights.fs
-        ${CMAKE_CURRENT_BINARY_DIR}/6.multiple_lights.fs
-        COPYONLY)
-    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/textures/container2_specular.png
-        ${CMAKE_CURRENT_BINARY_DIR}/container2_specular.png
-        COPYONLY)
-    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/textures/container2.png
-        ${CMAKE_CURRENT_BINARY_DIR}/container2.png
-        COPYONLY)
-
     add_executable(stencil_outline_ogl demos/stencil_outline.cpp includes/shader_m.h includes/camera.h includes/model.h includes/shader.h)
     set_target_properties(stencil_outline_ogl PROPERTIES FOLDER "opengl")
     target_link_libraries(stencil_outline_ogl PRIVATE OpenGL::GL glad::glad glfw glm::glm-header-only assimp::assimp)
@@ -112,27 +82,6 @@ if(CMAKE_SYSTEM_NAME MATCHES Windows)
         ${CMAKE_CURRENT_BINARY_DIR}/metal.png
         COPYONLY)
 
-    add_executable(skybox_ogl demos/skybox.cpp includes/shader_m.h includes/camera.h includes/model.h includes/shader.h)
-    set_target_properties(skybox_ogl PROPERTIES FOLDER "opengl")
-    target_link_libraries(skybox_ogl PRIVATE OpenGL::GL glad::glad glfw glm::glm-header-only assimp::assimp)
-    target_include_directories(skybox_ogl PRIVATE ${Stb_INCLUDE_DIR} includes)
-    target_compile_options(skybox_ogl PRIVATE ${COMMON_COMPILE_OPTIONS} ${SUPPRESS_COMPILE_WARNINGS_OPTION} $<$<CXX_COMPILER_ID:MSVC>:/WX->)
-    target_link_options(skybox_ogl PRIVATE ${COMMON_LINK_OPTIONS})
-    target_compile_definitions(skybox_ogl PRIVATE STB_IMAGE_IMPLEMENTATION)
-    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/shaders/6.2.cubemaps.vs
-        ${CMAKE_CURRENT_BINARY_DIR}/6.2.cubemaps.vs
-        COPYONLY)
-    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/shaders/6.2.cubemaps.fs
-        ${CMAKE_CURRENT_BINARY_DIR}/6.2.cubemaps.fs
-        COPYONLY)
-    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/shaders/6.2.skybox.vs
-        ${CMAKE_CURRENT_BINARY_DIR}/6.2.skybox.vs
-        COPYONLY)
-    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/shaders/6.2.skybox.fs
-        ${CMAKE_CURRENT_BINARY_DIR}/6.2.skybox.fs
-        COPYONLY)
-    file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/demos/models/skybox
-        DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/)
 
     add_executable(geometry_shader_normal_ogl demos/geometry_shader_normal.cpp includes/shader_m.h includes/camera.h includes/model.h includes/shader.h)
     set_target_properties(geometry_shader_normal_ogl PROPERTIES FOLDER "opengl")
