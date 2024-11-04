@@ -9,6 +9,7 @@ if(CMAKE_SYSTEM_NAME MATCHES Windows)
     find_package(Stb REQUIRED)
     find_package(glm CONFIG REQUIRED)
     find_package(assimp CONFIG REQUIRED)
+    find_package(Freetype REQUIRED)
 
     add_executable(stencil_outline_ogl demos/stencil_outline.cpp includes/shader_m.h includes/camera.h includes/model.h includes/shader.h)
     set_target_properties(stencil_outline_ogl PROPERTIES FOLDER "opengl")
@@ -81,7 +82,6 @@ if(CMAKE_SYSTEM_NAME MATCHES Windows)
     configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/textures/metal.png
         ${CMAKE_CURRENT_BINARY_DIR}/metal.png
         COPYONLY)
-
 
     add_executable(geometry_shader_normal_ogl demos/geometry_shader_normal.cpp includes/shader_m.h includes/camera.h includes/model.h includes/shader.h)
     set_target_properties(geometry_shader_normal_ogl PROPERTIES FOLDER "opengl")
@@ -363,8 +363,34 @@ if(CMAKE_SYSTEM_NAME MATCHES Windows)
     configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/shaders/2.2.1.background.vs
         ${CMAKE_CURRENT_BINARY_DIR}/2.2.1.background.vs
         COPYONLY)
-
     configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/textures/newport_loft.hdr
         ${CMAKE_CURRENT_BINARY_DIR}/newport_loft.hdr
+        COPYONLY)
+
+    add_executable(error_handling_ogl demos/error_handling.cpp includes/shader_m.h includes/camera.h includes/model.h includes/shader.h)
+    set_target_properties(error_handling_ogl PROPERTIES FOLDER "opengl")
+    target_link_libraries(error_handling_ogl PRIVATE OpenGL::GL glad::glad glfw glm::glm-header-only assimp::assimp)
+    target_include_directories(error_handling_ogl PRIVATE ${Stb_INCLUDE_DIR} includes)
+    target_compile_options(error_handling_ogl PRIVATE ${COMMON_COMPILE_OPTIONS} ${SUPPRESS_COMPILE_WARNINGS_OPTION} $<$<CXX_COMPILER_ID:MSVC>:/WX->)
+    target_link_options(error_handling_ogl PRIVATE ${COMMON_LINK_OPTIONS})
+    target_compile_definitions(error_handling_ogl PRIVATE STB_IMAGE_IMPLEMENTATION)
+    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/textures/wood.png
+        ${CMAKE_CURRENT_BINARY_DIR}/wood.png
+        COPYONLY)
+
+    add_executable(font_ttf_ogl demos/font_ttf.cpp includes/shader_m.h includes/camera.h includes/model.h includes/shader.h)
+    set_target_properties(font_ttf_ogl PROPERTIES FOLDER "opengl")
+    target_link_libraries(font_ttf_ogl PRIVATE OpenGL::GL glad::glad glfw glm::glm-header-only assimp::assimp Freetype::Freetype)
+    target_include_directories(font_ttf_ogl PRIVATE includes)
+    target_compile_options(font_ttf_ogl PRIVATE ${COMMON_COMPILE_OPTIONS} ${SUPPRESS_COMPILE_WARNINGS_OPTION} $<$<CXX_COMPILER_ID:MSVC>:/WX->)
+    target_link_options(font_ttf_ogl PRIVATE ${COMMON_LINK_OPTIONS})
+    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/textures/Antonio-Bold.ttf
+        ${CMAKE_CURRENT_BINARY_DIR}/Antonio-Bold.ttf
+        COPYONLY)
+    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/shaders/text.vs
+        ${CMAKE_CURRENT_BINARY_DIR}/text.vs
+        COPYONLY)
+    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/shaders/text.fs
+        ${CMAKE_CURRENT_BINARY_DIR}/text.fs
         COPYONLY)
 endif()
