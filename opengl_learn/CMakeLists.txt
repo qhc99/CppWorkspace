@@ -134,7 +134,7 @@ if(CMAKE_SYSTEM_NAME MATCHES Windows)
 
     add_executable(msaa_framebuffer_ogl demos/msaa_framebuffer.cpp includes/shader_m.h includes/camera.h includes/model.h includes/shader.h)
     set_target_properties(msaa_framebuffer_ogl PROPERTIES FOLDER "opengl")
-    target_link_libraries(msaa_framebuffer_ogl PRIVATE OpenGL::GL glad::glad glfw glm::glm-header-only assimp::assimp)
+    target_link_libraries(msaa_framebuffer_ogl PRIVATE OpenGL::GL glad::glad glfw glm::glm-header-only)
     target_include_directories(msaa_framebuffer_ogl PRIVATE ${Stb_INCLUDE_DIR} includes)
     target_compile_options(msaa_framebuffer_ogl PRIVATE ${COMMON_COMPILE_OPTIONS} ${SUPPRESS_COMPILE_WARNINGS_OPTION} $<$<CXX_COMPILER_ID:MSVC>:/WX->)
     target_link_options(msaa_framebuffer_ogl PRIVATE ${COMMON_LINK_OPTIONS})
@@ -314,7 +314,7 @@ if(CMAKE_SYSTEM_NAME MATCHES Windows)
 
     add_executable(pbr_disney_ogl demos/PBR_disney.cpp includes/shader_m.h includes/camera.h includes/model.h includes/shader.h)
     set_target_properties(pbr_disney_ogl PROPERTIES FOLDER "opengl")
-    target_link_libraries(pbr_disney_ogl PRIVATE OpenGL::GL glad::glad glfw glm::glm-header-only assimp::assimp)
+    target_link_libraries(pbr_disney_ogl PRIVATE OpenGL::GL glad::glad glfw glm::glm-header-only)
     target_include_directories(pbr_disney_ogl PRIVATE ${Stb_INCLUDE_DIR} includes)
     target_compile_options(pbr_disney_ogl PRIVATE ${COMMON_COMPILE_OPTIONS} ${SUPPRESS_COMPILE_WARNINGS_OPTION} $<$<CXX_COMPILER_ID:MSVC>:/WX->)
     target_link_options(pbr_disney_ogl PRIVATE ${COMMON_LINK_OPTIONS})
@@ -380,7 +380,7 @@ if(CMAKE_SYSTEM_NAME MATCHES Windows)
 
     add_executable(font_ttf_ogl demos/font_ttf.cpp includes/shader_m.h includes/camera.h includes/model.h includes/shader.h)
     set_target_properties(font_ttf_ogl PROPERTIES FOLDER "opengl")
-    target_link_libraries(font_ttf_ogl PRIVATE OpenGL::GL glad::glad glfw glm::glm-header-only assimp::assimp Freetype::Freetype)
+    target_link_libraries(font_ttf_ogl PRIVATE OpenGL::GL glad::glad glfw glm::glm-header-only Freetype::Freetype)
     target_include_directories(font_ttf_ogl PRIVATE includes)
     target_compile_options(font_ttf_ogl PRIVATE ${COMMON_COMPILE_OPTIONS} ${SUPPRESS_COMPILE_WARNINGS_OPTION} $<$<CXX_COMPILER_ID:MSVC>:/WX->)
     target_link_options(font_ttf_ogl PRIVATE ${COMMON_LINK_OPTIONS})
@@ -392,5 +392,28 @@ if(CMAKE_SYSTEM_NAME MATCHES Windows)
         COPYONLY)
     configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/shaders/text.fs
         ${CMAKE_CURRENT_BINARY_DIR}/text.fs
+        COPYONLY)
+
+    add_executable(pbr_area_light_ogl demos/pbr_area_light.cpp includes/shader_m.h includes/camera.h includes/model.h includes/shader.h includes/colors.hpp includes/ltc_matrix.hpp)
+    set_target_properties(pbr_area_light_ogl PROPERTIES FOLDER "opengl")
+    target_link_libraries(pbr_area_light_ogl PRIVATE OpenGL::GL glad::glad glfw glm::glm-header-only)
+    target_include_directories(pbr_area_light_ogl PRIVATE ${Stb_INCLUDE_DIR} includes)
+    target_compile_options(pbr_area_light_ogl PRIVATE ${COMMON_COMPILE_OPTIONS} ${SUPPRESS_COMPILE_WARNINGS_OPTION} $<$<CXX_COMPILER_ID:MSVC>:/WX->)
+    target_link_options(pbr_area_light_ogl PRIVATE ${COMMON_LINK_OPTIONS})
+    target_compile_definitions(pbr_area_light_ogl PRIVATE STB_IMAGE_IMPLEMENTATION)
+    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/textures/concreteTexture.png
+        ${CMAKE_CURRENT_BINARY_DIR}/concreteTexture.png
+        COPYONLY)
+    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/shaders/7.multi_area_light.vs
+        ${CMAKE_CURRENT_BINARY_DIR}/7.multi_area_light.vs
+        COPYONLY)
+    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/shaders/7.multi_area_light.fs
+        ${CMAKE_CURRENT_BINARY_DIR}/7.multi_area_light.fs
+        COPYONLY)
+    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/shaders/7.light_plane.vs
+        ${CMAKE_CURRENT_BINARY_DIR}/7.light_plane.vs
+        COPYONLY)
+    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/shaders/7.light_plane.fs
+        ${CMAKE_CURRENT_BINARY_DIR}/7.light_plane.fs
         COPYONLY)
 endif()
