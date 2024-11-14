@@ -430,6 +430,38 @@ if(CMAKE_SYSTEM_NAME MATCHES Windows)
     configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/shaders/anim_model.fs
         ${CMAKE_CURRENT_BINARY_DIR}/anim_model.fs
         COPYONLY)
-        file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/demos/models/vampire
+    file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/demos/models/vampire
         DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/)
+
+    add_executable(weighted_OIT_ogl demos/weighted_OIT.cpp)
+    set_target_properties(weighted_OIT_ogl PROPERTIES FOLDER "opengl")
+    target_link_libraries(weighted_OIT_ogl PRIVATE OpenGL::GL glad::glad glfw glm::glm-header-only)
+    target_include_directories(weighted_OIT_ogl PRIVATE ${Stb_INCLUDE_DIR} includes)
+    target_compile_options(weighted_OIT_ogl PRIVATE ${COMMON_COMPILE_OPTIONS} ${SUPPRESS_COMPILE_WARNINGS_OPTION} $<$<CXX_COMPILER_ID:MSVC>:/WX->)
+    target_link_options(weighted_OIT_ogl PRIVATE ${COMMON_LINK_OPTIONS})
+    target_compile_definitions(weighted_OIT_ogl PRIVATE STB_IMAGE_IMPLEMENTATION)
+    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/shaders/solid.vs
+        ${CMAKE_CURRENT_BINARY_DIR}/solid.vs
+        COPYONLY)
+    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/shaders/solid.fs
+        ${CMAKE_CURRENT_BINARY_DIR}/solid.fs
+        COPYONLY)
+    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/shaders/transparent.vs
+        ${CMAKE_CURRENT_BINARY_DIR}/transparent.vs
+        COPYONLY)
+    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/shaders/transparent.fs
+        ${CMAKE_CURRENT_BINARY_DIR}/transparent.fs
+        COPYONLY)
+    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/shaders/composite.vs
+        ${CMAKE_CURRENT_BINARY_DIR}/composite.vs
+        COPYONLY)
+    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/shaders/composite.fs
+        ${CMAKE_CURRENT_BINARY_DIR}/composite.fs
+        COPYONLY)
+    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/shaders/screen.vs
+        ${CMAKE_CURRENT_BINARY_DIR}/screen.vs
+        COPYONLY)
+    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/shaders/screen.fs
+        ${CMAKE_CURRENT_BINARY_DIR}/screen.fs
+        COPYONLY)
 endif()
