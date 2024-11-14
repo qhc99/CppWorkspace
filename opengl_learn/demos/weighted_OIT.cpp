@@ -1,3 +1,4 @@
+// Weighted Blended Order Independent Transparency
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
