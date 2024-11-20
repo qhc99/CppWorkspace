@@ -464,4 +464,42 @@ if(CMAKE_SYSTEM_NAME MATCHES Windows)
     configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/shaders/screen.fs
         ${CMAKE_CURRENT_BINARY_DIR}/screen.fs
         COPYONLY)
+
+    add_executable(cascaded_shadow_mapping_ogl demos/cascaded_shadow_mapping.cpp)
+    set_target_properties(cascaded_shadow_mapping_ogl PROPERTIES FOLDER "opengl")
+    target_link_libraries(cascaded_shadow_mapping_ogl PRIVATE OpenGL::GL glad::glad glfw glm::glm-header-only)
+    target_include_directories(cascaded_shadow_mapping_ogl PRIVATE ${Stb_INCLUDE_DIR} includes)
+    target_compile_options(cascaded_shadow_mapping_ogl PRIVATE ${COMMON_COMPILE_OPTIONS} ${SUPPRESS_COMPILE_WARNINGS_OPTION} $<$<CXX_COMPILER_ID:MSVC>:/WX->)
+    target_link_options(cascaded_shadow_mapping_ogl PRIVATE ${COMMON_LINK_OPTIONS})
+    target_compile_definitions(cascaded_shadow_mapping_ogl PRIVATE STB_IMAGE_IMPLEMENTATION)
+    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/shaders/10.shadow_mapping.vs
+        ${CMAKE_CURRENT_BINARY_DIR}/10.shadow_mapping.vs
+        COPYONLY)
+    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/shaders/10.shadow_mapping.fs
+        ${CMAKE_CURRENT_BINARY_DIR}/10.shadow_mapping.fs
+        COPYONLY)
+    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/shaders/10.shadow_mapping_depth.vs
+        ${CMAKE_CURRENT_BINARY_DIR}/10.shadow_mapping_depth.vs
+        COPYONLY)
+    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/shaders/10.shadow_mapping_depth.gs
+        ${CMAKE_CURRENT_BINARY_DIR}/10.shadow_mapping_depth.gs
+        COPYONLY)
+    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/shaders/10.shadow_mapping_depth.fs
+        ${CMAKE_CURRENT_BINARY_DIR}/10.shadow_mapping_depth.fs
+        COPYONLY)
+    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/shaders/10.debug_quad.vs
+        ${CMAKE_CURRENT_BINARY_DIR}/10.debug_quad.vs
+        COPYONLY)
+    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/shaders/10.debug_quad_depth.fs
+        ${CMAKE_CURRENT_BINARY_DIR}/10.debug_quad_depth.fs
+        COPYONLY)
+    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/shaders/10.debug_cascade.vs
+        ${CMAKE_CURRENT_BINARY_DIR}/10.debug_cascade.vs
+        COPYONLY)
+    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/shaders/10.debug_cascade.fs
+        ${CMAKE_CURRENT_BINARY_DIR}/10.debug_cascade.fs
+        COPYONLY)
+    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/textures/wood.png
+        ${CMAKE_CURRENT_BINARY_DIR}/wood.png
+        COPYONLY)
 endif()
