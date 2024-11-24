@@ -502,4 +502,27 @@ if(CMAKE_SYSTEM_NAME MATCHES Windows)
     configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/textures/wood.png
         ${CMAKE_CURRENT_BINARY_DIR}/wood.png
         COPYONLY)
+
+    add_executable(terrain_tessellation_ogl demos/terrain_tessellation.cpp)
+    set_target_properties(terrain_tessellation_ogl PROPERTIES FOLDER "opengl")
+    target_link_libraries(terrain_tessellation_ogl PRIVATE OpenGL::GL glad::glad glfw glm::glm-header-only)
+    target_include_directories(terrain_tessellation_ogl PRIVATE ${Stb_INCLUDE_DIR} includes)
+    target_compile_options(terrain_tessellation_ogl PRIVATE ${COMMON_COMPILE_OPTIONS} ${SUPPRESS_COMPILE_WARNINGS_OPTION} $<$<CXX_COMPILER_ID:MSVC>:/WX->)
+    target_link_options(terrain_tessellation_ogl PRIVATE ${COMMON_LINK_OPTIONS})
+    target_compile_definitions(terrain_tessellation_ogl PRIVATE STB_IMAGE_IMPLEMENTATION)
+    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/shaders/8.3.gpuheight.vs
+        ${CMAKE_CURRENT_BINARY_DIR}/8.3.gpuheight.vs
+        COPYONLY)
+    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/shaders/8.3.gpuheight.fs
+        ${CMAKE_CURRENT_BINARY_DIR}/8.3.gpuheight.fs
+        COPYONLY)
+    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/shaders/8.3.gpuheight.tcs
+        ${CMAKE_CURRENT_BINARY_DIR}/8.3.gpuheight.tcs
+        COPYONLY)
+    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/shaders/8.3.gpuheight.tes
+        ${CMAKE_CURRENT_BINARY_DIR}/8.3.gpuheight.tes
+        COPYONLY)
+    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/textures/iceland_heightmap.png
+        ${CMAKE_CURRENT_BINARY_DIR}/iceland_heightmap.png
+        COPYONLY)
 endif()
