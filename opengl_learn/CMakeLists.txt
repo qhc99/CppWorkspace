@@ -525,4 +525,51 @@ if(CMAKE_SYSTEM_NAME MATCHES Windows)
     configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/textures/iceland_heightmap.png
         ${CMAKE_CURRENT_BINARY_DIR}/iceland_heightmap.png
         COPYONLY)
+
+    add_executable(pbr_bloom_ogl demos/pbr_bloom.cpp)
+    set_target_properties(pbr_bloom_ogl PROPERTIES FOLDER "opengl")
+    target_link_libraries(pbr_bloom_ogl PRIVATE OpenGL::GL glad::glad glfw glm::glm-header-only)
+    target_include_directories(pbr_bloom_ogl PRIVATE ${Stb_INCLUDE_DIR} includes)
+    target_compile_options(pbr_bloom_ogl PRIVATE ${COMMON_COMPILE_OPTIONS} ${SUPPRESS_COMPILE_WARNINGS_OPTION} $<$<CXX_COMPILER_ID:MSVC>:/WX->)
+    target_link_options(pbr_bloom_ogl PRIVATE ${COMMON_LINK_OPTIONS})
+    target_compile_definitions(pbr_bloom_ogl PRIVATE STB_IMAGE_IMPLEMENTATION)
+    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/shaders/6.bloom.vs
+        ${CMAKE_CURRENT_BINARY_DIR}/6.bloom.vs
+        COPYONLY)
+    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/shaders/6.bloom.fs
+        ${CMAKE_CURRENT_BINARY_DIR}/6.bloom.fs
+        COPYONLY)
+    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/shaders/6.old_blur.vs
+        ${CMAKE_CURRENT_BINARY_DIR}/6.old_blur.vs
+        COPYONLY)
+    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/shaders/6.old_blur.fs
+        ${CMAKE_CURRENT_BINARY_DIR}/6.old_blur.fs
+        COPYONLY)
+    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/shaders/6.new_downsample.vs
+        ${CMAKE_CURRENT_BINARY_DIR}/6.new_downsample.vs
+        COPYONLY)
+    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/shaders/6.new_downsample.fs
+        ${CMAKE_CURRENT_BINARY_DIR}/6.new_downsample.fs
+        COPYONLY)
+    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/shaders/6.new_upsample.vs
+        ${CMAKE_CURRENT_BINARY_DIR}/6.new_upsample.vs
+        COPYONLY)
+    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/shaders/6.new_upsample.fs
+        ${CMAKE_CURRENT_BINARY_DIR}/6.new_upsample.fs
+        COPYONLY)
+    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/shaders/6.bloom_final.vs
+        ${CMAKE_CURRENT_BINARY_DIR}/6.bloom_final.vs
+        COPYONLY)
+    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/shaders/6.bloom_final.fs
+        ${CMAKE_CURRENT_BINARY_DIR}/6.bloom_final.fs
+        COPYONLY)
+    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/shaders/6.light_box.fs
+        ${CMAKE_CURRENT_BINARY_DIR}/6.light_box.fs
+        COPYONLY)
+    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/textures/wood.png
+        ${CMAKE_CURRENT_BINARY_DIR}/wood.png
+        COPYONLY)
+    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/demos/textures/container2.png
+        ${CMAKE_CURRENT_BINARY_DIR}/container2.png
+        COPYONLY)
 endif()
